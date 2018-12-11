@@ -1,10 +1,9 @@
-package com.chris.bulleyeadmin.security;
+package com.chris.bulleyeadmin.service;
 
 import com.chris.bulleyeadmin.config.BaseMapper;
 import com.chris.bulleyeadmin.dto.MenuDto;
 import com.chris.bulleyeadmin.mapper.MenuMapper;
 import com.chris.bulleyeadmin.pojo.Menu;
-import com.chris.bulleyeadmin.service.BaseService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

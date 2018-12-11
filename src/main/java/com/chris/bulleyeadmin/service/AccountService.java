@@ -1,4 +1,4 @@
-package com.chris.bulleyeadmin.security;
+package com.chris.bulleyeadmin.service;
 
 import com.chris.bulleyeadmin.config.BaseMapper;
 import com.chris.bulleyeadmin.mapper.AccountMapper;

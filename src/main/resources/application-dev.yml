@@ -6,11 +6,10 @@ server:
       persistent: true
 spring:
   datasource:
-    hikari:
-      driver-class-name: com.mysql.jdbc.Driver
-      jdbc-url: jdbc:mysql://localhost:3306/bulleye_admin
-      password: root
-      username: root
+    data-username: root
+    data-password: root
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://localhost:3306/bulleye_admin
 mybatis:
   mapper-locations: classpath*:/mapping/*Mapper.xml
   type-aliases-package: com.chris.bulleyeadmin.pojo
