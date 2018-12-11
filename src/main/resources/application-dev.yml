@@ -1,0 +1,29 @@
+server:
+  port: 8088
+  session:
+    servlet:
+      timeout: 1200
+      persistent: true
+database:
+  username: root
+  password: root
+  driver-class-name: com.mysql.jdbc.Driver
+  url: jdbc:mysql://localhost:3306/bulleye_admin
+mybatis:
+  mapper-locations: classpath*:/mapping/*Mapper.xml
+  type-aliases-package: com.chris.myadmin.entity
+#mapper
+mapper:
+  mappers: com.chris.bulleyeadmin.config.BaseMapper
+  not-empty: false
+  identity: MYSQL
+  before: true
+
+#pagehelper
+pagehelper:
+  helperDialect: mysql
+  reasonable: true
+  supportMethodsArguments: true
+  params: count=countSql
+serverconfig:
+  uploadPath: C:/mydata/projects/myadmin/images
