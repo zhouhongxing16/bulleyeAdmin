@@ -4,11 +4,13 @@ server:
     servlet:
       timeout: 1200
       persistent: true
-database:
-  username: root
-  password: root
-  driver-class-name: com.mysql.jdbc.Driver
-  url: jdbc:mysql://localhost:3306/bulleye_admin
+spring:
+  datasource:
+    hikari:
+      driver-class-name: com.mysql.jdbc.Driver
+      jdbc-url: jdbc:mysql://localhost:3306/bulleye_admin
+      password: root
+      username: root
 mybatis:
   mapper-locations: classpath*:/mapping/*Mapper.xml
   type-aliases-package: com.chris.myadmin.entity
