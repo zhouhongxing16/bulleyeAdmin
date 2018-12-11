@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.chris.myadmin.mapper.MenuFunctionMapper">
+  <resultMap id="BaseResultMap" type="com.chris.bulleyeadmin.pojo.MenuFunction">
+    <!--
+      WARNING - @mbg.generated
+    -->
+    <id column="id" jdbcType="VARCHAR" property="id" />
+    <result column="menu_id" jdbcType="VARCHAR" property="menuId" />
+    <result column="func_id" jdbcType="VARCHAR" property="funcId" />
+    <result column="created" jdbcType="TIMESTAMP" property="created" />
+  </resultMap>
+
+
+  <select id="getFunctionsByRoleId">
+    select * from b_menu_function mf
+    <where>
+      mf.menu_id=#{menuId}
+    </where>
+    order by mf.id
+  </select>
+</mapper>

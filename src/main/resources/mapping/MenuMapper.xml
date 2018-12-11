@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.chris.myadmin.mapper.MenuMapper">
+  <resultMap id="BaseResultMap" type="com.chris.bulleyeadmin.pojo.Menu">
+    <!--
+      WARNING - @mbg.generated
+    -->
+    <id column="id" jdbcType="VARCHAR" property="id" />
+    <result column="p_id" jdbcType="VARCHAR" property="pId" />
+    <result column="icon" jdbcType="VARCHAR" property="icon" />
+    <result column="code" jdbcType="VARCHAR" property="code" />
+    <result column="name" jdbcType="VARCHAR" property="name" />
+    <result column="path" jdbcType="VARCHAR" property="path" />
+    <result column="status" jdbcType="INTEGER" property="status" />
+    <result column="sort" jdbcType="INTEGER" property="sort" />
+    <result column="created" jdbcType="TIMESTAMP" property="created" />
+  </resultMap>
+	<resultMap id="dto" type="com.chris.bulleyeadmin.dto.MenuDto" extends="BaseResultMap">
+
+	</resultMap>
+  <select id="getMenusByAccountId" parameterType="string" resultMap="dto">
+  		SELECT DISTINCT
+			m.*
+		FROM
+			b_menus m
+			LEFT JOIN b_role_menu rm ON rm.menu_id = m.id
+		WHERE
+			rm.role_id IN ( SELECT DISTINCT ar.role_id FROM b_account_role ar where ar.account_id = #{accountId})
+
+		order BY m.sort ASC
+  </select>
+
+	<select id="getMenusByRoleId" parameterType="String" resultMap="BaseResultMap">
+  		SELECT
+			m.*
+		FROM
+			b_menus m
+			LEFT JOIN b_role_menu rm ON rm.menu_id = m.id
+		WHERE
+			rm.role_id = #{roleId}
+		ORDER BY
+			m.sort ASC
+  </select>
+
+	<select id="getAllMenus" parameterType="String" resultMap="dto">
+  		SELECT
+			m.*
+		FROM
+			b_menus m
+		ORDER BY
+			m.sort ASC
+  </select>
+</mapper>

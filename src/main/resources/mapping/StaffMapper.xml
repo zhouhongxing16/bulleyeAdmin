@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.chris.myadmin.mapper.StaffMapper">
+  <resultMap id="BaseResultMap" type="com.chris.bulleyeadmin.pojo.Staff">
+    <!--
+      WARNING - @mbg.generated
+    -->
+    <id column="id" jdbcType="VARCHAR" property="id" />
+    <result column="serial_no" jdbcType="VARCHAR" property="serialNo" />
+    <result column="name" jdbcType="VARCHAR" property="name" />
+    <result column="gender_id" jdbcType="VARCHAR" property="genderId" />
+    <result column="birthday" jdbcType="VARCHAR" property="birthday" />
+    <result column="major_id" jdbcType="VARCHAR" property="majorId" />
+    <result column="academic_id" jdbcType="VARCHAR" property="academicId" />
+    <result column="degree_id" jdbcType="VARCHAR" property="degreeId" />
+    <result column="avator" jdbcType="VARCHAR" property="avator" />
+    <result column="org_id" jdbcType="VARCHAR" property="orgId" />
+    <result column="section_id" jdbcType="VARCHAR" property="sectionId" />
+    <result column="position_id" jdbcType="VARCHAR" property="positionId" />
+    <result column="title_id" jdbcType="VARCHAR" property="titleId" />
+    <result column="type_id" jdbcType="VARCHAR" property="typeId" />
+    <result column="mobile" jdbcType="VARCHAR" property="mobile" />
+    <result column="identify_type_id" jdbcType="VARCHAR" property="identifyTypeId" />
+    <result column="identify_no" jdbcType="VARCHAR" property="identifyNo" />
+    <result column="email" jdbcType="VARCHAR" property="email" />
+    <result column="remark" jdbcType="VARCHAR" property="remark" />
+    <result column="status" jdbcType="INTEGER" property="status" />
+    <result column="created" jdbcType="TIMESTAMP" property="created" />
+    <result column="birth_province_id" jdbcType="VARCHAR" property="birthProvinceId" />
+    <result column="birth_city_id" jdbcType="VARCHAR" property="birthCityId" />
+    <result column="policy" jdbcType="VARCHAR" property="policy" />
+    <result column="weight" jdbcType="DECIMAL" property="weight" />
+    <result column="height" jdbcType="INTEGER" property="height" />
+    <result column="health_status" jdbcType="VARCHAR" property="healthStatus" />
+    <result column="marry_status_id" jdbcType="VARCHAR" property="marryStatusId" />
+    <result column="nation_id" jdbcType="VARCHAR" property="nationId" />
+    <result column="vmnet_no" jdbcType="VARCHAR" property="vmnetNo" />
+    <result column="join_date" jdbcType="VARCHAR" property="joinDate" />
+  </resultMap>
+
+  <sql id="basic_sql">
+    a.*
+  </sql>
+
+  <select id="listByPage" resultMap="BaseResultMap" parameterType="map">
+    select
+    <include refid="basic_sql" />
+    from b_staff a
+
+  </select>
+</mapper>

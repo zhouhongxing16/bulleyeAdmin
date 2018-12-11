@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.chris.myadmin.mapper.AccountMapper">
+  <resultMap id="BaseResultMap" type="com.chris.bulleyeadmin.pojo.Account">
+    <!--
+      WARNING - @mbg.generated
+    -->
+    <id column="id" jdbcType="VARCHAR" property="id" />
+    <result column="username" jdbcType="VARCHAR" property="username" />
+    <result column="password" jdbcType="VARCHAR" property="password" />
+    <result column="account_locked" jdbcType="BIT" property="accountLocked" />
+    <result column="credentials_expired" jdbcType="BIT" property="credentialsExpired" />
+    <result column="account_expired" jdbcType="BIT" property="accountExpired" />
+    <result column="staff_id" jdbcType="VARCHAR" property="staffId" />
+    <result column="org_id" jdbcType="VARCHAR" property="orgId" />
+    <result column="organ_id" jdbcType="VARCHAR" property="organId" />
+    <result column="wx_openid" jdbcType="VARCHAR" property="wxOpenid" />
+    <result column="alipay_openid" jdbcType="VARCHAR" property="alipayOpenid" />
+    <result column="email" jdbcType="VARCHAR" property="email" />
+    <result column="status" jdbcType="INTEGER" property="status" />
+    <result column="mobile_login_flag" jdbcType="BIT" property="mobileLoginFlag" />
+    <result column="remark" jdbcType="VARCHAR" property="remark" />
+    <result column="created" jdbcType="TIMESTAMP" property="created" />
+    <result column="modified" jdbcType="TIMESTAMP" property="modified" />
+    <result column="expired_date" jdbcType="TIMESTAMP" property="expiredDate" />
+  </resultMap>
+
+  <select id="getAccountByUserName" resultMap="BaseResultMap" parameterType="String">
+    select * from b_accounts a where a.username = #{userName}
+  </select>
+</mapper>

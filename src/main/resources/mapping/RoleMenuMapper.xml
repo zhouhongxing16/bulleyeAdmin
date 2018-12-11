@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.chris.myadmin.mapper.RoleMenuMapper">
+  <resultMap id="BaseResultMap" type="com.chris.bulleyeadmin.pojo.RoleMenu">
+    <!--
+      WARNING - @mbg.generated
+    -->
+    <id column="id" jdbcType="VARCHAR" property="id" />
+    <result column="menu_id" jdbcType="VARCHAR" property="menuId" />
+    <result column="role_id" jdbcType="VARCHAR" property="roleId" />
+    <result column="created" jdbcType="TIMESTAMP" property="created" />
+  </resultMap>
+
+  <resultMap id="dto" type="com.chris.bulleyeadmin.dto.RoleMenuDto">
+    <result column="menu_name" jdbcType="VARCHAR" property="menuName" />
+    <result column="menu_icon" jdbcType="VARCHAR" property="menuIcon" />
+    <result column="menu_path" jdbcType="TIMESTAMP" property="menuPath" />
+    <result column="menu_sort" jdbcType="INTEGER" property="menuSort" />
+  </resultMap>
+
+  <sql id="basic_sql">
+    rm.id,rm.menu_id,rm.role_id,rm.created
+  </sql>
+
+  <select id="getMenusByRoleId" resultMap="dto" parameterType="String">
+    select  <include refid="basic_sql"/>,m.name as menu_name,m.sort as menu_sort,m.path as menu_path,m.icon as menu_icon
+    from b_role_menu rm
+    left join b_menus m on m.id=rm.menu_id
+    left join b_roles r on r.id = rm_role_id
+    <where>
+      rm.role_id = #{roleId}
+    </where>
+  </select>
+
+  <select id="getRolePaths" resultType="map">
+    select distinct m.path,r.code from b_role_menu rm
+    left join b_roles r on r.id = rm.role_id
+    left join b_menus m on m.id = rm.menu_id
+
+  </select>
+</mapper>

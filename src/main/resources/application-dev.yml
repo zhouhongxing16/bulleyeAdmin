@@ -13,7 +13,7 @@ spring:
       username: root
 mybatis:
   mapper-locations: classpath*:/mapping/*Mapper.xml
-  type-aliases-package: com.chris.myadmin.entity
+  type-aliases-package: com.chris.bulleyeadmin.pojo
 #mapper
 mapper:
   mappers: com.chris.bulleyeadmin.config.BaseMapper
