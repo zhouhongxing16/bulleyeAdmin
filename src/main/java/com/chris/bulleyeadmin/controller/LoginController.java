@@ -2,6 +2,7 @@ package com.chris.bulleyeadmin.controller;
 
 import com.chris.bulleyeadmin.pojo.Account;
 import com.chris.bulleyeadmin.pojo.User;
+import com.chris.bulleyeadmin.security.MyInvocationSecurityMetadataSourceService;
 import com.chris.bulleyeadmin.service.AccountService;
 import com.chris.bulleyeadmin.utils.AuthUtil;
 import com.chris.bulleyeadmin.utils.Operalog;
@@ -49,6 +50,7 @@ public class LoginController {
 
         System.out.println("当前登陆用户："+user.getUsername());
         view.addAttribute("user","");
+
         return "index";
     }
 }

@@ -28,7 +28,9 @@ public class JsonResult {
 
 	public JsonResult() {
 	}
-
+	public JsonResult failure(String msg){
+		return new JsonResult(false,null,msg,null);
+	}
 	public JsonResult(boolean success) {
 		this.success = success;
 	}

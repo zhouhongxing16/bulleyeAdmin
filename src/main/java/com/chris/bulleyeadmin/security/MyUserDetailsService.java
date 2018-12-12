@@ -57,7 +57,7 @@ public class MyUserDetailsService implements UserDetailsService {
         } catch (Exception e) {
             e.printStackTrace();
             logger.error(e.getMessage());
-            throw new RPCFailedException();
+            throw new RPCFailedException(e.getMessage());
         }
         if (account != null) {
             //add by onion：设置账号过期

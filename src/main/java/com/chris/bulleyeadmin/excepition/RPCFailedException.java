@@ -6,4 +6,7 @@ package com.chris.bulleyeadmin.excepition;
 public class RPCFailedException extends  RuntimeException{
 
     private static final long serialVersionUID = 151464436045015378L;
+    public RPCFailedException(String msg) {
+        super(msg);
+    }
 }
