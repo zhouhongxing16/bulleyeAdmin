@@ -27,7 +27,7 @@ public class LoggerAop {
 
     private ObjectMapper jsonMapper = new ObjectMapper();
 
-    @Pointcut("execution(* com.chris.myadmin.controller.*.*(..))")
+    @Pointcut("execution(* com.chris.bulleyeadmin.controller.*.*(..))")
     public void show() {
     }
 
