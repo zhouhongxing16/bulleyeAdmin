@@ -55,6 +55,8 @@ public class MyUserDetailsService implements UserDetailsService {
         try {
             account = accountService.getAccountByUserName( username);
         } catch (Exception e) {
+            e.printStackTrace();
+            logger.error(e.getMessage());
             throw new RPCFailedException();
         }
         if (account != null) {
