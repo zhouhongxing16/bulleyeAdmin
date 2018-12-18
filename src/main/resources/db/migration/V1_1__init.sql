@@ -13,6 +13,7 @@
 
 
 -- 导出 bulleye_admin 的数据库结构
+DROP DATABASE IF EXISTS `bulleye_admin`;
 CREATE DATABASE IF NOT EXISTS `bulleye_admin` /*!40100 DEFAULT CHARACTER SET utf8 */;
 USE `bulleye_admin`;
 
@@ -34,7 +35,7 @@ CREATE TABLE IF NOT EXISTS `b_accounts` (
   `mobile_login_flag` bit(1) DEFAULT NULL COMMENT '是否开通手机号登录',
   `remark` varchar(200) DEFAULT NULL COMMENT '备注',
   `created` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
-  `modified` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '修改时间',
+  `modified` datetime DEFAULT NULL COMMENT '修改时间',
   `expired_date` datetime DEFAULT NULL COMMENT '账号过期时间',
   PRIMARY KEY (`id`),
   KEY `FK_b_accounts_b_staff` (`staff_id`),
@@ -229,7 +230,7 @@ CREATE TABLE IF NOT EXISTS `b_organizations` (
   `contact_name` varchar(20) DEFAULT NULL COMMENT '联系人',
   `contact_phone` varchar(20) DEFAULT NULL COMMENT '联系电话',
   `status` int(11) DEFAULT NULL COMMENT '状态',
-  `end_date` timestamp NULL DEFAULT NULL COMMENT '试用结束日期',
+  `end_date` datetime DEFAULT NULL COMMENT '试用结束日期',
   `domain` varchar(100) DEFAULT NULL COMMENT '域名',
   `created` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建日期',
   PRIMARY KEY (`id`)
