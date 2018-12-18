@@ -43,7 +43,15 @@ var BaseModel = /** @class */ (function () {
                         layer.alert(JSON.stringify(data));
                         break;
                     case 'add':
-                        layer.alert("添加事件");
+                        new Vue({
+                            el: "",
+                            data: {
+                                obj: {}
+                            },
+                            mounted: function () {
+                            }
+                        });
+                        DM.xAdminShow(that.title, that.url.add, null, null);
                 }
                 ;
             });
@@ -168,6 +176,16 @@ var BaseModel = /** @class */ (function () {
         },
         set: function (value) {
             this._modalVue = value;
+        },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(BaseModel.prototype, "title", {
+        get: function () {
+            return this._title;
+        },
+        set: function (value) {
+            this._title = value;
         },
         enumerable: true,
         configurable: true

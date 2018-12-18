@@ -12,6 +12,7 @@ class BaseModel{
     private _params: any = {};
     private _columns: Object;
     private _id: string;
+    private _title: string;
     private _entity: Object;
     private _rowId: any = 'id';
     private _modalHide: boolean = true;
@@ -57,7 +58,18 @@ class BaseModel{
                             layer.alert(JSON.stringify(data));
                             break;
                         case 'add':
-                            layer.alert("添加事件");
+                            new Vue({
+                                el:"",
+                                data:{
+                                    obj:{
+
+                                    }
+                                },
+                                mounted(){
+
+                                }
+                            })
+                            DM.xAdminShow(that.title,that.url.add,null,null);
 
                     };
                 });
@@ -171,5 +183,13 @@ class BaseModel{
 
     set modalVue(value: any) {
         this._modalVue = value;
+    }
+
+    get title(): string {
+        return this._title;
+    }
+
+    set title(value: string) {
+        this._title = value;
     }
 }

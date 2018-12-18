@@ -1,5 +1,6 @@
 class StaffList extends BaseModel{
     id = 'staff';
+    title:"员工信息";
     url = {
         listByPage: '/staff/listByPage',
         create: '/staff/create',
