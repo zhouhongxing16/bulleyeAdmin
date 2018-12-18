@@ -44,7 +44,7 @@ CREATE TABLE IF NOT EXISTS `b_accounts` (
   CONSTRAINT `FK_b_accounts_b_staff` FOREIGN KEY (`staff_id`) REFERENCES `b_staff` (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='用户表';
 
--- 正在导出表  bulleye_admin.b_accounts 的数据：~0 rows (大约)
+-- 正在导出表  bulleye_admin.b_accounts 的数据：~1 rows (大约)
 DELETE FROM `b_accounts`;
 /*!40000 ALTER TABLE `b_accounts` DISABLE KEYS */;
 INSERT INTO `b_accounts` (`id`, `username`, `password`, `account_locked`, `credentials_expired`, `account_expired`, `staff_id`, `organization_id`, `wx_openid`, `alipay_openid`, `email`, `status`, `mobile_login_flag`, `remark`, `created`, `modified`, `expired_date`) VALUES
@@ -65,7 +65,7 @@ CREATE TABLE IF NOT EXISTS `b_account_role` (
   CONSTRAINT `FK_b_account_role_b_roles` FOREIGN KEY (`role_id`) REFERENCES `b_roles` (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='用户角色中间表';
 
--- 正在导出表  bulleye_admin.b_account_role 的数据：~0 rows (大约)
+-- 正在导出表  bulleye_admin.b_account_role 的数据：~1 rows (大约)
 DELETE FROM `b_account_role`;
 /*!40000 ALTER TABLE `b_account_role` DISABLE KEYS */;
 INSERT INTO `b_account_role` (`id`, `role_id`, `account_id`, `created`) VALUES
@@ -88,7 +88,7 @@ CREATE TABLE IF NOT EXISTS `b_departments` (
   CONSTRAINT `FK_b_departments_b_organizations` FOREIGN KEY (`organization_id`) REFERENCES `b_organizations` (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='部门表';
 
--- 正在导出表  bulleye_admin.b_departments 的数据：~0 rows (大约)
+-- 正在导出表  bulleye_admin.b_departments 的数据：~1 rows (大约)
 DELETE FROM `b_departments`;
 /*!40000 ALTER TABLE `b_departments` DISABLE KEYS */;
 INSERT INTO `b_departments` (`id`, `organization_id`, `code`, `name`, `type_id`, `remark`, `status`, `created`) VALUES
@@ -146,7 +146,7 @@ CREATE TABLE IF NOT EXISTS `b_functions` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='权限表';
 
--- 正在导出表  bulleye_admin.b_functions 的数据：~0 rows (大约)
+-- 正在导出表  bulleye_admin.b_functions 的数据：~1 rows (大约)
 DELETE FROM `b_functions`;
 /*!40000 ALTER TABLE `b_functions` DISABLE KEYS */;
 INSERT INTO `b_functions` (`id`, `code`, `name`, `icon`, `url`, `describe`, `status`, `created`) VALUES
@@ -236,7 +236,7 @@ CREATE TABLE IF NOT EXISTS `b_organizations` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='组织信息表';
 
--- 正在导出表  bulleye_admin.b_organizations 的数据：~0 rows (大约)
+-- 正在导出表  bulleye_admin.b_organizations 的数据：~1 rows (大约)
 DELETE FROM `b_organizations`;
 /*!40000 ALTER TABLE `b_organizations` DISABLE KEYS */;
 INSERT INTO `b_organizations` (`id`, `pid`, `code`, `name`, `area_id`, `brief`, `contact_name`, `contact_phone`, `status`, `end_date`, `domain`, `created`) VALUES
@@ -375,37 +375,12 @@ CREATE TABLE IF NOT EXISTS `b_staff` (
   CONSTRAINT `FK_b_staff_b_organizations` FOREIGN KEY (`organization_id`) REFERENCES `b_organizations` (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='人员信息表';
 
--- 正在导出表  bulleye_admin.b_staff 的数据：~0 rows (大约)
+-- 正在导出表  bulleye_admin.b_staff 的数据：~1 rows (大约)
 DELETE FROM `b_staff`;
 /*!40000 ALTER TABLE `b_staff` DISABLE KEYS */;
 INSERT INTO `b_staff` (`id`, `serial_no`, `name`, `gender_id`, `birthday`, `major_id`, `academic_id`, `degree_id`, `avator`, `organization_id`, `department_id`, `position_id`, `title_id`, `type_id`, `mobile`, `identify_type_id`, `identify_no`, `email`, `remark`, `status`, `created`, `birth_province_id`, `birth_city_id`, `policy`, `weight`, `height`, `health_status`, `marry_status_id`, `nation_id`, `vmnet_no`, `join_date`) VALUES
 	('1', '511', '周红星', '1', '19950602', NULL, NULL, NULL, NULL, 'suiji', 'test', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '2018-07-31 14:15:10', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL);
 /*!40000 ALTER TABLE `b_staff` ENABLE KEYS */;
-
--- 导出  表 bulleye_admin.flyway_schema_history 结构
-DROP TABLE IF EXISTS `flyway_schema_history`;
-CREATE TABLE IF NOT EXISTS `flyway_schema_history` (
-  `installed_rank` int(11) NOT NULL,
-  `version` varchar(50) DEFAULT NULL,
-  `description` varchar(200) NOT NULL,
-  `type` varchar(20) NOT NULL,
-  `script` varchar(1000) NOT NULL,
-  `checksum` int(11) DEFAULT NULL,
-  `installed_by` varchar(100) NOT NULL,
-  `installed_on` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  `execution_time` int(11) NOT NULL,
-  `success` tinyint(1) NOT NULL,
-  PRIMARY KEY (`installed_rank`),
-  KEY `flyway_schema_history_s_idx` (`success`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
--- 正在导出表  bulleye_admin.flyway_schema_history 的数据：~1 rows (大约)
-DELETE FROM `flyway_schema_history`;
-/*!40000 ALTER TABLE `flyway_schema_history` DISABLE KEYS */;
-INSERT INTO `flyway_schema_history` (`installed_rank`, `version`, `description`, `type`, `script`, `checksum`, `installed_by`, `installed_on`, `execution_time`, `success`) VALUES
-	(1, '1', '<< Flyway Baseline >>', 'BASELINE', '<< Flyway Baseline >>', NULL, 'root', '2018-12-12 17:36:04', 0, 1),
-	(3, '1.2', 'test', 'SQL', 'V1_2__test.sql', 1945327753, 'root', '2018-12-18 13:40:58', 1637, 1);
-/*!40000 ALTER TABLE `flyway_schema_history` ENABLE KEYS */;
 
 /*!40101 SET SQL_MODE=IFNULL(@OLD_SQL_MODE, '') */;
 /*!40014 SET FOREIGN_KEY_CHECKS=IF(@OLD_FOREIGN_KEY_CHECKS IS NULL, 1, @OLD_FOREIGN_KEY_CHECKS) */;
