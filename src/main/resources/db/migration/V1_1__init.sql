@@ -13,7 +13,6 @@
 
 
 -- 导出 bulleye_admin 的数据库结构
-DROP DATABASE IF EXISTS `bulleye_admin`;
 CREATE DATABASE IF NOT EXISTS `bulleye_admin` /*!40100 DEFAULT CHARACTER SET utf8 */;
 USE `bulleye_admin`;
 
