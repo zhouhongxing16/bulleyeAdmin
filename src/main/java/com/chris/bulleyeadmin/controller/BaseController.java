@@ -34,7 +34,7 @@ public abstract class BaseController<T> {
     }
 
     @ApiOperation(value = "默认分页查询",notes = "根据传递的参数进行查询")
-    @PostMapping("/listByPage")
+    @GetMapping("/listByPage")
     @ResponseBody
     public Object listPage(Page page,@RequestParam Map<String,String> params) {
         Map<String, Object> map = new HashMap<>();
