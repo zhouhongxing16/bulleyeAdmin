@@ -10,7 +10,7 @@ public class Constants {
     /**
      * 组织ID
      */
-    public static String ORGID = "orgId";
+    public static String ORGID = "organizationId";
     /**
      * 人员ID
      */

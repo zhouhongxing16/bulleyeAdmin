@@ -40,8 +40,8 @@ public class Staff implements Serializable {
     /**
      * 冗余字段，便于查询
      */
-    @Column(name = "org_id")
-    private String orgId;
+    @Column(name = "organization_id")
+    private String organizationId;
 
     @Column(name = "department_id")
     private String departmentId;
@@ -246,18 +246,20 @@ public class Staff implements Serializable {
      *
      * @return org_id - 冗余字段，便于查询
      */
-    public String getOrgId() {
-        return orgId;
+    public String getOrganizationId() {
+        return organizationId;
+    }
+
+    public void setOrganizationId(String organizationId) {
+        this.organizationId = organizationId;
     }
 
     /**
      * 设置冗余字段，便于查询
      *
-     * @param orgId 冗余字段，便于查询
+     * @param organizationId 冗余字段，便于查询
      */
-    public void setOrgId(String orgId) {
-        this.orgId = orgId == null ? null : orgId.trim();
-    }
+
 
     public String getDepartmentId() {
         return departmentId;

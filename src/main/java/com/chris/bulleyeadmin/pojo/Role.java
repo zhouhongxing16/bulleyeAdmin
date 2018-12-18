@@ -18,8 +18,8 @@ public class Role implements Serializable {
     /**
      * 组织标识
      */
-    @Column(name = "org_id")
-    private String orgId;
+    @Column(name = "organization_id")
+    private String organizationId;
 
     /**
      * 角色代码
@@ -79,19 +79,19 @@ public class Role implements Serializable {
     /**
      * 获取组织标识
      *
-     * @return org_id - 组织标识
+     * @return organizationId - 组织标识
      */
-    public String getOrgId() {
-        return orgId;
+    public String getOrganizationId() {
+        return organizationId;
     }
 
     /**
      * 设置组织标识
      *
-     * @param orgId 组织标识
+     * @param organizationId 组织标识
      */
-    public void setOrgId(String orgId) {
-        this.orgId = orgId == null ? null : orgId.trim();
+    public void setOrganizationId(String organizationId) {
+        this.organizationId = organizationId;
     }
 
     /**

@@ -14,7 +14,7 @@
     <result column="academic_id" jdbcType="VARCHAR" property="academicId" />
     <result column="degree_id" jdbcType="VARCHAR" property="degreeId" />
     <result column="avator" jdbcType="VARCHAR" property="avator" />
-    <result column="org_id" jdbcType="VARCHAR" property="orgId" />
+    <result column="organization_id" jdbcType="VARCHAR" property="organizationId" />
     <result column="section_id" jdbcType="VARCHAR" property="sectionId" />
     <result column="position_id" jdbcType="VARCHAR" property="positionId" />
     <result column="title_id" jdbcType="VARCHAR" property="titleId" />

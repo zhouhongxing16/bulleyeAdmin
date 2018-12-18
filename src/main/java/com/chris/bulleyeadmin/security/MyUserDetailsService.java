@@ -78,7 +78,7 @@ public class MyUserDetailsService implements UserDetailsService {
             String departmentId = "";
             String staffId = account.getStaffId();
             String staffName = account.getUsername();
-            orgId = account.getOrgId();
+            orgId = account.getOrganizationId();
             if (StringUtils.isNotEmpty( staffId )) {
                 Staff staff = staffService.getById( staffId );
                 departmentId = staff.getDepartmentId();
@@ -96,9 +96,9 @@ public class MyUserDetailsService implements UserDetailsService {
             }
 
             User act = new User( account.getId(), account.getUsername(), account.getPassword(), orgId, staffId, departmentId, grantedAuthorities );
-            if (StringUtils.isNotEmpty( account.getOrgId() )) {
+            if (StringUtils.isNotEmpty( account.getOrganizationId() )) {
                 //管理机构
-                act.setOrgId( account.getOrgId() );
+                act.setOrganizationId( account.getOrganizationId() );
             }
 
             System.out.println(grantedAuthorities);

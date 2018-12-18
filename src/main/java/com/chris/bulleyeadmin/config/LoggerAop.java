@@ -62,7 +62,7 @@ public class LoggerAop {
             }catch (Exception e){}
             Logs logs = new Logs();
             if(AuthUtil.getCurrentUser() != null){
-                logs.setOrgId( AuthUtil.getCurrentUser().getOrgId() );
+                logs.setOrgId( AuthUtil.getCurrentUser().getOrganizationId() );
                 logs.setStaffId( AuthUtil.getCurrentUser().getStaffId() );
                 logs.setUserId( AuthUtil.getCurrentUser().getId() );
             }

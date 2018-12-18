@@ -14,10 +14,10 @@ import java.util.List;
 public class User extends org.springframework.security.core.userdetails.User {
     private static final long serialVersionUID = 1L;
 
-    public User(String id, String username, String password, String orgId, String staffId, String departmentId, Collection<? extends GrantedAuthority> authorities) {
+    public User(String id, String username, String password, String organizationId, String staffId, String departmentId, Collection<? extends GrantedAuthority> authorities) {
         super(username, password, authorities);
         this.id = id;
-        this.orgId = orgId;
+        this.organizationId = organizationId;
         this.staffId = staffId;
         this.departmentId = departmentId;
     }
@@ -29,7 +29,7 @@ public class User extends org.springframework.security.core.userdetails.User {
 
     private String id;
 
-    private String orgId;
+    private String organizationId;
 
     private String staffId;
 
@@ -49,12 +49,12 @@ public class User extends org.springframework.security.core.userdetails.User {
         this.id = id;
     }
 
-    public String getOrgId() {
-        return orgId;
+    public String getOrganizationId() {
+        return organizationId;
     }
 
-    public void setOrgId(String orgId) {
-        this.orgId = orgId;
+    public void setOrganizationId(String organizationId) {
+        this.organizationId = organizationId;
     }
 
     public String getStaffId() {

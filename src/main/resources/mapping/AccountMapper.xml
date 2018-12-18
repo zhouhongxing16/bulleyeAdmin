@@ -12,7 +12,7 @@
     <result column="credentials_expired" jdbcType="BIT" property="credentialsExpired" />
     <result column="account_expired" jdbcType="BIT" property="accountExpired" />
     <result column="staff_id" jdbcType="VARCHAR" property="staffId" />
-    <result column="org_id" jdbcType="VARCHAR" property="orgId" />
+    <result column="organization_id" jdbcType="VARCHAR" property="organizationId" />
     <result column="organ_id" jdbcType="VARCHAR" property="organId" />
     <result column="wx_openid" jdbcType="VARCHAR" property="wxOpenid" />
     <result column="alipay_openid" jdbcType="VARCHAR" property="alipayOpenid" />
