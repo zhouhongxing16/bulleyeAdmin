@@ -5,6 +5,7 @@ import com.chris.bulleyeadmin.pojo.Page;
 import com.chris.bulleyeadmin.service.BaseService;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.github.pagehelper.PageInfo;
+import io.swagger.annotations.ApiOperation;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
@@ -32,9 +33,10 @@ public abstract class BaseController<T> {
         return getViewPrefix() + "/list";
     }
 
-    @RequestMapping("/listByPage")
+    @ApiOperation(value = "默认分页查询",notes = "根据传递的参数进行查询")
+    @PostMapping("/listByPage")
     @ResponseBody
-    public Object listPage(Page page) {
+    public Object listPage(Page page,@RequestParam Map<String,String> params) {
         Map<String, Object> map = new HashMap<>();
         map.put("pageNum", (page.getOffset()+ 1));
         map.put("pageSize", page.getLimit());
@@ -65,7 +67,7 @@ public abstract class BaseController<T> {
     }
 
     //进入添加页面
-    @RequestMapping("/add")
+    @GetMapping("/add")
     public String add(String menuId, Model view) {
         return getViewPrefix() + "/add";
     }
@@ -79,7 +81,7 @@ public abstract class BaseController<T> {
     }
 
     //进入编辑页面
-    @RequestMapping("/edit/{id}")
+    @GetMapping("/edit/{id}")
     public String edit(Model view, @PathVariable String id) {
 
         T obj = findById(id);
@@ -88,7 +90,7 @@ public abstract class BaseController<T> {
     }
 
     //进入编辑页面2
-    @RequestMapping("/edit")
+    @GetMapping("/edit")
     public String editEntity(Model view, T obj) {
         view.addAttribute(getViewPrefix(), obj);
         return getViewPrefix() + "/edit";
@@ -109,7 +111,7 @@ public abstract class BaseController<T> {
     }
 
     //进入详情页面
-    @RequestMapping("/view/{id}")
+    @GetMapping("/view/{id}")
     public String view(Model view, @PathVariable String id) {
         T obj = findById(id);
         view.addAttribute("readonly","readonly");
