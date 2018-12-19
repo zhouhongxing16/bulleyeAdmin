@@ -68,7 +68,7 @@ class BaseModel{
                                 mounted(){
 
                                 }
-                            })
+                            });
                             DM.xAdminShow(that.title,that.url.add,null,null);
 
                     };

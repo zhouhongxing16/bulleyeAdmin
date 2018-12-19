@@ -13,17 +13,23 @@ function initXAdmin(){
     var tab = {
         tabAdd: function(title,url,id){
             //新增一个Tab项
-            element.tabAdd('xbs_tab', {
+            /*element.tabAdd('xbs_tab', {
                 title: title
                 ,content: '<iframe tab-id="'+id+'" frameborder="0" src="'+url+'" scrolling="yes" class="x-iframe"></iframe>'
                 ,id: id
-            })
-        }
-        ,tabDelete: function(othis){
+            })*/
+            DM.get(url,null,function (msg) {
+                element.tabAdd('xbs_tab', {
+                    title: title
+                    ,content: msg
+                    ,id: id
+                })
+            },false);
+
+        },
+        tabDelete: function(othis){
             //删除指定Tab项
             element.tabDelete('xbs_tab', '44'); //删除：“商品管理”
-
-
             othis.addClass('layui-btn-disabled');
         }
         ,tabChange: function(id){
@@ -58,7 +64,7 @@ function initXAdmin(){
             });
             return arr;
         }
-    }
+    };
 
     //开启表格多选
     tableCheck.init();

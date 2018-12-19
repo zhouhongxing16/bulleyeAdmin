@@ -85,6 +85,56 @@ var DM = {
             }
         });
     },
+    get: function (href, params, callback, async) {
+        var that = this;
+        async = async == undefined ? true : async;
+        $.ajax({
+            url: href,
+            data: params,
+            async: async,
+            type: "get",
+            //headers : {
+            //    "Content-Type" : "application/json;charset=utf-8"
+            //},
+            //contentType:"application/json;charset=utf-8",
+            success: function (ret) {
+                if (callback != null) {
+                    if (ret != null && typeof(ret.data) != 'undefined' && ret.data != null) {
+                        callback(ret);
+                    } else if (ret.status == -1) {
+                        console.log('您的请求出现了错误,信息为:' + ret.message);
+                        callback(ret);
+                    } else {
+                        callback(ret);
+                    }
+                    callback == null;
+                }
+
+            },
+            error: function (resp, status, xhr) {
+                if (resp.status == 403) {
+                    //session timeout or no privileges
+                    top.location.href = '/login?expired';
+                }
+                //callback(null);
+                if (callback != null) {
+                    //callback(null);
+
+                    var data = {success:false};
+                    if(resp.responseJSON != null) {
+                        data = $.extend(resp.responseJSON,data);
+                    } else {
+                        data = $.extend(data,{message:resp.responseText});
+                    }
+                    callback(data);
+                }
+                try {
+                    $.messager.progress('close');
+                } catch (e) {
+                }
+            }
+        });
+    },
     /*弹出层*/
     /*
         参数解释：
