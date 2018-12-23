@@ -14,6 +14,12 @@ class StaffList extends BaseModel{
         type:null
     };
 
+    entity={
+        name:null,
+        genderId:null,
+        email:null
+    }
+
     columns = [[
         {type:'radio'},
         {field:'id', width:80, title: 'ID', sort: true},

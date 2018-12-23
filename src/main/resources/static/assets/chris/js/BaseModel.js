@@ -1,6 +1,7 @@
 var BaseModel = /** @class */ (function () {
     function BaseModel() {
         this._params = {};
+        this._entity = {};
         this._rowId = 'id';
         this._modalHide = true;
         this._rowName = 'name';
@@ -43,15 +44,9 @@ var BaseModel = /** @class */ (function () {
                         layer.alert(JSON.stringify(data));
                         break;
                     case 'add':
-                        new Vue({
-                            el: "",
-                            data: {
-                                obj: {}
-                            },
-                            mounted: function () {
-                            }
+                        DM.xAdminShowMadol(that.title, that.url.add, null, null, function (msg) {
+                            that.showModalInit();
                         });
-                        DM.xAdminShow(that.title, that.url.add, null, null);
                 }
                 ;
             });
@@ -86,6 +81,20 @@ var BaseModel = /** @class */ (function () {
             });
         });
     };
+    ;
+    BaseModel.prototype.showModalInit = function () {
+        var that = this;
+        new Vue({
+            el: "#" + this.id + "_form",
+            data: {
+                obj: that.entity
+            },
+            mounted: function () {
+                console.log("Vue初始化成功！");
+            }
+        });
+    };
+    ;
     BaseModel.prototype.viewInit = function (that, data, id) {
     };
     BaseModel.prototype.initPost = function (that) {

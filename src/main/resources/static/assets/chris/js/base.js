@@ -147,7 +147,7 @@ var DM = {
         w       弹出层宽度（缺省调默认值）
         h       弹出层高度（缺省调默认值）
     */
-    xAdminShow: function (title, url, w, h) {
+    xAdminShowIframe: function (title, url, w, h) {
         if (title == null || title == '') {
             title = false;
         }
@@ -174,5 +174,42 @@ var DM = {
             title: title,
             content: url
         });
+    },
+    xAdminShowMadol: function (title, url, w, h, func) {
+        if (title == null || title == '') {
+            title = false;
+        }
+        ;
+        if (url == null || url == '') {
+            url = "404.html";
+        }
+        ;
+        if (w == null || w == '') {
+            w = ($(window).width() * 0.5);
+        }
+        ;
+        if (h == null || h == '') {
+            h = ($(window).height() * 0.5);
+        }
+        ;
+        DM.get(url, null, function (msg) {
+            //页面层-自定义
+            layer.open({
+                type: 1,
+                area: [w + 'px', h + 'px'],
+                fix: false,
+                maxmin: true,
+                shadeClose: true,
+                shade: 0.4,
+                title: title,
+                content: msg,
+                success: function (index, layero) {
+                    console.log(layero);
+                    if (typeof func == 'function') {
+                        func();
+                    }
+                }
+            });
+        }, false);
     }
 };

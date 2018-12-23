@@ -19,13 +19,13 @@
   
   <body>
     <div class="x-body">
-        <form class="layui-form">
+        <form class="layui-form" id="staff_form">
           <div class="layui-form-item">
               <label for="L_email" class="layui-form-label">
                   <span class="x-red">*</span>邮箱
               </label>
               <div class="layui-input-inline">
-                  <input type="text" id="L_email" name="email" required="" lay-verify="email"
+                  <input type="text" id="L_email" name="email" required="" lay-verify="email" v-model="obj.email"
                   autocomplete="off" class="layui-input">
               </div>
               <div class="layui-form-mid layui-word-aux">
@@ -34,10 +34,10 @@
           </div>
           <div class="layui-form-item">
               <label for="L_username" class="layui-form-label">
-                  <span class="x-red">*</span>昵称
+                  <span class="x-red">*</span>昵称{{obj}}
               </label>
               <div class="layui-input-inline">
-                  <input type="text" id="L_username" name="username" required="" lay-verify="nikename"
+                  <input type="text" id="L_username" name="username" required="" lay-verify="nikename" v-model="obj.name"
                   autocomplete="off" class="layui-input">
               </div>
           </div>

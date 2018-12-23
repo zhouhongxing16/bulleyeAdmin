@@ -28,6 +28,11 @@ var StaffList = /** @class */ (function (_super) {
         _this.params = {
             type: null
         };
+        _this.entity = {
+            name: null,
+            genderId: null,
+            email: null
+        };
         _this.columns = [[
                 { type: 'radio' },
                 { field: 'id', width: 80, title: 'ID', sort: true },

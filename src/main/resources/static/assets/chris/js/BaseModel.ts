@@ -13,14 +13,14 @@ class BaseModel{
     private _columns: Object;
     private _id: string;
     private _title: string;
-    private _entity: Object;
+    private _entity: any ={};
     private _rowId: any = 'id';
     private _modalHide: boolean = true;
     private _rowName: string = 'name';
     private _modalVue: any;
 
     init() {
-         this.initPost(this);
+        this.initPost(this);
         let that = this;
         layui.use('table', function(){
             let table = layui.table;
@@ -58,18 +58,10 @@ class BaseModel{
                             layer.alert(JSON.stringify(data));
                             break;
                         case 'add':
-                            new Vue({
-                                el:"",
-                                data:{
-                                    obj:{
 
-                                    }
-                                },
-                                mounted(){
-
-                                }
+                            DM.xAdminShowMadol(that.title,that.url.add,null,null,function (msg) {
+                                that.showModalInit();
                             });
-                            DM.xAdminShow(that.title,that.url.add,null,null);
 
                     };
                 });
@@ -102,7 +94,20 @@ class BaseModel{
                     }
                 });
         });
-    }
+    };
+
+    showModalInit(){
+        let that = this;
+        new Vue({
+            el:`#${this.id}_form`,
+            data:{
+                obj:that.entity
+            },
+            mounted(){
+                console.log("Vue初始化成功！");
+            }
+        });
+    };
 
     viewInit(that, data, id) {
 
