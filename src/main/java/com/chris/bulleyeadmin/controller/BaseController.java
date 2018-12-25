@@ -36,12 +36,11 @@ public abstract class BaseController<T> {
     @ApiOperation(value = "默认分页查询",notes = "根据传递的参数进行查询")
     @GetMapping("/listByPage")
     @ResponseBody
-    public Object listPage(Page page,@RequestParam Map<String,String> params) {
-        Map<String, Object> map = new HashMap<>();
-        map.put("pageNum", (page.getOffset()+ 1));
-        map.put("pageSize", page.getLimit());
-        map.put("keyword", page.getSearch());
-        PageInfo info = getService().listByPage(map);
+    public Object listPage(Page page,@RequestParam Map<String,Object> params) {
+        params.put("pageNum", (page.getOffset()+ 1));
+        params.put("pageSize", page.getLimit());
+        params.put("keyword", page.getSearch());
+        PageInfo info = getService().listByPage(params);
 
         Map<String,Object> jsonMap = new HashMap<>();
         jsonMap.put("rows", info.getList());

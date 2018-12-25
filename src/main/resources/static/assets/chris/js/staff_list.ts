@@ -18,7 +18,7 @@ class StaffList extends BaseModel{
         name:null,
         genderId:null,
         email:null
-    }
+    };
 
     columns = [[
         {type:'radio'},
