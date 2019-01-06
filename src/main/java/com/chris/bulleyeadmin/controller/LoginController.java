@@ -5,6 +5,7 @@ import com.chris.bulleyeadmin.pojo.User;
 import com.chris.bulleyeadmin.service.AccountService;
 import com.chris.bulleyeadmin.utils.AuthUtil;
 import com.chris.bulleyeadmin.utils.Operalog;
+import com.chris.bulleyeadmin.utils.ValidateCodeUtils;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiOperation;
@@ -12,8 +13,16 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.factory.PasswordEncoderFactories;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
+
+import javax.imageio.ImageIO;
+import javax.servlet.http.HttpServletRequest;
+import java.awt.image.BufferedImage;
+import java.io.ByteArrayOutputStream;
+import java.io.IOException;
 
 /***
  *
@@ -36,6 +45,16 @@ public class LoginController {
     @RequestMapping(value = "/login", method = RequestMethod.GET)
     public String loginPage()  {
         return "login";
+    }
+
+    @ResponseBody
+    @GetMapping(value={"/imagevcode"}, produces={"image/jpeg"})
+    public byte[] validateCodeImage(HttpServletRequest request) throws IOException
+    {
+        BufferedImage image = ValidateCodeUtils.getValidateCodeImage(request.getSession());
+        ByteArrayOutputStream baos = new ByteArrayOutputStream();
+        ImageIO.write(image, "jpg", baos);
+        return baos.toByteArray();
     }
 
     @Operalog("进入首页")
