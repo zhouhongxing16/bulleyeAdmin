@@ -44,6 +44,7 @@ public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter {
                 .antMatchers("/login").permitAll()
                 .antMatchers("/assets/**").permitAll()
                 .antMatchers("/favicon.ico").permitAll()
+                .antMatchers("/imagevcode").permitAll()
                 .anyRequest().authenticated()
                 //登录相关
                 .and()
