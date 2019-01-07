@@ -42,15 +42,8 @@ CREATE TABLE IF NOT EXISTS `wx_account` (
   PRIMARY KEY (`account_id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8 COMMENT='微信公众号信息';
 
--- 正在导出表  bulleye_admin.wx_account 的数据：~1 rows (大约)
-/*!40000 ALTER TABLE `wx_account` DISABLE KEYS */;
-INSERT INTO `wx_account` (`account_id`, `account_pic`, `name`, `number`, `appid`, `appsecret`, `token`, `domain`, `access_token`, `token_time`, `menu_state`, `adduserid`, `addusername`, `addtime`, `updateid`, `updatename`, `updatetime`, `remark`, `main_account`, `wx_partner`, `wx_partnerkey`, `wx_file`) VALUES
-	(3, '', 'lhs', 'gh_1065c22dc61c', 'wx0a8f9a49c445fd2b', '5aaea0afe5b65d60892a475bf43d668b', 'myToken', 'orcalone.imwork.net', NULL, NULL, '512f55b5-c5be-4b46-b9c7-b68218a3a1cf', 8, 'admin', '2018-10-25 11:39:51', 8, 'admin', '2018-10-25 11:40:09', '', '1', '', '', '');
-/*!40000 ALTER TABLE `wx_account` ENABLE KEYS */;
-
-
--- 导出  表 bulleye_admin.wx_menber 结构
-CREATE TABLE IF NOT EXISTS `wx_menber` (
+-- 导出  表 bulleye_admin.wx_member 结构
+CREATE TABLE IF NOT EXISTS `wx_member` (
   `w_id` bigint(20) NOT NULL AUTO_INCREMENT COMMENT '微信用户id',
   `account_id` varchar(50) DEFAULT NULL COMMENT '所属公众号id',
   `account_name` varchar(50) DEFAULT NULL COMMENT '所属公众号名称',
@@ -70,8 +63,8 @@ CREATE TABLE IF NOT EXISTS `wx_menber` (
 ) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8 COMMENT='微信用户';
 
 -- 正在导出表  bulleye_admin.wx_menber 的数据：~0 rows (大约)
-/*!40000 ALTER TABLE `wx_menber` DISABLE KEYS */;
-/*!40000 ALTER TABLE `wx_menber` ENABLE KEYS */;
+/*!40000 ALTER TABLE `wx_member` DISABLE KEYS */;
+/*!40000 ALTER TABLE `wx_member` ENABLE KEYS */;
 
 
 -- 导出  表 bulleye_admin.wx_reply 结构
