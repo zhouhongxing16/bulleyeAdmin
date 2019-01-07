@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.chris.bulleyeadmin.mapper.MenuFunctionMapper">
+  <resultMap id="BaseResultMap" type="com.chris.bulleyeadmin.pojo.MenuFunction">
+    <!--
+      WARNING - @mbg.generated
+    -->
+	  <id column="id" jdbcType="VARCHAR" property="id" />
+	  <result column="organization_id" jdbcType="VARCHAR" property="organizationId" />
+	  <result column="name" jdbcType="VARCHAR" property="name" />
+	  <result column="code" jdbcType="VARCHAR" property="code" />
+	  <result column="name" jdbcType="VARCHAR" property="name" />
+	  <result column="type_id" jdbcType="VARCHAR" property="typeId" />
+	  <result column="remark" jdbcType="VARCHAR" property="remark" />
+	  <result column="status" jdbcType="INTEGER" property="status" />
+	  <result column="created" jdbcType="TIMESTAMP" property="created" />
+  </resultMap>
+	<resultMap id="dto" type="com.chris.bulleyeadmin.dto.MenuFunctionDto" extends="BaseResultMap">
+
+	</resultMap>
+</mapper>

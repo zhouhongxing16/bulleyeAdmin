@@ -29,7 +29,7 @@ public class MyInvocationSecurityMetadataSourceService implements FilterInvocati
         System.out.println("===============================");
         System.out.println("初始化加载");
         System.out.println("===============================");
-        List<Map<String,String>> roleMap = roleMenuMapper.getRolePaths();
+        List<Map<String,String>> roleMap = roleMenuMapper.getRoleAuthPaths();
         Collection<ConfigAttribute> array;
         for (Map<String,String> map : roleMap) {
             array = new ArrayList<>();
