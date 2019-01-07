@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @Controller
 @RequestMapping("/weChat")
 @Operalog("微信官方消息拦截器")
-public class WeixinServlet extends WeixinServletSupport{
+public class WeChatController extends WeixinServletSupport{
 
 	@Override
 	protected WeixinSupport getWeixinSupport() {
