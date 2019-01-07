@@ -8,4 +8,11 @@ import com.chris.bulleyeadmin.system.pojo.RoleFunction;
  * @Description:
  */
 public class RoleFunctionDto extends RoleFunction {
+    private String roleName;
+
+    private String roleCode;
+
+    private String functionCode;
+
+    private String menuPath;
 }

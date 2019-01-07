@@ -44,7 +44,7 @@ var BaseModel = /** @class */ (function () {
                         layer.alert(JSON.stringify(data));
                         break;
                     case 'add':
-                        DM.xAdminShowMadol(that.title, that.url.add, null, null, function (msg) {
+                        DM.xAdminShowModal(that.title, that.url.add, null, null, function (msg) {
                             that.showModalInit();
                         });
                 }

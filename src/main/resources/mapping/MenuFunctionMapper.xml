@@ -6,13 +6,8 @@
       WARNING - @mbg.generated
     -->
 	  <id column="id" jdbcType="VARCHAR" property="id" />
-	  <result column="organization_id" jdbcType="VARCHAR" property="organizationId" />
-	  <result column="name" jdbcType="VARCHAR" property="name" />
-	  <result column="code" jdbcType="VARCHAR" property="code" />
-	  <result column="name" jdbcType="VARCHAR" property="name" />
-	  <result column="type_id" jdbcType="VARCHAR" property="typeId" />
-	  <result column="remark" jdbcType="VARCHAR" property="remark" />
-	  <result column="status" jdbcType="INTEGER" property="status" />
+	  <result column="menu_id" jdbcType="VARCHAR" property="menuId" />
+	  <result column="function_id" jdbcType="VARCHAR" property="functionId" />
 	  <result column="created" jdbcType="TIMESTAMP" property="created" />
   </resultMap>
 	<resultMap id="dto" type="com.chris.bulleyeadmin.system.dto.MenuFunctionDto" extends="BaseResultMap">

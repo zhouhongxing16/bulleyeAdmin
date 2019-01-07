@@ -1,9 +1,9 @@
-var cacheScripts = [];
-var scriptMaps = {};
+// @ts-ignore
+const cacheScripts:any = [];
 
-var DM = {
+let DM = {
     ready: function (objects, callback) {
-        var loads_count = 0;
+        let loads_count = 0;
         $.each(objects, function (i, js) {
             if (cacheScripts.indexOf(js) != -1) {
                 loads_count++;
@@ -17,7 +17,7 @@ var DM = {
             }
             else {
                 cacheScripts.push(js);
-                var script = document.createElement('script');
+                let script = document.createElement('script');
                 script.src = js;
                 // script.aysnc = false;
                 script.type = 'text/javascript';
@@ -35,7 +35,7 @@ var DM = {
         });
     },
     post: function (href, params, callback, async) {
-        var that = this;
+        let that = this;
         async = async == undefined ? true : async;
         $.ajax({
             url: href,
@@ -86,7 +86,7 @@ var DM = {
         });
     },
     get: function (href, params, callback, async) {
-        var that = this;
+        let that = this;
         async = async == undefined ? true : async;
         $.ajax({
             url: href,
@@ -168,7 +168,7 @@ var DM = {
             content: url
         });
     },
-    xAdminShowMadol(title,url,w,h,func){
+    xAdminShowModal(title,url,w,h,func){
         if (title == null || title == '') {
             title=false;
         };

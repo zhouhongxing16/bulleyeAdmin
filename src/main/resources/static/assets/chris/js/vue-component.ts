@@ -4,7 +4,7 @@ Vue.component("left-menu",{
     <div id="side-nav">
         <ul id="nav">
             <li v-for="(item,i) in data">
-                    <a href="javascript:;" v-bind:_href="item.path+'?menuId='+item.id">
+                    <a href="javascript:;" v-bind:_href="item.path" v-bind:id="item.id">
                         <i class="iconfont">&#xe6b8;</i>
                         <cite>{{item.name}}</cite>
                         <i v-if="item.children!=null" class="iconfont nav_right">&#xe697;</i>
@@ -24,7 +24,7 @@ Vue.component("children-menu",{
     template:`
             <ul class="sub-menu">
                 <li v-for="(item,i) in data">
-                    <a v-bind:_href="item.path+'?menuId='+item.id">
+                    <a v-bind:_href="item.path" v-bind:id="item.id">
                         <i class="iconfont">&#xe6a7;</i>
                         <cite>{{item.name}}</cite>
                     </a>

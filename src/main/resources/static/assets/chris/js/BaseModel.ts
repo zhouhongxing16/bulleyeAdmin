@@ -59,7 +59,7 @@ class BaseModel{
                             break;
                         case 'add':
 
-                            DM.xAdminShowMadol(that.title,that.url.add,null,null,function (msg) {
+                            DM.xAdminShowModal(that.title,that.url.add,null,null,function (msg) {
                                 that.showModalInit();
                             });
 

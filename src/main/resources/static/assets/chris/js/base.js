@@ -1,5 +1,5 @@
+// @ts-ignore
 var cacheScripts = [];
-var scriptMaps = {};
 var DM = {
     ready: function (objects, callback) {
         var loads_count = 0;
@@ -175,7 +175,7 @@ var DM = {
             content: url
         });
     },
-    xAdminShowMadol: function (title, url, w, h, func) {
+    xAdminShowModal: function (title, url, w, h, func) {
         if (title == null || title == '') {
             title = false;
         }
