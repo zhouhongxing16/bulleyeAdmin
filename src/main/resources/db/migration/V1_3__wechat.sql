@@ -1,16 +1,4 @@
--- --------------------------------------------------------
--- 主机:                           127.0.0.1
--- 服务器版本:                        5.5.21 - MySQL Community Server (GPL)
--- 服务器操作系统:                      Win64
--- HeidiSQL 版本:                  9.1.0.4894
--- --------------------------------------------------------
 
-/*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
-/*!40101 SET NAMES utf8mb4 */;
-/*!40014 SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0 */;
-/*!40101 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_VALUE_ON_ZERO' */;
-
--- 导出 bulleye_admin 的数据库结构
 CREATE DATABASE IF NOT EXISTS `bulleye_admin` /*!40100 DEFAULT CHARACTER SET utf8 */;
 USE `bulleye_admin`;
 
@@ -62,10 +50,6 @@ CREATE TABLE IF NOT EXISTS `wx_member` (
   KEY `openid` (`openid`)
 ) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8 COMMENT='微信用户';
 
--- 正在导出表  bulleye_admin.wx_menber 的数据：~0 rows (大约)
-/*!40000 ALTER TABLE `wx_member` DISABLE KEYS */;
-/*!40000 ALTER TABLE `wx_member` ENABLE KEYS */;
-
 
 -- 导出  表 bulleye_admin.wx_reply 结构
 CREATE TABLE IF NOT EXISTS `wx_reply` (
@@ -81,9 +65,3 @@ CREATE TABLE IF NOT EXISTS `wx_reply` (
   PRIMARY KEY (`reply_id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8 COMMENT='微信自动回复';
 
--- 正在导出表  bulleye_admin.wx_reply 的数据：~0 rows (大约)
-/*!40000 ALTER TABLE `wx_reply` DISABLE KEYS */;
-/*!40000 ALTER TABLE `wx_reply` ENABLE KEYS */;
-/*!40101 SET SQL_MODE=IFNULL(@OLD_SQL_MODE, '') */;
-/*!40014 SET FOREIGN_KEY_CHECKS=IF(@OLD_FOREIGN_KEY_CHECKS IS NULL, 1, @OLD_FOREIGN_KEY_CHECKS) */;
-/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
