@@ -13,5 +13,5 @@ public interface RoleMenuMapper extends BaseMapper<RoleMenu> {
 
     List<RoleMenuDto> getMenusByRoleId(Map<String, Object> map);
 
-    List<Map<String,String>> getRolePaths();
+    List<Map<String,String>> getRoleAuthPaths();
 }

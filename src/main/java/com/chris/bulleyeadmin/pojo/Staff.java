@@ -37,9 +37,6 @@ public class Staff implements Serializable {
      */
     private String avator;
 
-    /**
-     * 冗余字段，便于查询
-     */
     @Column(name = "organization_id")
     private String organizationId;
 
