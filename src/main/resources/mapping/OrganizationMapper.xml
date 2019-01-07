@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.chris.bulleyeadmin.mapper.OrganizationMapper">
-  <resultMap id="BaseResultMap" type="com.chris.bulleyeadmin.pojo.Organization">
+<mapper namespace="com.chris.bulleyeadmin.system.mapper.OrganizationMapper">
+  <resultMap id="BaseResultMap" type="com.chris.bulleyeadmin.system.pojo.Organization">
     <!--
       WARNING - @mbg.generated
     -->
@@ -16,7 +16,7 @@
 	  <result column="created" jdbcType="TIMESTAMP" property="created" />
 	  <result column="domain" jdbcType="VARCHAR" property="domain" />
   </resultMap>
-	<resultMap id="dto" type="com.chris.bulleyeadmin.dto.OrganizationDto" extends="BaseResultMap">
+	<resultMap id="dto" type="com.chris.bulleyeadmin.system.dto.OrganizationDto" extends="BaseResultMap">
 
 	</resultMap>
 

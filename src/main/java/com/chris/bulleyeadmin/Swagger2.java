@@ -21,7 +21,7 @@ public class Swagger2 {
                 .apiInfo(apiInfo())
                 .select()
                 //为当前包路径
-                .apis(RequestHandlerSelectors.basePackage("com.chris.bulleyeadmin.controller"))
+                .apis(RequestHandlerSelectors.basePackage("com.chris.bulleyeadmin.system.controller"))
                 .paths(PathSelectors.any())
                 .build();
     }

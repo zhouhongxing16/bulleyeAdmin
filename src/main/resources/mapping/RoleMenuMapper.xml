@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.chris.bulleyeadmin.mapper.RoleMenuMapper">
-  <resultMap id="BaseResultMap" type="com.chris.bulleyeadmin.pojo.RoleMenu">
+<mapper namespace="com.chris.bulleyeadmin.system.mapper.RoleMenuMapper">
+  <resultMap id="BaseResultMap" type="com.chris.bulleyeadmin.system.pojo.RoleMenu">
     <!--
       WARNING - @mbg.generated
     -->
@@ -11,7 +11,7 @@
     <result column="created" jdbcType="TIMESTAMP" property="created" />
   </resultMap>
 
-  <resultMap id="dto" type="com.chris.bulleyeadmin.dto.RoleMenuDto">
+  <resultMap id="dto" type="com.chris.bulleyeadmin.system.dto.RoleMenuDto">
     <result column="menu_name" jdbcType="VARCHAR" property="menuName" />
     <result column="menu_icon" jdbcType="VARCHAR" property="menuIcon" />
     <result column="menu_path" jdbcType="TIMESTAMP" property="menuPath" />

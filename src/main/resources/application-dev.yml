@@ -17,10 +17,10 @@ spring:
     baseline-on-migrate: true
 mybatis:
   mapper-locations: classpath*:/mapping/*Mapper.xml
-  type-aliases-package: com.chris.bulleyeadmin.pojo
+  type-aliases-package: com.chris.bulleyeadmin.system.pojo
 #mapper
 mapper:
-  mappers: com.chris.bulleyeadmin.config.BaseMapper
+  mappers: com.chris.bulleyeadmin.common.mapper.BaseMapper
   not-empty: false
   identity: MYSQL
   before: true
