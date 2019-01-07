@@ -18,7 +18,7 @@ public class WeChatController extends WeixinServletSupport{
 
 	@Override
 	protected WeixinSupport getWeixinSupport() {
-		return new MyWeixinSupportServlet();
+		return new MyWeChatSupportServlet();
 	}
 
 }

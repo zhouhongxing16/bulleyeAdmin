@@ -1,9 +1,5 @@
 package com.chris.bulleyeadmin.wechat;
 
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
-
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -20,9 +16,9 @@ import com.github.sd4324530.fastweixin.servlet.WeixinSupport;
  * @author lhs 2019-01-07
  *
  */
-public class MyWeixinSupportServlet extends WeixinSupport{
+public class MyWeChatSupportServlet extends WeixinSupport{
 	
-    private static final Logger log  = LoggerFactory.getLogger(MyWeixinSupportServlet.class);
+    private static final Logger log  = LoggerFactory.getLogger(MyWeChatSupportServlet.class);
 
 	@Override
 	protected String getToken() {
