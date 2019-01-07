@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.chris.bulleyeadmin.mapper.OrganizationMapper">
+  <resultMap id="BaseResultMap" type="com.chris.bulleyeadmin.pojo.Organization">
+    <!--
+      WARNING - @mbg.generated
+    -->
+	  <id column="id" jdbcType="VARCHAR" property="id" />
+	  <result column="code" jdbcType="VARCHAR" property="code" />
+	  <result column="name" jdbcType="VARCHAR" property="name" />
+	  <result column="area_id" jdbcType="VARCHAR" property="areaId" />
+	  <result column="brief" jdbcType="VARCHAR" property="brief" />
+	  <result column="contact_name" jdbcType="VARCHAR" property="contactName" />
+	  <result column="contact_phone" jdbcType="VARCHAR" property="contactPhone" />
+	  <result column="status" jdbcType="INTEGER" property="status" />
+	  <result column="created" jdbcType="TIMESTAMP" property="created" />
+	  <result column="domain" jdbcType="VARCHAR" property="domain" />
+  </resultMap>
+	<resultMap id="dto" type="com.chris.bulleyeadmin.dto.OrganizationDto" extends="BaseResultMap">
+
+	</resultMap>
+
+	<select id="getAllOrganization" parameterType="String" resultMap="dto">
+  		SELECT
+			o.*
+		FROM
+			b_organizations o
+		ORDER BY
+			o.created ASC
+  </select>
+</mapper>
