@@ -3,7 +3,13 @@ $(function () {
 });
 
 function initXAdmin() {
-    var element = layui.element;
+    //加载弹出层
+    layui.use(['form','element'],
+        function() {
+            layer = layui.layer;
+            element = layui.element;
+        });
+
     //触发事件
     var tab = {
         tabAdd: function (title, url, id) {
@@ -13,13 +19,6 @@ function initXAdmin() {
                 ,content: '<iframe tab-id="'+id+'" frameborder="0" src="'+url+'" scrolling="yes" class="x-iframe"></iframe>'
                 ,id: id
             });
-            /*DM.get(url, null, function (msg) {
-                element.tabAdd('xbs_tab', {
-                    title: title
-                    , content: msg
-                    , id: id
-                })
-            }, false);*/
 
         },
         tabDelete: function (othis) {
@@ -132,7 +131,7 @@ function initXAdmin() {
 
             var url = $(this).children('a').attr('_href');
             var title = $(this).find('cite').html();
-            var index = $('.left-nav #nav li').index($(this));
+            var index = $('.left-nav #nav li a');
 
             for (var i = 0; i < $('.x-iframe').length; i++) {
                 if ($('.x-iframe').eq(i).attr('tab-id') == index + 1) {
@@ -140,8 +139,7 @@ function initXAdmin() {
                     event.stopPropagation();
                     return;
                 }
-            }
-            ;
+            };
 
             tab.tabAdd(title, url, index + 1);
             tab.tabChange(index + 1);
