@@ -75,7 +75,7 @@ class BaseModel{
                                 if(msg.success){
                                     layer.alert(msg.message);
                                 }else{
-
+                                    layer.alert(msg.message);
                                 }
                             },false);
                             // obj.del();

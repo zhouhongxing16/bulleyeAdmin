@@ -60,6 +60,7 @@ var BaseModel = /** @class */ (function () {
                                 layer.alert(msg.message);
                             }
                             else {
+                                layer.alert(msg.message);
                             }
                         }, false);
                         // obj.del();

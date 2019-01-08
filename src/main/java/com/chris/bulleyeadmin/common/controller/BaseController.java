@@ -60,8 +60,7 @@ public abstract class BaseController<T> {
     @PostMapping("/create")
     @ResponseBody
     public JsonResult create(T obj)  throws Exception {
-        boolean ret = getService().add(obj);
-        return new JsonResult(ret);
+        return getService().add(obj);
     }
 
     //进入编辑页面
@@ -90,8 +89,7 @@ public abstract class BaseController<T> {
     @PostMapping("/update")
     @ResponseBody
     public JsonResult update(T obj) {
-        boolean ret = getService().update(obj);
-        return new JsonResult(ret);
+        return getService().update(obj);
     }
 
     //进入详情页面
@@ -106,8 +104,7 @@ public abstract class BaseController<T> {
     @PostMapping("/remove")
     @ResponseBody
     public JsonResult deleteSection(@RequestParam String id) {
-        boolean ret = getService().deleteById(id);
-        return new JsonResult(ret);
+        return getService().deleteById(id);
     }
 
     //获取一条数据
@@ -115,10 +112,7 @@ public abstract class BaseController<T> {
     @GetMapping("/getById")
     public Object getById(String id) {
         Object obj = getService().getById(id);
-        JsonResult json = new JsonResult();
-        json.setData(obj);
-        json.setSuccess(true);
-        return json;
+        return new JsonResult(true,obj,"查询成功");
     }
 
 

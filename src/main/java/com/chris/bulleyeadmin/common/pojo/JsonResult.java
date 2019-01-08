@@ -29,18 +29,17 @@ public class JsonResult {
 	public JsonResult() {
 	}
 	public JsonResult failure(String msg){
-		return new JsonResult(false,null,msg,null);
+		return new JsonResult(false,null,msg);
 	}
 	public JsonResult(boolean success) {
 		this.success = success;
 	}
 
-	public JsonResult(boolean success, String data, String message, String resultId) {
+	public JsonResult(boolean success, Object data, String message) {
 		super();
 		this.success = success;
 		this.data = data;
 		this.message = message;
-		this.resultId = resultId;
 	}
 	public JsonResult(Integer error, String message, String url){
 		super();

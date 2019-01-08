@@ -1,15 +1,13 @@
 package com.chris.bulleyeadmin.common.service;
 
 import com.chris.bulleyeadmin.common.mapper.BaseMapper;
+import com.chris.bulleyeadmin.common.pojo.JsonResult;
 import com.chris.bulleyeadmin.common.utils.Help;
 import com.chris.bulleyeadmin.system.dto.StaffDto;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
-import tk.mybatis.mapper.common.Mapper;
-
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -39,27 +37,31 @@ public abstract class BaseService<T> {
     }
 
     @Transactional(propagation = Propagation.REQUIRED)
-    public boolean add(T obj) {
+    public JsonResult add(T obj) {
         int insertCount = getMapper().insert(obj);
-        return insertCount>0?true:false;
+        String msg = insertCount>0?"成功添加"+insertCount+"条记录":"新增数据失败！";
+        return new JsonResult(insertCount>0?true:false,null,msg);
     }
 
     @Transactional(propagation = Propagation.REQUIRED)
-    public boolean update(T obj) {
+    public JsonResult update(T obj) {
         int updateCount = getMapper().updateByPrimaryKeySelective(obj);
-        return updateCount>0?true:false;
+        String msg = updateCount>0?"成功更新"+updateCount+"条记录":"数据更新失败！";
+        return new JsonResult(updateCount>0?true:false,null,msg);
     }
 
     @Transactional(propagation = Propagation.REQUIRED)
-    public boolean delete(T obj) {
+    public JsonResult delete(T obj) {
         int deleteCount = getMapper().delete(obj);
-        return deleteCount>0?true:false;
+        String msg = deleteCount>0?"成功删除"+deleteCount+"条记录":"数据删除失败！";
+        return new JsonResult(deleteCount>0?true:false,null,msg);
     }
 
     @Transactional(propagation = Propagation.REQUIRED)
-    public boolean deleteById(String id) {
+    public JsonResult deleteById(String id) {
         int deleteCount = getMapper().deleteByPrimaryKey(id);
-        return deleteCount>0?true:false;
+        String msg = deleteCount>0?"成功删除"+deleteCount+"条记录":"数据删除失败！";
+        return new JsonResult(deleteCount>0?true:false,null,msg);
     }
 
     public T getById(String hId) {
