@@ -8,6 +8,7 @@ class BaseModel{
         view: string;
         edit: string;
         add: string;
+        getById: string;
     };
     private _params: any = {};
     private _columns: Object;
@@ -27,7 +28,6 @@ class BaseModel{
                 //第一个实例
                 table.render({
                     elem: `#${that.id}_table`,
-                    height: 312,
                     url: that.url.listByPage,
                     page: true,
                     cols: that.columns ,
@@ -60,7 +60,7 @@ class BaseModel{
                         case 'add':
 
                             DM.xAdminShowModal(that.title,that.url.add,null,null,function (msg) {
-                                that.showModalInit();
+                                that.showModalInit(null);
                             });
 
                     };
@@ -82,21 +82,15 @@ class BaseModel{
                             layer.close(index);
                         });
                     } else if(obj.event === 'edit'){
-                        layer.prompt({
-                            formType: 2
-                            ,value: data.email
-                        }, function(value, index){
-                            obj.update({
-                                email: value
-                            });
-                            layer.close(index);
+                        DM.xAdminShowModal(that.title,that.url.add,null,null,function (msg) {
+                            that.showModalInit(obj.data);
                         });
                     }
                 });
         });
     };
 
-    showModalInit(){
+    showModalInit(obj){
         let that = this;
         new Vue({
             el:`#${this.id}_form`,
@@ -104,7 +98,14 @@ class BaseModel{
                 obj:that.entity
             },
             mounted(){
-                console.log("Vue初始化成功！");
+                const thatV = this;
+                if(obj!=null){
+                    DM.get(that._url.getById,{id:obj.id},function (msg) {
+                        if(msg.success){
+                            thatV.obj = msg.data;
+                        }
+                    },false);
+                }
             }
         });
     };
@@ -118,11 +119,11 @@ class BaseModel{
     }
 
 
-    get url(): { listByPage: string; create: string; update: string; delete: string; view: string; edit: string; add: string } {
+    get url(): { listByPage: string; create: string; update: string; delete: string; view: string; edit: string; add: string; getById: string } {
         return this._url;
     }
 
-    set url(value: { listByPage: string; create: string; update: string; delete: string; view: string; edit: string; add: string }) {
+    set url(value: { listByPage: string; create: string; update: string; delete: string; view: string; edit: string; add: string; getById: string }) {
         this._url = value;
     }
 

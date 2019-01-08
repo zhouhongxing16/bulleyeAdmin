@@ -14,7 +14,6 @@ var BaseModel = /** @class */ (function () {
             //第一个实例
             table.render({
                 elem: "#" + that.id + "_table",
-                height: 312,
                 url: that.url.listByPage,
                 page: true,
                 cols: that.columns,
@@ -45,7 +44,7 @@ var BaseModel = /** @class */ (function () {
                         break;
                     case 'add':
                         DM.xAdminShowModal(that.title, that.url.add, null, null, function (msg) {
-                            that.showModalInit();
+                            that.showModalInit(null);
                         });
                 }
                 ;
@@ -68,21 +67,15 @@ var BaseModel = /** @class */ (function () {
                     });
                 }
                 else if (obj.event === 'edit') {
-                    layer.prompt({
-                        formType: 2,
-                        value: data.email
-                    }, function (value, index) {
-                        obj.update({
-                            email: value
-                        });
-                        layer.close(index);
+                    DM.xAdminShowModal(that.title, that.url.add, null, null, function (msg) {
+                        that.showModalInit(obj.data);
                     });
                 }
             });
         });
     };
     ;
-    BaseModel.prototype.showModalInit = function () {
+    BaseModel.prototype.showModalInit = function (obj) {
         var that = this;
         new Vue({
             el: "#" + this.id + "_form",
@@ -90,7 +83,14 @@ var BaseModel = /** @class */ (function () {
                 obj: that.entity
             },
             mounted: function () {
-                console.log("Vue初始化成功！");
+                var thatV = this;
+                if (obj != null) {
+                    DM.get(that._url.getById, { id: obj.id }, function (msg) {
+                        if (msg.success) {
+                            thatV.obj = msg.data;
+                        }
+                    }, false);
+                }
             }
         });
     };

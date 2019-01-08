@@ -37,24 +37,9 @@
     <a class="layui-btn layui-btn-xs" lay-event="edit">编辑</a>
     <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del">删除</a>
 </script>
+<script src="../../assets/chris/js/staff_list.js"></script>
 <script>
-    DM.ready([
-        "../assets/chris/js/staff_list.js"
-    ], function () {
+    $(function () {
         staffList.init();
-    });
-
-    layui.use('laydate', function(){
-        var laydate = layui.laydate;
-
-        //执行一个laydate实例
-        laydate.render({
-            elem: '#start' //指定元素
-        });
-
-        //执行一个laydate实例
-        laydate.render({
-            elem: '#end' //指定元素
-        });
     });
 </script>

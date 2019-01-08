@@ -1,4 +1,3 @@
-/*
 
 Vue.component("left-menu",{
     template:`
@@ -39,7 +38,7 @@ Vue.component("children-menu",{
         }
     }
 });
-*/
+/*
 Vue.component("left-menu",{
     template:`
         <div class="layui-side-scroll">
@@ -73,4 +72,4 @@ Vue.component("children-menu",{
             default: []
         }
     }
-});
+});*/

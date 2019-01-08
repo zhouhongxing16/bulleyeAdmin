@@ -112,9 +112,13 @@ public abstract class BaseController<T> {
 
     //获取一条数据
     @ResponseBody
-    @RequestMapping("/getById/{id}")
-    public Object getById(@PathVariable String id) {
-        return  getService().getById(id);
+    @GetMapping("/getById")
+    public Object getById(String id) {
+        Object obj = getService().getById(id);
+        JsonResult json = new JsonResult();
+        json.setData(obj);
+        json.setSuccess(true);
+        return json;
     }
 
 

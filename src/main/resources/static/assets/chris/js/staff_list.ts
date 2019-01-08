@@ -8,7 +8,8 @@ class StaffList extends BaseModel{
         delete: '/staff/remove',
         view: '/staff/view',
         edit: '/staff/add',
-        add: '/staff/add'
+        add: '/staff/add',
+        getById:'/staff/getById'
     };
     params: any = {
         type:null

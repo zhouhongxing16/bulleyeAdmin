@@ -23,7 +23,8 @@ var StaffList = /** @class */ (function (_super) {
             delete: '/staff/remove',
             view: '/staff/view',
             edit: '/staff/add',
-            add: '/staff/add'
+            add: '/staff/add',
+            getById: '/staff/getById'
         };
         _this.params = {
             type: null
