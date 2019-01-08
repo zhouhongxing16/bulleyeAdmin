@@ -39,7 +39,7 @@ public class RoleController extends BaseController<Role> {
     @RequestMapping("/getAllRoles")
     public JsonResult getAllRoles(){
         Map<String,Object> map = new HashMap<>(2);
-        List<Role> roles = roleService.getAll(map);
+        List<Role> roles = roleService.getMapper().selectAll();
         return new JsonResult(true,roles);
     }
 }

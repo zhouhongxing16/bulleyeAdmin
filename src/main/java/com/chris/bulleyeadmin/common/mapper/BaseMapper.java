@@ -14,8 +14,6 @@ import java.util.Map;
  */
 public interface BaseMapper<T> extends Mapper<T>, MySqlMapper<T> {
 
-    public List<T> listByPage(Map<String, Object> map);
-
-    public List<T> listPageById(Map<String, Object> map);
+     List<T> listByPage(Map<String, Object> map);
 
 }

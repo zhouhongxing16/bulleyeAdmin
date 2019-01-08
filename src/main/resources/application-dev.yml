@@ -24,12 +24,5 @@ mapper:
   not-empty: false
   identity: MYSQL
   before: true
-
-#pagehelper
-pagehelper:
-  helperDialect: mysql
-  reasonable: true
-  supportMethodsArguments: true
-  params: count=countSql
 serverconfig:
-  uploadPath: C:/mydata/projects/myadmin/images
+  uploadPath: C:/mydata/images

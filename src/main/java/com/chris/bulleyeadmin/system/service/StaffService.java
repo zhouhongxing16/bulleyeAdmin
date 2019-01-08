@@ -21,5 +21,4 @@ public class StaffService extends BaseService<Staff> {
     public BaseMapper<Staff> getMapper() {
         return staffMapper;
     }
-
 }

@@ -37,7 +37,8 @@ public abstract class BaseController<T> {
     @GetMapping("/listByPage")
     @ResponseBody
     public Object listPage(Page page,@RequestParam Map<String,Object> params) {
-        params.put("pageNum", (page.getOffset()+ 1));
+        //根据不同的参数配置,有些传递的是offset
+        params.put("pageNum", page.getPage());
         params.put("pageSize", page.getLimit());
         params.put("keyword", page.getSearch());
         PageInfo info = getService().listByPage(params);
@@ -46,22 +47,6 @@ public abstract class BaseController<T> {
         jsonMap.put("rows", info.getList());
         jsonMap.put("total", info.getTotal());
 
-        return jsonMap;
-    }
-
-    @RequestMapping("/listPageById/{id}")
-    @ResponseBody
-    public Object listPageById(Page page,@PathVariable Integer id) {
-        Map<String, Object> map = new HashMap<>();
-        map.put("pageNum", (page.getOffset()+ 1));
-        map.put("pageSize", page.getLimit());
-        map.put("keyword", page.getSearch());
-        map.put("id",id);
-        PageInfo info = getService().listPageById(map);
-
-        Map<String,Object> jsonMap = new HashMap<>();
-        jsonMap.put("rows", info.getList());
-        jsonMap.put("total", info.getTotal());
         return jsonMap;
     }
 

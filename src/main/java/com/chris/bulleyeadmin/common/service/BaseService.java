@@ -1,10 +1,13 @@
 package com.chris.bulleyeadmin.common.service;
 
 import com.chris.bulleyeadmin.common.mapper.BaseMapper;
+import com.chris.bulleyeadmin.common.utils.Help;
+import com.chris.bulleyeadmin.system.dto.StaffDto;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
+import tk.mybatis.mapper.common.Mapper;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -19,6 +22,21 @@ import java.util.Map;
 public abstract class BaseService<T> {
 
     public abstract BaseMapper<T> getMapper();
+
+    public PageInfo listByPage(Map<String, Object> params) {
+        List<T> data = null;
+        if(params.get("pageNum") != null){
+            if(params.get("pageSize").toString().equals( "0" )){
+                params.remove( "pageNum" );
+                params.remove( "pageSize" );
+            } else {
+                PageHelper.startPage(params);
+            }
+        }
+        data = getMapper().listByPage(params);
+
+        return new PageInfo(data);
+    }
 
     @Transactional(propagation = Propagation.REQUIRED)
     public boolean add(T obj) {
@@ -51,44 +69,5 @@ public abstract class BaseService<T> {
     @Override
     public String toString() {
         return "BaseService{}";
-    }
-
-    public PageInfo<T> listByPage(Map<String, Object> params)
-    {
-        List<T> data = null;
-        if (params != null) {
-            PageHelper.startPage(params);
-            data = getMapper().listByPage(params);
-        } else {
-            data = new ArrayList<>();
-        }
-        return new PageInfo<T>(data);
-    }
-
-    public PageInfo<T> listPageById(Map<String, Object> params)
-    {
-        List<T> data = null;
-        if (params != null) {
-            PageHelper.startPage(params);
-            data = getMapper().listPageById(params);
-        } else {
-            data = new ArrayList<>();
-        }
-        return new PageInfo<T>(data);
-    }
-
-    public List<T> getAll(Map<String, Object> params) {
-        List<T> data;
-        if (params != null) {
-            PageHelper.startPage(params);
-            data = getMapper().selectAll();
-        } else {
-            data = new ArrayList<T>();
-        }
-        return data;
-    }
-
-    public List<T> listByObj(T t) {
-        return getMapper().select(t);
     }
 }
