@@ -40,7 +40,7 @@ public class Role implements Serializable {
     /**
      * 角色描述
      */
-    private String describle;
+    private String describe;
 
     /**
      * 状态
@@ -148,22 +148,12 @@ public class Role implements Serializable {
         this.dataAuthFlag = dataAuthFlag == null ? null : dataAuthFlag.trim();
     }
 
-    /**
-     * 获取角色描述
-     *
-     * @return describle - 角色描述
-     */
-    public String getDescrible() {
-        return describle;
+    public String getDescribe() {
+        return describe;
     }
 
-    /**
-     * 设置角色描述
-     *
-     * @param describle 角色描述
-     */
-    public void setDescrible(String describle) {
-        this.describle = describle == null ? null : describle.trim();
+    public void setDescribe(String describe) {
+        this.describe = describe;
     }
 
     /**

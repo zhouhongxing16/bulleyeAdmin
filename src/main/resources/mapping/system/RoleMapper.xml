@@ -10,12 +10,14 @@
     <result column="code" jdbcType="VARCHAR" property="code" />
     <result column="name" jdbcType="VARCHAR" property="name" />
     <result column="data_auth_flag" jdbcType="VARCHAR" property="dataAuthFlag" />
-    <result column="describle" jdbcType="VARCHAR" property="describle" />
+    <result column="describe" jdbcType="VARCHAR" property="describe" />
     <result column="status" jdbcType="INTEGER" property="status" />
     <result column="created" jdbcType="TIMESTAMP" property="created" />
   </resultMap>
 
   <select id="getRolesByAccountId" parameterType="String" resultMap="BaseResultMap">
-    select distinct * from b_roles r where r.id in (select role_id from b_account_role ar where ar.account_id =#{accountId})
+    select distinct * from b_roles r
+    where r.id in
+    (select role_id from b_account_role ar where ar.account_id =#{accountId})
   </select>
 </mapper>

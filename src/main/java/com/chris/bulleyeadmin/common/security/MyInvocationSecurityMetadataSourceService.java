@@ -1,5 +1,6 @@
 package com.chris.bulleyeadmin.common.security;
 
+import com.chris.bulleyeadmin.system.mapper.RoleFunctionMapper;
 import com.chris.bulleyeadmin.system.mapper.RoleMenuMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.ConfigAttribute;
@@ -16,7 +17,7 @@ import java.util.*;
 public class MyInvocationSecurityMetadataSourceService implements FilterInvocationSecurityMetadataSource {
 
     @Autowired
-    RoleMenuMapper roleMenuMapper;
+    RoleFunctionMapper roleFunctionMapper;
 
     private HashMap<String, Collection<ConfigAttribute>> hashMap = null;
 
@@ -29,7 +30,7 @@ public class MyInvocationSecurityMetadataSourceService implements FilterInvocati
         System.out.println("===============================");
         System.out.println("初始化加载");
         System.out.println("===============================");
-        List<Map<String,String>> roleMap = roleMenuMapper.getRoleAuthPaths();
+        List<Map<String,String>> roleMap = roleFunctionMapper.getRoleAuthPaths();
         Collection<ConfigAttribute> array;
         for (Map<String,String> map : roleMap) {
             array = new ArrayList<>();

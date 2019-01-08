@@ -31,11 +31,4 @@
       rm.role_id = #{roleId}
     </where>
   </select>
-
-  <select id="getRoleAuthPaths" resultType="map">
-    select distinct m.path,r.code from b_role_menu rm
-    left join b_roles r on r.id = rm.role_id
-    left join b_menus m on m.id = rm.menu_id
-
-  </select>
 </mapper>

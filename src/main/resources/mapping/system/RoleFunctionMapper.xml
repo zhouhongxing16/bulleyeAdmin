@@ -18,4 +18,14 @@
 	<resultMap id="dto" type="com.chris.bulleyeadmin.system.dto.RoleFunctionDto" extends="BaseResultMap">
 
 	</resultMap>
+
+
+	<select id="getRoleAuthPaths" resultType="map">
+    select r.code,concat('/',m.code,'/',f.code) as path from b_role_function rf
+	left join b_roles r on r.id = rf.role_id
+	left join b_menus m on m.id = rf.menu_id
+	left join b_functions f on f.id = rf.function_id
+
+
+  </select>
 </mapper>

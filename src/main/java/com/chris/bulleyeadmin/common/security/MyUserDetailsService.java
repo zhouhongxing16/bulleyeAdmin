@@ -87,13 +87,16 @@ public class MyUserDetailsService implements UserDetailsService {
 
             //找到登录用户角色放到grantedAuthority中
             List<Role> roles = roleService.getRolesByAccountId( account.getId() );
+            String rolestr = "";
             for (Role role : roles) {
                 if (role != null && role.getCode()!=null) {
+                    rolestr = rolestr+","+role.getCode();
                     GrantedAuthority grantedAuthority = new SimpleGrantedAuthority(role.getCode());
                     //1：此处将权限信息添加到 GrantedAuthority 对象中，在后面进行全权限验证时会使用GrantedAuthority 对象。
                     grantedAuthorities.add(grantedAuthority);
                 }
             }
+            System.out.println("当前用户角色:"+rolestr);
 
             User act = new User( account.getId(), account.getUsername(), account.getPassword(), orgId, staffId, departmentId, grantedAuthorities );
             if (StringUtils.isNotEmpty( account.getOrganizationId() )) {

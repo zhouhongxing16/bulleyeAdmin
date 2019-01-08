@@ -71,6 +71,6 @@ public class LoginController {
         System.out.println("当前登陆用户："+user.getUsername());
         view.addAttribute("user","");
 
-        return "index";
+        return "index1";
     }
 }
