@@ -1,5 +1,5 @@
 ﻿<!DOCTYPE html>
-<html lang="zh-CN">
+<html lang="zh-CN" xmlns:th="http://www.w3.org/1999/xhtml">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
@@ -16,10 +16,10 @@
         <!--顶部导航开始-->
         <div class="layui-header" style="background-color:#20222a">
             <a class="lau-logo-mini"><i class="layui-icon layui-icon-release" id="showyue"></i></a>
-            <a class="layui-logo">Chirs的秘密屋</a>
+            <a class="layui-logo">BullEyeAdmin</a>
             <ul class="layui-nav layui-layout-right" style="margin-right: 2%;">
                 <li class="layui-nav-item" lay-unselect>
-                    <a href="javascript:;">ChirsStar</a>
+                    <a href="javascript:;">BullEyeAdmin</a>
                     <dl class="layui-nav-child">
                         <dd><a href="javascript:;" onclick="ChangePass()">修改密码</a></dd>
                         <dd><a href="">安全退出</a></dd>
@@ -31,94 +31,54 @@
         <!--顶部导航结束-->
         <!--侧边菜单开始-->
 
-        <div class="layui-side" style="background-color:#20222a;">
+        <div class="layui-side" style="background-color:#20222a;" id="menu_vue">
             <div class="lau-side-fold"><i class="layui-icon layui-icon-shrink-right"></i></div>
-            <div class="layui-side-scroll">
-                <ul class="layui-nav layui-nav-tree" id="ul" style="background-color:#20222a">
-                    <!--这里可以写菜单结构,也可以放空,使用异步加载-->
-                    <span class="layui-nav-bar" style="height: 0px; top: 0px; opacity: 0;"></span>
+            <!-- <div class="layui-side-scroll">
+                 <ul class="layui-nav layui-nav-tree" id="ul" style="background-color:#20222a">
+                     &lt;!&ndash;这里可以写菜单结构,也可以放空,使用异步加载&ndash;&gt;
+                     <span class="layui-nav-bar" style="height: 0px; top: 0px; opacity: 0;"></span>
 
-                    <li class="lau-nav-item">
-                        <a class="lau-nav-header"><i class="layui-icon layui-icon-auz"></i><cite>chris的小酒屋</cite></a>
-                        <dl class="lau-nav-child">
-                            <dd><a lau-href="./Home/1111.html" lau-event="reload"><i class="layui-icon"></i><cite>梅子酒</cite></a></dd>
-                            <dd><a lau-href="./Home/example.html" lau-event="reload"><i class="layui-icon"></i><cite>冰锐</cite></a></dd>
-                            <dd><a lau-href="./Home/example.html" lau-event="reload"><i class="layui-icon"></i><cite>伏特加</cite></a></dd>
-                            <dd><a lau-href="./Home/example.html" lau-event="reload"><i class="layui-icon"></i><cite>果啤</cite></a></dd>
-                        </dl>
-                    </li>
+                     <li class="lau-nav-item">
+                         <a class="lau-nav-header"><i class="layui-icon layui-icon-auz"></i><cite>chris的小酒屋</cite></a>
+                         <dl class="lau-nav-child">
+                             <dd><a lau-href="./Home/1111.html" lau-event="reload"><i class="layui-icon"></i><cite>梅子酒</cite></a></dd>
+                             <dd><a lau-href="./Home/example.html" lau-event="reload"><i class="layui-icon"></i><cite>冰锐</cite></a></dd>
+                             <dd><a lau-href="./Home/example.html" lau-event="reload"><i class="layui-icon"></i><cite>伏特加</cite></a></dd>
+                             <dd><a lau-href="./Home/example.html" lau-event="reload"><i class="layui-icon"></i><cite>果啤</cite></a></dd>
+                         </dl>
+                     </li>
 
-                    <li class="lau-nav-item">
-                        <a class="lau-nav-header"><i class="layui-icon layui-icon-auz"></i><cite>chris的服装屋</cite></a>
-                        <dl class="lau-nav-child">
-                            <dd><a lau-href="./Home/example.html" lau-event="reload"><i class="layui-icon"></i><cite>动漫cos连衣裙女装等</cite></a></dd>
-                            <dd><a lau-href="./Home/example.html" lau-event="reload"><i class="layui-icon"></i><cite>女装大佬白丝黑丝等配件</cite></a></dd>
-                            <dd><a lau-href="./Home/example.html" lau-event="reload"><i class="layui-icon"></i><cite>假发</cite></a></dd>
-                            <dd><a lau-href="./Home/example.html" lau-event="reload"><i class="layui-icon"></i><cite>化妆品</cite></a></dd>
-                        </dl>
-                    </li>
+                     <li class="lau-nav-item">
+                         <a class="lau-nav-header"><i class="layui-icon layui-icon-auz"></i><cite>chris的服装屋</cite></a>
+                         <dl class="lau-nav-child">
+                             <dd><a lau-href="./Home/example.html" lau-event="reload"><i class="layui-icon"></i><cite>动漫cos连衣裙女装等</cite></a></dd>
+                             <dd><a lau-href="./Home/example.html" lau-event="reload"><i class="layui-icon"></i><cite>女装大佬白丝黑丝等配件</cite></a></dd>
+                             <dd><a lau-href="./Home/example.html" lau-event="reload"><i class="layui-icon"></i><cite>假发</cite></a></dd>
+                             <dd><a lau-href="./Home/example.html" lau-event="reload"><i class="layui-icon"></i><cite>化妆品</cite></a></dd>
+                         </dl>
+                     </li>
 
-                    <li class="lau-nav-item">
-                        <a class="lau-nav-header"><i class="layui-icon layui-icon-auz"></i><cite>chris的服装屋</cite></a>
-                        <dl class="lau-nav-child">
-                            <dd><a lau-href="./Home/example.html" lau-event="reload"><i class="layui-icon"></i><cite>动漫cos连衣裙女装等</cite></a></dd>
-                            <dd><a lau-href="./Home/example.html" lau-event="reload"><i class="layui-icon"></i><cite>女装大佬白丝黑丝等配件</cite></a></dd>
-                            <dd><a lau-href="./Home/example.html" lau-event="reload"><i class="layui-icon"></i><cite>假发</cite></a></dd>
-                            <dd><a lau-href="./Home/example.html" lau-event="reload"><i class="layui-icon"></i><cite>化妆品</cite></a></dd>
-                        </dl>
-                    </li>
+                     <li class="lau-nav-item">
+                         <a class="lau-nav-header" lau-href="./Home/example.html"><i class="layui-icon layui-icon-auz"></i><cite>chris的服装屋</cite></a>
+                     </li>
 
-                    <li class="lau-nav-item">
-                        <a class="lau-nav-header"><i class="layui-icon layui-icon-auz"></i><cite>chris的服装屋</cite></a>
-                        <dl class="lau-nav-child">
-                            <dd><a lau-href="./Home/example.html" lau-event="reload"><i class="layui-icon"></i><cite>动漫cos连衣裙女装等</cite></a></dd>
-                            <dd><a lau-href="./Home/example.html" lau-event="reload"><i class="layui-icon"></i><cite>女装大佬白丝黑丝等配件</cite></a></dd>
-                            <dd><a lau-href="./Home/example.html" lau-event="reload"><i class="layui-icon"></i><cite>假发</cite></a></dd>
-                            <dd><a lau-href="./Home/example.html" lau-event="reload"><i class="layui-icon"></i><cite>化妆品</cite></a></dd>
-                        </dl>
-                    </li>
+                 </ul>
+             </div>-->
+            <left-menu v-bind:data="menuList">
 
-                    <li class="lau-nav-item">
-                        <a class="lau-nav-header"><i class="layui-icon layui-icon-auz"></i><cite>chris的服装屋</cite></a>
-                        <dl class="lau-nav-child">
-                            <dd><a lau-href="./Home/example.html" lau-event="reload"><i class="layui-icon"></i><cite>动漫cos连衣裙女装等</cite></a></dd>
-                            <dd><a lau-href="./Home/example.html" lau-event="reload"><i class="layui-icon"></i><cite>女装大佬白丝黑丝等配件</cite></a></dd>
-                            <dd><a lau-href="./Home/example.html" lau-event="reload"><i class="layui-icon"></i><cite>假发</cite></a></dd>
-                            <dd><a lau-href="./Home/example.html" lau-event="reload"><i class="layui-icon"></i><cite>化妆品</cite></a></dd>
-                        </dl>
-                    </li>
-
-                    <li class="lau-nav-item">
-                        <a class="lau-nav-header"><i class="layui-icon layui-icon-auz"></i><cite>chris的服装屋</cite></a>
-                        <dl class="lau-nav-child">
-                            <dd><a lau-href="./Home/example.html" lau-event="reload"><i class="layui-icon"></i><cite>动漫cos连衣裙女装等</cite></a></dd>
-                            <dd><a lau-href="./Home/example.html" lau-event="reload"><i class="layui-icon"></i><cite>女装大佬白丝黑丝等配件</cite></a></dd>
-                            <dd><a lau-href="./Home/example.html" lau-event="reload"><i class="layui-icon"></i><cite>假发</cite></a></dd>
-                            <dd><a lau-href="./Home/example.html" lau-event="reload"><i class="layui-icon"></i><cite>化妆品</cite></a></dd>
-                        </dl>
-                    </li>
-
-                    <li class="lau-nav-item">
-                        <a class="lau-nav-header"><i class="layui-icon layui-icon-auz"></i><cite>chris的服装屋<span class="layui-nav-more"></span></cite></a>
-                        <dl class="lau-nav-child">
-                            <dd><a lau-href="./Home/example.html" lau-event="reload"><i class="layui-icon"></i><cite>动漫cos连衣裙女装等</cite></a></dd>
-                            <dd><a lau-href="./Home/example.html" lau-event="reload"><i class="layui-icon"></i><cite>女装大佬白丝黑丝等配件</cite></a></dd>
-                            <dd><a lau-href="./Home/example.html" lau-event="reload"><i class="layui-icon"></i><cite>假发</cite></a></dd>
-                            <dd><a lau-href="./Home/example.html" lau-event="reload"><i class="layui-icon"></i><cite>化妆品</cite></a></dd>
-                        </dl>
-                    </li>
-
-                    <li class="lau-nav-item">
-                        <a class="lau-nav-header" lau-href="./Home/example.html"><i class="layui-icon layui-icon-auz"></i><cite>chris的服装屋</cite></a>
-                    </li>
-
-                </ul>
-            </div>
+            </left-menu>
         </div>
         <!--侧边菜单结束-->
         <!--内容主体区域开始-->
-        <div class="layui-body" data-type="" data-title="chris的黄金屋" data-icon="layui-icon-home" data-href="./Home/Welcome.html"></div>
+        <div class="layui-body" data-type="" data-title="Home" data-icon="layui-icon-home" data-href="./Home/Welcome.html"></div>
         <!--内容主体区域结束-->
     </div>
 </body>
+<script src="../../assets/chris/js/initMenus.js"></script>
+<script>
+    $(function () {
+        initMenus.init();
+    });
+
+</script>
 </html>
