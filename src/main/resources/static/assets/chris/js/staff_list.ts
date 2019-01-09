@@ -12,7 +12,7 @@ class StaffList extends BaseModel{
         getById:'/staff/getById'
     };
     params: any = {
-        type:null
+        type:"21111"
     };
 
     entity={

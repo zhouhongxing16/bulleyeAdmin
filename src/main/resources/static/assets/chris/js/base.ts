@@ -1,138 +1,23 @@
 // @ts-ignore
-const cacheScripts:any = [];
+const cacheScripts:any = [],axios:any;
 
 let DM = {
-    ready: function (objects, callback) {
-        let loads_count = 0;
-        $.each(objects, function (i, js) {
-            if (cacheScripts.indexOf(js) != -1) {
-                loads_count++;
-                if (loads_count == objects.length) {
-                    if (typeof(callback) == 'function') {
-                        callback();
-                        return false;
-                    }
-                }
-                return true;
-            }
-            else {
-                cacheScripts.push(js);
-                let script = document.createElement('script');
-                script.src = js;
-                // script.aysnc = false;
-                script.type = 'text/javascript';
-                script.onload = function () {
-                    loads_count++;
-                    if (loads_count == objects.length) {
-                        if (typeof(callback) == 'function') {
-                            callback();
-                            return false;
-                        }
-                    }
-                }
-                document.body.appendChild(script);
-            }
+    post(url: string, data: any,callback) {
+        return axios.post(url, data).then(function (response) {
+            callback(response.data);
+        }).catch(function (error) {
+            callback(error);
+            console.log("请求错误："+error);
         });
     },
-    post: function (href, params, callback, async) {
-        let that = this;
-        async = async == undefined ? true : async;
-        $.ajax({
-            url: href,
-            data: params,
-            async: async,
-            type: "post",
-            dataType: "json",
-            //headers : {
-            //    "Content-Type" : "application/json;charset=utf-8"
-            //},
-            //contentType:"application/json;charset=utf-8",
-            success: function (ret) {
-                if (callback != null) {
-                    if (ret != null && typeof(ret.data) != 'undefined' && ret.data != null) {
-                        callback(ret);
-                    } else if (ret.status == -1) {
-                        console.log('您的请求出现了错误,信息为:' + ret.message);
-                        callback(ret);
-                    } else {
-                        callback(ret);
-                    }
-                    callback == null;
-                }
-
-            },
-            error: function (resp, status, xhr) {
-                if (resp.status == 403) {
-                    //session timeout or no privileges
-                    top.location.href = '/login?expired';
-                }
-                //callback(null);
-                if (callback != null) {
-                    //callback(null);
-
-                    var data = {success:false};
-                    if(resp.responseJSON != null) {
-                        data = $.extend(resp.responseJSON,data);
-                    } else {
-                        data = $.extend(data,{message:resp.responseText});
-                    }
-                    callback(data);
-                }
-                try {
-                    $.messager.progress('close');
-                } catch (e) {
-                }
-            }
-        });
-    },
-    get: function (href, params, callback, async) {
-        let that = this;
-        async = async == undefined ? true : async;
-        $.ajax({
-            url: href,
-            data: params,
-            async: async,
-            type: "get",
-            //headers : {
-            //    "Content-Type" : "application/json;charset=utf-8"
-            //},
-            //contentType:"application/json;charset=utf-8",
-            success: function (ret) {
-                if (callback != null) {
-                    if (ret != null && typeof(ret.data) != 'undefined' && ret.data != null) {
-                        callback(ret);
-                    } else if (ret.status == -1) {
-                        console.log('您的请求出现了错误,信息为:' + ret.message);
-                        callback(ret);
-                    } else {
-                        callback(ret);
-                    }
-                    callback == null;
-                }
-
-            },
-            error: function (resp, status, xhr) {
-                if (resp.status == 403) {
-                    //session timeout or no privileges
-                    top.location.href = '/login?expired';
-                }
-                //callback(null);
-                if (callback != null) {
-                    //callback(null);
-
-                    var data = {success:false};
-                    if(resp.responseJSON != null) {
-                        data = $.extend(resp.responseJSON,data);
-                    } else {
-                        data = $.extend(data,{message:resp.responseText});
-                    }
-                    callback(data);
-                }
-                try {
-                    $.messager.progress('close');
-                } catch (e) {
-                }
-            }
+    get(url: string, data: any,callback) {
+        return axios.get(url, {
+            params: data
+        }).then(function (response) {
+            callback(response.data);
+        }).catch(function (error) {
+            callback(error);
+            console.log("请求错误："+error);
         });
     },
     /*弹出层*/
@@ -168,37 +53,51 @@ let DM = {
             content: url
         });
     },
-    xAdminShowModal(title,url,w,h,func){
+    xAdminShowModal(title,url,w,h,func,that) {
         if (title == null || title == '') {
-            title=false;
-        };
+            title = false;
+        }
+        ;
         if (url == null || url == '') {
-            url="404.html";
-        };
+            url = "404.html";
+        }
+        ;
         if (w == null || w == '') {
-            w=($(window).width()*0.5);
-        };
+            w = ($(window).width() * 0.5);
+        }
+        ;
         if (h == null || h == '') {
-            h=($(window).height()*0.5);
-        };
-
-        DM.get(url,null,function (msg) {
+            h = ($(window).height() * 0.5);
+        }
+        ;
+        DM.get(url, null, function (msg) {
             //页面层-自定义
             layer.open({
+                id: 'staff-add',
                 type: 1,
-                area: [w+'px', h +'px'],
+                area: [w + 'px', h + 'px'],
                 fix: false, //不固定
                 maxmin: true,
                 shadeClose: true,
-                shade:0.4,
+                shade: 0.4,
                 title: title,
                 content: msg,
-                success: function(index, layero){
+                btn: ['保存', '取消'],
+                yes: function (index, layero) {
+                    console.log("执行点击事件");
+                },
+                btn2: function (index, layero) {
+                    //按钮【按钮二】的回调
+
+                    //return false 开启该代码可禁止点击该按钮关闭
+                },
+                success: function (index, layero) {
                     console.log(layero);
-                    if(typeof func == 'function'){
+                    if (typeof func == 'function') {
                         func();
                     }
-                }});
-        },false);
+                }
+            });
+        })
     }
 }

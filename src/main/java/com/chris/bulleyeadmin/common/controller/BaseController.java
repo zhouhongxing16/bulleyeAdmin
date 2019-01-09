@@ -6,9 +6,13 @@ import com.chris.bulleyeadmin.common.service.BaseService;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.github.pagehelper.PageInfo;
 import io.swagger.annotations.ApiOperation;
+import org.springframework.beans.propertyeditors.CustomDateEditor;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.*;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -59,7 +63,7 @@ public abstract class BaseController<T> {
     //增加
     @PostMapping("/create")
     @ResponseBody
-    public JsonResult create(T obj)  throws Exception {
+    public JsonResult create(@RequestBody T obj)  throws Exception {
         return getService().add(obj);
     }
 
@@ -88,7 +92,7 @@ public abstract class BaseController<T> {
     //更新
     @PostMapping("/update")
     @ResponseBody
-    public JsonResult update(T obj) {
+    public JsonResult update(@RequestBody T obj) {
         return getService().update(obj);
     }
 
@@ -101,18 +105,26 @@ public abstract class BaseController<T> {
         return getViewPrefix()  + "/view";
     }
     //删除
-    @PostMapping("/remove")
+    @PostMapping("/remove/{id}")
     @ResponseBody
-    public JsonResult deleteSection(@RequestParam String id) {
+    public JsonResult remove(@PathVariable String id) {
         return getService().deleteById(id);
     }
 
     //获取一条数据
     @ResponseBody
-    @GetMapping("/getById")
-    public Object getById(String id) {
+    @GetMapping("/getById/{id}")
+    public Object getById(@PathVariable String id) {
         Object obj = getService().getById(id);
         return new JsonResult(true,obj,"查询成功");
+    }
+
+    @InitBinder
+    protected void initBinder(WebDataBinder binder)
+    {
+        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        dateFormat.setLenient(false);
+        binder.registerCustomEditor(Date.class, new CustomDateEditor(dateFormat, true));
     }
 
 

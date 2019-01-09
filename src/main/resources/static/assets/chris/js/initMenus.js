@@ -10,10 +10,8 @@ var InitMenus = /** @class */ (function () {
     ;
     InitMenus.prototype.initMenus = function () {
         var that = this;
-        $.get(that.url.getCurrentMenus, function (msg) {
-            if (msg.success) {
-                that.initMenuVue(msg.data);
-            }
+        DM.get(that.url.getCurrentMenus, null, function (msg) {
+            that.initMenuVue(msg.data);
         });
     };
     ;

@@ -27,7 +27,7 @@ var StaffList = /** @class */ (function (_super) {
             getById: '/staff/getById'
         };
         _this.params = {
-            type: null
+            type: "21111"
         };
         _this.entity = {
             name: null,

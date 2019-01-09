@@ -9,10 +9,8 @@ class InitMenus {
     menuVue:null;
     initMenus() {
         let that = this;
-        $.get(that.url.getCurrentMenus, msg => {
-           if(msg.success){
-               that.initMenuVue(msg.data);
-           }
+        DM.get(that.url.getCurrentMenus,null,function (msg) {
+            that.initMenuVue(msg.data);
         });
     };
     initMenuVue(data){
