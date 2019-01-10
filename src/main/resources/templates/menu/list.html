@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.w3.org/1999/xhtml">
+<div th:replace="common::JS"></div>
+<div th:replace="common::CSS"></div>
+<div class="x-nav">
+      <span class="layui-breadcrumb">
+        <a href="">首页</a>
+        <a  onclick="member_del()">演示</a>
+        <a> <cite>导航元素</cite></a>
+      </span>
+    <a class="layui-btn layui-btn-small" style="line-height:1.6em;margin-top:3px;float:right" href="javascript:location.replace(location.href);" title="刷新">
+        <i class="layui-icon" style="line-height:30px">ဂ</i></a>
+</div>
+<div class="x-body">
+    <div class="layui-row">
+        <form class="layui-col-md12 x-so">
+            <div class="layui-col-md2">
+                <input type="text" name="username"  placeholder="请输入用户名" autocomplete="off" class="layui-input">
+            </div>
+            <div class="layui-col-md2">
+                <button class="layui-btn"  lay-submit="" lay-filter="sreach"><i class="layui-icon">&#xe615;</i></button>
+            </div>
+        </form>
+    </div>
+    <div class="layui-row">
+        <table lass="layui-hide" id="staff_table" lay-filter="staff_table"></table>
+    </div>
+</div>
+<script type="text/html" id="staff_toolbar">
+    <div class="layui-btn-container">
+        <button class="layui-btn layui-btn-sm" lay-event="add">添加</button>
+        <button class="layui-btn layui-btn-sm" lay-event="getCheckData">获取选中行数据</button>
+    </div>
+</script>
+
+<script type="text/html" id="staff_optionBar">
+    <a class="layui-btn layui-btn-xs" lay-event="edit">编辑</a>
+    <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del">删除</a>
+</script>
+<script src="../../assets/chris/js/staff_list.js"></script>
+<script>
+    $(function () {
+        staffList.init();
+    });
+</script>
