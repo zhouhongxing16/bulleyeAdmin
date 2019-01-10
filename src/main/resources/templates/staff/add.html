@@ -2,17 +2,19 @@
 <html xmlns:th="http://www.w3.org/1999/xhtml" xmlns:v-on="http://www.w3.org/1999/xhtml">
     <div class="x-body">
         <form class="layui-form" id="staff_form">
-            <form-input  v-model="obj.name"  id="name" label="姓名" info="请输入姓名"></form-input>
+            <form-input  v-model="obj.name"  id="name" label="姓名" info="请输入姓名" required="true"></form-input>
             <form-select v-bind:data="data.genderData"  v-model="obj.genderId" id="genderId" label="性别" info="请选择性别"></form-select>
             <form-input  v-model="obj.mobile" id="email" label="电话" info="请输入邮箱"></form-input>
             <form-input  v-model="obj.serialNo" id="serialNo" label="工号" info="请输入工号"></form-input>
             <form-input  v-model="obj.email" id="email" label="邮箱" info="请输入邮箱"></form-input>
+
+            <div class="layui-form-item">
+                <button  class="layui-btn" lay-filter="submitData" lay-submit="" v-on:click="submitData()">
+                    增加
+                </button>
+            </div>
       </form>
-        <div class="layui-form-item">
-            <button  class="layui-btn" lay-filter="add" lay-submit="">
-                增加
-            </button>
-        </div>
+
     </div>
 
 </html>

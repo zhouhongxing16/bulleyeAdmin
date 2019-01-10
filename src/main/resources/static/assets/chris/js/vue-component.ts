@@ -49,7 +49,10 @@ Vue.component("form-input",{
                     v-bind:id="id"
 	                v-bind:value="value"  
 	                v-bind:placeholder="'请输入'+label"
-	                v-on:input="updateValue($event.target.value)" class="layui-input">
+	                v-on:input="updateValue($event.target.value)" 
+	                v-bind:required="required" 
+	                v-bind:lay-verify="'email'"
+	                class="layui-input">
               </div>
               <div class="layui-form-mid layui-word-aux">
                   <span class="x-red">*</span>{{info}}

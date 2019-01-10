@@ -17,7 +17,7 @@ Vue.component("children-menu", {
     }
 });
 Vue.component("form-input", {
-    template: "\n            <div class=\"layui-form-item\">\n              <label v-bind:for=\"id\" class=\"layui-form-label\">\n                  <span class=\"x-red\" v-if=\"required\">*</span>{{label}}\n              </label>\n              <div class=\"layui-input-inline\">\n                  <input type=\"text\"\n                    v-bind:id=\"id\"\n\t                v-bind:value=\"value\"  \n\t                v-bind:placeholder=\"'\u8BF7\u8F93\u5165'+label\"\n\t                v-on:input=\"updateValue($event.target.value)\" class=\"layui-input\">\n              </div>\n              <div class=\"layui-form-mid layui-word-aux\">\n                  <span class=\"x-red\">*</span>{{info}}\n              </div>\n          </div>",
+    template: "\n            <div class=\"layui-form-item\">\n              <label v-bind:for=\"id\" class=\"layui-form-label\">\n                  <span class=\"x-red\" v-if=\"required\">*</span>{{label}}\n              </label>\n              <div class=\"layui-input-inline\">\n                  <input type=\"text\"\n                    v-bind:id=\"id\"\n\t                v-bind:value=\"value\"  \n\t                v-bind:placeholder=\"'\u8BF7\u8F93\u5165'+label\"\n\t                v-on:input=\"updateValue($event.target.value)\" \n\t                v-bind:required=\"required\" \n\t                v-bind:lay-verify=\"'email'\"\n\t                class=\"layui-input\">\n              </div>\n              <div class=\"layui-form-mid layui-word-aux\">\n                  <span class=\"x-red\">*</span>{{info}}\n              </div>\n          </div>",
     props: {
         data: {
             type: Array,
