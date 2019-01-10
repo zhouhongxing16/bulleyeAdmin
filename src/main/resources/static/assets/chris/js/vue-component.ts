@@ -38,6 +38,111 @@ Vue.component("children-menu",{
         }
     }
 });
+Vue.component("form-input",{
+    template:`
+            <div class="layui-form-item">
+              <label v-bind:for="id" class="layui-form-label">
+                  <span class="x-red" v-if="required">*</span>{{label}}
+              </label>
+              <div class="layui-input-inline">
+                  <input type="text"
+                    v-bind:id="id"
+	                v-bind:value="value"  
+	                v-bind:placeholder="'请输入'+label"
+	                v-on:input="updateValue($event.target.value)" class="layui-input">
+              </div>
+              <div class="layui-form-mid layui-word-aux">
+                  <span class="x-red">*</span>{{info}}
+              </div>
+          </div>`,
+    props:{
+        data: {
+            type: Array,
+            default: []
+        },
+        required: {
+            type: Boolean,
+            default: false
+        },
+        placeholder: {
+            type: String,
+            default: ''
+        },
+        info: {
+            type: String,
+            default: ''
+        },
+        label: {
+            type: String,
+            default: ''
+        },
+        id: {
+            type: String,
+            default: ''
+        },
+        value: {
+            type: String,
+            default: ''
+        }
+    },
+    methods: {
+        updateValue: function (value) {
+            this.$emit('input', value);
+        }
+    }
+});
+Vue.component("form-select",{
+    template:`
+            <div class="layui-form-item">
+              <label v-bind:for="id" class="layui-form-label">
+                  <span class="x-red">*</span>{{label}}
+              </label>
+              <div class="layui-input-inline">
+                  <select   
+                    v-bind:id="id"
+	                v-bind:value="value"   
+	                v-bind:name="id" class="valid">
+                    <option v-for="(item,i) in data" v-bind:id="item.id">{{item.name}}</option>
+                  </select>
+              </div>
+            </div>
+`,
+    props:{
+        data: {
+            type: Array,
+            default: []
+        },
+        required: {
+            type: Boolean,
+            default: false
+        },
+        placeholder: {
+            type: String,
+            default: ''
+        },
+        info: {
+            type: String,
+            default: ''
+        },
+        label: {
+            type: String,
+            default: ''
+        },
+        id: {
+            type: String,
+            default: ''
+        },
+        value: {
+            type: String,
+            default: ''
+        }
+    },
+    methods: {
+        updateValue: function (value) {
+            this.$emit('input', value);
+        }
+    }
+});
 /*
 Vue.component("left-menu",{
     template:`

@@ -72,6 +72,7 @@ class BaseModel{
                         layer.confirm('真的删除行么', function(index){
                             DM.post(that.url.delete+"/"+obj.data.id,null,function (msg) {
                                 layer.alert(msg.message);
+                                that.reloadTable();
                             });
                             layer.close(index);
                         });
@@ -104,11 +105,13 @@ class BaseModel{
         //dom.find('.layui-layer-btn0').attr('v-on:click', 'saveData');
         that.modalVue =  new Vue({
             el:`#${this.id}_form`,
-            data:{
-                obj:that.entity
-            },
+            data:that.entity,
             mounted(){
                 const thatV = this;
+                layui.use('form', function(){
+                        var form = layui.form;
+                        form.render('select');
+                });
                 if(obj!=null){
                     DM.get(that.url.getById+"/"+obj.id,null,function (msg) {
                         if(msg.success&&msg.data!=null){

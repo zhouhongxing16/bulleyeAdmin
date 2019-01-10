@@ -16,23 +16,29 @@ class StaffList extends BaseModel{
     };
 
     entity={
-        name:null,
-        genderId:null,
-        email:null
+        obj:{
+            name:null,
+            genderId:null,
+            email:null
+        },
+        data:{
+            genderData:[{id:'1',name:'男'},{id:'0',name:'女'}]
+        }
+
     };
 
     columns = [[
         {type:'radio'},
-        {field:'id', width:80, title: 'ID', sort: true},
-        {field:'name', width:80, title: '姓名'},
-        {field:'sex', width:80, title: '性别', sort: true},
-        {field:'birthday', width:80, title: '城市'},
-        {field:'serialNo', title: '签名', width: 80} ,
-        {field:'experience', title: '积分', sort: true},
-        {field:'score', title: '评分', sort: true},
-        {field:'classify', title: '职业'},
-        {field:'wealth', width:137, title: '财富', sort: true}
-        ,{fixed: 'right', title:'操作', toolbar: `#${this.id}_optionBar`, width:150}
+        {field:'id', title: 'ID', sort: true,hide:true},
+        {field:'name',title: '姓名'},
+        {field:'genderId',title: '性别', sort: true},
+        {field:'mobile',  title: '手机号'},
+        {field:'serialNo',  title: '工号', sort: true},
+        {field:'email',  title: '邮箱'},
+        {field:'identifyNo', title: '身份证号码'} ,
+        {field:'departmentName', title: '所属部门', sort: true},
+        {field:'positionName', title: '职务', sort: true},
+        {fixed: 'right', title:'操作', toolbar: `#${this.id}_optionBar`, width:150}
     ]];
 
     initPost(){
