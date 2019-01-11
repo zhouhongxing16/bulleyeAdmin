@@ -50,7 +50,7 @@ INSERT INTO `wx_account` (`account_id`, `account_pic`, `name`, `number`, `appid`
 
 
 -- 导出  表 bulleye_admin.wx_menber 结构
-CREATE TABLE IF NOT EXISTS `wx_menber` (
+CREATE TABLE IF NOT EXISTS `wx_member` (
   `id` varchar(40) NOT NULL COMMENT '微信用户id',
   `account_id` varchar(50) DEFAULT NULL COMMENT '所属公众号id',
   `account_name` varchar(50) DEFAULT NULL COMMENT '所属公众号名称',
