@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--Created by Chris on Fri Jan 11 2019 17:53:57 GMT+0800 (中国标准时间)-->
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.chris.bulleyeadmin.wechat.mapper.WxAccountMapper">
+    <resultMap id="BaseResultMap" type="com.chris.bulleyeadmin.wechat.pojo.WxMember">
+        <result column="id" jdbcType="VARCHAR" property="id" />
+        <result column="account_id" jdbcType="VARCHAR" property="accountId" />
+        <result column="account_name" jdbcType="VARCHAR" property="accountName" />
+        <result column="subscribe" jdbcType="VARCHAR" property="subscribe" />
+        <result column="openid" jdbcType="VARCHAR" property="openid" />
+        <result column="nickname" jdbcType="VARCHAR" property="nickname" />
+        <result column="sex" jdbcType="VARCHAR" property="sex" />
+        <result column="city" jdbcType="VARCHAR" property="city" />
+        <result column="country" jdbcType="VARCHAR" property="country" />
+        <result column="province" jdbcType="VARCHAR" property="province" />
+        <result column="headimgurl" jdbcType="VARCHAR" property="headimgurl" />
+        <result column="createTime" jdbcType="VARCHAR" property="createTime" />
+        <result column="user_id" jdbcType="VARCHAR" property="userId" />
+        <result column="code" jdbcType="VARCHAR" property="code" />
+    </resultMap>
+
+    <sql id="basic_list">
+		a.id, a.account_id, a.account_name, a.subscribe, a.openid, a.nickname, a.sex, a.city, a.country, a.province, a.headimgurl, a.createTime, a.user_id, a.code
+	</sql>
+
+    <select id="listMemberByPage" resultMap="BaseResultMap" parameterType="map">
+        SELECT
+        <include refid="basic_list"/>
+        FROM wx_member a
+        <where>
+            <if test="id!=null and id!='' ">
+                and a.id=#{ id }
+            </if>
+            <if test="accountId!=null and accountId!='' ">
+                and a.account_id=#{ accountId }
+            </if>
+            <if test="accountName!=null and accountName!='' ">
+                and a.account_name LIKE CONCAT('%', #{ accountName }, '%')
+            </if>
+            <if test="subscribe!=null and subscribe!='' ">
+                and a.subscribe LIKE CONCAT('%', #{ subscribe }, '%')
+            </if>
+            <if test="openid!=null and openid!='' ">
+                and a.openid=#{ openid }
+            </if>
+            <if test="nickname!=null and nickname!='' ">
+                and a.nickname LIKE CONCAT('%', #{ nickname }, '%')
+            </if>
+            <if test="sex!=null and sex!='' ">
+                and a.sex LIKE CONCAT('%', #{ sex }, '%')
+            </if>
+            <if test="city!=null and city!='' ">
+                and a.city LIKE CONCAT('%', #{ city }, '%')
+            </if>
+            <if test="country!=null and country!='' ">
+                and a.country LIKE CONCAT('%', #{ country }, '%')
+            </if>
+            <if test="province!=null and province!='' ">
+                and a.province LIKE CONCAT('%', #{ province }, '%')
+            </if>
+            <if test="headimgurl!=null and headimgurl!='' ">
+                and a.headimgurl LIKE CONCAT('%', #{ headimgurl }, '%')
+            </if>
+            <if test="createTime!=null and createTime!='' ">
+                and a.createTime LIKE CONCAT('%', #{ createTime }, '%')
+            </if>
+            <if test="userId!=null and userId!='' ">
+                and a.user_id=#{ userId }
+            </if>
+            <if test="code!=null and code!='' ">
+                and a.code LIKE CONCAT('%', #{ code }, '%')
+            </if>
+        </where>
+    </select>
+</mapper>

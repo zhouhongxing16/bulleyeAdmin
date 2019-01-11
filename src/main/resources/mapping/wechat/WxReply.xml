@@ -1,6 +1,55 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<beans xmlns="http://www.springframework.org/schema/beans"
-       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+<!--Created by Chris on Fri Jan 11 2019 17:59:42 GMT+0800 (中国标准时间)-->
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.chris.bulleyeadmin.wechat.mapper.WxReplyMapper">
+    <resultMap id="BaseResultMap" type="com.chris.bulleyeadmin.wechat.pojo.Reply">
+        <result column="id" jdbcType="VARCHAR" property="id" />
+        <result column="account_id" jdbcType="VARCHAR" property="accountId" />
+        <result column="reply_keyword" jdbcType="VARCHAR" property="replyKeyword" />
+        <result column="reply_title" jdbcType="VARCHAR" property="replyTitle" />
+        <result column="reply_pic" jdbcType="VARCHAR" property="replyPic" />
+        <result column="reply_url" jdbcType="VARCHAR" property="replyUrl" />
+        <result column="reply_content" jdbcType="VARCHAR" property="replyContent" />
+        <result column="reply_type" jdbcType="VARCHAR" property="replyType" />
+        <result column="reply_num" jdbcType="BIGINT" property="replyNum" />
+    </resultMap>
 
-</beans>
+    <sql id="basic_list">
+		a.id, a.account_id, a.reply_keyword, a.reply_title, a.reply_pic, a.reply_url, a.reply_content, a.reply_type, a.reply_num
+	</sql>
+
+    <select id="listByPage" resultMap="BaseResultMap" parameterType="map">
+        SELECT
+        <include refid="basic_list"/>
+        FROM wx_reply a
+        <where>
+            <if test="id!=null and id!='' ">
+                and a.id=#{ id }
+            </if>
+            <if test="accountId!=null and accountId!='' ">
+                and a.account_id=#{ accountId }
+            </if>
+            <if test="replyKeyword!=null and replyKeyword!='' ">
+                and a.reply_keyword LIKE CONCAT('%', #{ replyKeyword }, '%')
+            </if>
+            <if test="replyTitle!=null and replyTitle!='' ">
+                and a.reply_title LIKE CONCAT('%', #{ replyTitle }, '%')
+            </if>
+            <if test="replyPic!=null and replyPic!='' ">
+                and a.reply_pic LIKE CONCAT('%', #{ replyPic }, '%')
+            </if>
+            <if test="replyUrl!=null and replyUrl!='' ">
+                and a.reply_url LIKE CONCAT('%', #{ replyUrl }, '%')
+            </if>
+            <if test="replyContent!=null and replyContent!='' ">
+                and a.reply_content LIKE CONCAT('%', #{ replyContent }, '%')
+            </if>
+            <if test="replyType!=null and replyType!='' ">
+                and a.reply_type LIKE CONCAT('%', #{ replyType }, '%')
+            </if>
+            <if test="replyNum!=null and replyNum!='' ">
+                and a.reply_num LIKE CONCAT('%', #{ replyNum }, '%')
+            </if>
+        </where>
+    </select>
+</mapper>
