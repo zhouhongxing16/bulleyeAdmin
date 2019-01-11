@@ -1,0 +1,253 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.chris.bulleyeadmin.system.mapper.AccountMapper">
+    <resultMap id="BaseResultMap" type="com.chris.bulleyeadmin.wechat.pojo.WxAccount">
+        <id column="id" jdbcType="VARCHAR" property="id" />
+        <result column="name" jdbcType="VARCHAR" property="name" />
+        <result column="number" jdbcType="VARCHAR" property="number" />
+        <result column="appid" jdbcType="VARCHAR" property="appid" />
+        <result column="appsecret" jdbcType="VARCHAR" property="appsecret" />
+        <result column="token" jdbcType="VARCHAR" property="token" />
+        <result column="domain" jdbcType="VARCHAR" property="domain" />
+        <result column="accessToken" jdbcType="VARCHAR" property="access_token" />
+        <result column="tokenTime" jdbcType="VARCHAR" property="token_Time" />
+        <result column="menuState" jdbcType="VARCHAR" property="menu_state" />
+        <result column="adduserid" jdbcType="VARCHAR" property="adduserid" />
+        <result column="addusername" jdbcType="VARCHAR" property="addusername" />
+        <result column="addtime" jdbcType="DATETIME" property="addtime" />
+        <result column="updateid" jdbcType="VARCHAR" property="updateid" />
+        <result column="updatename" jdbcType="VARCHAR" property="updatename" />
+        <result column="updatetime" jdbcType="TIMESTAMP" property="updatetime" />
+        <result column="remark" jdbcType="VARCHAR" property="remark" />
+        <result column="mainAccount" jdbcType="VARCHAR" property="main_account" />
+        <result column="wx_partner" jdbcType="VARCHAR" property="wxPartner" />
+        <result column="wx_partnerkey" jdbcType="VARCHAR" property="wxPartnerkey" />
+        <result column="wx_file" jdbcType="VARCHAR" property="wxFile" />
+    </resultMap>
+
+    <insert id="insert" parameterType="com.chris.bulleyeadmin.wechat.pojo.WxAccount">
+        <selectKey keyProperty="id" order="AFTER" resultType="java.lang.String">
+            SELECT LAST_INSERT_ID()
+        </selectKey>
+        insert into wx_account
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="id != null and id!=''">
+                id,
+            </if>
+            <if test="accountPic!=null and accountPic!=''">
+                account_pic,
+            </if>
+            <if test="name!= null and name!=''">
+                name,
+            </if>
+            <if test="number!= null and number!=''">
+                number,
+            </if>
+            <if test="appid!= null and appid!=''">
+                appid,
+            </if>
+            <if test="appsecret!= null and appsecret!=''">
+                appsecret,
+            </if>
+            <if test="token!= null and token!=''">
+                token,
+            </if>
+            <if test="domain!= null and domain!=''">
+                domain,
+            </if>
+            <if test="accessToken!= null and accessToken!=''">
+                access_token,
+            </if>
+            <if test="tokenTime!= null and tokenTime!=''">
+                token_time,
+            </if>
+            <if test="menuState!= null and menuState!=''">
+                menu_state,
+            </if>
+            <if test="adduserid!= null and adduserid!=''">
+                adduserid,
+            </if>
+            <if test="addusername!= null and addusername!=''">
+                addusername,
+            </if>
+            <if test="addtime!= null and addtime!=''">
+                addtime,
+            </if>
+            <if test="updateid!= null and updateid!=''">
+                updateid,
+            </if>
+            <if test="updatename!= null and updatename!=''">
+                updatename,
+            </if>
+            <if test="updatetime!= null and updatetime!=''">
+                updatetime,
+            </if>
+            <if test="remark!= null and remark!=''">
+                remark,
+            </if>
+            <if test="mainAccount!= null and mainAccount!=''">
+                main_account,
+            </if>
+            <if test="wxPartner!= null and wxPartner!=''">
+                wx_partner,
+            </if>
+            <if test="wxPartnerkey!= null and wxPartnerkey!=''">
+                wx_partnerkey,
+            </if>
+            <if test="wxFile!= null and wxFile!=''">
+                wx_file,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="id != null and id!=''">
+                #{id,jdbcType=VARCHAR},
+            </if>
+            <if test="accountPic!=null and accountPic!=''">
+                #{account_pic,jdbcType=VARCHAR},
+            </if>
+            <if test="name!= null and name!=''">
+                #{name,jdbcType=VARCHAR},
+            </if>
+            <if test="number!= null and number!=''">
+                #{number,jdbcType=VARCHAR},
+            </if>
+            <if test="appid!= null and appid!=''">
+                #{appid,jdbcType=VARCHAR},
+            </if>
+            <if test="appsecret!= null and appsecret!=''">
+                #{appsecret,jdbcType=VARCHAR},
+            </if>
+            <if test="token!= null and token!=''">
+                #{token,jdbcType=VARCHAR},
+            </if>
+            <if test="domain!= null and domain!=''">
+                #{domain,jdbcType=VARCHAR},
+            </if>
+            <if test="accessToken!= null and accessToken!=''">
+                #{accessToken,jdbcType=VARCHAR},
+            </if>
+            <if test="tokenTime!= null and tokenTime!=''">
+                #{tokenTime,jdbcType=VARCHAR},
+            </if>
+            <if test="menuState!= null and menuState!=''">
+                #{menuState,jdbcType=VARCHAR},
+            </if>
+            <if test="adduserid!= null and adduserid!=''">
+                #{adduserid,jdbcType=VARCHAR},
+            </if>
+            <if test="addusername!= null and addusername!=''">
+                #{addusername,jdbcType=VARCHAR},
+            </if>
+            <if test="addtime!= null and addtime!=''">
+                #{addtime,jdbcType=DATETIME},
+            </if>
+            <if test="updateid!= null and updateid!=''">
+                #{updateid,jdbcType=VARCHAR},
+            </if>
+            <if test="updatename!= null and updatename!=''">
+                #{updatename,jdbcType=VARCHAR},
+            </if>
+            <if test="updatetime!= null and updatetime!=''">
+                #{updatetime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="remark!= null and remark!=''">
+                #{remark,jdbcType=VARCHAR},
+            </if>
+            <if test="mainAccount!= null and mainAccount!=''">
+                #{mainAccount,jdbcType=VARCHAR},
+            </if>
+            <if test="wxPartner!= null and wxPartner!=''">
+                #{wxPartner,jdbcType=VARCHAR},
+            </if>
+            <if test="wxPartnerkey!= null and wxPartnerkey!=''">
+                #{wxPartnerkey,jdbcType=VARCHAR},
+            </if>
+            <if test="wxFile!= null and wxFile!=''">
+                #{wxFile,jdbcType=VARCHAR},
+            </if>
+        </trim>
+    </insert>
+
+    <update id="update" parameterType="com.chris.bulleyeadmin.wechat.pojo.WxAccount">
+      update wx_account
+      <set>
+          <if test="id != null and id!=''">
+              id = #{id,jdbcType=VARCHAR},
+          </if>
+          <if test="accountPic!=null and accountPic!=''">
+              account_pic = #{account_pic,jdbcType=VARCHAR},
+          </if>
+          <if test="name!= null and name!=''">
+              name = #{name,jdbcType=VARCHAR},
+          </if>
+          <if test="number!= null and number!=''">
+              number = #{number,jdbcType=VARCHAR},
+          </if>
+          <if test="appid!= null and appid!=''">
+              appid = #{appid,jdbcType=VARCHAR},
+          </if>
+          <if test="appsecret!= null and appsecret!=''">
+              appsecret = #{appsecret,jdbcType=VARCHAR},
+          </if>
+          <if test="token!= null and token!=''">
+              token = #{token,jdbcType=VARCHAR},
+          </if>
+          <if test="domain!= null and domain!=''">
+              domain = #{domain,jdbcType=VARCHAR},
+          </if>
+          <if test="accessToken!= null and accessToken!=''">
+              access_token = #{accessToken,jdbcType=VARCHAR},
+          </if>
+          <if test="tokenTime!= null and tokenTime!=''">
+              token_time = #{tokenTime,jdbcType=VARCHAR},
+          </if>
+          <if test="menuState!= null and menuState!=''">
+              menu_state = #{menuState,jdbcType=VARCHAR},
+          </if>
+          <if test="adduserid!= null and adduserid!=''">
+              adduserid = #{adduserid,jdbcType=VARCHAR},
+          </if>
+          <if test="addusername!= null and addusername!=''">
+              addusername = #{addusername,jdbcType=VARCHAR},
+          </if>
+          <if test="addtime!= null and addtime!=''">
+              addtime = #{addtime,jdbcType=DATETIME},
+          </if>
+          <if test="updateid!= null and updateid!=''">
+              updateid = #{updateid,jdbcType=VARCHAR},
+          </if>
+          <if test="updatename!= null and updatename!=''">
+              updatename = #{updatename,jdbcType=VARCHAR},
+          </if>
+          <if test="updatetime!= null and updatetime!=''">
+              updatetime = #{updatetime,jdbcType=TIMESTAMP},
+          </if>
+          <if test="remark!= null and remark!=''">
+              remark = #{remark,jdbcType=VARCHAR},
+          </if>
+          <if test="mainAccount!= null and mainAccount!=''">
+              main_account = #{mainAccount,jdbcType=VARCHAR},
+          </if>
+          <if test="wxPartner!= null and wxPartner!=''">
+              wx_partner = #{wxPartner,jdbcType=VARCHAR},
+          </if>
+          <if test="wxPartnerkey!= null and wxPartnerkey!=''">
+              wx_partnerkey = #{wxPartnerkey,jdbcType=VARCHAR},
+          </if>
+          <if test="wxFile!= null and wxFile!=''">
+              wx_file = #{wxFile,jdbcType=VARCHAR},
+          </if>
+      </set>
+    </update>
+
+    <delete id="deleteById" parameterType="java.lang.String">
+        delete from wx_account
+        where id = #{id,jdbcType=VARCHAR}
+    </delete>
+
+    <select id="selectById" parameterType="java.lang.String" resultMap="BaseResultMap">
+        select * from activity where id = #{id,jdbcType=VARCHAR}
+    </select>
+
+
+</mapper>
