@@ -24,7 +24,6 @@ var BaseModel = /** @class */ (function () {
                     statusCode: 200 //规定成功的状态码，默认：0
                 },
                 parseData: function (res) {
-                    console.log(res);
                     res.data = res.data ? (res.data || []) : [];
                     return {
                         "code": 200,

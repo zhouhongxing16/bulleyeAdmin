@@ -38,7 +38,6 @@ class BaseModel{
                         statusCode: 200 //规定成功的状态码，默认：0
                     },
                     parseData: function(res){ //将原始数据解析成 table 组件所规定的数据
-                        console.log(res);
                         res.data = res.data ? (res.data||[]) : []
                         return {
                             "code": 200, //解析接口状态
