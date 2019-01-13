@@ -49,7 +49,7 @@ INSERT INTO `wx_account` (`id`, `account_pic`, `name`, `number`, `appid`, `appse
 /*!40000 ALTER TABLE `wx_account` ENABLE KEYS */;
 
 
--- 导出  表 bulleye_admin.wx_menber 结构
+-- 导出  表 bulleye_admin.wx_member 结构
 CREATE TABLE IF NOT EXISTS `wx_member` (
   `id` varchar(40) NOT NULL COMMENT '微信用户id',
   `account_id` varchar(50) DEFAULT NULL COMMENT '所属公众号id',
@@ -69,9 +69,9 @@ CREATE TABLE IF NOT EXISTS `wx_member` (
   KEY `openid` (`openid`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='微信用户';
 
--- 正在导出表  bulleye_admin.wx_menber 的数据：~0 rows (大约)
-/*!40000 ALTER TABLE `wx_menber` DISABLE KEYS */;
-/*!40000 ALTER TABLE `wx_menber` ENABLE KEYS */;
+-- 正在导出表  bulleye_admin.wx_member 的数据：~0 rows (大约)
+/*!40000 ALTER TABLE `wx_member` DISABLE KEYS */;
+/*!40000 ALTER TABLE `wx_member` ENABLE KEYS */;
 
 
 -- 导出  表 bulleye_admin.wx_reply 结构
