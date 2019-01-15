@@ -109,7 +109,7 @@ class BaseModel{
                 const thatV = this;
                 layui.use('form', function(){
                         var form = layui.form;
-                        form.render('select');
+
                 });
                 if(obj!=null){
                     DM.get(that.url.getById+"/"+obj.id,null,function (msg) {

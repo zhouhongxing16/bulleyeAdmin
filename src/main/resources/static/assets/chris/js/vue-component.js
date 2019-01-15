@@ -55,7 +55,7 @@ Vue.component("form-input", {
     }
 });
 Vue.component("form-select", {
-    template: "\n            <div class=\"layui-form-item\">\n              <label v-bind:for=\"id\" class=\"layui-form-label\">\n                  <span class=\"x-red\">*</span>{{label}}\n              </label>\n              <div class=\"layui-input-inline\">\n                  <select   \n                    v-bind:id=\"id\"\n\t                v-bind:value=\"value\"   \n\t                v-bind:name=\"id\" class=\"valid\">\n                    <option v-for=\"(item,i) in data\" v-bind:id=\"item.id\">{{item.name}}</option>\n                  </select>\n              </div>\n            </div>\n",
+    template: "\n            <div class=\"layui-form-item\">\n              <label v-bind:for=\"id\" class=\"layui-form-label\">\n                  <span class=\"x-red\">*</span>{{label}}\n              </label>\n              <div class=\"layui-input-inline\">\n                  <select   \n                    v-bind:id=\"id\"\n\t                v-on:change=\"updateValue\"   \n\t                v-bind:name=\"id\" class=\"valid\">\n                    <option v-for=\"(item,i) in data\" v-bind:id=\"item.id\">{{item.name}}</option>\n                  </select>\n              </div>\n            </div>\n",
     props: {
         data: {
             type: Array,
@@ -90,6 +90,14 @@ Vue.component("form-select", {
         updateValue: function (value) {
             this.$emit('input', value);
         }
+    },
+    mounted: function () {
+        form.render('select');
+        form.on('select(filter)', function (data) {
+            console.log(data.elem); //得到select原始DOM对象
+            console.log(data.value); //得到被选中的值
+            console.log(data.othis); //得到美化后的DOM对象
+        });
     }
 });
 /*

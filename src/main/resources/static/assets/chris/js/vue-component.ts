@@ -103,7 +103,7 @@ Vue.component("form-select",{
               <div class="layui-input-inline">
                   <select   
                     v-bind:id="id"
-	                v-bind:value="value"   
+	                v-on:change="updateValue"   
 	                v-bind:name="id" class="valid">
                     <option v-for="(item,i) in data" v-bind:id="item.id">{{item.name}}</option>
                   </select>
@@ -143,7 +143,16 @@ Vue.component("form-select",{
     methods: {
         updateValue: function (value) {
             this.$emit('input', value);
+
         }
+    },
+    mounted:function () {
+        form.render('select');
+        form.on('select(filter)', function(data){
+            console.log(data.elem); //得到select原始DOM对象
+            console.log(data.value); //得到被选中的值
+            console.log(data.othis); //得到美化后的DOM对象
+        });
     }
 });
 /*

@@ -2,10 +2,11 @@ package com.chris.bulleyeadmin.wechat.pojo;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import javax.persistence.*;
+import java.io.Serializable;
 import java.util.Date;
 
 @Table(name = "wx_account")
-public class WxAccount {
+public class WxAccount implements Serializable {
 
     private static final long serialVersionUID = 1L;
     /**

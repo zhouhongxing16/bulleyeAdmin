@@ -6,6 +6,7 @@ import javax.persistence.Column;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import java.io.Serializable;
 import java.util.Date;
 
 /**
@@ -13,7 +14,7 @@ import java.util.Date;
  * @Date: 2019-01-07 17:17
  * @Description:
  */
-public class MenuFunction {
+public class MenuFunction implements Serializable {
 
 
     @Id

@@ -2,20 +2,20 @@
 <!--Created by Chris on Fri Jan 11 2019 17:59:42 GMT+0800 (中国标准时间)-->
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.chris.bulleyeadmin.wechat.mapper.WxReplyMapper">
-    <resultMap id="BaseResultMap" type="com.chris.bulleyeadmin.wechat.pojo.Reply">
+    <resultMap id="BaseResultMap" type="com.chris.bulleyeadmin.wechat.pojo.WxReply">
         <result column="id" jdbcType="VARCHAR" property="id" />
         <result column="account_id" jdbcType="VARCHAR" property="accountId" />
-        <result column="reply_keyword" jdbcType="VARCHAR" property="replyKeyword" />
-        <result column="reply_title" jdbcType="VARCHAR" property="replyTitle" />
-        <result column="reply_pic" jdbcType="VARCHAR" property="replyPic" />
-        <result column="reply_url" jdbcType="VARCHAR" property="replyUrl" />
-        <result column="reply_content" jdbcType="VARCHAR" property="replyContent" />
-        <result column="reply_type" jdbcType="VARCHAR" property="replyType" />
-        <result column="reply_num" jdbcType="BIGINT" property="replyNum" />
+        <result column="keyword" jdbcType="VARCHAR" property="keyword" />
+        <result column="title" jdbcType="VARCHAR" property="title" />
+        <result column="pic" jdbcType="VARCHAR" property="pic" />
+        <result column="url" jdbcType="VARCHAR" property="url" />
+        <result column="content" jdbcType="VARCHAR" property="content" />
+        <result column="type" jdbcType="VARCHAR" property="type" />
+        <result column="num" jdbcType="BIGINT" property="num" />
     </resultMap>
 
     <sql id="basic_list">
-		a.id, a.account_id, a.reply_keyword, a.reply_title, a.reply_pic, a.reply_url, a.reply_content, a.reply_type, a.reply_num
+		a.id, a.account_id, a.keyword, a.title, a.pic, a.url, a.content, a.type, a.num
 	</sql>
 
     <select id="listByPage" resultMap="BaseResultMap" parameterType="map">
@@ -29,26 +29,26 @@
             <if test="accountId!=null and accountId!='' ">
                 and a.account_id=#{ accountId }
             </if>
-            <if test="replyKeyword!=null and replyKeyword!='' ">
-                and a.reply_keyword LIKE CONCAT('%', #{ replyKeyword }, '%')
+            <if test="keyword!=null and keyword!='' ">
+                and a.keyword LIKE CONCAT('%', #{ keyword }, '%')
             </if>
-            <if test="replyTitle!=null and replyTitle!='' ">
-                and a.reply_title LIKE CONCAT('%', #{ replyTitle }, '%')
+            <if test="title!=null and title!='' ">
+                and a.title LIKE CONCAT('%', #{ title }, '%')
             </if>
-            <if test="replyPic!=null and replyPic!='' ">
-                and a.reply_pic LIKE CONCAT('%', #{ replyPic }, '%')
+            <if test="pic!=null and pic!='' ">
+                and a.pic LIKE CONCAT('%', #{ pic }, '%')
             </if>
-            <if test="replyUrl!=null and replyUrl!='' ">
-                and a.reply_url LIKE CONCAT('%', #{ replyUrl }, '%')
+            <if test="url!=null and url!='' ">
+                and a.url LIKE CONCAT('%', #{ url }, '%')
             </if>
-            <if test="replyContent!=null and replyContent!='' ">
-                and a.reply_content LIKE CONCAT('%', #{ replyContent }, '%')
+            <if test="content!=null and content!='' ">
+                and a.content LIKE CONCAT('%', #{ content }, '%')
             </if>
-            <if test="replyType!=null and replyType!='' ">
-                and a.reply_type LIKE CONCAT('%', #{ replyType }, '%')
+            <if test="type!=null and type!='' ">
+                and a.type LIKE CONCAT('%', #{ type }, '%')
             </if>
-            <if test="replyNum!=null and replyNum!='' ">
-                and a.reply_num LIKE CONCAT('%', #{ replyNum }, '%')
+            <if test="num!=null and num!='' ">
+                and a.num LIKE CONCAT('%', #{ num }, '%')
             </if>
         </where>
     </select>
