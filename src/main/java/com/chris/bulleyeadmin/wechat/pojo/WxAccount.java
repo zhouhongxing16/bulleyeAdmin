@@ -22,14 +22,14 @@ public class WxAccount implements Serializable {
     @Column(name = "name")
     private String name;
 
-    @Column(name = "number")
-    private String number;
+    @Column(name = "source_id")
+    private String sourceId;
 
-    @Column(name = "appid")
-    private String appid;
+    @Column(name = "app_id")
+    private String appId;
 
-    @Column(name = "appsecret")
-    private String appsecret;
+    @Column(name = "app_secret")
+    private String appSecret;
 
     @Column(name = "token")
     private String token;
@@ -46,38 +46,30 @@ public class WxAccount implements Serializable {
     @Column(name = "menu_state")
     private String menuState;
 
-    @Column(name = "adduserid")
-    private Long adduserid;
-
-    @Column(name = "addusername")
-    private String addusername;
+    @Column(name = "user_id")
+    private String userId;
 
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss",timezone = "GMT+8")
-    private Date addtime;
-
-    @Column(name = "updateid")
-    private Long updateid;
-
-    @Column(name = "updatename")
-    private String updatename;
+    private Date created;
 
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss",timezone = "GMT+8")
-    private Date updatetime;
+    private Date updateed;
 
     @Column(name = "remark")
     private String remark;
 
-    @Column(name = "main_account")
-    private String mainAccount;
+    @Column(name = "status")
+    private String status;
 
-    @Column(name = "wx_partner")
-    private String wxPartner;
+    @Column(name = "partner")
+    private String partner;
 
-    @Column(name = "wx_partnerkey")
-    private String wxPartnerkey;
+    @Column(name = "partner_key")
+    private String partnerKey;
 
-    @Column(name = "wx_file")
-    private String wxFile;
+    @Column(name = "certificate_path")
+    private String certificatePath;
+
 
     public String getId() {
         return id;
@@ -103,28 +95,28 @@ public class WxAccount implements Serializable {
         this.name = name;
     }
 
-    public String getNumber() {
-        return number;
+    public String getSourceId() {
+        return sourceId;
     }
 
-    public void setNumber(String number) {
-        this.number = number;
+    public void setSourceId(String sourceId) {
+        this.sourceId = sourceId;
     }
 
-    public String getAppid() {
-        return appid;
+    public String getAppId() {
+        return appId;
     }
 
-    public void setAppid(String appid) {
-        this.appid = appid;
+    public void setAppId(String appId) {
+        this.appId = appId;
     }
 
-    public String getAppsecret() {
-        return appsecret;
+    public String getAppSecret() {
+        return appSecret;
     }
 
-    public void setAppsecret(String appsecret) {
-        this.appsecret = appsecret;
+    public void setAppSecret(String appSecret) {
+        this.appSecret = appSecret;
     }
 
     public String getToken() {
@@ -167,52 +159,28 @@ public class WxAccount implements Serializable {
         this.menuState = menuState;
     }
 
-    public Long getAdduserid() {
-        return adduserid;
+    public String getUserId() {
+        return userId;
     }
 
-    public void setAdduserid(Long adduserid) {
-        this.adduserid = adduserid;
+    public void setUserId(String userId) {
+        this.userId = userId;
     }
 
-    public String getAddusername() {
-        return addusername;
+    public Date getCreated() {
+        return created;
     }
 
-    public void setAddusername(String addusername) {
-        this.addusername = addusername;
+    public void setCreated(Date created) {
+        this.created = created;
     }
 
-    public Date getAddtime() {
-        return addtime;
+    public Date getUpdateed() {
+        return updateed;
     }
 
-    public void setAddtime(Date addtime) {
-        this.addtime = addtime;
-    }
-
-    public Long getUpdateid() {
-        return updateid;
-    }
-
-    public void setUpdateid(Long updateid) {
-        this.updateid = updateid;
-    }
-
-    public String getUpdatename() {
-        return updatename;
-    }
-
-    public void setUpdatename(String updatename) {
-        this.updatename = updatename;
-    }
-
-    public Date getUpdatetime() {
-        return updatetime;
-    }
-
-    public void setUpdatetime(Date updatetime) {
-        this.updatetime = updatetime;
+    public void setUpdateed(Date updateed) {
+        this.updateed = updateed;
     }
 
     public String getRemark() {
@@ -223,11 +191,35 @@ public class WxAccount implements Serializable {
         this.remark = remark;
     }
 
-    public String getMainAccount() {
-        return mainAccount;
+    public String getPartner() {
+        return partner;
     }
 
-    public void setMainAccount(String mainAccount) {
-        this.mainAccount = mainAccount;
+    public void setPartner(String partner) {
+        this.partner = partner;
+    }
+
+    public String getPartnerKey() {
+        return partnerKey;
+    }
+
+    public void setPartnerKey(String partnerKey) {
+        this.partnerKey = partnerKey;
+    }
+
+    public String getCertificatePath() {
+        return certificatePath;
+    }
+
+    public void setCertificatePath(String certificatePath) {
+        this.certificatePath = certificatePath;
+    }
+
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
     }
 }

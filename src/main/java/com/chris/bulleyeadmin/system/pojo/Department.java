@@ -20,6 +20,9 @@ public class Department implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY, generator = "select uuid()")
     private String id;
 
+    @Column(name = "p_id")
+    private String pid;
+
     @Column(name = "organization_id")
     private String organizationId;
 
@@ -50,6 +53,14 @@ public class Department implements Serializable {
 
     public void setId(String id) {
         this.id = id;
+    }
+
+    public String getPid() {
+        return pid;
+    }
+
+    public void setPid(String pid) {
+        this.pid = pid;
     }
 
     public String getOrganizationId() {

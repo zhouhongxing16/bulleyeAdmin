@@ -22,17 +22,17 @@ public class WxMember implements Serializable {
     @Column(name = "account_id")
     private String accountId;
 
-    @Column(name = "account_name")
-    private String accountName;
-
     @Column(name = "subscribe")
     private String subscribe;
 
-    @Column(name = "openid")
-    private String openid;
+    @Column(name = "open_id")
+    private String openId;
 
     @Column(name = "nickname")
     private String nickname;
+
+    @Column(name = "qr_code")
+    private String qrCode;
 
     @Column(name = "sex")
     private String sex;
@@ -46,16 +46,138 @@ public class WxMember implements Serializable {
     @Column(name = "province")
     private String province;
 
-    @Column(name = "headimgurl")
-    private String headimgurl;
-
-    @Column(name = "createTime")
-    private String createTime;
+    @Column(name = "avatar")
+    private String avatar;
 
     @Column(name = "user_id")
     private String userId;
 
-    @Column(name = "code")
-    private String code;
+    @Column(name = "created")
+    private String created;
 
+    @Column(name = "group_id")
+    private String groupId;
+
+    @Column(name = "status")
+    private Integer status;
+
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
+    }
+
+    public String getAccountId() {
+        return accountId;
+    }
+
+    public void setAccountId(String accountId) {
+        this.accountId = accountId;
+    }
+
+    public String getSubscribe() {
+        return subscribe;
+    }
+
+    public void setSubscribe(String subscribe) {
+        this.subscribe = subscribe;
+    }
+
+    public String getOpenId() {
+        return openId;
+    }
+
+    public void setOpenId(String openId) {
+        this.openId = openId;
+    }
+
+    public String getNickname() {
+        return nickname;
+    }
+
+    public void setNickname(String nickname) {
+        this.nickname = nickname;
+    }
+
+    public String getQrCode() {
+        return qrCode;
+    }
+
+    public void setQrCode(String qrCode) {
+        this.qrCode = qrCode;
+    }
+
+    public String getSex() {
+        return sex;
+    }
+
+    public void setSex(String sex) {
+        this.sex = sex;
+    }
+
+    public String getCity() {
+        return city;
+    }
+
+    public void setCity(String city) {
+        this.city = city;
+    }
+
+    public String getCountry() {
+        return country;
+    }
+
+    public void setCountry(String country) {
+        this.country = country;
+    }
+
+    public String getProvince() {
+        return province;
+    }
+
+    public void setProvince(String province) {
+        this.province = province;
+    }
+
+    public String getAvatar() {
+        return avatar;
+    }
+
+    public void setAvatar(String avatar) {
+        this.avatar = avatar;
+    }
+
+    public String getUserId() {
+        return userId;
+    }
+
+    public void setUserId(String userId) {
+        this.userId = userId;
+    }
+
+    public String getCreated() {
+        return created;
+    }
+
+    public void setCreated(String created) {
+        this.created = created;
+    }
+
+    public String getGroupId() {
+        return groupId;
+    }
+
+    public void setGroupId(String groupId) {
+        this.groupId = groupId;
+    }
+
+    public Integer getStatus() {
+        return status;
+    }
+
+    public void setStatus(Integer status) {
+        this.status = status;
+    }
 }
