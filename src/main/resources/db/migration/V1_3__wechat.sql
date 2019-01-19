@@ -14,61 +14,59 @@
 CREATE DATABASE IF NOT EXISTS `bulleye_admin` /*!40100 DEFAULT CHARACTER SET utf8 */;
 USE `bulleye_admin`;
 
-
--- 导出  表 bulleye_admin.wx_account 结构
-CREATE TABLE IF NOT EXISTS `wx_account` (
-  `id` varchar(40) NOT NULL COMMENT '公众号id',
-  `account_pic` varchar(500) DEFAULT NULL COMMENT '公众号二维码',
-  `name` varchar(50) DEFAULT NULL COMMENT '名称',
-  `number` varchar(50) DEFAULT NULL COMMENT '微信号',
-  `appid` varchar(50) DEFAULT NULL COMMENT '微信appid',
-  `appsecret` varchar(50) DEFAULT NULL COMMENT '微信appsecret',
-  `token` varchar(50) DEFAULT NULL COMMENT '微信token',
-  `domain` varchar(500) DEFAULT NULL COMMENT '域名',
-  `access_token` varchar(50) DEFAULT NULL COMMENT 'access_token',
-  `token_time` datetime DEFAULT NULL COMMENT '上次获取access_token的时间',
-  `menu_state` varchar(50) DEFAULT NULL COMMENT 'menu_state',
-  `user_id` varchar(50) DEFAULT NULL COMMENT '添加人ID',
-  `created` datetime DEFAULT NULL COMMENT '添加时间',
-  `update_id` varchar(50) DEFAULT NULL COMMENT '修改人ID',
-  `updateed` timestamp NULL DEFAULT NULL COMMENT '修改时间',
-  `remark` varchar(500) DEFAULT NULL COMMENT '备注',
-  `main_account` varchar(50) DEFAULT NULL COMMENT '主公众号',
-  `wx_partner` varchar(255) DEFAULT NULL COMMENT '微信商户id',
-  `wx_partnerkey` varchar(255) DEFAULT NULL COMMENT '微信商户支付秘钥',
-  `wx_file` varchar(255) DEFAULT NULL COMMENT '证书文件',
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='微信公众号信息';
-
--- 导出  表 bulleye_admin.wx_member 结构
-CREATE TABLE IF NOT EXISTS `wx_member` (
-  `id` varchar(40) NOT NULL COMMENT '微信用户id',
-  `account_id` varchar(50) DEFAULT NULL COMMENT '所属公众号id',
-  `account_name` varchar(50) DEFAULT NULL COMMENT '所属公众号名称',
-  `subscribe` varchar(50) DEFAULT NULL COMMENT '关注状态 1.关注中 2.未关注',
-  `openid` varchar(50) NOT NULL COMMENT '用户openid',
-  `nickname` varchar(50) CHARACTER SET utf8mb4 DEFAULT NULL COMMENT '昵称',
-  `sex` varchar(50) DEFAULT NULL COMMENT '性别',
-  `city` varchar(50) DEFAULT NULL COMMENT '城市',
-  `country` varchar(50) DEFAULT NULL COMMENT '国家',
-  `province` varchar(50) DEFAULT NULL COMMENT '省份',
-  `headimgurl` varchar(500) DEFAULT NULL COMMENT '头像',
-  `created` datetime DEFAULT NULL COMMENT '创建时间',
-  `user_id` varchar(50) DEFAULT NULL COMMENT '关联用户账户id',
-  `qrcode` varchar(100) DEFAULT NULL COMMENT '永久二维码code',
-  PRIMARY KEY (`id`),
-  KEY `openid` (`openid`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='微信用户';
-
--- 正在导出表  bulleye_admin.wx_member 的数据：~0 rows (大约)
-/*!40000 ALTER TABLE `wx_member` DISABLE KEYS */;
-/*!40000 ALTER TABLE `wx_member` ENABLE KEYS */;
+CREATE TABLE `wx_account` (
+	`id` VARCHAR(40) NOT NULL COMMENT '公众号id',
+	`qr_code` VARCHAR(500) NULL DEFAULT NULL COMMENT '公众号二维码',
+	`name` VARCHAR(50) NULL DEFAULT NULL COMMENT '名称',
+	`sourceId` VARCHAR(50) NULL DEFAULT NULL COMMENT '微信号',
+	`app_id` VARCHAR(50) NULL DEFAULT NULL COMMENT '微信appid',
+	`app_secret` VARCHAR(50) NULL DEFAULT NULL COMMENT '微信appsecret',
+	`token` VARCHAR(50) NULL DEFAULT NULL COMMENT '微信token',
+	`domain` VARCHAR(500) NULL DEFAULT NULL COMMENT '域名',
+	`access_token` VARCHAR(50) NULL DEFAULT NULL COMMENT 'access_token',
+	`token_time` DATETIME NULL DEFAULT NULL COMMENT '上次获取access_token的时间',
+	`menu_state` VARCHAR(50) NULL DEFAULT NULL COMMENT 'menu_state',
+	`user_id` VARCHAR(50) NULL DEFAULT NULL COMMENT '添加人ID',
+	`created` DATETIME NULL DEFAULT NULL COMMENT '添加时间',
+	`updated` TIMESTAMP NULL DEFAULT NULL COMMENT '修改时间',
+	`remark` VARCHAR(500) NULL DEFAULT NULL COMMENT '备注',
+	`partner` VARCHAR(255) NULL DEFAULT NULL COMMENT '微信商户id',
+	`partner_key` VARCHAR(255) NULL DEFAULT NULL COMMENT '微信商户支付秘钥',
+	`certificate_path` VARCHAR(255) NULL DEFAULT NULL COMMENT '证书文件',
+	PRIMARY KEY (`id`)
+)
+COMMENT='微信公众号信息'
+COLLATE='utf8_general_ci'
+ENGINE=InnoDB
+;
 
 
--- 导出  表 bulleye_admin.wx_reply 结构
+CREATE TABLE `wx_member` (
+	`id` VARCHAR(40) NOT NULL COMMENT '微信用户id',
+	`account_id` VARCHAR(50) NULL DEFAULT NULL COMMENT '所属公众号id',
+	`subscribe` VARCHAR(50) NULL DEFAULT NULL COMMENT '关注状态 1.关注中 2.未关注',
+	`open_id` VARCHAR(50) NOT NULL COMMENT '用户openid',
+	`nickname` VARCHAR(50) NULL DEFAULT NULL COMMENT '昵称' COLLATE 'utf8mb4_general_ci',
+	`qr_code` VARCHAR(200) NULL DEFAULT NULL COMMENT '永久二维码code',
+	`sex` VARCHAR(50) NULL DEFAULT NULL COMMENT '性别',
+	`city` VARCHAR(50) NULL DEFAULT NULL COMMENT '城市',
+	`country` VARCHAR(50) NULL DEFAULT NULL COMMENT '国家',
+	`province` VARCHAR(50) NULL DEFAULT NULL COMMENT '省份',
+	`avatar` VARCHAR(500) NULL DEFAULT NULL COMMENT '头像',
+	`group_id` VARCHAR(40) NULL DEFAULT NULL COMMENT '分组',
+	`created` DATETIME NULL DEFAULT NULL COMMENT '创建时间',
+	`user_id` VARCHAR(50) NULL DEFAULT NULL COMMENT '关联用户账户id',
+	PRIMARY KEY (`id`),
+	INDEX `openid` (`open_id`)
+)
+COMMENT='微信用户'
+COLLATE='utf8_general_ci'
+ENGINE=InnoDB
+;
+
 CREATE TABLE `wx_reply` (
-	`id` BIGINT(20) NOT NULL AUTO_INCREMENT COMMENT 'ID',
-	`account_id` BIGINT(20) NULL DEFAULT NULL COMMENT '所属公众号ID',
+	`id` VARCHAR(50) NOT NULL COMMENT 'ID',
+	`account_id` VARCHAR(50) NULL DEFAULT NULL COMMENT '所属公众号ID',
 	`keyword` VARCHAR(100) NULL DEFAULT NULL COMMENT '关键字',
 	`title` VARCHAR(100) NULL DEFAULT NULL COMMENT '标题',
 	`pic` VARCHAR(150) NULL DEFAULT NULL COMMENT '图片',
@@ -76,8 +74,12 @@ CREATE TABLE `wx_reply` (
 	`content` VARCHAR(250) NULL DEFAULT NULL COMMENT '内容',
 	`type` VARCHAR(50) NULL DEFAULT NULL COMMENT '类型 1.图文 2.纯文字',
 	`num` BIGINT(20) NULL DEFAULT NULL COMMENT '回复次数',
+	`status` INT(11) NULL DEFAULT NULL,
 	PRIMARY KEY (`id`)
 )
 COMMENT='微信自动回复'
 COLLATE='utf8_general_ci'
-ENGINE=InnoDB;
+ENGINE=InnoDB
+;
+
+
