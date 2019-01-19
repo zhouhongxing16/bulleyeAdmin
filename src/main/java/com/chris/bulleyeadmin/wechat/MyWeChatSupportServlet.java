@@ -20,6 +20,9 @@ public class MyWeChatSupportServlet extends WeixinSupport{
 	
     private static final Logger log  = LoggerFactory.getLogger(MyWeChatSupportServlet.class);
 
+    /*
+    微信后台设置这个路径/external/weixin
+     */
 	@Override
 	protected String getToken() {
 		return "myToken";
