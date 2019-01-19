@@ -16,8 +16,8 @@ public class WxAccount implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY, generator = "select uuid()")
     private String id;
 
-    @Column(name = "account_pic")
-    private String accountPic;
+    @Column(name = "qr_code")
+    private String qrCode;
 
     @Column(name = "name")
     private String name;
@@ -49,11 +49,13 @@ public class WxAccount implements Serializable {
     @Column(name = "user_id")
     private String userId;
 
+    @Column(name = "created")
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss",timezone = "GMT+8")
     private Date created;
 
+    @Column(name = "updated")
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss",timezone = "GMT+8")
-    private Date updateed;
+    private Date updated;
 
     @Column(name = "remark")
     private String remark;
@@ -79,12 +81,12 @@ public class WxAccount implements Serializable {
         this.id = id;
     }
 
-    public String getAccountPic() {
-        return accountPic;
+    public String getQrCode() {
+        return qrCode;
     }
 
-    public void setAccountPic(String accountPic) {
-        this.accountPic = accountPic;
+    public void setQrCode(String qrCode) {
+        this.qrCode = qrCode;
     }
 
     public String getName() {
@@ -175,12 +177,12 @@ public class WxAccount implements Serializable {
         this.created = created;
     }
 
-    public Date getUpdateed() {
-        return updateed;
+    public Date getUpdated() {
+        return updated;
     }
 
-    public void setUpdateed(Date updateed) {
-        this.updateed = updateed;
+    public void setUpdated(Date updated) {
+        this.updated = updated;
     }
 
     public String getRemark() {
