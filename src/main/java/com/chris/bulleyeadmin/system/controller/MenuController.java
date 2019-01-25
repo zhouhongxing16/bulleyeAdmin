@@ -3,8 +3,10 @@ package com.chris.bulleyeadmin.system.controller;
 import com.chris.bulleyeadmin.common.controller.BaseController;
 import com.chris.bulleyeadmin.system.dto.MenuDto;
 import com.chris.bulleyeadmin.common.pojo.JsonResult;
+import com.chris.bulleyeadmin.system.pojo.Account;
 import com.chris.bulleyeadmin.system.pojo.Menu;
 import com.chris.bulleyeadmin.common.service.BaseService;
+import com.chris.bulleyeadmin.system.pojo.User;
 import com.chris.bulleyeadmin.system.service.MenuService;
 import com.chris.bulleyeadmin.common.utils.AuthUtil;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -46,7 +48,8 @@ public class MenuController extends BaseController<Menu> {
     @ResponseBody
     @RequestMapping("/getMenusByAccountId")
     public JsonResult getMenusByAccountId(){
-        List<MenuDto> menuList = menuService.getMenusByAccountId(AuthUtil.getCurrentUser().getId());
+        User user = AuthUtil.getCurrentUser();
+        List<MenuDto> menuList = menuService.getMenusByAccountId(user.getId());
         return new JsonResult(true,menuList);
     }
 
