@@ -13,7 +13,7 @@
     <result column="major_id" jdbcType="VARCHAR" property="majorId" />
     <result column="academic_id" jdbcType="VARCHAR" property="academicId" />
     <result column="degree_id" jdbcType="VARCHAR" property="degreeId" />
-    <result column="avator" jdbcType="VARCHAR" property="avator" />
+    <result column="avatar" jdbcType="VARCHAR" property="avatar" />
     <result column="organization_id" jdbcType="VARCHAR" property="organizationId" />
     <result column="section_id" jdbcType="VARCHAR" property="sectionId" />
     <result column="position_id" jdbcType="VARCHAR" property="positionId" />
