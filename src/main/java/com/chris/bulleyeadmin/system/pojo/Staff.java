@@ -35,7 +35,7 @@ public class Staff implements Serializable {
     /**
      * 头像
      */
-    private String avator;
+    private String avatar;
 
     @Column(name = "organization_id")
     private String organizationId;
@@ -217,22 +217,12 @@ public class Staff implements Serializable {
         this.degreeId = degreeId == null ? null : degreeId.trim();
     }
 
-    /**
-     * 获取头像
-     *
-     * @return avator - 头像
-     */
-    public String getAvator() {
-        return avator;
+    public String getAvatar() {
+        return avatar;
     }
 
-    /**
-     * 设置头像
-     *
-     * @param avator 头像
-     */
-    public void setAvator(String avator) {
-        this.avator = avator == null ? null : avator.trim();
+    public void setAvatar(String avatar) {
+        this.avatar = avatar;
     }
 
     /**
@@ -247,13 +237,6 @@ public class Staff implements Serializable {
     public void setOrganizationId(String organizationId) {
         this.organizationId = organizationId;
     }
-
-    /**
-     * 设置冗余字段，便于查询
-     *
-     * @param organizationId 冗余字段，便于查询
-     */
-
 
     public String getDepartmentId() {
         return departmentId;
