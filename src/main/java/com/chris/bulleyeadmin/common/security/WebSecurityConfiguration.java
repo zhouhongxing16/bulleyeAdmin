@@ -49,7 +49,13 @@ public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter {
                 .anyRequest().authenticated()
                 .and()
                 .addFilter(new JWTLoginFilter(authenticationManager()))
-                .addFilter(new JWTAuthenticationFilter(authenticationManager()));
+                .addFilter(new JWTAuthenticationFilter(authenticationManager()))
+                     .formLogin().loginProcessingUrl( "/formLogin" )
+                     .loginPage("/login").permitAll()
+                     .usernameParameter("username")
+                     .passwordParameter("password")
+                     .defaultSuccessUrl("/home") ;
+
                     //登录相关
                 /*.successHandler(new AuthenticationSuccessHandler() {
                     @Override
@@ -88,8 +94,8 @@ public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter {
                 .loginPage("/login").permitAll()
                 .usernameParameter("username")
                 .passwordParameter("password")
-                .defaultSuccessUrl("/home");
-        http.headers().frameOptions().sameOrigin();//允许页面中嵌套iframe*/
+                .defaultSuccessUrl("/home");*/
+        http.headers().frameOptions().sameOrigin();//允许页面中嵌套iframe
         http.logout().logoutUrl( "/logout" )
                 .invalidateHttpSession(true)
                 .deleteCookies( "JSESSIONID" )
