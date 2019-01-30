@@ -62,9 +62,9 @@ public class MyUserDetailsService implements UserDetailsService {
         if (account != null) {
             //add by onion：设置账号过期
             if(account.getExpiredDate() != null) {
-                if (DateUtils.getNowDate().getTime() > account.getExpiredDate().getTime()) {
+                /*if (DateUtils.getNowDate().getTime() > account.getExpiredDate().getTime()) {
                     throw new RuntimeException("非常抱歉,您的试用账号已到期,请联系我们!");
-                }
+                }*/
 
                 BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
                 if (!encoder.matches(pwd, account.getPassword())) {

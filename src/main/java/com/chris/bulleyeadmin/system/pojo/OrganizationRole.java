@@ -1,7 +1,6 @@
 package com.chris.bulleyeadmin.system.pojo;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
-import com.sun.xml.internal.ws.spi.db.DatabindingException;
 
 import javax.persistence.Column;
 import javax.persistence.GeneratedValue;

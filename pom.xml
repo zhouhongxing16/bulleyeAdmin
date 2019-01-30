@@ -12,6 +12,7 @@
     <artifactId>bulleyeadmin</artifactId>
     <version>0.0.1-SNAPSHOT</version>
     <packaging>jar</packaging>
+
     <name>bulleyeAdmin</name>
     <description>bulleyeAdmin a java demo</description>
 
@@ -149,6 +150,10 @@
             <plugin>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
+                <configuration>
+                    <layout>ZIP</layout>
+                    <finalName>${artifactId}</finalName>
+                </configuration>
             </plugin>
         </plugins>
 

@@ -17,41 +17,41 @@ public class DateUtils {
     private static final Logger LOGGER = LoggerFactory.getLogger(DateUtils.class);
     public static final AntPathMatcher antPathMatcher = new AntPathMatcher();
 
-    public static int GetdayofManth() {
+    public static int getDayOfMouth() {
         Calendar a = Calendar.getInstance(Locale.CHINA);
         int day = a.getActualMaximum(5);
         return day;
     }
 
-    public static String getNow(String format) {
+    public static String getCurrentTime(String format) {
         Date currentTime = new Date();
         SimpleDateFormat formatter = new SimpleDateFormat(format);
         String date = formatter.format(currentTime);
         return date;
     }
 
-    public static String getYearMonth() {
+    public static String getCurrentYearMonth() {
         Date currentTime = new Date();
         SimpleDateFormat formatter = new SimpleDateFormat("yyyyMM");
         String date = formatter.format(currentTime);
         return date;
     }
 
-    public static String getMonth() {
+    public static String getCurrentMonth() {
         Date currentTime = new Date();
         SimpleDateFormat formatter = new SimpleDateFormat("MM");
         String date = formatter.format(currentTime);
         return date;
     }
 
-    public static String getYear() {
+    public static String getCurrentYear() {
         Date currentTime = new Date();
         SimpleDateFormat formatter = new SimpleDateFormat("yyyy");
         String date = formatter.format(currentTime);
         return date;
     }
 
-    public static Date toStandarDate(String date) {
+    public static Date stringToDate(String date) {
         try {
             SimpleDateFormat standarDateFormat = new SimpleDateFormat("yyyy-MM-dd");
             return standarDateFormat.parse(date);
@@ -84,69 +84,17 @@ public class DateUtils {
         return null;
     }
 
-    public static String getNow() {
+    public static String getCurrentTime() {
         Date currentTime = new Date();
         SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
         String date = formatter.format(currentTime);
         return date;
     }
 
-    public static Date getNowDate() {
-        Date currentTime = new Date();
-        return currentTime;
-    }
-
-    public static String stringToDate(Date date) {
+    public static String dateToString(Date date) {
         SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
         String date1 = formatter.format(date);
         return date1;
-    }
-
-    public static List<String> findalldates(String startdate, String enddate) {
-        List<String> list = new ArrayList();
-        list.add(startdate);
-        Calendar calstart = Calendar.getInstance();
-        calstart.setTime(toStandarDate(startdate));
-        Calendar calend = Calendar.getInstance();
-        calend.setTime(toStandarDate(enddate));
-        while (toStandarDate(enddate).after(calstart.getTime())) {
-            calstart.add(5, 1);
-            list.add(stringToDate(calstart.getTime()));
-        }
-        return list;
-    }
-
-    public static List<String> dateEveyweek(String mString) {
-        Date mdate = toStandarDate(mString);
-        int b = mdate.getDay();
-
-        List<String> list = new ArrayList();
-        Long fTime = Long.valueOf(mdate.getTime() - b * 24 * 3600000);
-        for (int a = 1; a < 8; a++) {
-            Date fDate = new Date();
-            fDate.setTime(fTime.longValue() + a * 24 * 3600000);
-            list.add(stringToDate(fDate));
-        }
-        return list;
-    }
-
-    public static List<String> dateToWeek(String mString) {
-        Date mdate = toStandarDate(mString);
-        int b = mdate.getDay();
-
-        List<String> list = new ArrayList();
-        Long fTime = Long.valueOf(mdate.getTime() - b * 24 * 3600000);
-        for (int a = 1; a < 8; a++) {
-            Date fDate = new Date();
-            fDate.setTime(fTime.longValue() + a * 24 * 3600000);
-            if (a == 1) {
-                list.add(stringToDate(fDate));
-            }
-            if (a == 7) {
-                list.add(stringToDate(fDate));
-            }
-        }
-        return list;
     }
 
     public static Map<String, String> getStringParams(HttpServletRequest request) {
