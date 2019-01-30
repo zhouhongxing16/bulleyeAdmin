@@ -1,143 +1,127 @@
 package com.chris.bulleyeadmin.common.pojo;
 
+import com.alibaba.fastjson.JSON;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
+
 import java.io.Serializable;
 
 /**
  * 封装操作结果JSON数据
  *
  * @author zhao
- *
  */
 public class JsonResult {
 
-	private boolean success;
+    private boolean success;
 
-	private String message;
+    private String message;
 
-	private Integer error;
+    private Integer error;
 
-	private String url;
+    private String url;
 
-	private int errorCode;
+    private int errorCode;
 
-	private Serializable resultId;
+    private Object data;
 
-	private String forwardUrl;
+    public JsonResult() {
+    }
 
-	private Object data ;
+    public JsonResult failure(String msg) {
+        return new JsonResult(false, null, msg);
+    }
 
-	public JsonResult() {
-	}
-	public JsonResult failure(String msg){
-		return new JsonResult(false,null,msg);
-	}
-	public JsonResult(boolean success) {
-		this.success = success;
-	}
+    public JsonResult(boolean success) {
+        this.success = success;
+    }
 
-	public JsonResult(boolean success, Object data, String message) {
-		super();
-		this.success = success;
-		this.data = data;
-		this.message = message;
-	}
-	public JsonResult(Integer error, String message, String url){
-		super();
-		this.error = error;
-		this.message = message;
-		this.url = url;
-	}
+    public JsonResult(boolean success, Object data, String message) {
+        super();
+        this.success = success;
+        this.data = data;
+        this.message = message;
+    }
 
-	public JsonResult(boolean success, Object obj){
-		super();
-		this.success = success;
-		this.data = obj;
-	}
+    public JsonResult(Integer error, String message, String url) {
+        super();
+        this.error = error;
+        this.message = message;
+        this.url = url;
+    }
 
-	public boolean isSuccess() {
-		return success;
-	}
+    public JsonResult(boolean success, Object obj) {
+        super();
+        this.success = success;
+        this.data = obj;
+    }
 
-	public void setSuccess(boolean success) {
-		this.success = success;
-	}
+    public boolean isSuccess() {
+        return success;
+    }
 
-
-	public int getErrorCode() {
-		return errorCode;
-	}
-
-	public JsonResult setErrorCode(int errorCode) {
-		this.errorCode = errorCode;
-		return this;
-	}
-
-	public JsonResult errorCode(int errorCode) {
-		this.errorCode = errorCode;
-		return this;
-	}
-
-	public Serializable getResultId() {
-		return resultId;
-	}
-
-	public JsonResult setResultId(Serializable resultId) {
-		this.resultId = resultId;
-		return this;
-	}
-
-	public JsonResult resultId(Serializable resultId) {
-		this.resultId = resultId;
-		return this;
-	}
-
-	public String getForwardUrl() {
-		return forwardUrl;
-	}
-
-	public void setForwardUrl(String forwardUrl) {
-		this.forwardUrl = forwardUrl;
-	}
-
-	public JsonResult forwardUrl(String forwardUrl) {
-		this.forwardUrl = forwardUrl;
-		return this;
-	}
+    public void setSuccess(boolean success) {
+        this.success = success;
+    }
 
 
-	public static JsonResult getFailInstance(String msg) {
-		return new JsonResult(false, msg);
-	}
+    public int getErrorCode() {
+        return errorCode;
+    }
 
-	public String getMessage() {
-		return message;
-	}
+    public JsonResult setErrorCode(int errorCode) {
+        this.errorCode = errorCode;
+        return this;
+    }
 
-	public void setMessage(String message) {
-		this.message = message;
-	}
+    public JsonResult errorCode(int errorCode) {
+        this.errorCode = errorCode;
+        return this;
+    }
 
-	public Integer getError() {
-		return error;
-	}
+    public static JsonResult getFailInstance(String msg) {
+        return new JsonResult(false, msg);
+    }
 
-	public void setError(Integer error) {
-		this.error = error;
-	}
+    public String getMessage() {
+        return message;
+    }
 
-	public String getUrl() {
-		return url;
-	}
+    public void setMessage(String message) {
+        this.message = message;
+    }
 
-	public void setUrl(String url) {
-		this.url = url;
-	}
+    public Integer getError() {
+        return error;
+    }
 
-	public Object getData() {
-		return data;
-	}
+    public void setError(Integer error) {
+        this.error = error;
+    }
 
-	public void setData(Object data) {
-		this.data = data;
-	}
+    public String getUrl() {
+        return url;
+    }
+
+    public void setUrl(String url) {
+        this.url = url;
+    }
+
+    public Object getData() {
+        return data;
+    }
+
+    public void setData(Object data) {
+        this.data = data;
+    }
+
+    @Override
+    public String toString() {
+        try {
+            return new ObjectMapper().writeValueAsString(this);
+        } catch (JsonProcessingException e) {
+            e.printStackTrace();
+            return "{}";
+        }
+    }
 }

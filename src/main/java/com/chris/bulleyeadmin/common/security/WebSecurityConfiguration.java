@@ -1,24 +1,15 @@
 package com.chris.bulleyeadmin.common.security;
 
-import com.alibaba.fastjson.JSONObject;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
-import org.springframework.security.config.http.SessionCreationPolicy;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.core.userdetails.UserDetailsService;
-import org.springframework.security.web.authentication.AuthenticationFailureHandler;
-import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
-
-import javax.servlet.ServletException;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-import java.io.IOException;
-import java.io.PrintWriter;
+import org.springframework.web.cors.CorsConfiguration;
+import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
+import org.springframework.web.filter.CorsFilter;
 
 /**
  * @Author: Chris E-mail:961860916@qq.com
@@ -26,6 +17,7 @@ import java.io.PrintWriter;
  */
 @Configuration
 public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter {
+
 
 
     @Bean
@@ -41,7 +33,10 @@ public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter {
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
-             http.cors().and().csrf().disable().authorizeRequests()
+                http.headers().frameOptions().sameOrigin();//允许页面中嵌套iframe
+                http.csrf().disable()
+                // 开启跨域
+                .cors().and().authorizeRequests()
                 .antMatchers("/login").permitAll()
                 .antMatchers("/assets/**").permitAll()
                 .antMatchers("/favicon.ico").permitAll()
@@ -53,8 +48,7 @@ public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter {
                      .formLogin().loginProcessingUrl( "/formLogin" )
                      .loginPage("/login").permitAll()
                      .usernameParameter("username")
-                     .passwordParameter("password")
-                     .defaultSuccessUrl("/home") ;
+                     .passwordParameter("password") .defaultSuccessUrl("/home") ;;
 
                     //登录相关
                 /*.successHandler(new AuthenticationSuccessHandler() {
@@ -95,7 +89,7 @@ public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter {
                 .usernameParameter("username")
                 .passwordParameter("password")
                 .defaultSuccessUrl("/home");*/
-        http.headers().frameOptions().sameOrigin();//允许页面中嵌套iframe
+
         http.logout().logoutUrl( "/logout" )
                 .invalidateHttpSession(true)
                 .deleteCookies( "JSESSIONID" )
@@ -108,6 +102,20 @@ public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter {
         web.ignoring().antMatchers("/css/**");
     }
 
+    @Bean
+    public CorsFilter corsFilter() {
+        UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
+        source.registerCorsConfiguration("/**", buildConfig()); // 4 对接口配置跨域设置
+        return new CorsFilter(source);
+    }
+
+    private CorsConfiguration buildConfig() {
+        CorsConfiguration corsConfiguration = new CorsConfiguration();
+        corsConfiguration.addAllowedOrigin("*"); // 1 设置访问源地址
+        corsConfiguration.addAllowedHeader("*"); // 2 设置访问源请求头
+        corsConfiguration.addAllowedMethod("*"); // 3 设置访问源请求方法
+        return corsConfiguration;
+    }
 
 
 }

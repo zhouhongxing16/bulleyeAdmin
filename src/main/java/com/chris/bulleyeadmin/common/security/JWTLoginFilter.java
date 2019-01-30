@@ -1,5 +1,6 @@
 package com.chris.bulleyeadmin.common.security;
 
+import com.chris.bulleyeadmin.common.pojo.JsonResult;
 import com.chris.bulleyeadmin.system.pojo.User;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import io.jsonwebtoken.Jwts;
@@ -8,22 +9,26 @@ import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
+import org.springframework.security.web.authentication.AuthenticationFailureHandler;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
+import org.springframework.web.context.request.RequestContextHolder;
+import org.springframework.web.context.request.ServletRequestAttributes;
 
 import javax.servlet.FilterChain;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.Date;
 
 /**
- *
  * 验证用户名密码正确后，生成一个token，并将token返回给客户端
  * 该类继承自UsernamePasswordAuthenticationFilter，重写了其中的2个方法
  * attemptAuthentication ：接收并解析用户凭证。
  * successfulAuthentication ：用户成功登录后，这个方法会被调用，我们在这个方法里生成token。
+ *
  * @Auther: Chris
  * @Date: 2019-01-25 17:26
  * @Description:
@@ -67,5 +72,13 @@ public class JWTLoginFilter extends UsernamePasswordAuthenticationFilter {
                 .signWith(SignatureAlgorithm.HS512, "MyJwtSecret")
                 .compact();
         res.addHeader("Authorization", "Bearer " + token);
+        String data = new JsonResult(true,token,"登录成功！").toString();
+        req.setCharacterEncoding("UTF-8");
+        res.setCharacterEncoding("UTF-8");
+        PrintWriter writer = res.getWriter();
+        writer.write(data);
+        writer.flush();
+        writer.close();
     }
+
 }
