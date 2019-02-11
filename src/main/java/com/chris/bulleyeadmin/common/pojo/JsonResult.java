@@ -1,10 +1,7 @@
 package com.chris.bulleyeadmin.common.pojo;
 
-import com.alibaba.fastjson.JSON;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-
-import java.io.Serializable;
 
 /**
  * 封装操作结果JSON数据
