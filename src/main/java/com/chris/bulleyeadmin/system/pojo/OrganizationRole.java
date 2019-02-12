@@ -1,13 +1,10 @@
 package com.chris.bulleyeadmin.system.pojo;
 
-import com.fasterxml.jackson.annotation.JsonFormat;
-
 import javax.persistence.Column;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import java.io.Serializable;
-import java.util.Date;
 
 /**
  * @Auther: Chris
@@ -29,14 +26,12 @@ public class OrganizationRole implements Serializable {
     /**
      * 创建日期
      */
-    @JsonFormat(
-            pattern = "yyyy-MM-dd HH:mm:ss",
-            timezone = "GMT+8"
-    )
-    private Date created;
+    private Long created;
 
     @Column(name = "user_id")
     private String userId;
+
+    private Integer status;
 
     public String getId() {
         return id;
@@ -62,11 +57,11 @@ public class OrganizationRole implements Serializable {
         this.roleId = roleId;
     }
 
-    public Date getCreated() {
+    public Long getCreated() {
         return created;
     }
 
-    public void setCreated(Date created) {
+    public void setCreated(Long created) {
         this.created = created;
     }
 
@@ -76,5 +71,13 @@ public class OrganizationRole implements Serializable {
 
     public void setUserId(String userId) {
         this.userId = userId;
+    }
+
+    public Integer getStatus() {
+        return status;
+    }
+
+    public void setStatus(Integer status) {
+        this.status = status;
     }
 }

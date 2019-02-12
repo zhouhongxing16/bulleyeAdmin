@@ -2,7 +2,6 @@ package com.chris.bulleyeadmin.wechat.pojo;
 
 import javax.persistence.*;
 import java.io.Serializable;
-import java.util.Date;
 
 /**
  * @Auther: Chris
@@ -44,7 +43,7 @@ public class WxReply implements Serializable {
     private Integer status;
 
     @Column(name = "created")
-    private Date created;
+    private Long created;
 
     public String getId() {
         return id;
@@ -126,11 +125,11 @@ public class WxReply implements Serializable {
         this.status = status;
     }
 
-    public Date getCreated() {
+    public Long getCreated() {
         return created;
     }
 
-    public void setCreated(Date created) {
+    public void setCreated(Long created) {
         this.created = created;
     }
 }

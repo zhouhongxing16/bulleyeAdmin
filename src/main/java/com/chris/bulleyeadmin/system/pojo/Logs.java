@@ -4,7 +4,6 @@ import com.fasterxml.jackson.annotation.JsonFormat;
 
 import javax.persistence.*;
 import java.io.Serializable;
-import java.util.Date;
 
 @Table(name = "b_logs")
 public class Logs implements Serializable {
@@ -32,7 +31,7 @@ public class Logs implements Serializable {
             pattern = "yyyy-MM-dd HH:mm:ss",
             timezone = "GMT+8"
     )
-    private Date created;
+    private Long created;
 
     private Integer status;
 
@@ -128,19 +127,7 @@ public class Logs implements Serializable {
         this.staffId = staffId == null ? null : staffId.trim();
     }
 
-    /**
-     * @return created
-     */
-    public Date getCreated() {
-        return created;
-    }
 
-    /**
-     * @param created
-     */
-    public void setCreated(Date created) {
-        this.created = created;
-    }
 
     /**
      * @return status
@@ -168,5 +155,13 @@ public class Logs implements Serializable {
      */
     public void setContent(String content) {
         this.content = content == null ? null : content.trim();
+    }
+
+    public Long getCreated() {
+        return created;
+    }
+
+    public void setCreated(Long created) {
+        this.created = created;
     }
 }

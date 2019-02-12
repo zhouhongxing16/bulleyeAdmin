@@ -48,7 +48,7 @@ public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter {
                      .formLogin().loginProcessingUrl( "/formLogin" )
                      .loginPage("/login").permitAll()
                      .usernameParameter("username")
-                     .passwordParameter("password") .defaultSuccessUrl("/home") ;;
+                     .passwordParameter("password").defaultSuccessUrl("/home") ;
 
                     //登录相关
                 /*.successHandler(new AuthenticationSuccessHandler() {

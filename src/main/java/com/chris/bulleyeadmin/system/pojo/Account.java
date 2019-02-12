@@ -1,10 +1,7 @@
 package com.chris.bulleyeadmin.system.pojo;
 
-import com.fasterxml.jackson.annotation.JsonFormat;
-
 import javax.persistence.*;
 import java.io.Serializable;
-import java.util.Date;
 import java.util.List;
 
 @Table(name = "b_accounts")
@@ -97,19 +94,15 @@ public class Account implements Serializable {
     /**
      * 创建时间
      */
-    @JsonFormat(
-            pattern = "yyyy-MM-dd HH:mm:ss",
-            timezone = "GMT+8"
-    )
-    private Date created;
+    private Long created;
 
     /**
      * 修改时间
      */
-    private Date modified;
+    private Long modified;
 
     @Column(name = "expired_date")
-    private Date expiredDate;
+    private Long expiredDate;
 
 
     private List<Role> role;
@@ -352,51 +345,25 @@ public class Account implements Serializable {
      *
      * @return created - 创建时间
      */
-    public Date getCreated() {
-        return created;
-    }
-
-    /**
-     * 设置创建时间
-     *
-     * @param created 创建时间
-     */
-    public void setCreated(Date created) {
+    public void setCreated(Long created) {
         this.created = created;
     }
 
-    /**
-     * 获取修改时间
-     *
-     * @return modified - 修改时间
-     */
-    public Date getModified() {
+    public Long getModified() {
         return modified;
     }
 
-    /**
-     * 设置修改时间
-     *
-     * @param modified 修改时间
-     */
-    public void setModified(Date modified) {
+    public void setModified(Long modified) {
         this.modified = modified;
     }
 
-    /**
-     * @return expired_date
-     */
-    public Date getExpiredDate() {
+    public Long getExpiredDate() {
         return expiredDate;
     }
 
-    /**
-     * @param expiredDate
-     */
-    public void setExpiredDate(Date expiredDate) {
+    public void setExpiredDate(Long expiredDate) {
         this.expiredDate = expiredDate;
     }
-
 
 
     public List<Role> getRole() {
@@ -407,6 +374,7 @@ public class Account implements Serializable {
         this.role = role;
     }
 
-
-
+    public Long getCreated() {
+        return created;
+    }
 }

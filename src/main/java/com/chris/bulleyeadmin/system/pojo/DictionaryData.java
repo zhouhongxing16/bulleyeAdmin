@@ -1,13 +1,10 @@
 package com.chris.bulleyeadmin.system.pojo;
 
-import com.fasterxml.jackson.annotation.JsonFormat;
-
 import javax.persistence.Column;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import java.io.Serializable;
-import java.util.Date;
 
 /**
  * @Auther: Chris
@@ -37,8 +34,7 @@ public class DictionaryData implements Serializable {
     /**
      * 创建时间
      */
-    @JsonFormat( pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+8" )
-    private Date created;
+    private Long created;
 
     public String getId() {
         return id;
@@ -88,19 +84,19 @@ public class DictionaryData implements Serializable {
         this.status = status;
     }
 
-    public Date getCreated() {
-        return created;
-    }
-
-    public void setCreated(Date created) {
-        this.created = created;
-    }
-
     public String getUserId() {
         return userId;
     }
 
     public void setUserId(String userId) {
         this.userId = userId;
+    }
+
+    public Long getCreated() {
+        return created;
+    }
+
+    public void setCreated(Long created) {
+        this.created = created;
     }
 }

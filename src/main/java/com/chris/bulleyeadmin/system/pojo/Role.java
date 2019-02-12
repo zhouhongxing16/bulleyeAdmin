@@ -1,10 +1,7 @@
 package com.chris.bulleyeadmin.system.pojo;
 
-import com.fasterxml.jackson.annotation.JsonFormat;
-
 import javax.persistence.*;
 import java.io.Serializable;
-import java.util.Date;
 
 @Table(name = "b_roles")
 public class Role implements Serializable {
@@ -50,11 +47,7 @@ public class Role implements Serializable {
     /**
      * 创建日期
      */
-    @JsonFormat(
-            pattern = "yyyy-MM-dd HH:mm:ss",
-            timezone = "GMT+8"
-    )
-    private Date created;
+    private Long created;
 
     private static final long serialVersionUID = 1L;
 
@@ -174,21 +167,11 @@ public class Role implements Serializable {
         this.status = status;
     }
 
-    /**
-     * 获取创建日期
-     *
-     * @return created - 创建日期
-     */
-    public Date getCreated() {
+    public Long getCreated() {
         return created;
     }
 
-    /**
-     * 设置创建日期
-     *
-     * @param created 创建日期
-     */
-    public void setCreated(Date created) {
+    public void setCreated(Long created) {
         this.created = created;
     }
 }

@@ -1,10 +1,7 @@
 package com.chris.bulleyeadmin.system.pojo;
 
-import com.fasterxml.jackson.annotation.JsonFormat;
-
 import javax.persistence.*;
 import java.io.Serializable;
-import java.util.Date;
 
 @Table(name = "b_menus")
 public class Menu implements Serializable {
@@ -54,11 +51,7 @@ public class Menu implements Serializable {
     /**
      * 创建时间
      */
-    @JsonFormat(
-            pattern = "yyyy-MM-dd HH:mm:ss",
-            timezone = "GMT+8"
-    )
-    private Date created;
+    private Long created;
 
     private static final long serialVersionUID = 1L;
 
@@ -206,21 +199,11 @@ public class Menu implements Serializable {
         this.sort = sort;
     }
 
-    /**
-     * 获取创建时间
-     *
-     * @return created - 创建时间
-     */
-    public Date getCreated() {
+    public Long getCreated() {
         return created;
     }
 
-    /**
-     * 设置创建时间
-     *
-     * @param created 创建时间
-     */
-    public void setCreated(Date created) {
+    public void setCreated(Long created) {
         this.created = created;
     }
 }

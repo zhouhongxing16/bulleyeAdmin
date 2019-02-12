@@ -1,10 +1,7 @@
 package com.chris.bulleyeadmin.system.pojo;
 
-import com.fasterxml.jackson.annotation.JsonFormat;
-
 import javax.persistence.*;
 import java.io.Serializable;
-import java.util.Date;
 
 @Table(name = "b_organizations")
 public class Organization implements Serializable {
@@ -59,16 +56,12 @@ public class Organization implements Serializable {
      * 试用结束日期
      */
     @Column(name = "end_date")
-    private Date endDate;
+    private Long endDate;
 
     /**
      * 创建日期
      */
-    @JsonFormat(
-            pattern = "yyyy-MM-dd HH:mm:ss",
-            timezone = "GMT+8"
-    )
-    private Date created;
+    private Long created;
 
     /**
      * 域名
@@ -236,42 +229,6 @@ public class Organization implements Serializable {
     }
 
     /**
-     * 获取试用结束日期
-     *
-     * @return end_date - 试用结束日期
-     */
-    public Date getEndDate() {
-        return endDate;
-    }
-
-    /**
-     * 设置试用结束日期
-     *
-     * @param endDate 试用结束日期
-     */
-    public void setEndDate(Date endDate) {
-        this.endDate = endDate;
-    }
-
-    /**
-     * 获取创建日期
-     *
-     * @return created - 创建日期
-     */
-    public Date getCreated() {
-        return created;
-    }
-
-    /**
-     * 设置创建日期
-     *
-     * @param created 创建日期
-     */
-    public void setCreated(Date created) {
-        this.created = created;
-    }
-
-    /**
      * 获取域名
      *
      * @return domain - 域名
@@ -287,5 +244,21 @@ public class Organization implements Serializable {
      */
     public void setDomain(String domain) {
         this.domain = domain == null ? null : domain.trim();
+    }
+
+    public Long getEndDate() {
+        return endDate;
+    }
+
+    public void setEndDate(Long endDate) {
+        this.endDate = endDate;
+    }
+
+    public Long getCreated() {
+        return created;
+    }
+
+    public void setCreated(Long created) {
+        this.created = created;
     }
 }

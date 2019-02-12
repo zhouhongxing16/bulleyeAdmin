@@ -5,13 +5,14 @@ import java.io.Serializable;
 
 /**
  * @Auther: Chris
- * @Date: 2019-01-07 17:17
+ * @Date: 2019-02-11 17:44
  * @Description:
  */
-@Table(name = "b_menu_function")
-public class MenuFunction implements Serializable {
-
-
+@Table(name = "b_organization_menu")
+public class OrganizationMenu implements Serializable {
+    /**
+     * 唯一标识
+     */
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY, generator = "select uuid()")
     private String id;
@@ -19,16 +20,17 @@ public class MenuFunction implements Serializable {
     @Column(name = "menu_id")
     private String menuId;
 
-    @Column(name = "function_id")
-    private String functionId;
+    @Column(name = "p_id")
+    private String pId;
 
-    /**
-     * 创建时间
-     */
+    @Column(name = "display_name")
+    private String displayName;
+
+    @Column(name = "status")
+    private Integer status;
+
     private Long created;
 
-    @Column(name = "user_id")
-    private String userId;
 
     public String getId() {
         return id;
@@ -46,20 +48,28 @@ public class MenuFunction implements Serializable {
         this.menuId = menuId;
     }
 
-    public String getFunctionId() {
-        return functionId;
+    public String getpId() {
+        return pId;
     }
 
-    public void setFunctionId(String functionId) {
-        this.functionId = functionId;
+    public void setpId(String pId) {
+        this.pId = pId;
     }
 
-    public String getUserId() {
-        return userId;
+    public String getDisplayName() {
+        return displayName;
     }
 
-    public void setUserId(String userId) {
-        this.userId = userId;
+    public void setDisplayName(String displayName) {
+        this.displayName = displayName;
+    }
+
+    public Integer getStatus() {
+        return status;
+    }
+
+    public void setStatus(Integer status) {
+        this.status = status;
     }
 
     public Long getCreated() {

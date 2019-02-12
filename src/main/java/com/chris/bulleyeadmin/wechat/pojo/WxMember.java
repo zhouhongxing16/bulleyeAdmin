@@ -53,7 +53,7 @@ public class WxMember implements Serializable {
     private String userId;
 
     @Column(name = "created")
-    private String created;
+    private Long created;
 
     @Column(name = "group_id")
     private String groupId;
@@ -157,14 +157,6 @@ public class WxMember implements Serializable {
         this.userId = userId;
     }
 
-    public String getCreated() {
-        return created;
-    }
-
-    public void setCreated(String created) {
-        this.created = created;
-    }
-
     public String getGroupId() {
         return groupId;
     }
@@ -179,5 +171,13 @@ public class WxMember implements Serializable {
 
     public void setStatus(Integer status) {
         this.status = status;
+    }
+
+    public Long getCreated() {
+        return created;
+    }
+
+    public void setCreated(Long created) {
+        this.created = created;
     }
 }

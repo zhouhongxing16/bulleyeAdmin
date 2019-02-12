@@ -1,11 +1,8 @@
 package com.chris.bulleyeadmin.system.pojo;
 
-import com.fasterxml.jackson.annotation.JsonFormat;
-
 import javax.persistence.*;
 import java.io.Serializable;
 import java.math.BigDecimal;
-import java.util.Date;
 
 @Table(name = "b_staff")
 public class Staff implements Serializable {
@@ -66,8 +63,7 @@ public class Staff implements Serializable {
 
     private Integer status;
 
-    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+8" )
-    private Date created;
+    private Long created;
 
     @Column(name = "birth_province_id")
     private String birthProvinceId;
@@ -372,17 +368,11 @@ public class Staff implements Serializable {
         this.status = status;
     }
 
-    /**
-     * @return created
-     */
-    public Date getCreated() {
+    public Long getCreated() {
         return created;
     }
 
-    /**
-     * @param created
-     */
-    public void setCreated(Date created) {
+    public void setCreated(Long created) {
         this.created = created;
     }
 
