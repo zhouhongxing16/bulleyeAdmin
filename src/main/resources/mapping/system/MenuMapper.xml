@@ -13,7 +13,7 @@
     <result column="path" jdbcType="VARCHAR" property="path" />
     <result column="status" jdbcType="INTEGER" property="status" />
     <result column="sort" jdbcType="INTEGER" property="sort" />
-    <result column="created" jdbcType="TIMESTAMP" property="created" />
+    <result column="created" jdbcType="BIGINT" property="created" />
   </resultMap>
 	<resultMap id="dto" type="com.chris.bulleyeadmin.system.dto.MenuDto" extends="BaseResultMap">
 

@@ -13,8 +13,8 @@
 	  <result column="contact_name" jdbcType="VARCHAR" property="contactName" />
 	  <result column="contact_phone" jdbcType="VARCHAR" property="contactPhone" />
 	  <result column="status" jdbcType="INTEGER" property="status" />
-	  <result column="created" jdbcType="TIMESTAMP" property="created" />
 	  <result column="domain" jdbcType="VARCHAR" property="domain" />
+	  <result column="created" jdbcType="BIGINT" property="created" />
   </resultMap>
 	<resultMap id="dto" type="com.chris.bulleyeadmin.system.dto.OrganizationDto" extends="BaseResultMap">
 

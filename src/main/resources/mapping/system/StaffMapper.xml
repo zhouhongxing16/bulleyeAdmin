@@ -24,8 +24,6 @@
     <result column="identify_no" jdbcType="VARCHAR" property="identifyNo" />
     <result column="email" jdbcType="VARCHAR" property="email" />
     <result column="remark" jdbcType="VARCHAR" property="remark" />
-    <result column="status" jdbcType="INTEGER" property="status" />
-    <result column="created" jdbcType="TIMESTAMP" property="created" />
     <result column="birth_province_id" jdbcType="VARCHAR" property="birthProvinceId" />
     <result column="birth_city_id" jdbcType="VARCHAR" property="birthCityId" />
     <result column="policy" jdbcType="VARCHAR" property="policy" />
@@ -36,6 +34,8 @@
     <result column="nation_id" jdbcType="VARCHAR" property="nationId" />
     <result column="vmnet_no" jdbcType="VARCHAR" property="vmnetNo" />
     <result column="join_date" jdbcType="VARCHAR" property="joinDate" />
+    <result column="status" jdbcType="INTEGER" property="status" />
+    <result column="created" jdbcType="BIGINT" property="created" />
   </resultMap>
 
   <sql id="basic_sql">

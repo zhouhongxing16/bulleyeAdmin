@@ -8,7 +8,7 @@
 	  <id column="id" jdbcType="VARCHAR" property="id" />
 	  <result column="menu_id" jdbcType="VARCHAR" property="menuId" />
 	  <result column="function_id" jdbcType="VARCHAR" property="functionId" />
-	  <result column="created" jdbcType="TIMESTAMP" property="created" />
+	  <result column="created" jdbcType="BIGINT" property="created" />
   </resultMap>
 	<resultMap id="dto" type="com.chris.bulleyeadmin.system.dto.MenuFunctionDto" extends="BaseResultMap">
 

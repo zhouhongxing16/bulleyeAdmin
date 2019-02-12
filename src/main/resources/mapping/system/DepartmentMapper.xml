@@ -13,7 +13,7 @@
 	  <result column="type_id" jdbcType="VARCHAR" property="typeId" />
 	  <result column="remark" jdbcType="VARCHAR" property="remark" />
 	  <result column="status" jdbcType="INTEGER" property="status" />
-	  <result column="created" jdbcType="TIMESTAMP" property="created" />
+	  <result column="created" jdbcType="BIGINT" property="created" />
   </resultMap>
 	<resultMap id="dto" type="com.chris.bulleyeadmin.system.dto.OrganizationDto" extends="BaseResultMap">
 

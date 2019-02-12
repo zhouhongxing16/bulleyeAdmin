@@ -8,6 +8,6 @@
     <id column="id" jdbcType="VARCHAR" property="id" />
     <result column="role_id" jdbcType="VARCHAR" property="roleId" />
     <result column="account_id" jdbcType="VARCHAR" property="accountId" />
-    <result column="created" jdbcType="TIMESTAMP" property="created" />
+    <result column="created" jdbcType="BIGINT" property="created" />
   </resultMap>
 </mapper>
