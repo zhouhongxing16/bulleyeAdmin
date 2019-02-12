@@ -16,7 +16,6 @@ public class Help {
     private static final Logger LOGGER = LoggerFactory.getLogger(DateUtils.class);
     public static final AntPathMatcher antPathMatcher = new AntPathMatcher();
 
-
     public static String getBody(HttpServletRequest request) throws IOException {
 
         String body = null;
