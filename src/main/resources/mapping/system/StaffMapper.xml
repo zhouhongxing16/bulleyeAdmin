@@ -46,6 +46,5 @@
     select
     <include refid="basic_sql" />
     from b_staff a
-
   </select>
 </mapper>

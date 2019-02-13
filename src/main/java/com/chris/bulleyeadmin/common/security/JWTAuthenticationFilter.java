@@ -62,7 +62,7 @@ public class JWTAuthenticationFilter extends BasicAuthenticationFilter {
                 request.setCharacterEncoding("UTF-8");
                 response.setCharacterEncoding("UTF-8");
                 PrintWriter writer = response.getWriter();
-                String msg = new JsonResult(false, null, "用户名或密码错误！").toString();
+                String msg = new JsonResult(false, null, "授权认证失败，请重新登录！").toString();
                 writer.write(msg);
                 writer.flush();
                 writer.close();

@@ -13,7 +13,6 @@
     <result column="account_expired" jdbcType="BIT" property="accountExpired" />
     <result column="staff_id" jdbcType="VARCHAR" property="staffId" />
     <result column="organization_id" jdbcType="VARCHAR" property="organizationId" />
-    <result column="organ_id" jdbcType="VARCHAR" property="organId" />
     <result column="wx_openid" jdbcType="VARCHAR" property="wxOpenid" />
     <result column="alipay_openid" jdbcType="VARCHAR" property="alipayOpenid" />
     <result column="email" jdbcType="VARCHAR" property="email" />
@@ -25,7 +24,13 @@
     <result column="expired_date" jdbcType="BIGINT" property="expiredDate" />
   </resultMap>
 
-  <select id="getAccountByUserName" resultMap="BaseResultMap" parameterType="String">
-    select * from b_accounts a where a.username = #{userName}
+  <resultMap id="dto" type="com.chris.bulleyeadmin.system.dto.AccountDto" extends="BaseResultMap">
+    <association property="staff" column="staff_id" select="com.chris.bulleyeadmin.system.mapper.StaffMapper.selectByPrimaryKey"></association>
+  </resultMap>
+
+  <select id="getAccountByUserName" resultMap="dto" parameterType="String">
+    select * from b_accounts a
+    left join b_staff staff on staff.id = a.staff_id
+    where a.username = #{0}
   </select>
 </mapper>

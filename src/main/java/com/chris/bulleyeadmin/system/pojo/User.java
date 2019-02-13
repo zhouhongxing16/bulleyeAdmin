@@ -14,12 +14,13 @@ import java.util.List;
 public class User extends org.springframework.security.core.userdetails.User {
     private static final long serialVersionUID = 1L;
 
-    public User(String id, String username, String password, String organizationId, String staffId, String departmentId, Collection<? extends GrantedAuthority> authorities) {
+    public User(String id, Staff staff,String username, String password, String organizationId, String staffId, String departmentId, Collection<? extends GrantedAuthority> authorities) {
         super(username, password, authorities);
         this.id = id;
         this.organizationId = organizationId;
         this.staffId = staffId;
         this.departmentId = departmentId;
+        this.staff = staff;
     }
 
     public User(){
@@ -36,6 +37,8 @@ public class User extends org.springframework.security.core.userdetails.User {
     private String departmentId;
 
     private List<Role> role;
+
+    private Staff staff;
 
     private String staffName;
 
@@ -81,19 +84,19 @@ public class User extends org.springframework.security.core.userdetails.User {
         this.role = role;
     }
 
-    public String getStaffName() {
-        return staffName;
-    }
-
-    public void setStaffName(String staffName) {
-        this.staffName = staffName;
-    }
-
     public String getRoleName() {
         return roleName;
     }
 
     public void setRoleName(String roleName) {
         this.roleName = roleName;
+    }
+
+    public Staff getStaff() {
+        return staff;
+    }
+
+    public void setStaff(Staff staff) {
+        this.staff = staff;
     }
 }

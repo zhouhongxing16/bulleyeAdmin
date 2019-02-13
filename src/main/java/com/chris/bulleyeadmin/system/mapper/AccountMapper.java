@@ -12,5 +12,5 @@ public interface AccountMapper extends BaseMapper<Account> {
 
      AccountDto getAccountByNameAndOrgId(Map<String,Object> map);
 
-     Account getAccountByUserName(@Param("userName") String userName);
+     AccountDto getAccountByUserName(String userName);
 }

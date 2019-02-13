@@ -1,6 +1,7 @@
 package com.chris.bulleyeadmin.common.security;
 
 import com.chris.bulleyeadmin.common.excepition.RPCFailedException;
+import com.chris.bulleyeadmin.system.dto.AccountDto;
 import com.chris.bulleyeadmin.system.pojo.Account;
 import com.chris.bulleyeadmin.system.pojo.Role;
 import com.chris.bulleyeadmin.system.pojo.Staff;
@@ -51,23 +52,23 @@ public class MyUserDetailsService implements UserDetailsService {
     }
 
     public UserDetails loadUser(String username, String pwd, String orgId){
-        Account account;
+        AccountDto accountDto;
         try {
-            account = accountService.getAccountByUserName( username);
+            accountDto = accountService.getAccountByUserName( username);
         } catch (Exception e) {
             e.printStackTrace();
             logger.error(e.getMessage());
             throw new RPCFailedException(e.getMessage());
         }
-        if (account != null) {
+        if (accountDto != null) {
             //add by onion：设置账号过期
-            if(account.getExpiredDate() != null) {
+            if(accountDto.getExpiredDate() != null) {
                 /*if (DateUtils.getNowDate().getTime() > account.getExpiredDate().getTime()) {
                     throw new RuntimeException("非常抱歉,您的试用账号已到期,请联系我们!");
                 }*/
 
                 BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
-                if (!encoder.matches(pwd, account.getPassword())) {
+                if (!encoder.matches(pwd, accountDto.getPassword())) {
                     logger.info("用户密码不正确...");
                     return null;
                 }
@@ -76,17 +77,15 @@ public class MyUserDetailsService implements UserDetailsService {
             List<GrantedAuthority> grantedAuthorities = new ArrayList<>();
 
             String departmentId = "";
-            String staffId = account.getStaffId();
-            String staffName = account.getUsername();
-            orgId = account.getOrganizationId();
+            String staffId = accountDto.getStaffId();
+            orgId = accountDto.getOrganizationId();
             if (StringUtils.isNotEmpty( staffId )) {
                 Staff staff = staffService.getById( staffId );
                 departmentId = staff.getDepartmentId();
-                staffName = (staff.getName());
             }
 
             //找到登录用户角色放到grantedAuthority中
-            List<Role> roles = roleService.getRolesByAccountId( account.getId() );
+            List<Role> roles = roleService.getRolesByAccountId( accountDto.getId() );
             String rolestr = "";
             for (Role role : roles) {
                 if (role != null && role.getCode()!=null) {
@@ -98,10 +97,10 @@ public class MyUserDetailsService implements UserDetailsService {
             }
             System.out.println("当前用户角色:"+rolestr);
 
-            User act = new User( account.getId(), account.getUsername(), account.getPassword(), orgId, staffId, departmentId, grantedAuthorities );
-            if (StringUtils.isNotEmpty( account.getOrganizationId() )) {
+            User user = new User( accountDto.getId(),accountDto.getStaff(), accountDto.getUsername(), accountDto.getPassword(), orgId, staffId, departmentId, grantedAuthorities );
+            if (StringUtils.isNotEmpty( accountDto.getOrganizationId() )) {
                 //管理机构
-                act.setOrganizationId( account.getOrganizationId() );
+                user.setOrganizationId( accountDto.getOrganizationId() );
             }
 
             System.out.println(grantedAuthorities);
@@ -117,11 +116,9 @@ public class MyUserDetailsService implements UserDetailsService {
                 onlineName += roles.get( 0 ).getName();
                 onlineName += ")";
             }
-
-            act.setRole( roles );
-            act.setStaffName( staffName );
-            act.setRoleName( onlineName );
-            return act;
+            user.setRole( roles );
+            user.setRoleName( onlineName );
+            return user;
         } else {
             logger.info( "用户" + username + " 不存在" );
             throw new UsernameNotFoundException( "用户名或密码不正确" );

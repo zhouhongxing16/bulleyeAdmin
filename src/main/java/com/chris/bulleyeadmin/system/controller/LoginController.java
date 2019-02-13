@@ -1,5 +1,6 @@
 package com.chris.bulleyeadmin.system.controller;
 
+import com.chris.bulleyeadmin.common.utils.Help;
 import com.chris.bulleyeadmin.system.pojo.Account;
 import com.chris.bulleyeadmin.system.pojo.User;
 import com.chris.bulleyeadmin.system.service.AccountService;
@@ -65,6 +66,7 @@ public class LoginController {
         Account account = new Account();
         account.setEmail("961860916@qq.com");
         account.setPassword(PasswordEncoderFactories.createDelegatingPasswordEncoder().encode("1"));
+        account.setCreated(System.currentTimeMillis());
         accountService.add(account);
         User user = AuthUtil.getCurrentUser();
 

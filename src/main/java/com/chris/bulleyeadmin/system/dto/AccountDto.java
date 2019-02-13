@@ -11,7 +11,6 @@ import com.chris.bulleyeadmin.system.pojo.Staff;
 public class AccountDto extends Account {
     private static final long serialVersionUID = -8784038827964503299L;
     private Staff staff;
-    private String StaffName;
     private Organization organization;
     private String organizationName;
 
@@ -24,14 +23,6 @@ public class AccountDto extends Account {
 
     public void setStaff(Staff staff) {
         this.staff = staff;
-    }
-
-    public String getStaffName() {
-        return StaffName;
-    }
-
-    public void setStaffName(String staffName) {
-        StaffName = staffName;
     }
 
     public Organization getOrganization() {

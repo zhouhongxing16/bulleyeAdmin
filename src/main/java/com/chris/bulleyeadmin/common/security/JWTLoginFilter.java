@@ -1,27 +1,28 @@
 package com.chris.bulleyeadmin.common.security;
 
 import com.chris.bulleyeadmin.common.pojo.JsonResult;
+import com.chris.bulleyeadmin.common.utils.AuthUtil;
 import com.chris.bulleyeadmin.system.pojo.User;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
 import org.springframework.security.authentication.AuthenticationManager;
-import org.springframework.security.authentication.InternalAuthenticationServiceException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
+import org.springframework.security.web.authentication.AuthenticationFailureHandler;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
 import javax.servlet.FilterChain;
 import javax.servlet.ServletException;
-import javax.servlet.ServletRequest;
-import javax.servlet.ServletResponse;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * 验证用户名密码正确后，生成一个token，并将token返回给客户端
@@ -42,11 +43,9 @@ public class JWTLoginFilter extends UsernamePasswordAuthenticationFilter {
 
     // 接收并解析用户凭证
     @Override
-    public Authentication attemptAuthentication(HttpServletRequest req,
-                                                HttpServletResponse res) throws AuthenticationException {
+    public Authentication attemptAuthentication(HttpServletRequest req,HttpServletResponse res) throws AuthenticationException {
         try {
-            User user = new ObjectMapper()
-                    .readValue(req.getInputStream(), User.class);
+            User user = new ObjectMapper().readValue(req.getInputStream(), User.class);
 
             return authenticationManager.authenticate(
                     new UsernamePasswordAuthenticationToken(user.getUsername(), user.getPassword(), new ArrayList<>())
@@ -66,7 +65,11 @@ public class JWTLoginFilter extends UsernamePasswordAuthenticationFilter {
                 .signWith(SignatureAlgorithm.HS512, "MyJwtSecret")
                 .compact();
         res.addHeader("Authorization", "Bearer " + token);
-        String data = new JsonResult(true, token, "登录成功！").toString();
+        Map<String,Object> map = new HashMap<>();
+        map.put("token",token);
+        Object object = auth.getPrincipal();
+        map.put("userInfo", object);
+        String data = new JsonResult(true, map, "登录成功！").toString();
         req.setCharacterEncoding("UTF-8");
         res.setCharacterEncoding("UTF-8");
         PrintWriter writer = res.getWriter();
@@ -75,4 +78,15 @@ public class JWTLoginFilter extends UsernamePasswordAuthenticationFilter {
         writer.close();
     }
 
+    @Override
+    protected void unsuccessfulAuthentication(HttpServletRequest request, HttpServletResponse response, AuthenticationException failed) throws IOException, ServletException {
+        Map<String,Object> map = new HashMap<>();
+        String data = new JsonResult(false, map, "登录失败！用户名或密码错误！").toString();
+        response.setCharacterEncoding("UTF-8");
+        response.setCharacterEncoding("UTF-8");
+        PrintWriter writer = response.getWriter();
+        writer.write(data);
+        writer.flush();
+        writer.close();
+    }
 }

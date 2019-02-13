@@ -2,6 +2,7 @@ package com.chris.bulleyeadmin.system.service;
 
 import com.chris.bulleyeadmin.common.mapper.BaseMapper;
 import com.chris.bulleyeadmin.common.service.BaseService;
+import com.chris.bulleyeadmin.system.dto.AccountDto;
 import com.chris.bulleyeadmin.system.mapper.AccountMapper;
 import com.chris.bulleyeadmin.system.pojo.Account;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,7 +23,7 @@ public class AccountService extends BaseService<Account> {
         return accountMapper;
     }
 
-    public Account getAccountByUserName(String userName){
+    public AccountDto getAccountByUserName(String userName){
         return accountMapper.getAccountByUserName(userName);
     }
 }
