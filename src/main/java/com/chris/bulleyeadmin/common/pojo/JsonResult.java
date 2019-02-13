@@ -18,7 +18,7 @@ public class JsonResult {
 
     private String url;
 
-    private int errorCode;
+    private Integer code;
 
     private Object data;
 
@@ -26,18 +26,15 @@ public class JsonResult {
     }
 
     public JsonResult failure(String msg) {
-        return new JsonResult(false, null, msg);
+        return new JsonResult(false, null, msg,null);
     }
 
-    public JsonResult(boolean success) {
-        this.success = success;
-    }
-
-    public JsonResult(boolean success, Object data, String message) {
+    public JsonResult(boolean success, Object data, String message,Integer code) {
         super();
         this.success = success;
         this.data = data;
         this.message = message;
+        this.code = code;
     }
 
     public JsonResult(Integer error, String message, String url) {
@@ -62,18 +59,12 @@ public class JsonResult {
     }
 
 
-    public int getErrorCode() {
-        return errorCode;
+    public Integer getCode() {
+        return code;
     }
 
-    public JsonResult setErrorCode(int errorCode) {
-        this.errorCode = errorCode;
-        return this;
-    }
-
-    public JsonResult errorCode(int errorCode) {
-        this.errorCode = errorCode;
-        return this;
+    public void setCode(Integer code) {
+        this.code = code;
     }
 
     public static JsonResult getFailInstance(String msg) {
