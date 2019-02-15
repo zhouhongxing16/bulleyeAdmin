@@ -2,8 +2,6 @@ package com.chris.bulleyeadmin.common.service;
 
 import com.chris.bulleyeadmin.common.mapper.BaseMapper;
 import com.chris.bulleyeadmin.common.pojo.JsonResult;
-import com.chris.bulleyeadmin.common.utils.Help;
-import com.chris.bulleyeadmin.system.dto.StaffDto;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import org.springframework.http.HttpStatus;
@@ -65,8 +63,10 @@ public abstract class BaseService<T> {
         return new JsonResult(deleteCount>0?true:false,null,msg,null, HttpStatus.OK);
     }
 
-    public T getById(String hId) {
-        return (T)getMapper().selectByPrimaryKey(hId);
+    public JsonResult getById(String hId) {
+        Object obj = getMapper().selectByPrimaryKey(hId);
+        String msg = obj!=null?"查询成功！":"查询失败！";
+        return  new JsonResult(obj!=null?true:false,obj,msg,null, HttpStatus.OK);
     }
 
     @Override

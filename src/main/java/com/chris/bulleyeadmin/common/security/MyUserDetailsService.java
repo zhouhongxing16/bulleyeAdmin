@@ -1,15 +1,14 @@
 package com.chris.bulleyeadmin.common.security;
 
 import com.chris.bulleyeadmin.common.excepition.RPCFailedException;
+import com.chris.bulleyeadmin.common.pojo.JsonResult;
 import com.chris.bulleyeadmin.system.dto.AccountDto;
-import com.chris.bulleyeadmin.system.pojo.Account;
 import com.chris.bulleyeadmin.system.pojo.Role;
 import com.chris.bulleyeadmin.system.pojo.Staff;
 import com.chris.bulleyeadmin.system.pojo.User;
 import com.chris.bulleyeadmin.system.service.AccountService;
 import com.chris.bulleyeadmin.system.service.RoleService;
 import com.chris.bulleyeadmin.system.service.StaffService;
-import com.chris.bulleyeadmin.common.utils.DateUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -80,7 +79,8 @@ public class MyUserDetailsService implements UserDetailsService {
             String staffId = accountDto.getStaffId();
             orgId = accountDto.getOrganizationId();
             if (StringUtils.isNotEmpty( staffId )) {
-                Staff staff = staffService.getById( staffId );
+                JsonResult jsonResult = staffService.getById( staffId );
+                Staff staff = (Staff) jsonResult.getData();
                 departmentId = staff.getDepartmentId();
             }
 
@@ -117,7 +117,6 @@ public class MyUserDetailsService implements UserDetailsService {
                 onlineName += ")";
             }
             user.setRole( roles );
-            user.setRoleName( onlineName );
             return user;
         } else {
             logger.info( "用户" + username + " 不存在" );

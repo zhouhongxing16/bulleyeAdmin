@@ -71,9 +71,8 @@ public abstract class BaseController<T> {
     //进入编辑页面
     @GetMapping("/edit/{id}")
     public String edit(Model view, @PathVariable String id) {
-
-        T obj = findById(id);
-        view.addAttribute(getViewPrefix(),obj);
+        JsonResult jsonResult = getService().getById( id );
+        view.addAttribute(getViewPrefix(),jsonResult.getData());
         return getViewPrefix() + "/edit";
     }
 
@@ -82,12 +81,6 @@ public abstract class BaseController<T> {
     public String editEntity(Model view, T obj) {
         view.addAttribute(getViewPrefix(), obj);
         return getViewPrefix() + "/edit";
-    }
-
-    //通过id查询信息
-    public T findById(String id) {
-        T msg = getService().getById(id);
-        return msg;
     }
 
     //更新
@@ -100,9 +93,9 @@ public abstract class BaseController<T> {
     //进入详情页面
     @GetMapping("/view/{id}")
     public String view(Model view, @PathVariable String id) {
-        T obj = findById(id);
+        JsonResult jsonResult = getService().getById( id );
         view.addAttribute("readonly","readonly");
-        view.addAttribute(getViewPrefix(), obj);
+        view.addAttribute(getViewPrefix(), jsonResult.getData());
         return getViewPrefix()  + "/view";
     }
     //删除
