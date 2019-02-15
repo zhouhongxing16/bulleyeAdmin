@@ -1,11 +1,21 @@
 package com.chris.bulleyeadmin.common.security;
 
+import com.alibaba.fastjson.JSON;
+import com.alibaba.fastjson.JSONArray;
+import com.alibaba.fastjson.JSONObject;
 import com.chris.bulleyeadmin.common.pojo.JsonResult;
+import com.chris.bulleyeadmin.system.pojo.Role;
+import com.chris.bulleyeadmin.system.pojo.User;
 import io.jsonwebtoken.Jwts;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.web.authentication.www.BasicAuthenticationFilter;
+import org.springframework.stereotype.Service;
 
 import javax.servlet.FilterChain;
 import javax.servlet.ServletException;
@@ -14,6 +24,7 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.*;
 import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  * @Auther: Chris
@@ -24,6 +35,7 @@ import java.util.ArrayList;
  * 如果校验通过，就认为这是一个取得授权的合法请求
  */
 public class JWTAuthenticationFilter extends BasicAuthenticationFilter {
+
     public JWTAuthenticationFilter(AuthenticationManager authenticationManager) {
         super(authenticationManager);
     }
@@ -51,27 +63,40 @@ public class JWTAuthenticationFilter extends BasicAuthenticationFilter {
         String token = request.getHeader("Authorization");
         if (token != null) {
             // parse the token.
-            String user = null;
+            String jsonObject = null;
+            User user = null;
             try {
-                user = Jwts.parser()
-                        .setSigningKey("MyJwtSecret")
+                jsonObject = Jwts.parser()
+                        .setSigningKey("BulleyeAdminSecret")
                         .parseClaimsJws(token.replace("Bearer ", ""))
-                        .getBody()
-                        .getSubject();
+                        .getBody().getSubject();
+                System.out.println(jsonObject);
+                JSONObject obj = JSON.parseObject(jsonObject);
+                JSONArray ja = JSONArray.parseArray(obj.getString("authorities"));
+                List<Role> roleList = JSONArray.parseArray(obj.getString("role"),Role.class);
+                user = new User(obj.getString("username"), "", ja.toJavaList(GrantedAuthority.class));
+                user.setStaffId(obj.getString("staffId"));
+                user.setId(obj.getString("id"));
+                user.setOrganizationId(obj.getString("organizationId"));
+                user.setDepartmentId(obj.getString("departmentId"));
+                user.setRole(roleList);
             } catch (Exception e) {
+                e.printStackTrace();
                 request.setCharacterEncoding("UTF-8");
                 response.setCharacterEncoding("UTF-8");
                 PrintWriter writer = response.getWriter();
-                String msg = new JsonResult(false, null, "授权认证失败，请重新登录！",4100).toString();
+                String msg = new JsonResult(false, null, "授权认证失败，请重新登录！",null, HttpStatus.UNAUTHORIZED).toString();
                 writer.write(msg);
                 writer.flush();
                 writer.close();
             }
             if (user != null) {
-                return new UsernamePasswordAuthenticationToken(user, null, new ArrayList<>());
+                return new UsernamePasswordAuthenticationToken(user, null, user.getAuthorities());
+            }else{
+                return null;
             }
+        }else{
             return null;
         }
-        return null;
     }
 }

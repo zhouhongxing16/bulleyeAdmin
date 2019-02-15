@@ -10,10 +10,15 @@ import com.chris.bulleyeadmin.system.pojo.User;
 import com.chris.bulleyeadmin.system.service.MenuService;
 import com.chris.bulleyeadmin.common.utils.AuthUtil;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 
 
@@ -40,23 +45,25 @@ public class MenuController extends BaseController<Menu> {
 
     @ResponseBody
     @RequestMapping("/getAllMenus")
-    public JsonResult getAllMenus(){
+    public JsonResult getAllMenus() {
+        User user = AuthUtil.getCurrentUser();
+        System.out.println(user.getUsername());
         List<MenuDto> menuList = menuService.getAllMenus();
-        return new JsonResult(true,menuList);
+        return new JsonResult(true, menuList);
     }
 
     @ResponseBody
     @RequestMapping("/getMenusByAccountId")
-    public JsonResult getMenusByAccountId(){
+    public JsonResult getMenusByAccountId() {
         User user = AuthUtil.getCurrentUser();
         List<MenuDto> menuList = menuService.getMenusByAccountId(user.getId());
-        return new JsonResult(true,menuList);
+        return new JsonResult(true, menuList);
     }
 
     @ResponseBody
     @RequestMapping("/getMenusByRoleId")
-    public JsonResult getMenusByRoleId(String roleId){
+    public JsonResult getMenusByRoleId(String roleId) {
         List<Menu> menuList = menuService.getMenusByRoleId(roleId);
-        return new JsonResult(true,menuList);
+        return new JsonResult(true, menuList);
     }
 }

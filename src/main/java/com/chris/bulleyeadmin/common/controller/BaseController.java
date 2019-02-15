@@ -7,6 +7,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.github.pagehelper.PageInfo;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.propertyeditors.CustomDateEditor;
+import org.springframework.http.HttpStatus;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.*;
@@ -116,7 +117,7 @@ public abstract class BaseController<T> {
     @GetMapping("/getById/{id}")
     public Object getById(@PathVariable String id) {
         Object obj = getService().getById(id);
-        return new JsonResult(true,obj,"查询成功",null);
+        return new JsonResult(true,obj,"查询成功",null, HttpStatus.OK);
     }
 
     @InitBinder

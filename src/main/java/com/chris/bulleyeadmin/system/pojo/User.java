@@ -1,6 +1,8 @@
 package com.chris.bulleyeadmin.system.pojo;
 
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.security.core.GrantedAuthority;
 
 import java.util.ArrayList;
@@ -14,17 +16,20 @@ import java.util.List;
 public class User extends org.springframework.security.core.userdetails.User {
     private static final long serialVersionUID = 1L;
 
-    public User(String id, Staff staff,String username, String password, String organizationId, String staffId, String departmentId, Collection<? extends GrantedAuthority> authorities) {
+    public User(String id, String username, String password, String organizationId, String staffId, String departmentId, Collection<? extends GrantedAuthority> authorities) {
         super(username, password, authorities);
         this.id = id;
         this.organizationId = organizationId;
         this.staffId = staffId;
         this.departmentId = departmentId;
-        this.staff = staff;
+    }
+
+    public User(String username, String password, Collection<? extends GrantedAuthority> authorities){
+        super(username, password, authorities);
     }
 
     public User(){
-        super("admin", "admin", new ArrayList<>());
+        super("construct", "", new ArrayList<>());
     }
 
 
@@ -37,12 +42,6 @@ public class User extends org.springframework.security.core.userdetails.User {
     private String departmentId;
 
     private List<Role> role;
-
-    private Staff staff;
-
-    private String staffName;
-
-    private String roleName;
 
     public String getId() {
         return id;
@@ -84,19 +83,13 @@ public class User extends org.springframework.security.core.userdetails.User {
         this.role = role;
     }
 
-    public String getRoleName() {
-        return roleName;
-    }
-
-    public void setRoleName(String roleName) {
-        this.roleName = roleName;
-    }
-
-    public Staff getStaff() {
-        return staff;
-    }
-
-    public void setStaff(Staff staff) {
-        this.staff = staff;
+    @Override
+    public String toString() {
+        try {
+            return new ObjectMapper().writeValueAsString(this);
+        } catch (JsonProcessingException e) {
+            e.printStackTrace();
+            return "{}";
+        }
     }
 }

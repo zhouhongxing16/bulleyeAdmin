@@ -10,7 +10,5 @@ import java.util.Map;
 
 public interface AccountMapper extends BaseMapper<Account> {
 
-     AccountDto getAccountByNameAndOrgId(Map<String,Object> map);
-
      AccountDto getAccountByUserName(String userName);
 }

@@ -97,7 +97,7 @@ public class MyUserDetailsService implements UserDetailsService {
             }
             System.out.println("当前用户角色:"+rolestr);
 
-            User user = new User( accountDto.getId(),accountDto.getStaff(), accountDto.getUsername(), accountDto.getPassword(), orgId, staffId, departmentId, grantedAuthorities );
+            User user = new User( accountDto.getId(),accountDto.getUsername(), accountDto.getPassword(), orgId, staffId, departmentId, grantedAuthorities );
             if (StringUtils.isNotEmpty( accountDto.getOrganizationId() )) {
                 //管理机构
                 user.setOrganizationId( accountDto.getOrganizationId() );

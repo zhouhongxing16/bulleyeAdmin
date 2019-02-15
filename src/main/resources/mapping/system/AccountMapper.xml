@@ -25,12 +25,12 @@
   </resultMap>
 
   <resultMap id="dto" type="com.chris.bulleyeadmin.system.dto.AccountDto" extends="BaseResultMap">
-    <association property="staff" column="staff_id" select="com.chris.bulleyeadmin.system.mapper.StaffMapper.selectByPrimaryKey"></association>
+    <result column="organizationName" jdbcType="VARCHAR" property="organizationName" />
   </resultMap>
 
   <select id="getAccountByUserName" resultMap="dto" parameterType="String">
-    select * from b_accounts a
-    left join b_staff staff on staff.id = a.staff_id
+    select a.*,o.name as organizationName from b_accounts a
+    left join b_organizations o on o.id = a.organization_id
     where a.username = #{0}
   </select>
 </mapper>

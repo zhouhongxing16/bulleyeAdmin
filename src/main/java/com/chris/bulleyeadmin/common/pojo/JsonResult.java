@@ -2,6 +2,7 @@ package com.chris.bulleyeadmin.common.pojo;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import org.springframework.http.HttpStatus;
 
 /**
  * 封装操作结果JSON数据
@@ -20,21 +21,24 @@ public class JsonResult {
 
     private Integer code;
 
+    private HttpStatus httpStatus;
+
     private Object data;
 
     public JsonResult() {
     }
 
     public JsonResult failure(String msg) {
-        return new JsonResult(false, null, msg,null);
+        return new JsonResult(false, null, msg,null,HttpStatus.INTERNAL_SERVER_ERROR);
     }
 
-    public JsonResult(boolean success, Object data, String message,Integer code) {
+    public JsonResult(boolean success, Object data, String message,Integer code,HttpStatus httpStatus) {
         super();
         this.success = success;
         this.data = data;
         this.message = message;
         this.code = code;
+        this.httpStatus = httpStatus;
     }
 
     public JsonResult(Integer error, String message, String url) {
@@ -101,6 +105,14 @@ public class JsonResult {
 
     public void setData(Object data) {
         this.data = data;
+    }
+
+    public HttpStatus getHttpStatus() {
+        return httpStatus;
+    }
+
+    public void setHttpStatus(HttpStatus httpStatus) {
+        this.httpStatus = httpStatus;
     }
 
     @Override
