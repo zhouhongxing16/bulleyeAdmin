@@ -2,6 +2,7 @@ package com.chris.bulleyeadmin.wechat.handler;
 
 import java.util.Map;
 
+import com.chris.bulleyeadmin.wechat.builder.TextBuilder;
 import org.springframework.stereotype.Component;
 import me.chanjar.weixin.common.error.WxErrorException;
 import me.chanjar.weixin.common.session.WxSessionManager;
@@ -49,8 +50,7 @@ public class SubscribeHandler extends AbstractHandler {
         }
 
         try {
-            //return new TextBuilder().build("感谢关注", wxMessage, weixinService);
-            return null;
+            return new TextBuilder().build("感谢关注", wxMessage, weixinService);
         } catch (Exception e) {
             this.logger.error(e.getMessage(), e);
         }

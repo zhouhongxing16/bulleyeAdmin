@@ -1,6 +1,7 @@
 package com.chris.bulleyeadmin.wechat.handler;
 
 import com.alibaba.fastjson.JSON;
+import com.chris.bulleyeadmin.wechat.builder.TextBuilder;
 import me.chanjar.weixin.common.error.WxErrorException;
 import me.chanjar.weixin.common.session.WxSessionManager;
 import me.chanjar.weixin.mp.api.WxMpService;
@@ -44,8 +45,7 @@ public class MsgHandler extends AbstractHandler {
         //TODO 组装回复消息
         String content = "收到信息内容：" + JSON.toJSONString(wxMessage);
 
-        //return new TextBuilder().build(content, wxMessage, weixinService);
-        return null;
+        return new TextBuilder().build(content, wxMessage, weixinService);
 
     }
 

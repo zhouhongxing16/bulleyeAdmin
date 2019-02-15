@@ -1,4 +1,4 @@
-package com.chris.bulleyeadmin.common.mapper;
+package com.chris.bulleyeadmin.common.basemapper;
 
 import tk.mybatis.mapper.common.Mapper;
 import tk.mybatis.mapper.common.MySqlMapper;

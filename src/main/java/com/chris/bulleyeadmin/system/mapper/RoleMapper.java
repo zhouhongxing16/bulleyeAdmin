@@ -1,6 +1,6 @@
 package com.chris.bulleyeadmin.system.mapper;
 
-import com.chris.bulleyeadmin.common.mapper.BaseMapper;
+import com.chris.bulleyeadmin.common.basemapper.BaseMapper;
 import com.chris.bulleyeadmin.system.pojo.Role;
 
 import java.util.List;

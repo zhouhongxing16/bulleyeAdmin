@@ -34,6 +34,9 @@ public class WxAccount implements Serializable {
     @Column(name = "token")
     private String token;
 
+    @Column(name = "aes_key")
+    private String aesKey;
+
     @Column(name = "domain")
     private String domain;
 
@@ -93,6 +96,14 @@ public class WxAccount implements Serializable {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public String getAesKey() {
+        return aesKey;
+    }
+
+    public void setAesKey(String aesKey) {
+        this.aesKey = aesKey;
     }
 
     public String getSourceId() {

@@ -1,6 +1,6 @@
 package com.chris.bulleyeadmin.common.service;
 
-import com.chris.bulleyeadmin.common.mapper.BaseMapper;
+import com.chris.bulleyeadmin.common.basemapper.BaseMapper;
 import com.chris.bulleyeadmin.common.pojo.JsonResult;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;

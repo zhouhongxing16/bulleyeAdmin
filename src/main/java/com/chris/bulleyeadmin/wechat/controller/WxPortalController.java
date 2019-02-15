@@ -20,12 +20,12 @@ import me.chanjar.weixin.mp.bean.message.WxMpXmlOutMessage;
  * @author Binary Wang(https://github.com/binarywang)
  */
 @RestController
-@RequestMapping("/wx/portal/{appid}")
+@RequestMapping("/wx/portal/{appId}")
 public class WxPortalController {
     private final Logger logger = LoggerFactory.getLogger(this.getClass());
 
     @GetMapping(produces = "text/plain;charset=utf-8")
-    public String authGet(@PathVariable String appid,
+    public String authGet(@PathVariable String appId,
                           @RequestParam(name = "signature", required = false) String signature,
                           @RequestParam(name = "timestamp", required = false) String timestamp,
                           @RequestParam(name = "nonce", required = false) String nonce,
@@ -37,16 +37,18 @@ public class WxPortalController {
             throw new IllegalArgumentException("请求参数非法，请核实!");
         }
 
-        final WxMpService wxService = WxMpConfiguration.getMpServices().get(appid);
+        final WxMpService wxService = WxMpConfiguration.getMpServices().get(appId);
         if (wxService == null) {
-            throw new IllegalArgumentException(String.format("未找到对应appid=[%d]的配置，请核实！", appid));
+            throw new IllegalArgumentException(String.format("未找到对应appid=[%d]的配置，请核实！", appId));
         }
 
         if (wxService.checkSignature(timestamp, nonce, signature)) {
             return echostr;
+        }else{
+            System.out.println("签名验证失败！");
+            return "非法请求";
         }
 
-        return "非法请求";
     }
 
     @PostMapping(produces = "application/xml; charset=UTF-8")

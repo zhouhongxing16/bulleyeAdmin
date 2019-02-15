@@ -5,7 +5,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import tk.mybatis.spring.annotation.MapperScan;
 
 @SpringBootApplication
-@MapperScan(basePackages = "com.chris.bulleyeadmin.system.mapper")
+@MapperScan(basePackages = "com.chris.bulleyeadmin.**.mapper")
 public class BulleyeAdminApplication {
 
     public static void main(String[] args) {

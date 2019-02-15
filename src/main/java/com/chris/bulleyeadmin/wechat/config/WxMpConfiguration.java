@@ -1,10 +1,13 @@
 package com.chris.bulleyeadmin.wechat.config;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 import javax.annotation.PostConstruct;
 
+import com.chris.bulleyeadmin.wechat.pojo.WxAccount;
+import com.chris.bulleyeadmin.wechat.service.WxAccountService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.Configuration;
@@ -47,8 +50,6 @@ public class WxMpConfiguration {
     private SubscribeHandler subscribeHandler;
     private ScanHandler scanHandler;
 
-    private WxMpProperties properties;
-
     private static Map<String, WxMpMessageRouter> routers = Maps.newHashMap();
     private static Map<String, WxMpService> mpServices = Maps.newHashMap();
 
@@ -67,8 +68,10 @@ public class WxMpConfiguration {
         this.unsubscribeHandler = unsubscribeHandler;
         this.subscribeHandler = subscribeHandler;
         this.scanHandler = scanHandler;
-        this.properties = properties;
     }
+
+    @Autowired
+    WxAccountService wxAccountService;
 
     public static Map<String, WxMpMessageRouter> getRouters() {
         return routers;
@@ -81,15 +84,16 @@ public class WxMpConfiguration {
     @PostConstruct
     public void initServices() {
         // 代码里 getConfigs()处报错的同学，请注意仔细阅读项目说明，你的getMpServicesIDE需要引入lombok插件！！！！
-        final List<WxMpProperties.MpConfig> configs = this.properties.getConfigs();
-        if (configs == null) {
-            throw new RuntimeException("大哥，拜托先看下项目首页的说明（readme文件），添加下相关配置，注意别配错了！");
+        //final List<WxMpProperties.MpConfig> configs =this.properties.getConfigs();
+        final List<WxAccount> wxAccounts = wxAccountService.getAll();
+        if (wxAccounts.size()==0) {
+            System.out.println("数据库中无微信公众号相关信息");
+            //throw new RuntimeException("数据库中无微信公众号相关信息");
         }
-
-        mpServices = configs.stream().map(a -> {
+        mpServices = wxAccounts.stream().map(a -> {
             WxMpInMemoryConfigStorage configStorage = new WxMpInMemoryConfigStorage();
             configStorage.setAppId(a.getAppId());
-            configStorage.setSecret(a.getSecret());
+            configStorage.setSecret(a.getAppSecret());
             configStorage.setToken(a.getToken());
             configStorage.setAesKey(a.getAesKey());
 

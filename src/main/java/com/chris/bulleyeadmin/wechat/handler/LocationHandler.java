@@ -1,5 +1,6 @@
 package com.chris.bulleyeadmin.wechat.handler;
 
+import com.chris.bulleyeadmin.wechat.builder.TextBuilder;
 import me.chanjar.weixin.common.session.WxSessionManager;
 import me.chanjar.weixin.mp.api.WxMpService;
 import me.chanjar.weixin.mp.bean.message.WxMpXmlMessage;
@@ -24,8 +25,7 @@ public class LocationHandler extends AbstractHandler {
             //TODO 接收处理用户发送的地理位置消息
             try {
                 String content = "感谢反馈，您的的地理位置已收到！";
-                //return new TextBuilder().build(content, wxMessage, null);
-                return null;
+                return new TextBuilder().build(content, wxMessage, null);
             } catch (Exception e) {
                 this.logger.error("位置消息接收处理失败", e);
                 return null;

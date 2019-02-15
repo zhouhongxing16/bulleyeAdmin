@@ -1,6 +1,6 @@
 package com.chris.bulleyeadmin.system.service;
 
-import com.chris.bulleyeadmin.common.mapper.BaseMapper;
+import com.chris.bulleyeadmin.common.basemapper.BaseMapper;
 import com.chris.bulleyeadmin.common.service.BaseService;
 import com.chris.bulleyeadmin.system.mapper.DictionaryTypeMapper;
 import com.chris.bulleyeadmin.system.pojo.DictionaryType;
