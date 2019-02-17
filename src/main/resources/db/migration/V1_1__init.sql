@@ -1,5 +1,5 @@
 -- --------------------------------------------------------
--- 主机:                           127.0.0.1
+-- 主机:                           localhost
 -- 服务器版本:                        5.7.9-log - MySQL Community Server (GPL)
 -- 服务器操作系统:                      Win64
 -- HeidiSQL 版本:                  9.5.0.5196
@@ -65,7 +65,7 @@ CREATE TABLE IF NOT EXISTS `b_account_role` (
   CONSTRAINT `FK_b_account_role_b_roles` FOREIGN KEY (`role_id`) REFERENCES `b_roles` (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='用户角色中间表';
 
--- 正在导出表  bulleye_admin.b_account_role 的数据：~0 rows (大约)
+-- 正在导出表  bulleye_admin.b_account_role 的数据：~2 rows (大约)
 DELETE FROM `b_account_role`;
 /*!40000 ALTER TABLE `b_account_role` DISABLE KEYS */;
 INSERT INTO `b_account_role` (`id`, `role_id`, `account_id`, `created`) VALUES
@@ -89,7 +89,7 @@ CREATE TABLE IF NOT EXISTS `b_departments` (
   CONSTRAINT `FK_b_departments_b_organizations` FOREIGN KEY (`organization_id`) REFERENCES `b_organizations` (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='部门表';
 
--- 正在导出表  bulleye_admin.b_departments 的数据：~0 rows (大约)
+-- 正在导出表  bulleye_admin.b_departments 的数据：~1 rows (大约)
 DELETE FROM `b_departments`;
 /*!40000 ALTER TABLE `b_departments` DISABLE KEYS */;
 INSERT INTO `b_departments` (`id`, `organization_id`, `code`, `name`, `type_id`, `remark`, `status`, `created`) VALUES
@@ -266,7 +266,7 @@ CREATE TABLE IF NOT EXISTS `b_organizations` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='组织信息表';
 
--- 正在导出表  bulleye_admin.b_organizations 的数据：~0 rows (大约)
+-- 正在导出表  bulleye_admin.b_organizations 的数据：~1 rows (大约)
 DELETE FROM `b_organizations`;
 /*!40000 ALTER TABLE `b_organizations` DISABLE KEYS */;
 INSERT INTO `b_organizations` (`id`, `pid`, `code`, `name`, `area_id`, `brief`, `contact_name`, `contact_phone`, `status`, `end_date`, `domain`, `created`) VALUES
@@ -441,3 +441,4 @@ INSERT INTO `b_staff` (`id`, `serial_no`, `name`, `birthday`, `major_id`, `gende
 	('218e2f1a-13e5-11e9-97db-382c4a232da1', NULL, '444444', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '1325817972', NULL, NULL, '444444@qq.com', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 20190109160351),
 	('ae371c56-13f0-11e9-97db-382c4a232da1', NULL, '123', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '1325817972', NULL, NULL, 'zhx', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 20190109172631);
 /*!40000 ALTER TABLE `b_staff` ENABLE KEYS */;
+

@@ -52,7 +52,7 @@ public class WxPortalController {
     }
 
     @PostMapping(produces = "application/xml; charset=UTF-8")
-    public String post(@PathVariable String appid,
+    public String post(@PathVariable String appId,
                        @RequestBody String requestBody,
                        @RequestParam("signature") String signature,
                        @RequestParam("timestamp") String timestamp,
@@ -60,11 +60,11 @@ public class WxPortalController {
                        @RequestParam("openid") String openid,
                        @RequestParam(name = "encrypt_type", required = false) String encType,
                        @RequestParam(name = "msg_signature", required = false) String msgSignature) {
-        final WxMpService wxService = WxMpConfiguration.getMpServices().get(appid);
+        final WxMpService wxService = WxMpConfiguration.getMpServices().get(appId);
         this.logger.info("\n接收微信请求：[openid=[{}], [signature=[{}], encType=[{}], msgSignature=[{}],"
                 + " timestamp=[{}], nonce=[{}], requestBody=[\n{}\n] ",
             openid, signature, encType, msgSignature, timestamp, nonce, requestBody);
-
+        System.out.println(appId);
         if (!wxService.checkSignature(timestamp, nonce, signature)) {
             throw new IllegalArgumentException("非法请求，可能属于伪造的请求！");
         }
@@ -73,7 +73,7 @@ public class WxPortalController {
         if (encType == null) {
             // 明文传输的消息
             WxMpXmlMessage inMessage = WxMpXmlMessage.fromXml(requestBody);
-            WxMpXmlOutMessage outMessage = this.route(inMessage, appid);
+            WxMpXmlOutMessage outMessage = this.route(inMessage, appId);
             if (outMessage == null) {
                 return "";
             }
@@ -84,7 +84,7 @@ public class WxPortalController {
             WxMpXmlMessage inMessage = WxMpXmlMessage.fromEncryptedXml(requestBody, wxService.getWxMpConfigStorage(),
                 timestamp, nonce, msgSignature);
             this.logger.debug("\n消息解密后内容为：\n{} ", inMessage.toString());
-            WxMpXmlOutMessage outMessage = this.route(inMessage, appid);
+            WxMpXmlOutMessage outMessage = this.route(inMessage, appId);
             if (outMessage == null) {
                 return "";
             }
@@ -96,9 +96,9 @@ public class WxPortalController {
         return out;
     }
 
-    private WxMpXmlOutMessage route(WxMpXmlMessage message, String appid) {
+    private WxMpXmlOutMessage route(WxMpXmlMessage message, String appId) {
         try {
-            return WxMpConfiguration.getRouters().get(appid).route(message);
+            return WxMpConfiguration.getRouters().get(appId).route(message);
         } catch (Exception e) {
             this.logger.error("路由消息时出现异常！", e);
         }

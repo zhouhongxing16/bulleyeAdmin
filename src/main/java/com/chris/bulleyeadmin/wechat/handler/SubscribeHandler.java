@@ -2,7 +2,11 @@ package com.chris.bulleyeadmin.wechat.handler;
 
 import java.util.Map;
 
+import com.alibaba.fastjson.JSON;
 import com.chris.bulleyeadmin.wechat.builder.TextBuilder;
+import com.chris.bulleyeadmin.wechat.pojo.WxMember;
+import com.chris.bulleyeadmin.wechat.service.WxMemberService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import me.chanjar.weixin.common.error.WxErrorException;
 import me.chanjar.weixin.common.session.WxSessionManager;
@@ -17,6 +21,9 @@ import me.chanjar.weixin.mp.bean.result.WxMpUser;
 @Component
 public class SubscribeHandler extends AbstractHandler {
 
+    @Autowired
+    WxMemberService wxMemberService;
+
     @Override
     public WxMpXmlOutMessage handle(WxMpXmlMessage wxMessage,
                                     Map<String, Object> context, WxMpService weixinService,
@@ -29,6 +36,9 @@ public class SubscribeHandler extends AbstractHandler {
             WxMpUser userWxInfo = weixinService.getUserService()
                 .userInfo(wxMessage.getFromUser(), null);
             if (userWxInfo != null) {
+                WxMember wxMember = JSON.parseObject(userWxInfo.toString(),WxMember.class);
+                wxMemberService.add(wxMember);
+                System.out.println(userWxInfo.toString());
                 // TODO 可以添加关注用户到本地数据库
             }
         } catch (WxErrorException e) {
@@ -63,6 +73,7 @@ public class SubscribeHandler extends AbstractHandler {
      */
     private WxMpXmlOutMessage handleSpecial(WxMpXmlMessage wxMessage)
         throws Exception {
+        System.out.println(wxMessage.toString());
         //TODO
         return null;
     }

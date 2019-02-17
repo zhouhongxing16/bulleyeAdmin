@@ -1,16 +1,13 @@
 package com.chris.bulleyeadmin.wechat.config;
 
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
-import javax.annotation.PostConstruct;
 
 import com.chris.bulleyeadmin.wechat.pojo.WxAccount;
 import com.chris.bulleyeadmin.wechat.service.WxAccountService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.context.properties.EnableConfigurationProperties;
-import org.springframework.context.annotation.Configuration;
+import org.springframework.boot.CommandLineRunner;
 
 import com.chris.bulleyeadmin.wechat.handler.KfSessionHandler;
 import com.chris.bulleyeadmin.wechat.handler.LocationHandler;
@@ -28,6 +25,7 @@ import me.chanjar.weixin.mp.api.WxMpMessageRouter;
 import me.chanjar.weixin.mp.api.WxMpService;
 import me.chanjar.weixin.mp.api.impl.WxMpServiceImpl;
 import me.chanjar.weixin.mp.constant.WxMpEventConstants;
+import org.springframework.stereotype.Component;
 
 import static me.chanjar.weixin.common.api.WxConsts.*;
 
@@ -36,9 +34,8 @@ import static me.chanjar.weixin.common.api.WxConsts.*;
  *
  * @author Binary Wang(https://github.com/binarywang)
  */
-@Configuration
-@EnableConfigurationProperties(WxMpProperties.class)
-public class WxMpConfiguration {
+@Component
+public class WxMpConfiguration implements CommandLineRunner {
     private LogHandler logHandler;
     private NullHandler nullHandler;
     private KfSessionHandler kfSessionHandler;
@@ -57,7 +54,7 @@ public class WxMpConfiguration {
     public WxMpConfiguration(LogHandler logHandler, NullHandler nullHandler, KfSessionHandler kfSessionHandler,
                              StoreCheckNotifyHandler storeCheckNotifyHandler, LocationHandler locationHandler,
                              MenuHandler menuHandler, MsgHandler msgHandler, UnsubscribeHandler unsubscribeHandler,
-                             SubscribeHandler subscribeHandler, ScanHandler scanHandler, WxMpProperties properties) {
+                             SubscribeHandler subscribeHandler, ScanHandler scanHandler) {
         this.logHandler = logHandler;
         this.nullHandler = nullHandler;
         this.kfSessionHandler = kfSessionHandler;
@@ -79,29 +76,6 @@ public class WxMpConfiguration {
 
     public static Map<String, WxMpService> getMpServices() {
         return mpServices;
-    }
-
-    @PostConstruct
-    public void initServices() {
-        // 代码里 getConfigs()处报错的同学，请注意仔细阅读项目说明，你的getMpServicesIDE需要引入lombok插件！！！！
-        //final List<WxMpProperties.MpConfig> configs =this.properties.getConfigs();
-        final List<WxAccount> wxAccounts = wxAccountService.getAll();
-        if (wxAccounts.size()==0) {
-            System.out.println("数据库中无微信公众号相关信息");
-            //throw new RuntimeException("数据库中无微信公众号相关信息");
-        }
-        mpServices = wxAccounts.stream().map(a -> {
-            WxMpInMemoryConfigStorage configStorage = new WxMpInMemoryConfigStorage();
-            configStorage.setAppId(a.getAppId());
-            configStorage.setSecret(a.getAppSecret());
-            configStorage.setToken(a.getToken());
-            configStorage.setAesKey(a.getAesKey());
-
-            WxMpService service = new WxMpServiceImpl();
-            service.setWxMpConfigStorage(configStorage);
-            routers.put(a.getAppId(), this.newRouter(service));
-            return service;
-        }).collect(Collectors.toMap(s -> s.getWxMpConfigStorage().getAppId(), a -> a, (o, n) -> o));
     }
 
     private WxMpMessageRouter newRouter(WxMpService wxMpService) {
@@ -164,4 +138,27 @@ public class WxMpConfiguration {
         return newRouter;
     }
 
+    @Override
+    public void run(String... args) throws Exception {
+        // 代码里 getConfigs()处报错的同学，请注意仔细阅读项目说明，你的getMpServicesIDE需要引入lombok插件！！！！
+        //final List<WxMpProperties.MpConfig> configs =this.properties.getConfigs();
+        final List<WxAccount> wxAccounts = wxAccountService.getAll();
+        //final List<WxAccount> wxAccounts = new ArrayList<>();
+        if (wxAccounts.size()==0) {
+            System.out.println("数据库中无微信公众号相关信息");
+            //throw new RuntimeException("数据库中无微信公众号相关信息");
+        }
+        mpServices = wxAccounts.stream().map(a -> {
+            WxMpInMemoryConfigStorage configStorage = new WxMpInMemoryConfigStorage();
+            configStorage.setAppId(a.getAppId());
+            configStorage.setSecret(a.getAppSecret());
+            configStorage.setToken(a.getToken());
+            configStorage.setAesKey(a.getAesKey());
+
+            WxMpService service = new WxMpServiceImpl();
+            service.setWxMpConfigStorage(configStorage);
+            routers.put(a.getAppId(), this.newRouter(service));
+            return service;
+        }).collect(Collectors.toMap(s -> s.getWxMpConfigStorage().getAppId(), a -> a, (o, n) -> o));
+    }
 }

@@ -22,8 +22,10 @@ public class WxMember implements Serializable {
     @Column(name = "account_id")
     private String accountId;
 
+
     @Column(name = "subscribe")
     private String subscribe;
+
 
     @Column(name = "open_id")
     private String openId;
@@ -31,11 +33,15 @@ public class WxMember implements Serializable {
     @Column(name = "nickname")
     private String nickname;
 
-    @Column(name = "qr_code")
-    private String qrCode;
+    @Column(name = "sex_desc")
+    private String sexDesc;
 
     @Column(name = "sex")
     private String sex;
+
+    @Column(name = "language")
+    private String language;
+
 
     @Column(name = "city")
     private String city;
@@ -46,17 +52,38 @@ public class WxMember implements Serializable {
     @Column(name = "province")
     private String province;
 
-    @Column(name = "avatar")
-    private String avatar;
+    @Column(name = "head_img_url")
+    private String headImgUrl;
 
-    @Column(name = "user_id")
-    private String userId;
+    @Column(name = "subscribe_time")
+    private Long subscribeTime;
 
-    @Column(name = "created")
-    private Long created;
+    @Column(name = "union_id")
+    private String unionId;
+
+    @Column(name = "remark")
+    private String remark;
 
     @Column(name = "group_id")
     private String groupId;
+
+    @Column(name = "tag_ids")
+    private Long[] tagIds;
+
+    @Column(name = "privileges")
+    private String[] privileges;
+
+    @Column(name = "subscribe_scene")
+    private String subscribeScene;
+
+    @Column(name = "qr_scene")
+    private String qrScene;
+
+    @Column(name = "qr_scene_str")
+    private String qrSceneStr;
+
+    @Column(name = "created")
+    private Long created;
 
     @Column(name = "status")
     private Integer status;
@@ -101,12 +128,12 @@ public class WxMember implements Serializable {
         this.nickname = nickname;
     }
 
-    public String getQrCode() {
-        return qrCode;
+    public String getSexDesc() {
+        return sexDesc;
     }
 
-    public void setQrCode(String qrCode) {
-        this.qrCode = qrCode;
+    public void setSexDesc(String sexDesc) {
+        this.sexDesc = sexDesc;
     }
 
     public String getSex() {
@@ -115,6 +142,14 @@ public class WxMember implements Serializable {
 
     public void setSex(String sex) {
         this.sex = sex;
+    }
+
+    public String getLanguage() {
+        return language;
+    }
+
+    public void setLanguage(String language) {
+        this.language = language;
     }
 
     public String getCity() {
@@ -141,20 +176,36 @@ public class WxMember implements Serializable {
         this.province = province;
     }
 
-    public String getAvatar() {
-        return avatar;
+    public String getHeadImgUrl() {
+        return headImgUrl;
     }
 
-    public void setAvatar(String avatar) {
-        this.avatar = avatar;
+    public void setHeadImgUrl(String headImgUrl) {
+        this.headImgUrl = headImgUrl;
     }
 
-    public String getUserId() {
-        return userId;
+    public Long getSubscribeTime() {
+        return subscribeTime;
     }
 
-    public void setUserId(String userId) {
-        this.userId = userId;
+    public void setSubscribeTime(Long subscribeTime) {
+        this.subscribeTime = subscribeTime;
+    }
+
+    public String getUnionId() {
+        return unionId;
+    }
+
+    public void setUnionId(String unionId) {
+        this.unionId = unionId;
+    }
+
+    public String getRemark() {
+        return remark;
+    }
+
+    public void setRemark(String remark) {
+        this.remark = remark;
     }
 
     public String getGroupId() {
@@ -165,12 +216,44 @@ public class WxMember implements Serializable {
         this.groupId = groupId;
     }
 
-    public Integer getStatus() {
-        return status;
+    public Long[] getTagIds() {
+        return tagIds;
     }
 
-    public void setStatus(Integer status) {
-        this.status = status;
+    public void setTagIds(Long[] tagIds) {
+        this.tagIds = tagIds;
+    }
+
+    public String[] getPrivileges() {
+        return privileges;
+    }
+
+    public void setPrivileges(String[] privileges) {
+        this.privileges = privileges;
+    }
+
+    public String getSubscribeScene() {
+        return subscribeScene;
+    }
+
+    public void setSubscribeScene(String subscribeScene) {
+        this.subscribeScene = subscribeScene;
+    }
+
+    public String getQrScene() {
+        return qrScene;
+    }
+
+    public void setQrScene(String qrScene) {
+        this.qrScene = qrScene;
+    }
+
+    public String getQrSceneStr() {
+        return qrSceneStr;
+    }
+
+    public void setQrSceneStr(String qrSceneStr) {
+        this.qrSceneStr = qrSceneStr;
     }
 
     public Long getCreated() {
@@ -179,5 +262,13 @@ public class WxMember implements Serializable {
 
     public void setCreated(Long created) {
         this.created = created;
+    }
+
+    public Integer getStatus() {
+        return status;
+    }
+
+    public void setStatus(Integer status) {
+        this.status = status;
     }
 }

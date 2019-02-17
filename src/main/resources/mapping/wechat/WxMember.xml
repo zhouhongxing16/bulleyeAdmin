@@ -3,25 +3,35 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.chris.bulleyeadmin.wechat.mapper.WxAccountMapper">
     <resultMap id="BaseResultMap" type="com.chris.bulleyeadmin.wechat.pojo.WxMember">
-        <result column="id" jdbcType="VARCHAR" property="id" />
+        <id column="id" jdbcType="VARCHAR" property="id" />
         <result column="account_id" jdbcType="VARCHAR" property="accountId" />
-        <result column="account_name" jdbcType="VARCHAR" property="accountName" />
         <result column="subscribe" jdbcType="VARCHAR" property="subscribe" />
-        <result column="openid" jdbcType="VARCHAR" property="openid" />
+        <result column="open_id" jdbcType="VARCHAR" property="openId" />
         <result column="nickname" jdbcType="VARCHAR" property="nickname" />
         <result column="sex" jdbcType="VARCHAR" property="sex" />
+        <result column="sex_desc" jdbcType="VARCHAR" property="sexDesc" />
+        <result column="language" jdbcType="VARCHAR" property="language" />
         <result column="city" jdbcType="VARCHAR" property="city" />
-        <result column="country" jdbcType="VARCHAR" property="country" />
+        <result column="qr_code" jdbcType="VARCHAR" property="qrCode" />
         <result column="province" jdbcType="VARCHAR" property="province" />
-        <result column="headimgurl" jdbcType="VARCHAR" property="headimgurl" />
-        <result column="createTime" jdbcType="VARCHAR" property="createTime" />
+        <result column="country" jdbcType="VARCHAR" property="country" />
+        <result column="head_img_url" jdbcType="VARCHAR" property="headImgUrl" />
+        <result column="subscribe_time" jdbcType="BIGINT" property="subscribeTime" />
+        <result column="union_id" jdbcType="VARCHAR" property="unionId" />
+        <result column="remark" jdbcType="VARCHAR" property="remark" />
+        <result column="group_id" jdbcType="VARCHAR" property="groupId" />
+        <result column="privileges" jdbcType="VARCHAR" property="privileges" />
+        <result column="tag_ids" jdbcType="VARCHAR" property="tagIds" />
+        <result column="subscribe_scene" jdbcType="VARCHAR" property="subscribeScene" />
+        <result column="qr_scene" jdbcType="VARCHAR" property="qrScene" />
+        <result column="qr_scene_str" jdbcType="VARCHAR" property="qrSceneStr" />
+        <result column="created" jdbcType="BIGINT" property="created" />
         <result column="user_id" jdbcType="VARCHAR" property="userId" />
-        <result column="code" jdbcType="VARCHAR" property="code" />
     </resultMap>
 
     <sql id="basic_list">
-		a.id, a.account_id, a.account_name, a.subscribe, a.openid, a.nickname, a.sex, a.city, a.country, a.province, a.headimgurl, a.createTime, a.user_id, a.code
-	</sql>
+		a.id, a.account_id, a.subscribe, a.open_id, a.nickname, a.sex, a.sex_desc, a.language, a.city, a.qr_code, a.province, a.country, a.head_img_url, a.subscribe_time, a.union_id, a.remark, a.group_id, a.privileges, a.tag_ids, a.subscribe_scene, a.qr_scene, a.qr_scene_str, a.created, a.user_id, b.name as account_name, c.name as open_name, d.name as union_name, e.name as group_name, f.name as user_name
+		</sql>
 
     <select id="listMemberByPage" resultMap="BaseResultMap" parameterType="map">
         SELECT
