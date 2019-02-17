@@ -26,19 +26,24 @@ public class SubscribeHandler extends AbstractHandler {
 
     @Override
     public WxMpXmlOutMessage handle(WxMpXmlMessage wxMessage,
-                                    Map<String, Object> context, WxMpService weixinService,
+                                    Map<String, Object> context, WxMpService wxMpService,
                                     WxSessionManager sessionManager) throws WxErrorException {
 
         this.logger.info("新关注用户 OPENID: " + wxMessage.getFromUser());
 
         // 获取微信用户基本信息
         try {
-            WxMpUser userWxInfo = weixinService.getUserService()
+            WxMpUser userWxInfo = wxMpService.getUserService()
                 .userInfo(wxMessage.getFromUser(), null);
             if (userWxInfo != null) {
                 WxMember wxMember = JSON.parseObject(userWxInfo.toString(),WxMember.class);
-                wxMemberService.add(wxMember);
-                System.out.println(userWxInfo.toString());
+                wxMember.setAccountId(wxMessage.getToUser());
+                WxMember member = wxMemberService.getMemberByOpenId(wxMember.getOpenId());
+                if(member==null){
+                    wxMemberService.add(wxMember);
+                }else{
+                    this.logger.info("该用户已经关注了！");
+                }
                 // TODO 可以添加关注用户到本地数据库
             }
         } catch (WxErrorException e) {
@@ -60,7 +65,7 @@ public class SubscribeHandler extends AbstractHandler {
         }
 
         try {
-            return new TextBuilder().build("感谢关注", wxMessage, weixinService);
+            return new TextBuilder().build("感谢关注", wxMessage, wxMpService);
         } catch (Exception e) {
             this.logger.error(e.getMessage(), e);
         }

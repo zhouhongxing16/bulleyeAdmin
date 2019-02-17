@@ -24,7 +24,7 @@ public class WxMember implements Serializable {
 
 
     @Column(name = "subscribe")
-    private String subscribe;
+    private Boolean subscribe;
 
 
     @Column(name = "open_id")
@@ -82,8 +82,8 @@ public class WxMember implements Serializable {
     @Column(name = "qr_scene_str")
     private String qrSceneStr;
 
-    @Column(name = "created")
-    private Long created;
+    @Column(name = "unsubscribe_time")
+    private Long unsubscribeTime;
 
     @Column(name = "status")
     private Integer status;
@@ -104,11 +104,11 @@ public class WxMember implements Serializable {
         this.accountId = accountId;
     }
 
-    public String getSubscribe() {
+    public Boolean getSubscribe() {
         return subscribe;
     }
 
-    public void setSubscribe(String subscribe) {
+    public void setSubscribe(Boolean subscribe) {
         this.subscribe = subscribe;
     }
 
@@ -256,19 +256,19 @@ public class WxMember implements Serializable {
         this.qrSceneStr = qrSceneStr;
     }
 
-    public Long getCreated() {
-        return created;
-    }
-
-    public void setCreated(Long created) {
-        this.created = created;
-    }
-
     public Integer getStatus() {
         return status;
     }
 
     public void setStatus(Integer status) {
         this.status = status;
+    }
+
+    public Long getUnsubscribeTime() {
+        return unsubscribeTime;
+    }
+
+    public void setUnsubscribeTime(Long unsubscribeTime) {
+        this.unsubscribeTime = unsubscribeTime;
     }
 }

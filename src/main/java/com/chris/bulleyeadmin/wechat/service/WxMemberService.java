@@ -17,4 +17,8 @@ public class WxMemberService extends BaseService<WxMember> {
     public BaseMapper<WxMember> getMapper() {
         return wxMemberMapper;
     }
+
+    public WxMember getMemberByOpenId(String openId) {
+       return wxMemberMapper.getMemberByOpenId(openId);
+    }
 }

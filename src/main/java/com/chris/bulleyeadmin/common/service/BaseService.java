@@ -69,6 +69,11 @@ public abstract class BaseService<T> {
         return  new JsonResult(obj!=null?true:false,obj,msg,null, HttpStatus.OK);
     }
 
+    public List<T> selectAll(){
+        List<T> t = getMapper().selectAll();
+        return t;
+    }
+
     @Override
     public String toString() {
         return "BaseService{}";

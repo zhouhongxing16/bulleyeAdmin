@@ -4,17 +4,13 @@
     <resultMap id="BaseResultMap" type="com.chris.bulleyeadmin.wechat.pojo.WxAccount">
         <id column="id" jdbcType="VARCHAR" property="id" />
         <result column="name" jdbcType="VARCHAR" property="name" />
-        <result column="number" jdbcType="VARCHAR" property="number" />
-        <result column="appid" jdbcType="VARCHAR" property="appid" />
-        <result column="appsecret" jdbcType="VARCHAR" property="appsecret" />
+        <result column="appid" jdbcType="VARCHAR" property="appId" />
+        <result column="appsecret" jdbcType="VARCHAR" property="appSecret" />
         <result column="token" jdbcType="VARCHAR" property="token" />
         <result column="domain" jdbcType="VARCHAR" property="domain" />
         <result column="access_token" jdbcType="VARCHAR" property="accessToken" />
         <result column="token_time" jdbcType="VARCHAR" property="tokenTime" />
         <result column="menu_state" jdbcType="VARCHAR" property="menuState" />
-        <result column="adduserid" jdbcType="VARCHAR" property="adduserid" />
-        <result column="addusername" jdbcType="VARCHAR" property="addusername" />
-        <result column="addtime" jdbcType="DATETIME" property="addtime" />
         <result column="updateid" jdbcType="VARCHAR" property="updateid" />
         <result column="updatename" jdbcType="VARCHAR" property="updatename" />
         <result column="updatetime" jdbcType="TIMESTAMP" property="updatetime" />

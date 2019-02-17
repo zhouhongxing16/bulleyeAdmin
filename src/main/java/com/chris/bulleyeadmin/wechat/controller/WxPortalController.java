@@ -64,7 +64,7 @@ public class WxPortalController {
         this.logger.info("\n接收微信请求：[openid=[{}], [signature=[{}], encType=[{}], msgSignature=[{}],"
                 + " timestamp=[{}], nonce=[{}], requestBody=[\n{}\n] ",
             openid, signature, encType, msgSignature, timestamp, nonce, requestBody);
-        System.out.println(appId);
+
         if (!wxService.checkSignature(timestamp, nonce, signature)) {
             throw new IllegalArgumentException("非法请求，可能属于伪造的请求！");
         }

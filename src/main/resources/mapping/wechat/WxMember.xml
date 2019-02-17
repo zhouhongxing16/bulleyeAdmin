@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!--Created by Chris on Fri Jan 11 2019 17:53:57 GMT+0800 (中国标准时间)-->
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.chris.bulleyeadmin.wechat.mapper.WxAccountMapper">
+<mapper namespace="com.chris.bulleyeadmin.wechat.mapper.WxMemberMapper">
     <resultMap id="BaseResultMap" type="com.chris.bulleyeadmin.wechat.pojo.WxMember">
         <id column="id" jdbcType="VARCHAR" property="id" />
         <result column="account_id" jdbcType="VARCHAR" property="accountId" />
@@ -12,7 +12,6 @@
         <result column="sex_desc" jdbcType="VARCHAR" property="sexDesc" />
         <result column="language" jdbcType="VARCHAR" property="language" />
         <result column="city" jdbcType="VARCHAR" property="city" />
-        <result column="qr_code" jdbcType="VARCHAR" property="qrCode" />
         <result column="province" jdbcType="VARCHAR" property="province" />
         <result column="country" jdbcType="VARCHAR" property="country" />
         <result column="head_img_url" jdbcType="VARCHAR" property="headImgUrl" />
@@ -25,15 +24,14 @@
         <result column="subscribe_scene" jdbcType="VARCHAR" property="subscribeScene" />
         <result column="qr_scene" jdbcType="VARCHAR" property="qrScene" />
         <result column="qr_scene_str" jdbcType="VARCHAR" property="qrSceneStr" />
-        <result column="created" jdbcType="BIGINT" property="created" />
-        <result column="user_id" jdbcType="VARCHAR" property="userId" />
+        <result column="unsubscribe_time" jdbcType="BIGINT" property="unsubscribeTime" />
     </resultMap>
 
     <sql id="basic_list">
 		a.id, a.account_id, a.subscribe, a.open_id, a.nickname, a.sex, a.sex_desc, a.language, a.city, a.qr_code, a.province, a.country, a.head_img_url, a.subscribe_time, a.union_id, a.remark, a.group_id, a.privileges, a.tag_ids, a.subscribe_scene, a.qr_scene, a.qr_scene_str, a.created, a.user_id, b.name as account_name, c.name as open_name, d.name as union_name, e.name as group_name, f.name as user_name
-		</sql>
+	</sql>
 
-    <select id="listMemberByPage" resultMap="BaseResultMap" parameterType="map">
+    <select id="listByPage" resultMap="BaseResultMap" parameterType="map">
         SELECT
         <include refid="basic_list"/>
         FROM wx_member a
@@ -80,6 +78,15 @@
             <if test="code!=null and code!='' ">
                 and a.code LIKE CONCAT('%', #{ code }, '%')
             </if>
+        </where>
+    </select>
+
+    <select id="getMemberByOpenId" resultMap="BaseResultMap" parameterType="String">
+        SELECT
+        <include refid="basic_list"/>
+        FROM wx_member a
+        <where>
+            a.open_id =  #{openId}
         </where>
     </select>
 </mapper>

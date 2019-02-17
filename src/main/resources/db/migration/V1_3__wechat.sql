@@ -1,3 +1,16 @@
+-- --------------------------------------------------------
+-- 主机:                           localhost
+-- 服务器版本:                        5.7.9-log - MySQL Community Server (GPL)
+-- 服务器操作系统:                      Win64
+-- HeidiSQL 版本:                  9.5.0.5196
+-- --------------------------------------------------------
+
+/*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
+/*!40101 SET NAMES utf8 */;
+/*!50503 SET NAMES utf8mb4 */;
+/*!40014 SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0 */;
+/*!40101 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_VALUE_ON_ZERO' */;
+
 
 -- 导出 bulleye_admin 的数据库结构
 CREATE DATABASE IF NOT EXISTS `bulleye_admin` /*!40100 DEFAULT CHARACTER SET utf8 */;
@@ -32,14 +45,14 @@ CREATE TABLE IF NOT EXISTS `wx_account` (
 DELETE FROM `wx_account`;
 /*!40000 ALTER TABLE `wx_account` DISABLE KEYS */;
 INSERT INTO `wx_account` (`id`, `qr_code`, `name`, `source_id`, `app_id`, `aes_key`, `app_secret`, `token`, `domain`, `access_token`, `token_time`, `menu_state`, `user_id`, `created`, `updated`, `remark`, `partner`, `partner_key`, `certificate_path`, `status`) VALUES
-	('dfdfgsdfgsdfgsdfgsdfgsdfgsdfgsdfg', '3', '2', '2', 'wx428db2722153d12d', '2', 'e1e8aed568ff374cb368428529c78d13', 'chris520', '2', '2', '2019-02-15 23:34:49', '2', '2', 2, 2, '2', '2', '2', '2', 2);
+	('dfdfgsdfgsdfgsdfgsdfgsdfgsdfgsdfg', '3', '2', 'gh_89ac68370508', 'wx428db2722153d12d', '2', 'e1e8aed568ff374cb368428529c78d13', 'chris520', '2', '2', '2019-02-15 23:34:49', '2', '2', 2, 2, '2', '2', '2', '2', 2);
 /*!40000 ALTER TABLE `wx_account` ENABLE KEYS */;
 
 -- 导出  表 bulleye_admin.wx_member 结构
 CREATE TABLE IF NOT EXISTS `wx_member` (
   `id` varchar(40) NOT NULL COMMENT '微信用户id',
   `account_id` varchar(50) DEFAULT NULL COMMENT '所属公众号id',
-  `subscribe` varchar(50) DEFAULT NULL COMMENT '关注状态 1.关注中 2.未关注',
+  `subscribe` bit(1) DEFAULT NULL COMMENT '关注状态 1.关注中 2.未关注',
   `open_id` varchar(50) NOT NULL COMMENT '用户openid',
   `nickname` varchar(50) CHARACTER SET utf8mb4 DEFAULT NULL COMMENT '昵称',
   `sex` varchar(50) DEFAULT NULL COMMENT '性别',
@@ -59,9 +72,8 @@ CREATE TABLE IF NOT EXISTS `wx_member` (
   `subscribe_scene` varchar(200) DEFAULT NULL,
   `qr_scene` varchar(200) DEFAULT NULL,
   `qr_scene_str` varchar(200) DEFAULT NULL,
-  `created` bigint(20) DEFAULT NULL COMMENT '创建时间',
   `user_id` varchar(50) DEFAULT NULL COMMENT '关联用户账户id',
-  `status` varchar(50) DEFAULT NULL,
+  `unsubscribe_time` bigint(20) DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `openid` (`open_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='微信用户';
