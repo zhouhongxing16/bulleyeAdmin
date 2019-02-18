@@ -12,7 +12,7 @@
         <result column="token" jdbcType="VARCHAR" property="token" />
         <result column="domain" jdbcType="VARCHAR" property="domain" />
         <result column="access_token" jdbcType="VARCHAR" property="accessToken" />
-        <result column="token_time" jdbcType="DATETIME" property="tokenTime" />
+        <result column="token_time" jdbcType="BIGINT" property="tokenTime" />
         <result column="menu_state" jdbcType="VARCHAR" property="menuState" />
         <result column="user_id" jdbcType="VARCHAR" property="userId" />
         <result column="created" jdbcType="BIGINT" property="created" />
