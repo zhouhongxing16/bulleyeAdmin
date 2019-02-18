@@ -3,15 +3,95 @@
 <mapper namespace="com.chris.bulleyeadmin.wechat.mapper.WxAccountMapper">
     <resultMap id="BaseResultMap" type="com.chris.bulleyeadmin.wechat.pojo.WxAccount">
         <id column="id" jdbcType="VARCHAR" property="id" />
+        <result column="qr_code" jdbcType="VARCHAR" property="qrCode" />
         <result column="name" jdbcType="VARCHAR" property="name" />
-        <result column="appid" jdbcType="VARCHAR" property="appId" />
-        <result column="appsecret" jdbcType="VARCHAR" property="appSecret" />
+        <result column="source_id" jdbcType="VARCHAR" property="sourceId" />
+        <result column="app_id" jdbcType="VARCHAR" property="appId" />
+        <result column="aes_key" jdbcType="VARCHAR" property="aesKey" />
+        <result column="app_secret" jdbcType="VARCHAR" property="appSecret" />
         <result column="token" jdbcType="VARCHAR" property="token" />
         <result column="domain" jdbcType="VARCHAR" property="domain" />
         <result column="access_token" jdbcType="VARCHAR" property="accessToken" />
-        <result column="token_time" jdbcType="VARCHAR" property="tokenTime" />
+        <result column="token_time" jdbcType="DATETIME" property="tokenTime" />
         <result column="menu_state" jdbcType="VARCHAR" property="menuState" />
+        <result column="user_id" jdbcType="VARCHAR" property="userId" />
+        <result column="created" jdbcType="BIGINT" property="created" />
+        <result column="updated" jdbcType="BIGINT" property="updated" />
         <result column="remark" jdbcType="VARCHAR" property="remark" />
+        <result column="partner" jdbcType="VARCHAR" property="partner" />
+        <result column="partner_key" jdbcType="VARCHAR" property="partnerKey" />
+        <result column="certificate_path" jdbcType="VARCHAR" property="certificatePath" />
+        <result column="status" jdbcType="INTEGER" property="status" />
     </resultMap>
+    <sql id="basic_list">
+		a.id, a.qr_code, a.name, a.source_id, a.app_id, a.aes_key, a.app_secret, a.token, a.domain, a.access_token, a.token_time, a.menu_state, a.user_id, a.created, a.updated, a.remark, a.partner, a.partner_key, a.certificate_path, a.status
+	</sql>
 
+    <select id="listByPage" resultMap="BaseResultMap" parameterType="map">
+        SELECT
+        <include refid="basic_list"/>
+        FROM wx_account a
+        <where>
+            <if test="id!=null and id!='' ">
+                and a.id=#{ id }
+            </if>
+            <if test="qrCode!=null and qrCode!='' ">
+                and a.qr_code LIKE CONCAT('%', #{ qrCode }, '%')
+            </if>
+            <if test="name!=null and name!='' ">
+                and a.name LIKE CONCAT('%', #{ name }, '%')
+            </if>
+            <if test="sourceId!=null and sourceId!='' ">
+                and a.source_id=#{ sourceId }
+            </if>
+            <if test="appId!=null and appId!='' ">
+                and a.app_id=#{ appId }
+            </if>
+            <if test="aesKey!=null and aesKey!='' ">
+                and a.aes_key LIKE CONCAT('%', #{ aesKey }, '%')
+            </if>
+            <if test="appSecret!=null and appSecret!='' ">
+                and a.app_secret LIKE CONCAT('%', #{ appSecret }, '%')
+            </if>
+            <if test="token!=null and token!='' ">
+                and a.token LIKE CONCAT('%', #{ token }, '%')
+            </if>
+            <if test="domain!=null and domain!='' ">
+                and a.domain LIKE CONCAT('%', #{ domain }, '%')
+            </if>
+            <if test="accessToken!=null and accessToken!='' ">
+                and a.access_token LIKE CONCAT('%', #{ accessToken }, '%')
+            </if>
+            <if test="tokenTime!=null and tokenTime!='' ">
+                and a.token_time LIKE CONCAT('%', #{ tokenTime }, '%')
+            </if>
+            <if test="menuState!=null and menuState!='' ">
+                and a.menu_state LIKE CONCAT('%', #{ menuState }, '%')
+            </if>
+            <if test="userId!=null and userId!='' ">
+                and a.user_id=#{ userId }
+            </if>
+            <if test="created!=null and created!='' ">
+                and a.created LIKE CONCAT('%', #{ created }, '%')
+            </if>
+            <if test="updated!=null and updated!='' ">
+                and a.updated LIKE CONCAT('%', #{ updated }, '%')
+            </if>
+            <if test="remark!=null and remark!='' ">
+                and a.remark LIKE CONCAT('%', #{ remark }, '%')
+            </if>
+            <if test="partner!=null and partner!='' ">
+                and a.partner LIKE CONCAT('%', #{ partner }, '%')
+            </if>
+            <if test="partnerKey!=null and partnerKey!='' ">
+                and a.partner_key LIKE CONCAT('%', #{ partnerKey }, '%')
+            </if>
+            <if test="certificatePath!=null and certificatePath!='' ">
+                and a.certificate_path LIKE CONCAT('%', #{ certificatePath }, '%')
+            </if>
+            <if test="status!=null and status!='' ">
+                and a.status LIKE CONCAT('%', #{ status }, '%')
+            </if>
+        </where>
+    </select>
 </mapper>
