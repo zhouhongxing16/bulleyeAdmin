@@ -19,16 +19,17 @@
         <result column="union_id" jdbcType="VARCHAR" property="unionId" />
         <result column="remark" jdbcType="VARCHAR" property="remark" />
         <result column="group_id" jdbcType="VARCHAR" property="groupId" />
-        <result column="privileges" jdbcType="VARCHAR" property="privileges" />
-        <result column="tag_ids" jdbcType="VARCHAR" property="tagIds" />
         <result column="subscribe_scene" jdbcType="VARCHAR" property="subscribeScene" />
         <result column="qr_scene" jdbcType="VARCHAR" property="qrScene" />
         <result column="qr_scene_str" jdbcType="VARCHAR" property="qrSceneStr" />
         <result column="unsubscribe_time" jdbcType="BIGINT" property="unsubscribeTime" />
+<!--
+        <result column="privileges" jdbcType="VARCHAR" property="privileges" />
+        <result column="tag_ids" jdbcType="VARCHAR" property="tagIds" />-->
     </resultMap>
 
     <sql id="basic_list">
-		a.id, a.account_id, a.subscribe, a.open_id, a.nickname, a.sex, a.sex_desc, a.language, a.city, a.qr_code, a.province, a.country, a.head_img_url, a.subscribe_time, a.union_id, a.remark, a.group_id, a.privileges, a.tag_ids, a.subscribe_scene, a.qr_scene, a.qr_scene_str, a.created, a.user_id, b.name as account_name, c.name as open_name, d.name as union_name, e.name as group_name, f.name as user_name
+		a.id, a.account_id, a.subscribe, a.open_id, a.nickname, a.sex, a.sex_desc, a.language, a.city, a.qr_code, a.province, a.country, a.head_img_url, a.subscribe_time, a.union_id, a.remark, a.group_id, a.subscribe_scene, a.qr_scene, a.qr_scene_str
 	</sql>
 
     <select id="listByPage" resultMap="BaseResultMap" parameterType="map">

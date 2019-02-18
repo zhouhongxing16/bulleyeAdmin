@@ -34,19 +34,16 @@ public class UnsubscribeHandler extends AbstractHandler {
             if (userWxInfo != null) {
                 WxMember wxMember = JSON.parseObject(userWxInfo.toString(),WxMember.class);
                 wxMember.setAccountId(wxMessage.getToUser());
-                List<WxMember> members = wxMemberService.selectAll();
-               /*WxMember member = wxMemberService.getMemberByOpenId(wxMember.getOpenId());
-
+                WxMember member = wxMemberService.getMemberByOpenId(wxMember.getOpenId());
                 if(member==null){
-                    member.setSubscribe(false);
-                    member.setUnsubscribeTime(System.currentTimeMillis());
-                    wxMemberService.add(wxMember);
-                }else{
                     wxMember.setSubscribe(false);
                     wxMember.setUnsubscribeTime(System.currentTimeMillis());
-                    wxMemberService.update(wxMember);
-                }*/
-                System.out.println(members.size());
+                    wxMemberService.add(wxMember);
+                }else{
+                    member.setSubscribe(false);
+                    member.setUnsubscribeTime(System.currentTimeMillis());
+                    wxMemberService.update(member);
+                }
                 this.logger.info("取消关注用户 OPENID: " + wxMember.getOpenId());
             }
         } catch (WxErrorException e) {

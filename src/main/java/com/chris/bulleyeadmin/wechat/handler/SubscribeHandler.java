@@ -42,9 +42,9 @@ public class SubscribeHandler extends AbstractHandler {
                 if(member==null){
                     wxMemberService.add(wxMember);
                 }else{
-                    this.logger.info("该用户已经关注了！");
+                    member.setSubscribe(true);
+                    wxMemberService.update(member);
                 }
-                // TODO 可以添加关注用户到本地数据库
             }
         } catch (WxErrorException e) {
             if (e.getError().getErrorCode() == 48001) {

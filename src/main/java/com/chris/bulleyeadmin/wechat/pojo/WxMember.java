@@ -67,10 +67,12 @@ public class WxMember implements Serializable {
     @Column(name = "group_id")
     private String groupId;
 
-    @Column(name = "tag_ids")
+    //@Column(name = "tag_ids")
+    @Transient
     private Long[] tagIds;
 
-    @Column(name = "privileges")
+   // @Column(name = "privileges")
+    @Transient
     private String[] privileges;
 
     @Column(name = "subscribe_scene")
@@ -84,9 +86,6 @@ public class WxMember implements Serializable {
 
     @Column(name = "unsubscribe_time")
     private Long unsubscribeTime;
-
-    @Column(name = "status")
-    private Integer status;
 
     public String getId() {
         return id;
@@ -254,14 +253,6 @@ public class WxMember implements Serializable {
 
     public void setQrSceneStr(String qrSceneStr) {
         this.qrSceneStr = qrSceneStr;
-    }
-
-    public Integer getStatus() {
-        return status;
-    }
-
-    public void setStatus(Integer status) {
-        this.status = status;
     }
 
     public Long getUnsubscribeTime() {
