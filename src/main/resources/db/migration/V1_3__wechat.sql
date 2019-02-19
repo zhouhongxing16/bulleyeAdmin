@@ -125,3 +125,17 @@ ENGINE=InnoDB
 
 DELETE FROM `wx_graphic`;
 
+
+CREATE TABLE IF NOT EXISTS `wx_menu` (
+  `id` varchar(50) NOT NULL,
+  `account_id` varchar(50) DEFAULT NULL COMMENT '公众号id',
+  `type` varchar(20) DEFAULT NULL COMMENT '菜单的响应动作类型，view表示网页类型，click表示点击类型，miniprogram表示小程序类型',
+  `name` varchar(100) DEFAULT NULL COMMENT '菜单标题',
+  `key` varchar(100) DEFAULT NULL COMMENT '菜单KEY值，用于消息接口推送',
+  `url` varchar(1000) DEFAULT NULL COMMENT '网页 链接',
+  `media_id` varchar(100) DEFAULT NULL COMMENT '永久素材media_id',
+  `appid` varchar(50) DEFAULT NULL COMMENT '小程序的appid',
+  `pagepath` varchar(500) DEFAULT NULL COMMENT '小程序的页面路径',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='微信菜单表';
+

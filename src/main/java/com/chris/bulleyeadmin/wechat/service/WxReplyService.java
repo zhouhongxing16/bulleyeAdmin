@@ -7,6 +7,8 @@ import com.chris.bulleyeadmin.wechat.pojo.WxReply;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 
 @Service
 public class WxReplyService extends BaseService<WxReply> {
@@ -17,5 +19,9 @@ public class WxReplyService extends BaseService<WxReply> {
     @Override
     public BaseMapper<WxReply> getMapper() {
         return wxReplyMapper;
+    }
+
+    public List<WxReply> selectlist(WxReply reply) {
+        return wxReplyMapper.selectlist(reply);
     }
 }
