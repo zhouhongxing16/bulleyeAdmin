@@ -87,20 +87,22 @@ DELETE FROM `wx_member`;
 /*!40000 ALTER TABLE `wx_member` ENABLE KEYS */;
 
 -- 导出  表 bulleye_admin.wx_reply 结构
-CREATE TABLE IF NOT EXISTS `wx_reply` (
-  `id` varchar(50) NOT NULL COMMENT 'ID',
-  `account_id` varchar(50) DEFAULT NULL COMMENT '所属公众号ID',
-  `keyword` varchar(100) DEFAULT NULL COMMENT '关键字',
-  `title` varchar(100) DEFAULT NULL COMMENT '标题',
-  `pic` varchar(150) DEFAULT NULL COMMENT '图片',
-  `url` varchar(100) DEFAULT NULL COMMENT '链接',
-  `content` varchar(250) DEFAULT NULL COMMENT '内容',
-  `type` varchar(50) DEFAULT NULL COMMENT '类型 1.图文 2.纯文字',
-  `num` bigint(20) DEFAULT NULL COMMENT '回复次数',
-  `status` int(11) DEFAULT NULL,
-  `created` bigint(20) DEFAULT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='微信自动回复';
+CREATE TABLE `wx_reply` (
+	`id` VARCHAR(50) NOT NULL COMMENT 'ID',
+	`account_id` VARCHAR(50) NULL DEFAULT NULL COMMENT '所属公众号ID',
+	`keyword` VARCHAR(100) NULL DEFAULT NULL COMMENT '关键字',
+	`value` VARCHAR(100) NULL DEFAULT NULL COMMENT '标题',
+	`graphic_id` VARCHAR(50) NULL DEFAULT NULL,
+	`type` VARCHAR(50) NULL DEFAULT NULL COMMENT '类型 1.图文 2.纯文字',
+	`num` BIGINT(20) NULL DEFAULT NULL COMMENT '回复次数',
+	`status` INT(11) NULL DEFAULT NULL,
+	`created` BIGINT(20) NULL DEFAULT NULL,
+	PRIMARY KEY (`id`)
+)
+COMMENT='微信自动回复'
+COLLATE='utf8_general_ci'
+ENGINE=InnoDB;
+
 
 -- 正在导出表  bulleye_admin.wx_reply 的数据：~0 rows (大约)
 DELETE FROM `wx_reply`;
