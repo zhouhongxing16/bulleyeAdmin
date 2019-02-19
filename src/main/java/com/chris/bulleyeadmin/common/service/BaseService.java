@@ -74,6 +74,11 @@ public abstract class BaseService<T> {
         return t;
     }
 
+    public List<T> select(T t){
+        List<T> list = getMapper().select(t);
+        return list;
+    }
+
     @Override
     public String toString() {
         return "BaseService{}";

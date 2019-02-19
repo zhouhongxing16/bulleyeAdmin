@@ -42,7 +42,7 @@ public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter {
                 .antMatchers("/assets/**").permitAll()
                 .antMatchers("/favicon.ico").permitAll()
                 .antMatchers("/imagevcode").permitAll()
-                .antMatchers("/wx/**").permitAll()
+                .antMatchers("/wx/portal/**").permitAll()
                 .anyRequest().authenticated()
                 .and()
                 .addFilter(new JWTLoginFilter(authenticationManager()))

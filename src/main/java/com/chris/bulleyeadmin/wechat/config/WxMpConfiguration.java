@@ -90,8 +90,7 @@ public class WxMpConfiguration implements CommandLineRunner {
             .handler(this.kfSessionHandler).end();
         newRouter.rule().async(false).msgType(XmlMsgType.EVENT)
             .event(WxMpEventConstants.CustomerService.KF_CLOSE_SESSION)
-            .handler(this.kfSessionHandler)
-            .end();
+            .handler(this.kfSessionHandler).end();
         newRouter.rule().async(false).msgType(XmlMsgType.EVENT)
             .event(WxMpEventConstants.CustomerService.KF_SWITCH_SESSION)
             .handler(this.kfSessionHandler).end();
@@ -141,12 +140,9 @@ public class WxMpConfiguration implements CommandLineRunner {
     @Override
     public void run(String... args) throws Exception {
         // 代码里 getConfigs()处报错的同学，请注意仔细阅读项目说明，你的getMpServicesIDE需要引入lombok插件！！！！
-        //final List<WxMpProperties.MpConfig> configs =this.properties.getConfigs();
         final List<WxAccount> wxAccounts = wxAccountService.getAll();
-        //final List<WxAccount> wxAccounts = new ArrayList<>();
         if (wxAccounts.size()==0) {
             System.out.println("数据库中无微信公众号相关信息");
-            //throw new RuntimeException("数据库中无微信公众号相关信息");
         }
         mpServices = wxAccounts.stream().map(a -> {
             WxMpInMemoryConfigStorage configStorage = new WxMpInMemoryConfigStorage();

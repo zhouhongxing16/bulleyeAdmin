@@ -28,7 +28,7 @@ CREATE TABLE IF NOT EXISTS `wx_account` (
   `token` varchar(50) DEFAULT NULL COMMENT '微信token',
   `domain` varchar(500) DEFAULT NULL COMMENT '域名',
   `access_token` varchar(50) DEFAULT NULL COMMENT 'access_token',
-  `token_time` datetime DEFAULT NULL COMMENT '上次获取access_token的时间',
+  `token_time` bigint(20) DEFAULT NULL COMMENT '上次获取access_token的时间',
   `menu_state` varchar(50) DEFAULT NULL COMMENT 'menu_state',
   `user_id` varchar(50) DEFAULT NULL COMMENT '添加人ID',
   `created` bigint(20) DEFAULT NULL COMMENT '添加时间',

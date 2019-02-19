@@ -1,5 +1,5 @@
 server:
-  port: 8088
+  port: 80
   session:
     servlet:
       timeout: 1200
@@ -10,7 +10,7 @@ spring:
     driver-class-name: com.p6spy.engine.spy.P6SpyDriver
     hikari:
       username: root
-      password: root
+      password: 3306
   mvc:
     throw-exception-if-no-handler-found: true
   flyway:
