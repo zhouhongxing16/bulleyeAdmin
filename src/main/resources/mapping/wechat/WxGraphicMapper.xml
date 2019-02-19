@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--Created by  on Tue Feb 19 2019 18:24:29 GMT+0800 (中国标准时间)-->
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.chris.bulleyeadmin.wechat.mapper.WxGraphicMapper">
+    <resultMap id="BaseResultMap" type="com.chris.bulleyeadmin.wechat.pojo.WxGraphic">
+        <id column="id" jdbcType="VARCHAR" property="id" />
+        <result column="title" jdbcType="VARCHAR" property="title" />
+        <result column="brief" jdbcType="VARCHAR" property="brief" />
+        <result column="content" jdbcType="LONGTEXT" property="content" />
+        <result column="url" jdbcType="VARCHAR" property="url" />
+        <result column="img_url" jdbcType="VARCHAR" property="imgUrl" />
+        <result column="read_num" jdbcType="INTEGER" property="readNum" />
+        <result column="created" jdbcType="BIGINT" property="created" />
+        <result column="status" jdbcType="INTEGER" property="status" />
+
+    </resultMap>
+
+    <sql id="basic_list">
+		a.id, a.title, a.brief, a.content, a.url, a.imgurl, a.read_num, a.created, a.status
+	</sql>
+
+    <select id="listByPage" resultMap="BaseResultMap" parameterType="map">
+        SELECT
+        <include refid="basic_list"/>
+        FROM wx_graphic a
+        <where>
+            <if test="id!=null and id!='' ">
+                and a.id=#{ id }
+            </if>
+            <if test="title!=null and title!='' ">
+                and a.title LIKE CONCAT('%', #{ title }, '%')
+            </if>
+            <if test="brief!=null and brief!='' ">
+                and a.brief LIKE CONCAT('%', #{ brief }, '%')
+            </if>
+            <if test="content!=null and content!='' ">
+                and a.content LIKE CONCAT('%', #{ content }, '%')
+            </if>
+            <if test="url!=null and url!='' ">
+                and a.url LIKE CONCAT('%', #{ url }, '%')
+            </if>
+            <if test="imgurl!=null and imgurl!='' ">
+                and a.imgurl LIKE CONCAT('%', #{ imgurl }, '%')
+            </if>
+            <if test="readNum!=null and readNum!='' ">
+                and a.read_num LIKE CONCAT('%', #{ readNum }, '%')
+            </if>
+            <if test="created!=null and created!='' ">
+                and a.created LIKE CONCAT('%', #{ created }, '%')
+            </if>
+            <if test="status!=null and status!='' ">
+                and a.status LIKE CONCAT('%', #{ status }, '%')
+            </if>
+        </where>
+    </select>
+</mapper>

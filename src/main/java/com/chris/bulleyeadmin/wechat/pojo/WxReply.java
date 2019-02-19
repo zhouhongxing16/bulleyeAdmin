@@ -10,7 +10,6 @@ import java.io.Serializable;
  */
 @Table(name = "wx_reply")
 public class WxReply implements Serializable {
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY, generator = "select uuid()")
     private String id;
@@ -21,20 +20,14 @@ public class WxReply implements Serializable {
     @Column(name = "keyword")
     private String keyword;
 
-    @Column(name = "title")
-    private String title;
+    @Column(name = "type")
+    private String type;
 
-    @Column(name = "pic")
-    private String pic;
+    @Column(name = "value")
+    private String value;
 
-    @Column(name = "url")
-    private String url;
-
-    @Column(name = "content")
-    private String content;
-
-    @Column(name = "type_id")
-    private String typeId;
+    @Column(name = "graphic_id")
+    private String graphicId;
 
     @Column(name = "num")
     private Long num;
@@ -45,90 +38,123 @@ public class WxReply implements Serializable {
     @Column(name = "created")
     private Long created;
 
+
+    /**
+     * @return id
+     */
     public String getId() {
         return id;
     }
 
+    /**
+     * @param id
+     */
     public void setId(String id) {
-        this.id = id;
+        this.id = id == null ? null : id.trim();
     }
 
+    /**
+     * @return accountId
+     */
     public String getAccountId() {
         return accountId;
     }
 
+    /**
+     * @param accountId
+     */
     public void setAccountId(String accountId) {
-        this.accountId = accountId;
+        this.accountId = accountId == null ? null : accountId.trim();
     }
 
+    /**
+     * @return keyword
+     */
     public String getKeyword() {
         return keyword;
     }
 
+    /**
+     * @param keyword
+     */
     public void setKeyword(String keyword) {
-        this.keyword = keyword;
+        this.keyword = keyword == null ? null : keyword.trim();
     }
 
-    public String getTitle() {
-        return title;
+    /**
+     * @return type
+     */
+    public String getType() {
+        return type;
     }
 
-    public void setTitle(String title) {
-        this.title = title;
+    /**
+     * @param type
+     */
+    public void setType(String type) {
+        this.type = type == null ? null : type.trim();
     }
 
-    public String getPic() {
-        return pic;
+    public String getValue() {
+        return value;
     }
 
-    public void setPic(String pic) {
-        this.pic = pic;
+    public void setValue(String value) {
+        this.value = value;
     }
 
-    public String getUrl() {
-        return url;
+    /**
+     * @return graphicId
+     */
+    public String getGraphicId() {
+        return graphicId;
     }
 
-    public void setUrl(String url) {
-        this.url = url;
+    /**
+     * @param graphicId
+     */
+    public void setGraphicId(String graphicId) {
+        this.graphicId = graphicId == null ? null : graphicId.trim();
     }
 
-    public String getContent() {
-        return content;
-    }
-
-    public void setContent(String content) {
-        this.content = content;
-    }
-
-    public String getTypeId() {
-        return typeId;
-    }
-
-    public void setTypeId(String typeId) {
-        this.typeId = typeId;
-    }
-
+    /**
+     * @return num
+     */
     public Long getNum() {
         return num;
     }
 
+    /**
+     * @param num
+     */
     public void setNum(Long num) {
         this.num = num;
     }
 
+    /**
+     * @return status
+     */
     public Integer getStatus() {
         return status;
     }
 
+    /**
+     * @param status
+     */
     public void setStatus(Integer status) {
         this.status = status;
     }
 
+    /**
+     * @return created
+     */
     public Long getCreated() {
         return created;
     }
 
+    /**
+     * @param created
+     */
     public void setCreated(Long created) {
         this.created = created;
     }

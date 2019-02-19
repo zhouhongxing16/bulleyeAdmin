@@ -1,21 +1,22 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!--Created by Chris on Fri Jan 11 2019 17:59:42 GMT+0800 (中国标准时间)-->
+<!--Created by  on Tue Feb 19 2019 18:28:26 GMT+0800 (中国标准时间)-->
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.chris.bulleyeadmin.wechat.mapper.WxReplyMapper">
     <resultMap id="BaseResultMap" type="com.chris.bulleyeadmin.wechat.pojo.WxReply">
-        <result column="id" jdbcType="VARCHAR" property="id" />
+        <id column="id" jdbcType="VARCHAR" property="id" />
         <result column="account_id" jdbcType="VARCHAR" property="accountId" />
         <result column="keyword" jdbcType="VARCHAR" property="keyword" />
-        <result column="title" jdbcType="VARCHAR" property="title" />
-        <result column="pic" jdbcType="VARCHAR" property="pic" />
-        <result column="url" jdbcType="VARCHAR" property="url" />
-        <result column="content" jdbcType="VARCHAR" property="content" />
-        <result column="type" jdbcType="VARCHAR" property="typeId" />
+        <result column="type" jdbcType="VARCHAR" property="type" />
+        <result column="value" jdbcType="LONGTEXT" property="value" />
+        <result column="graphic_id" jdbcType="VARCHAR" property="graphicId" />
         <result column="num" jdbcType="BIGINT" property="num" />
+        <result column="status" jdbcType="INTEGER" property="status" />
+        <result column="created" jdbcType="BIGINT" property="created" />
+
     </resultMap>
 
     <sql id="basic_list">
-		a.id, a.account_id, a.keyword, a.title, a.pic, a.url, a.content, a.type, a.num
+		a.id, a.account_id, a.keyword, a.type, a.value, a.graphic_id, a.num, a.status, a.created
 	</sql>
 
     <select id="listByPage" resultMap="BaseResultMap" parameterType="map">
@@ -32,23 +33,23 @@
             <if test="keyword!=null and keyword!='' ">
                 and a.keyword LIKE CONCAT('%', #{ keyword }, '%')
             </if>
-            <if test="title!=null and title!='' ">
-                and a.title LIKE CONCAT('%', #{ title }, '%')
-            </if>
-            <if test="pic!=null and pic!='' ">
-                and a.pic LIKE CONCAT('%', #{ pic }, '%')
-            </if>
-            <if test="url!=null and url!='' ">
-                and a.url LIKE CONCAT('%', #{ url }, '%')
-            </if>
-            <if test="content!=null and content!='' ">
-                and a.content LIKE CONCAT('%', #{ content }, '%')
-            </if>
             <if test="type!=null and type!='' ">
                 and a.type LIKE CONCAT('%', #{ type }, '%')
             </if>
+            <if test="value!=null and value!='' ">
+                and a.value LIKE CONCAT('%', #{ value }, '%')
+            </if>
+            <if test="graphicId!=null and graphicId!='' ">
+                and a.graphic_id=#{ graphicId }
+            </if>
             <if test="num!=null and num!='' ">
                 and a.num LIKE CONCAT('%', #{ num }, '%')
+            </if>
+            <if test="status!=null and status!='' ">
+                and a.status LIKE CONCAT('%', #{ status }, '%')
+            </if>
+            <if test="created!=null and created!='' ">
+                and a.created LIKE CONCAT('%', #{ created }, '%')
             </if>
         </where>
     </select>
