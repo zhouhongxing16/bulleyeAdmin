@@ -101,3 +101,22 @@ CREATE TABLE IF NOT EXISTS `wx_reply` (
 
 -- 正在导出表  bulleye_admin.wx_reply 的数据：~0 rows (大约)
 DELETE FROM `wx_reply`;
+CREATE TABLE `wx_graphic` (
+	`id` VARCHAR(50) NOT NULL,
+	`title` VARCHAR(100) NULL DEFAULT NULL,
+	`brief` VARCHAR(200) NULL DEFAULT NULL,
+	`content` LONGTEXT NULL,
+	`url` VARCHAR(200) NULL DEFAULT NULL,
+	`imgurl` VARCHAR(200) NULL DEFAULT NULL,
+	`read_num` INT(11) NULL DEFAULT '0',
+	`created` BIGINT(20) NOT NULL,
+	`status` INT(11) NULL DEFAULT NULL,
+	PRIMARY KEY (`id`)
+)
+COMMENT='图文消息'
+COLLATE='utf8_general_ci'
+ENGINE=InnoDB
+;
+
+DELETE FROM `wx_graphic`;
+
