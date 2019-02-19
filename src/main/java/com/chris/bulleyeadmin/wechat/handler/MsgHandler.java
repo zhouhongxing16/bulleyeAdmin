@@ -43,7 +43,7 @@ public class MsgHandler extends AbstractHandler {
         reply.setAccountId(wxMessage.getToUser());
         reply.setKeyword(wxMessage.getContent());
         try {
-            List<WxReply> replyList = wxReplyService.select(reply);
+            List<WxReply> replyList = wxReplyService.selectlist(reply);
             for(WxReply reply1:replyList){
                 if ("1".equals(reply1.getType())) {
                     return new TextBuilder().build(reply1.getContent(), wxMessage, weixinService);
