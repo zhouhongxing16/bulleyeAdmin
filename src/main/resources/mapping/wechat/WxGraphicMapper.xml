@@ -39,8 +39,8 @@
             <if test="url!=null and url!='' ">
                 and a.url LIKE CONCAT('%', #{ url }, '%')
             </if>
-            <if test="imgurl!=null and imgurl!='' ">
-                and a.imgurl LIKE CONCAT('%', #{ imgurl }, '%')
+            <if test="imgUrl!=null and imgUrl!='' ">
+                and a.img_url LIKE CONCAT('%', #{ imgUrl }, '%')
             </if>
             <if test="readNum!=null and readNum!='' ">
                 and a.read_num LIKE CONCAT('%', #{ readNum }, '%')

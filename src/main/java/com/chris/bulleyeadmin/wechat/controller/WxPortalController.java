@@ -39,7 +39,7 @@ public class WxPortalController {
 
         final WxMpService wxService = WxMpConfiguration.getMpServices().get(appId);
         if (wxService == null) {
-            throw new IllegalArgumentException(String.format("未找到对应appid=[%d]的配置，请核实！", appId));
+            throw new IllegalArgumentException(String.format("未找到对应appId=[%d]的配置，请核实！", appId));
         }
 
         if (wxService.checkSignature(timestamp, nonce, signature)) {

@@ -15,14 +15,14 @@ import org.springframework.web.bind.annotation.RequestParam;
  * @author Edward
  */
 @Controller
-@RequestMapping("/wx/redirect/{appid}")
+@RequestMapping("/wx/redirect/{appId}")
 public class WxRedirectController {
 
 
     @RequestMapping("/greet")
-    public String greetUser(@PathVariable String appid, @RequestParam String code, ModelMap map) {
+    public String greetUser(@PathVariable String appId, @RequestParam String code, ModelMap map) {
 
-        WxMpService mpService = WxMpConfiguration.getMpServices().get(appid);
+        WxMpService mpService = WxMpConfiguration.getMpServices().get(appId);
 
         try {
             WxMpOAuth2AccessToken accessToken = mpService.oauth2getAccessToken(code);

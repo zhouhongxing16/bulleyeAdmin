@@ -41,20 +41,19 @@ public class MsgHandler extends AbstractHandler {
 
         WxReply reply = new WxReply();
         reply.setAccountId(wxMessage.getToUser());
-        reply.setKeyword(wxMessage.getContent());
+        reply.setKeyWord(wxMessage.getContent());
         try {
             List<WxReply> replyList = wxReplyService.selectlist(reply);
             for(WxReply reply1:replyList){
-                if ("1".equals(reply1.getType())) {
-                    return new TextBuilder().build(reply1.getContent(), wxMessage, weixinService);
-                }else if("2".equals(reply1.getType())){
+                if ("1".equals(reply1.getKeyType())) {
+                    return new TextBuilder().build(reply1.getKeyType(), wxMessage, weixinService);
+                }else if("2".equals(reply1.getKeyType())){
                     WxMpXmlOutNewsMessage.Item item = new WxMpXmlOutNewsMessage.Item();
-                    item.setTitle(reply1.getTitle());
-                    item.setDescription(reply1.getContent());
-                    item.setPicUrl(reply1.getPic());
-                    item.setUrl(reply1.getUrl());
-                    JSONObject json = JSONObject.parseObject(JSONObject.toJSONString(item));
-                    return new NewsBuider().build(json.toString(), wxMessage,weixinService);
+                    item.setTitle(reply1.getKeyType());
+                    item.setDescription(reply1.getKeyValue());
+                    item.setPicUrl(reply1.getKeyValue());
+                    item.setUrl(reply1.getKeyValue());
+                    return new NewsBuider().build(JSONObject.toJSONString(item), wxMessage,weixinService);
                 }
             }
         } catch (Exception e) {

@@ -10,7 +10,6 @@ import java.io.Serializable;
  */
 @Table(name = "wx_reply")
 public class WxReply implements Serializable {
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY, generator = "select uuid()")
     private String id;
@@ -18,23 +17,17 @@ public class WxReply implements Serializable {
     @Column(name = "account_id")
     private String accountId;
 
-    @Column(name = "keyword")
-    private String keyword;
+    @Column(name = "key_word")
+    private String keyWord;
 
-    @Column(name = "title")
-    private String title;
+    @Column(name = "key_value")
+    private String keyValue;
 
-    @Column(name = "pic")
-    private String pic;
+    @Column(name = "key_type")
+    private String keyType;
 
-    @Column(name = "url")
-    private String url;
-
-    @Column(name = "content")
-    private String content;
-
-    @Column(name = "type")
-    private String type;
+    @Column(name = "graphic_id")
+    private String graphicId;
 
     @Column(name = "num")
     private Long num;
@@ -61,52 +54,36 @@ public class WxReply implements Serializable {
         this.accountId = accountId;
     }
 
-    public String getKeyword() {
-        return keyword;
+    public String getKeyWord() {
+        return keyWord;
     }
 
-    public void setKeyword(String keyword) {
-        this.keyword = keyword;
+    public void setKeyWord(String keyWord) {
+        this.keyWord = keyWord;
     }
 
-    public String getTitle() {
-        return title;
+    public String getKeyValue() {
+        return keyValue;
     }
 
-    public void setTitle(String title) {
-        this.title = title;
+    public void setKeyValue(String keyValue) {
+        this.keyValue = keyValue;
     }
 
-    public String getPic() {
-        return pic;
+    public String getKeyType() {
+        return keyType;
     }
 
-    public void setPic(String pic) {
-        this.pic = pic;
+    public void setKeyType(String keyType) {
+        this.keyType = keyType;
     }
 
-    public String getUrl() {
-        return url;
+    public String getGraphicId() {
+        return graphicId;
     }
 
-    public void setUrl(String url) {
-        this.url = url;
-    }
-
-    public String getContent() {
-        return content;
-    }
-
-    public void setContent(String content) {
-        this.content = content;
-    }
-
-    public String getType() {
-        return type;
-    }
-
-    public void setType(String type) {
-        this.type = type;
+    public void setGraphicId(String graphicId) {
+        this.graphicId = graphicId;
     }
 
     public Long getNum() {
