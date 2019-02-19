@@ -46,6 +46,9 @@ DELETE FROM `wx_account`;
 /*!40000 ALTER TABLE `wx_account` DISABLE KEYS */;
 INSERT INTO `wx_account` (`id`, `qr_code`, `name`, `source_id`, `app_id`, `aes_key`, `app_secret`, `token`, `domain`, `access_token`, `token_time`, `menu_state`, `user_id`, `created`, `updated`, `remark`, `partner`, `partner_key`, `certificate_path`, `status`) VALUES
 	('dfdfgsdfgsdfgsdfgsdfgsdfgsdfgsdfg', '3', '2', 'gh_89ac68370508', 'wx428db2722153d12d', '2', 'e1e8aed568ff374cb368428529c78d13', 'chris520', '2', '2', '2019-02-15 23:34:49', '2', '2', 2, 2, '2', '2', '2', '2', 2);
+INSERT INTO `wx_account` (`id`, `qr_code`, `name`, `source_id`, `app_id`, `aes_key`, `app_secret`, `token`, `domain`, `access_token`, `token_time`, `menu_state`, `user_id`, `created`, `updated`, `remark`, `partner`, `partner_key`, `certificate_path`, `status`) VALUES
+  ('gh_1065c22dc61c', NULL, NULL, NULL, 'wx0a8f9a49c445fd2b', NULL, '5aaea0afe5b65d60892a475bf43d668b', 'myToken', '\r\norcalone.imwork.net', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL);
+
 /*!40000 ALTER TABLE `wx_account` ENABLE KEYS */;
 
 -- 导出  表 bulleye_admin.wx_member 结构

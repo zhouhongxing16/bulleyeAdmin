@@ -54,8 +54,7 @@ public class MsgHandler extends AbstractHandler {
                     item.setPicUrl(reply1.getPic());
                     item.setUrl(reply1.getUrl());
                     JSONObject json = JSONObject.parseObject(JSONObject.toJSONString(item));
-                    System.out.println("json:"+json);
-                    new KefuNewsBuilder().build(json.toString(), wxMessage,weixinService);
+                    return new NewsBuider().build(json.toString(), wxMessage,weixinService);
                 }
             }
         } catch (Exception e) {

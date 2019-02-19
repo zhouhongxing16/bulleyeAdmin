@@ -6,7 +6,7 @@
         <id column="id" jdbcType="VARCHAR" property="id" />
         <result column="title" jdbcType="VARCHAR" property="title" />
         <result column="brief" jdbcType="VARCHAR" property="brief" />
-        <result column="content" jdbcType="LONGTEXT" property="content" />
+        <result column="content" jdbcType="VARCHAR" property="content" />
         <result column="url" jdbcType="VARCHAR" property="url" />
         <result column="img_url" jdbcType="VARCHAR" property="imgUrl" />
         <result column="read_num" jdbcType="INTEGER" property="readNum" />
