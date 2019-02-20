@@ -19,7 +19,7 @@
 
 	</sql>
 
-    <select id="listByPage" resultMap="BaseResultMap" parameterType="map">
+    <select id="getListByParams" resultMap="BaseResultMap" parameterType="map">
         SELECT
         <include refid="basic_list"/>
         FROM wx_reply a
@@ -54,38 +54,4 @@
         </where>
     </select>
 
-    <select id="selectlist" resultMap="BaseResultMap" parameterType="com.chris.bulleyeadmin.wechat.pojo.WxReply">
-        SELECT
-        <include refid="basic_list"/>
-        FROM wx_reply a
-        <where>
-            <if test="id!=null and id!='' ">
-                and a.id=#{ id }
-            </if>
-            <if test="accountId!=null and accountId!='' ">
-                and a.account_id=#{ accountId }
-            </if>
-            <if test="keyword!=null and keyword!='' ">
-                and a.keyword LIKE CONCAT('%', #{ keyword }, '%')
-            </if>
-            <if test="title!=null and title!='' ">
-                and a.title LIKE CONCAT('%', #{ title }, '%')
-            </if>
-            <if test="pic!=null and pic!='' ">
-                and a.pic LIKE CONCAT('%', #{ pic }, '%')
-            </if>
-            <if test="url!=null and url!='' ">
-                and a.url LIKE CONCAT('%', #{ url }, '%')
-            </if>
-            <if test="content!=null and content!='' ">
-                and a.content LIKE CONCAT('%', #{ content }, '%')
-            </if>
-            <if test="type!=null and type!='' ">
-                and a.type LIKE CONCAT('%', #{ type }, '%')
-            </if>
-            <if test="num!=null and num!='' ">
-                and a.num LIKE CONCAT('%', #{ num }, '%')
-            </if>
-        </where>
-    </select>
 </mapper>

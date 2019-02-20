@@ -18,13 +18,4 @@
 	<resultMap id="dto" type="com.chris.bulleyeadmin.system.dto.OrganizationDto" extends="BaseResultMap">
 
 	</resultMap>
-
-	<select id="getAllDepartment" parameterType="String" resultMap="dto">
-  		SELECT
-			d.*
-		FROM
-			b_departments d
-		ORDER BY
-			d.created ASC
-  </select>
 </mapper>

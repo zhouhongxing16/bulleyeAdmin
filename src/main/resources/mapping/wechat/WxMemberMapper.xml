@@ -32,7 +32,7 @@
 		a.id, a.account_id, a.subscribe, a.open_id, a.nickname, a.sex, a.sex_desc, a.language, a.city, a.qr_code, a.province, a.country, a.head_img_url, a.subscribe_time, a.union_id, a.remark, a.group_id, a.subscribe_scene, a.qr_scene, a.qr_scene_str
 	</sql>
 
-    <select id="listByPage" resultMap="BaseResultMap" parameterType="map">
+    <select id="getListByParams" resultMap="BaseResultMap" parameterType="map">
         SELECT
         <include refid="basic_list"/>
         FROM wx_member a

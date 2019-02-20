@@ -35,15 +35,17 @@ public class SubscribeHandler extends AbstractHandler {
         try {
             WxMpUser userWxInfo = wxMpService.getUserService()
                 .userInfo(wxMessage.getFromUser(), null);
+            WxMember wxMember = JSON.parseObject(userWxInfo.toString(),WxMember.class);
             if (userWxInfo != null) {
-                WxMember wxMember = JSON.parseObject(userWxInfo.toString(),WxMember.class);
+
                 wxMember.setAccountId(wxMessage.getToUser());
                 WxMember member = wxMemberService.getMemberByOpenId(wxMember.getOpenId());
                 if(member==null){
                     wxMemberService.add(wxMember);
                 }else{
-                    member.setSubscribe(true);
-                    wxMemberService.update(member);
+                    wxMember.setId(member.getId());
+                    wxMember.setSubscribe(true);
+                    wxMemberService.update(wxMember);
                 }
             }
         } catch (WxErrorException e) {

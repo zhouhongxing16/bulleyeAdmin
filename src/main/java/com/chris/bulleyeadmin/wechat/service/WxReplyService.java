@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Map;
 
 
 @Service
@@ -21,7 +22,7 @@ public class WxReplyService extends BaseService<WxReply> {
         return wxReplyMapper;
     }
 
-    public List<WxReply> selectlist(WxReply reply) {
-        return wxReplyMapper.selectlist(reply);
+    public List<WxReply> getListByParams(Map<String,Object> map) {
+        return wxReplyMapper.getListByParams(map);
     }
 }

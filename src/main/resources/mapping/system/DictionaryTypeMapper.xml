@@ -6,11 +6,9 @@
       WARNING - @mbg.generated
     -->
 	  <id column="id" jdbcType="VARCHAR" property="id" />
-	  <result column="organization_id" jdbcType="VARCHAR" property="organizationId" />
 	  <result column="name" jdbcType="VARCHAR" property="name" />
 	  <result column="code" jdbcType="VARCHAR" property="code" />
 	  <result column="name" jdbcType="VARCHAR" property="name" />
-	  <result column="type_id" jdbcType="VARCHAR" property="typeId" />
 	  <result column="remark" jdbcType="VARCHAR" property="remark" />
 	  <result column="status" jdbcType="INTEGER" property="status" />
 	  <result column="created" jdbcType="BIGINT" property="created" />

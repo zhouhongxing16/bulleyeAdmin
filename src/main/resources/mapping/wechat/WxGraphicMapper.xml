@@ -19,7 +19,7 @@
 		a.id, a.title, a.brief, a.content, a.url, a.imgurl, a.read_num, a.created, a.status
 	</sql>
 
-    <select id="listByPage" resultMap="BaseResultMap" parameterType="map">
+    <select id="getListByParams" resultMap="BaseResultMap" parameterType="map">
         SELECT
         <include refid="basic_list"/>
         FROM wx_graphic a

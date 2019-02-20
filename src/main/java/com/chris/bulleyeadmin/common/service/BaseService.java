@@ -30,7 +30,7 @@ public abstract class BaseService<T> {
                 PageHelper.startPage(params);
             }
         }
-        data = getMapper().listByPage(params);
+        data = getMapper().getListByParams(params);
 
         return new PageInfo(data);
     }
@@ -70,6 +70,11 @@ public abstract class BaseService<T> {
     }
 
     public List<T> selectAll(){
+        List<T> t = getMapper().selectAll();
+        return t;
+    }
+
+    public List<T> getListByParams(){
         List<T> t = getMapper().selectAll();
         return t;
     }

@@ -20,7 +20,7 @@
 
 	</resultMap>
 
-	<select id="getAllOrganization" parameterType="String" resultMap="dto">
+	<select id="getListByParams" parameterType="String" resultMap="dto">
   		SELECT
 			o.*
 		FROM

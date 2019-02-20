@@ -1,9 +1,9 @@
 package com.chris.bulleyeadmin.wechat.handler;
 
 import com.alibaba.fastjson.JSONObject;
-import com.chris.bulleyeadmin.wechat.KefuBuilder.KefuNewsBuilder;
-import com.chris.bulleyeadmin.wechat.builder.NewsBuider;
+import com.chris.bulleyeadmin.wechat.builder.NewsBuilder;
 import com.chris.bulleyeadmin.wechat.builder.TextBuilder;
+import com.chris.bulleyeadmin.wechat.pojo.WxConstants;
 import com.chris.bulleyeadmin.wechat.pojo.WxReply;
 import com.chris.bulleyeadmin.wechat.service.WxReplyService;
 import me.chanjar.weixin.common.session.WxSessionManager;
@@ -14,6 +14,8 @@ import me.chanjar.weixin.mp.bean.message.WxMpXmlOutNewsMessage;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -38,22 +40,22 @@ public class MsgHandler extends AbstractHandler {
         }
 
         //当用户输入关键词如“你好”，“客服”等，并且有客服在线时，把消息转发给在线客服
-
-        WxReply reply = new WxReply();
-        reply.setAccountId(wxMessage.getToUser());
-        reply.setKeyWord(wxMessage.getContent());
+        Map<String,Object> map = new HashMap<>(3);
+        map.put("accountId",wxMessage.getToUser());
+        map.put("keyWord",wxMessage.getContent());
         try {
-            List<WxReply> replyList = wxReplyService.selectlist(reply);
-            for(WxReply reply1:replyList){
-                if ("1".equals(reply1.getKeyType())) {
-                    return new TextBuilder().build(reply1.getKeyType(), wxMessage, weixinService);
-                }else if("2".equals(reply1.getKeyType())){
+            List<WxReply> replyList = wxReplyService.getListByParams(map);
+            for(WxReply reply:replyList){
+                if(reply.getKeyType().equals(WxConstants.REPLY_TYPE_TEXT)){
+                    return new TextBuilder().build(reply.getKeyValue(), wxMessage, weixinService);
+                }else if(reply.getKeyType().equals(WxConstants.REPLY_TYPE_GRAPHIC)){
                     WxMpXmlOutNewsMessage.Item item = new WxMpXmlOutNewsMessage.Item();
-                    item.setTitle(reply1.getKeyType());
-                    item.setDescription(reply1.getKeyValue());
-                    item.setPicUrl(reply1.getKeyValue());
-                    item.setUrl(reply1.getKeyValue());
-                    return new NewsBuider().build(JSONObject.toJSONString(item), wxMessage,weixinService);
+                    item.setPicUrl(reply.getKeyValue());
+                    item.setTitle(reply.getKeyType());
+                    item.setDescription(reply.getKeyType());
+                    item.setUrl(reply.getKeyValue());
+                    System.out.println(JSONObject.toJSONString(item));
+                    return new NewsBuilder().build(JSONObject.toJSONString(item), wxMessage,weixinService);
                 }
             }
         } catch (Exception e) {

@@ -15,7 +15,7 @@
     <result column="degree_id" jdbcType="VARCHAR" property="degreeId" />
     <result column="avatar" jdbcType="VARCHAR" property="avatar" />
     <result column="organization_id" jdbcType="VARCHAR" property="organizationId" />
-    <result column="section_id" jdbcType="VARCHAR" property="sectionId" />
+    <result column="department_id" jdbcType="VARCHAR" property="departmentId" />
     <result column="position_id" jdbcType="VARCHAR" property="positionId" />
     <result column="title_id" jdbcType="VARCHAR" property="titleId" />
     <result column="type_id" jdbcType="VARCHAR" property="typeId" />
@@ -42,7 +42,7 @@
     a.*
   </sql>
 
-  <select id="listByPage" resultMap="BaseResultMap" parameterType="map">
+  <select id="getListByParams" resultMap="BaseResultMap" parameterType="map">
     select
     <include refid="basic_sql" />
     from b_staff a

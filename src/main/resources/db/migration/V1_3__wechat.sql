@@ -87,14 +87,14 @@ DELETE FROM `wx_member`;
 /*!40000 ALTER TABLE `wx_member` ENABLE KEYS */;
 
 -- 导出  表 bulleye_admin.wx_reply 结构
-CREATE TABLE `wx_reply` (
+CREATE TABLE IF NOT EXISTS `wx_reply` (
 	`id` VARCHAR(50) NOT NULL COMMENT 'ID',
 	`account_id` VARCHAR(50) NULL DEFAULT NULL COMMENT '所属公众号ID',
-	`keyword` VARCHAR(100) NULL DEFAULT NULL COMMENT '关键字',
-	`value` VARCHAR(100) NULL DEFAULT NULL COMMENT '标题',
-	`graphic_id` VARCHAR(50) NULL DEFAULT NULL,
-	`type` VARCHAR(50) NULL DEFAULT NULL COMMENT '类型 1.图文 2.纯文字',
-	`num` BIGINT(20) NULL DEFAULT NULL COMMENT '回复次数',
+	`key_word` VARCHAR(100) NULL DEFAULT NULL COMMENT '关键字',
+	`key_value` LONGTEXT NULL COMMENT '值',
+	`key_type` VARCHAR(50) NULL DEFAULT NULL COMMENT '类型 1.图文 2.纯文字',
+	`graphic_id` VARCHAR(50) NULL DEFAULT NULL COMMENT '图文标识',
+	`num` INT(10) NULL DEFAULT NULL COMMENT '回复次数',
 	`status` INT(11) NULL DEFAULT NULL,
 	`created` BIGINT(20) NULL DEFAULT NULL,
 	PRIMARY KEY (`id`)
@@ -104,9 +104,10 @@ COLLATE='utf8_general_ci'
 ENGINE=InnoDB;
 
 
+
 -- 正在导出表  bulleye_admin.wx_reply 的数据：~0 rows (大约)
 DELETE FROM `wx_reply`;
-CREATE TABLE `wx_graphic` (
+CREATE TABLE IF NOT EXISTS `wx_graphic` (
 	`id` VARCHAR(50) NOT NULL,
 	`title` VARCHAR(100) NULL DEFAULT NULL,
 	`brief` VARCHAR(200) NULL DEFAULT NULL,
@@ -134,7 +135,7 @@ CREATE TABLE IF NOT EXISTS `wx_menu` (
   `key` varchar(100) DEFAULT NULL COMMENT '菜单KEY值，用于消息接口推送',
   `url` varchar(1000) DEFAULT NULL COMMENT '网页 链接',
   `media_id` varchar(100) DEFAULT NULL COMMENT '永久素材media_id',
-  `appid` varchar(50) DEFAULT NULL COMMENT '小程序的appid',
+  `app_id` varchar(50) DEFAULT NULL COMMENT '小程序的app_id',
   `pagepath` varchar(500) DEFAULT NULL COMMENT '小程序的页面路径',
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='微信菜单表';

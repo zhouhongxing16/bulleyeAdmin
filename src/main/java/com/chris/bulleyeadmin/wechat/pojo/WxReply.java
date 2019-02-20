@@ -30,7 +30,7 @@ public class WxReply implements Serializable {
     private String graphicId;
 
     @Column(name = "num")
-    private Long num;
+    private Integer num;
 
     @Column(name = "status")
     private Integer status;
@@ -86,11 +86,11 @@ public class WxReply implements Serializable {
         this.graphicId = graphicId;
     }
 
-    public Long getNum() {
+    public Integer getNum() {
         return num;
     }
 
-    public void setNum(Long num) {
+    public void setNum(Integer num) {
         this.num = num;
     }
 

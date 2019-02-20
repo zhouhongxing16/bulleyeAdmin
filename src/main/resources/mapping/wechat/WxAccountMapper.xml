@@ -27,7 +27,7 @@
 		a.id, a.qr_code, a.name, a.source_id, a.app_id, a.aes_key, a.app_secret, a.token, a.domain, a.access_token, a.token_time, a.menu_state, a.user_id, a.created, a.updated, a.remark, a.partner, a.partner_key, a.certificate_path, a.status
 	</sql>
 
-    <select id="listByPage" resultMap="BaseResultMap" parameterType="map">
+    <select id="getListByParams" resultMap="BaseResultMap" parameterType="map">
         SELECT
         <include refid="basic_list"/>
         FROM wx_account a

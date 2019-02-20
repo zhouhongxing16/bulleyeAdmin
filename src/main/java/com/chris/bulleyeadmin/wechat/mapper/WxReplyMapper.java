@@ -5,6 +5,7 @@ import com.chris.bulleyeadmin.common.basemapper.BaseMapper;
 import com.chris.bulleyeadmin.wechat.pojo.WxReply;
 
 import java.util.List;
+import java.util.Map;
 
 /**
  * @Auther: Chris
@@ -13,5 +14,5 @@ import java.util.List;
  */
 public interface WxReplyMapper extends BaseMapper<WxReply> {
 
-    List<WxReply> selectlist(WxReply reply);
+    List<WxReply> getListByParams(Map<String,Object> map);
 }
