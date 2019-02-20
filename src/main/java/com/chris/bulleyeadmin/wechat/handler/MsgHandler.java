@@ -47,7 +47,7 @@ public class MsgHandler extends AbstractHandler {
             List<WxReply> replyList = wxReplyService.getListByParams(map);
             for(WxReply reply:replyList){
                 if(reply.getKeyType().equals(WxConstants.REPLY_TYPE_TEXT)){
-                    return new TextBuilder().build(reply.getKeyValue(), wxMessage, weixinService);
+                   return new TextBuilder().build(reply.getKeyValue(), wxMessage, weixinService);
                 }else if(reply.getKeyType().equals(WxConstants.REPLY_TYPE_GRAPHIC)){
                     WxMpXmlOutNewsMessage.Item item = new WxMpXmlOutNewsMessage.Item();
                     item.setPicUrl(reply.getKeyValue());
