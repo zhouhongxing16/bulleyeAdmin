@@ -1,6 +1,7 @@
 package com.chris.bulleyeadmin.wechat.handler;
 
 import com.alibaba.fastjson.JSONObject;
+import com.chris.bulleyeadmin.common.utils.TulingApiUtil;
 import com.chris.bulleyeadmin.wechat.builder.NewsBuilder;
 import com.chris.bulleyeadmin.wechat.builder.TextBuilder;
 import com.chris.bulleyeadmin.wechat.pojo.WxConstants;
@@ -45,19 +46,26 @@ public class MsgHandler extends AbstractHandler {
         map.put("keyWord",wxMessage.getContent());
         try {
             List<WxReply> replyList = wxReplyService.getListByParams(map);
-            for(WxReply reply:replyList){
-                if(reply.getKeyType().equals(WxConstants.REPLY_TYPE_TEXT)){
-                   return new TextBuilder().build(reply.getKeyValue(), wxMessage, weixinService);
-                }else if(reply.getKeyType().equals(WxConstants.REPLY_TYPE_GRAPHIC)){
-                    WxMpXmlOutNewsMessage.Item item = new WxMpXmlOutNewsMessage.Item();
-                    item.setPicUrl(reply.getKeyValue());
-                    item.setTitle(reply.getKeyType());
-                    item.setDescription(reply.getKeyType());
-                    item.setUrl(reply.getKeyValue());
-                    System.out.println(JSONObject.toJSONString(item));
-                    return new NewsBuilder().build(JSONObject.toJSONString(item), wxMessage,weixinService);
+            if(replyList.size()!=0) {
+                for (WxReply reply : replyList) {
+                    if (reply.getKeyType().equals(WxConstants.REPLY_TYPE_TEXT)) {
+                        return new TextBuilder().build(reply.getKeyValue(), wxMessage, weixinService);
+                    } else if (reply.getKeyType().equals(WxConstants.REPLY_TYPE_GRAPHIC)) {
+                        WxMpXmlOutNewsMessage.Item item = new WxMpXmlOutNewsMessage.Item();
+                        item.setPicUrl(reply.getKeyValue());
+                        item.setTitle(reply.getKeyType());
+                        item.setDescription(reply.getKeyType());
+                        item.setUrl(reply.getKeyValue());
+                        System.out.println(JSONObject.toJSONString(item));
+                        return new NewsBuilder().build(JSONObject.toJSONString(item), wxMessage, weixinService);
+                    }
                 }
+            }else{
+                //系统中找不到关键字恢复字段则调用机器人回复
+               String answer = TulingApiUtil.getTulingResult(wxMessage.getContent());
+                return new TextBuilder().build(answer, wxMessage, weixinService);
             }
+
         } catch (Exception e) {
             this.logger.error(e.getMessage(), e);
         }
