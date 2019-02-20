@@ -1,7 +1,7 @@
 package com.chris.bulleyeadmin.wechat.handler;
 
 import com.alibaba.fastjson.JSONObject;
-import com.chris.bulleyeadmin.common.utils.TulingApiUtil;
+import com.chris.bulleyeadmin.wechat.utils.TulingApiUtil;
 import com.chris.bulleyeadmin.wechat.builder.NewsBuilder;
 import com.chris.bulleyeadmin.wechat.builder.TextBuilder;
 import com.chris.bulleyeadmin.wechat.pojo.WxConstants;
@@ -15,7 +15,6 @@ import me.chanjar.weixin.mp.bean.message.WxMpXmlOutNewsMessage;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
