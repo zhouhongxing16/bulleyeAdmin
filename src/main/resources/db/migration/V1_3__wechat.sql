@@ -139,4 +139,25 @@ CREATE TABLE IF NOT EXISTS `wx_menu` (
   `pagepath` varchar(500) DEFAULT NULL COMMENT '小程序的页面路径',
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='微信菜单表';
+CREATE TABLE `wx_menu` (
+	`id` VARCHAR(50) NOT NULL,
+	`account_id` VARCHAR(50) NULL DEFAULT NULL COMMENT '公众号id',
+	`type` VARCHAR(20) NULL DEFAULT NULL COMMENT '菜单的响应动作类型，view表示网页类型，click表示点击类型，miniprogram表示小程序类型',
+	`name` VARCHAR(100) NULL DEFAULT NULL COMMENT '菜单标题',
+	`key` VARCHAR(100) NULL DEFAULT NULL COMMENT '菜单KEY值，用于消息接口推送',
+	`url` VARCHAR(1000) NULL DEFAULT NULL COMMENT '网页 链接',
+	`media_id` VARCHAR(100) NULL DEFAULT NULL COMMENT '永久素材media_id',
+	`appid` VARCHAR(50) NULL DEFAULT NULL COMMENT '小程序的appid',
+	`pagepath` VARCHAR(500) NULL DEFAULT NULL COMMENT '小程序的页面路径',
+	`parent_id` VARCHAR(50) NULL DEFAULT NULL COMMENT '父级id',
+	`author` VARCHAR(50) NULL DEFAULT NULL COMMENT '是否获取用户信息 1.是 2.否',
+	`sort` INT(10) NULL DEFAULT NULL COMMENT '排序',
+	`remark` VARCHAR(100) NULL DEFAULT NULL COMMENT '备注',
+	PRIMARY KEY (`id`)
+)
+COMMENT='微信菜单表'
+COLLATE='utf8_general_ci'
+ENGINE=InnoDB
+;
+DELETE FROM `wx_menu`;
 
