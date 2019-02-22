@@ -46,5 +46,11 @@
     select
     <include refid="basic_sql" />
     from b_staff a
+    <where>
+
+    </where>
+    <if test="sortField!=null and sortField!=''  and sortField!='null' ">
+     order by a.${sortField}
+    </if>
   </select>
 </mapper>
