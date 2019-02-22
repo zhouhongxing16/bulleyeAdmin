@@ -149,11 +149,18 @@
             <artifactId>weixin-java-mp</artifactId>
             <version>3.3.0</version>
         </dependency>
+
+        <!--阿里云短信服务-->
         <dependency>
-            <groupId>net.minidev</groupId>
-            <artifactId>json-smart</artifactId>
-            <version>RELEASE</version>
-            <scope>compile</scope>
+            <groupId>com.aliyun</groupId>
+            <artifactId>aliyun-java-sdk-dysmsapi</artifactId>
+            <version>1.0.0</version>
+        </dependency>
+        <!-- https://mvnrepository.com/artifact/com.aliyun/aliyun-java-sdk-core -->
+        <dependency>
+            <groupId>com.aliyun</groupId>
+            <artifactId>aliyun-java-sdk-core</artifactId>
+            <version>3.2.8</version>
         </dependency>
     </dependencies>
 
