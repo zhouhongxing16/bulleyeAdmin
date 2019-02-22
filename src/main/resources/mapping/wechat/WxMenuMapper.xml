@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.chris.bulleyeadmin.wechat.mapper.WxAccountMapper">
+    <resultMap id="BaseResultMap" type="com.chris.bulleyeadmin.wechat.pojo.WxAccount">
+        <id column="id" jdbcType="VARCHAR" property="id" />
+        <result column="account_id" jdbcType="VARCHAR" property="accountId" />
+        <result column="type" jdbcType="VARCHAR" property="type" />
+        <result column="name" jdbcType="VARCHAR" property="name" />
+        <result column="key" jdbcType="VARCHAR" property="key" />
+        <result column="url" jdbcType="VARCHAR" property="url" />
+        <result column="media_id" jdbcType="VARCHAR" property="mediaId" />
+        <result column="appid" jdbcType="VARCHAR" property="appid" />
+        <result column="pagepath" jdbcType="VARCHAR" property="pagepath" />
+        <result column="parent_id" jdbcType="VARCHAR" property="parentId" />
+        <result column="author" jdbcType="VARCHAR" property="author" />
+        <result column="sort" jdbcType="INTEGER" property="sort" />
+        <result column="remark" jdbcType="VARCHAR" property="remark" />
+    </resultMap>
+    <sql id="basic_list">
+		a.id, a.qr_code, a.name, a.source_id, a.app_id, a.aes_key, a.app_secret, a.token, a.domain, a.access_token, a.token_time, a.menu_state, a.user_id, a.created, a.updated, a.remark, a.partner, a.partner_key, a.certificate_path, a.status
+	</sql>
+
+    <select id="selectlist" resultMap="BaseResultMap" parameterType="map">
+        SELECT
+        <include refid="basic_list"/>
+        FROM wx_menu a
+        <where>
+            <if test="id!=null and id!='' ">
+                and a.id=#{ id }
+            </if>
+            <if test="accountId!=null and accountId!='' ">
+                and a.account_id = #{ accountId }
+            </if>
+            <if test="parentId!=null and parentId!='' ">
+                and a.parent_id = #{ parentId }
+            </if>
+            order by sort
+        </where>
+    </select>
+</mapper>
