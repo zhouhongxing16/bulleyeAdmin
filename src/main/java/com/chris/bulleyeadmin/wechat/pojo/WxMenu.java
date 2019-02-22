@@ -1,10 +1,7 @@
 package com.chris.bulleyeadmin.wechat.pojo;
 
-import com.fasterxml.jackson.annotation.JsonFormat;
-
 import javax.persistence.*;
 import java.io.Serializable;
-import java.util.Date;
 
 @Table(name = "wx_menu")
 public class WxMenu implements Serializable {
@@ -36,10 +33,10 @@ public class WxMenu implements Serializable {
     private String mediaId;
 
     @Column(name = "appid")
-    private String appid;
+    private String appId;
 
-    @Column(name = "pagepath")
-    private String pagepath;
+    @Column(name = "page_path")
+    private String pagePath;
 
     @Column(name = "parent_id")
     private String parentId;
@@ -109,20 +106,20 @@ public class WxMenu implements Serializable {
         this.mediaId = mediaId;
     }
 
-    public String getAppid() {
-        return appid;
+    public String getAppId() {
+        return appId;
     }
 
-    public void setAppid(String appid) {
-        this.appid = appid;
+    public void setAppId(String appId) {
+        this.appId = appId;
     }
 
-    public String getPagepath() {
-        return pagepath;
+    public String getPagePath() {
+        return pagePath;
     }
 
-    public void setPagepath(String pagepath) {
-        this.pagepath = pagepath;
+    public void setPagePath(String pagePath) {
+        this.pagePath = pagePath;
     }
 
     public String getParentId() {
