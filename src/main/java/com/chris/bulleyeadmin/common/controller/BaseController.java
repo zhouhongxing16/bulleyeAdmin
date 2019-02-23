@@ -99,7 +99,7 @@ public abstract class BaseController<T> {
         return getViewPrefix()  + "/view";
     }
     //删除
-    @PostMapping("/delete/{id}")
+    @GetMapping("/delete/{id}")
     @ResponseBody
     public JsonResult remove(@PathVariable String id) {
         return getService().deleteById(id);
