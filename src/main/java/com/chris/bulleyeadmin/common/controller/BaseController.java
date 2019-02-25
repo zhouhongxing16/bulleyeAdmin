@@ -109,8 +109,7 @@ public abstract class BaseController<T> {
     @ResponseBody
     @GetMapping("/getById/{id}")
     public Object getById(@PathVariable String id) {
-        Object obj = getService().getById(id);
-        return new JsonResult(true,obj,"查询成功",null, HttpStatus.OK);
+        return getService().getById(id);
     }
 
     @InitBinder

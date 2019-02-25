@@ -10,7 +10,6 @@
     <result column="name" jdbcType="VARCHAR" property="name" />
     <result column="gender_id" jdbcType="VARCHAR" property="genderId" />
     <result column="birthday" jdbcType="VARCHAR" property="birthday" />
-    <result column="major_id" jdbcType="VARCHAR" property="majorId" />
     <result column="academic_id" jdbcType="VARCHAR" property="academicId" />
     <result column="degree_id" jdbcType="VARCHAR" property="degreeId" />
     <result column="avatar" jdbcType="VARCHAR" property="avatar" />

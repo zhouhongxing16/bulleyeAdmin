@@ -20,9 +20,6 @@ public class Staff implements Serializable {
 
     private String birthday;
 
-    @Column(name = "major_id")
-    private String majorId;
-
     @Column(name = "academic_id")
     private String academicId;
 
@@ -169,20 +166,6 @@ public class Staff implements Serializable {
      */
     public void setBirthday(String birthday) {
         this.birthday = birthday == null ? null : birthday.trim();
-    }
-
-    /**
-     * @return major_id
-     */
-    public String getMajorId() {
-        return majorId;
-    }
-
-    /**
-     * @param majorId
-     */
-    public void setMajorId(String majorId) {
-        this.majorId = majorId == null ? null : majorId.trim();
     }
 
     /**
