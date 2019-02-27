@@ -39,7 +39,7 @@ public abstract class BaseController<T> {
     }
 
     @ApiOperation(value = "默认分页查询",notes = "根据传递的参数进行查询")
-    @GetMapping("/listByPage")
+    @RequestMapping("/listByPage")
     @ResponseBody
     public Object listPage(Page page,@RequestParam Map<String,Object> params) {
         //根据不同的参数配置,有些传递的是offset
