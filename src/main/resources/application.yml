@@ -1,15 +1,3 @@
 spring:
   profiles:
     active: dev
-
-wx:
-  mp:
-    configs:
-    - appId: 1111
-      secret: 1111
-      token: 111
-      aesKey: 111
-    - appId: 2222
-      secret: 1111
-      token: 111
-      aesKey: 111

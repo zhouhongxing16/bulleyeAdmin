@@ -32,7 +32,7 @@ public class WxMenu implements Serializable {
     @Column(name = "media_id")
     private String mediaId;
 
-    @Column(name = "appid")
+    @Column(name = "app_id")
     private String appId;
 
     @Column(name = "page_path")

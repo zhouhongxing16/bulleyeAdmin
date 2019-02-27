@@ -50,4 +50,8 @@ public class Help {
         return body;
     }
 
+    public static long getCurrentTimeMillis(){
+        return System.currentTimeMillis();
+    }
+
 }
