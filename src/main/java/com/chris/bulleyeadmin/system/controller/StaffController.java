@@ -12,10 +12,7 @@ import com.chris.bulleyeadmin.system.pojo.User;
 import com.chris.bulleyeadmin.system.service.StaffService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 
 /**
  * @Auther: Chris
@@ -51,7 +48,7 @@ public class StaffController extends BaseController<Staff> {
     @Override
     @PostMapping("/create")
     @ResponseBody
-    public JsonResult create(Staff obj) throws Exception {
+    public JsonResult create(@RequestBody Staff obj) throws Exception {
         User user = AuthUtil.getCurrentUser();
         obj.setOrganizationId(user.getOrganizationId());
         obj.setCreated(Help.getCurrentTimeMillis());
