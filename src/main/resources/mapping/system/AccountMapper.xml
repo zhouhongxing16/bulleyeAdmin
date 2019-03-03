@@ -28,6 +28,69 @@
     <result column="organizationName" jdbcType="VARCHAR" property="organizationName" />
   </resultMap>
 
+  <sql id="basic_list">
+		a.id, a.username, a.password, a.account_locked, a.credentials_expired, a.account_expired, a.staff_id, a.organization_id, a.wx_openid, a.alipay_openid, a.email, a.status, a.mobile_login_flag, a.remark, a.created, a.modified, a.expired_date
+	</sql>
+
+  <select id="getListByParams" resultMap="BaseResultMap" parameterType="map">
+    SELECT
+    <include refid="basic_list"/>
+    FROM b_accounts a
+    <where>
+      <if test="id!=null and id!='' ">
+        and a.id=#{ id }
+      </if>
+      <if test="username!=null and username!='' ">
+        and a.username LIKE CONCAT('%', #{ username }, '%')
+      </if>
+      <if test="password!=null and password!='' ">
+        and a.password LIKE CONCAT('%', #{ password }, '%')
+      </if>
+      <if test="accountLocked!=null and accountLocked!='' ">
+        and a.account_locked LIKE CONCAT('%', #{ accountLocked }, '%')
+      </if>
+      <if test="credentialsExpired!=null and credentialsExpired!='' ">
+        and a.credentials_expired LIKE CONCAT('%', #{ credentialsExpired }, '%')
+      </if>
+      <if test="accountExpired!=null and accountExpired!='' ">
+        and a.account_expired LIKE CONCAT('%', #{ accountExpired }, '%')
+      </if>
+      <if test="staffId!=null and staffId!='' ">
+        and a.staff_id=#{ staffId }
+      </if>
+      <if test="organizationId!=null and organizationId!='' ">
+        and a.organization_id=#{ organizationId }
+      </if>
+      <if test="wxOpenid!=null and wxOpenid!='' ">
+        and a.wx_openid=#{ wxOpenid }
+      </if>
+      <if test="alipayOpenid!=null and alipayOpenid!='' ">
+        and a.alipay_openid=#{ alipayOpenid }
+      </if>
+      <if test="email!=null and email!='' ">
+        and a.email LIKE CONCAT('%', #{ email }, '%')
+      </if>
+      <if test="status!=null and status!='' ">
+        and a.status LIKE CONCAT('%', #{ status }, '%')
+      </if>
+      <if test="mobileLoginFlag!=null and mobileLoginFlag!='' ">
+        and a.mobile_login_flag LIKE CONCAT('%', #{ mobileLoginFlag }, '%')
+      </if>
+      <if test="remark!=null and remark!='' ">
+        and a.remark LIKE CONCAT('%', #{ remark }, '%')
+      </if>
+      <if test="created!=null and created!='' ">
+        and a.created LIKE CONCAT('%', #{ created }, '%')
+      </if>
+      <if test="modified!=null and modified!='' ">
+        and a.modified LIKE CONCAT('%', #{ modified }, '%')
+      </if>
+      <if test="expiredDate!=null and expiredDate!='' ">
+        and a.expired_date LIKE CONCAT('%', #{ expiredDate }, '%')
+      </if>
+    </where>
+  </select>
+
   <select id="getAccountByUserName" resultMap="dto" parameterType="String">
     select a.*,o.name as organizationName from b_accounts a
     left join b_organizations o on o.id = a.organization_id

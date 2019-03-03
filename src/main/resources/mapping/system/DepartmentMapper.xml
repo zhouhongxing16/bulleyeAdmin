@@ -1,21 +1,70 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.chris.bulleyeadmin.system.mapper.DepartmentMapper">
-  <resultMap id="BaseResultMap" type="com.chris.bulleyeadmin.system.pojo.Department">
-    <!--
-      WARNING - @mbg.generated
-    -->
-	  <id column="id" jdbcType="VARCHAR" property="id" />
-	  <result column="organization_id" jdbcType="VARCHAR" property="organizationId" />
-	  <result column="name" jdbcType="VARCHAR" property="name" />
-	  <result column="code" jdbcType="VARCHAR" property="code" />
-	  <result column="name" jdbcType="VARCHAR" property="name" />
-	  <result column="type_id" jdbcType="VARCHAR" property="typeId" />
-	  <result column="remark" jdbcType="VARCHAR" property="remark" />
-	  <result column="status" jdbcType="INTEGER" property="status" />
-	  <result column="created" jdbcType="BIGINT" property="created" />
-  </resultMap>
-	<resultMap id="dto" type="com.chris.bulleyeadmin.system.dto.OrganizationDto" extends="BaseResultMap">
+    <resultMap id="BaseResultMap" type="com.chris.bulleyeadmin.system.pojo.Department">
+        <!--
+          WARNING - @mbg.generated
+        -->
+        <id column="id" jdbcType="VARCHAR" property="id"/>
+        <result column="organization_id" jdbcType="VARCHAR" property="organizationId"/>
+        <result column="name" jdbcType="VARCHAR" property="name"/>
+        <result column="code" jdbcType="VARCHAR" property="code"/>
+        <result column="name" jdbcType="VARCHAR" property="name"/>
+        <result column="type_id" jdbcType="VARCHAR" property="typeId"/>
+        <result column="remark" jdbcType="VARCHAR" property="remark"/>
+        <result column="status" jdbcType="INTEGER" property="status"/>
+        <result column="created" jdbcType="BIGINT" property="created"/>
+    </resultMap>
+    <resultMap id="dto" type="com.chris.bulleyeadmin.system.dto.OrganizationDto" extends="BaseResultMap">
 
-	</resultMap>
+    </resultMap>
+
+
+    <sql id="basic_list">
+		a.id, a.pid, a.code, a.name, a.area_id, a.brief, a.contact_name, a.contact_phone, a.status, a.end_date, a.domain, a.created
+	</sql>
+
+    <select id="getListByParams" resultMap="BaseResultMap" parameterType="map">
+        SELECT
+        <include refid="basic_list"/>
+        FROM b_organizations a
+        <where>
+            <if test="id!=null and id!='' ">
+                and a.id=#{ id }
+            </if>
+            <if test="pid!=null and pid!='' ">
+                and a.pid=#{ pid }
+            </if>
+            <if test="code!=null and code!='' ">
+                and a.code LIKE CONCAT('%', #{ code }, '%')
+            </if>
+            <if test="name!=null and name!='' ">
+                and a.name LIKE CONCAT('%', #{ name }, '%')
+            </if>
+            <if test="areaId!=null and areaId!='' ">
+                and a.area_id=#{ areaId }
+            </if>
+            <if test="brief!=null and brief!='' ">
+                and a.brief LIKE CONCAT('%', #{ brief }, '%')
+            </if>
+            <if test="contactName!=null and contactName!='' ">
+                and a.contact_name LIKE CONCAT('%', #{ contactName }, '%')
+            </if>
+            <if test="contactPhone!=null and contactPhone!='' ">
+                and a.contact_phone LIKE CONCAT('%', #{ contactPhone }, '%')
+            </if>
+            <if test="status!=null and status!='' ">
+                and a.status LIKE CONCAT('%', #{ status }, '%')
+            </if>
+            <if test="endDate!=null and endDate!='' ">
+                and a.end_date LIKE CONCAT('%', #{ endDate }, '%')
+            </if>
+            <if test="domain!=null and domain!='' ">
+                and a.domain LIKE CONCAT('%', #{ domain }, '%')
+            </if>
+            <if test="created!=null and created!='' ">
+                and a.created LIKE CONCAT('%', #{ created }, '%')
+            </if>
+        </where>
+    </select>
 </mapper>

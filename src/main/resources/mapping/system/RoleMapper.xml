@@ -15,7 +15,7 @@
     <result column="created" jdbcType="BIGINT" property="created" />
   </resultMap>
 
-  <resultMap id="dto" type="com.chris.bulleyeadmin.system.dto.StaffDto" extends="BaseResultMap">
+  <resultMap id="dto" type="com.chris.bulleyeadmin.system.dto.RoleDto" extends="BaseResultMap">
 
   </resultMap>
   <sql id="basic_list">

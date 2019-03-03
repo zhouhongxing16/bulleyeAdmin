@@ -1,31 +1,59 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.chris.bulleyeadmin.system.mapper.OrganizationMapper">
-  <resultMap id="BaseResultMap" type="com.chris.bulleyeadmin.system.pojo.Organization">
-    <!--
-      WARNING - @mbg.generated
-    -->
-	  <id column="id" jdbcType="VARCHAR" property="id" />
-	  <result column="code" jdbcType="VARCHAR" property="code" />
-	  <result column="name" jdbcType="VARCHAR" property="name" />
-	  <result column="area_id" jdbcType="VARCHAR" property="areaId" />
-	  <result column="brief" jdbcType="VARCHAR" property="brief" />
-	  <result column="contact_name" jdbcType="VARCHAR" property="contactName" />
-	  <result column="contact_phone" jdbcType="VARCHAR" property="contactPhone" />
-	  <result column="status" jdbcType="INTEGER" property="status" />
-	  <result column="domain" jdbcType="VARCHAR" property="domain" />
-	  <result column="created" jdbcType="BIGINT" property="created" />
-  </resultMap>
-	<resultMap id="dto" type="com.chris.bulleyeadmin.system.dto.OrganizationDto" extends="BaseResultMap">
+    <resultMap id="BaseResultMap" type="com.chris.bulleyeadmin.system.pojo.Organization">
+        <!--
+          WARNING - @mbg.generated
+        -->
+        <id column="id" jdbcType="VARCHAR" property="id"/>
+        <result column="code" jdbcType="VARCHAR" property="code"/>
+        <result column="name" jdbcType="VARCHAR" property="name"/>
+        <result column="area_id" jdbcType="VARCHAR" property="areaId"/>
+        <result column="brief" jdbcType="VARCHAR" property="brief"/>
+        <result column="contact_name" jdbcType="VARCHAR" property="contactName"/>
+        <result column="contact_phone" jdbcType="VARCHAR" property="contactPhone"/>
+        <result column="status" jdbcType="INTEGER" property="status"/>
+        <result column="domain" jdbcType="VARCHAR" property="domain"/>
+        <result column="created" jdbcType="BIGINT" property="created"/>
+    </resultMap>
 
-	</resultMap>
+    <resultMap id="dto" type="com.chris.bulleyeadmin.system.dto.OrganizationDto" extends="BaseResultMap">
 
-	<select id="getListByParams" parameterType="String" resultMap="dto">
-  		SELECT
-			o.*
-		FROM
-			b_organizations o
-		ORDER BY
-			o.created ASC
-  </select>
+    </resultMap>
+
+    <sql id="basic_list">
+		a.id, a.organization_id, a.code, a.name, a.type_id, a.remark, a.status, a.created
+	</sql>
+
+    <select id="getListByParams" resultMap="BaseResultMap" parameterType="map">
+        SELECT
+        <include refid="basic_list"/>
+        FROM b_departments a
+        <where>
+            <if test="id!=null and id!='' ">
+                and a.id=#{ id }
+            </if>
+            <if test="organizationId!=null and organizationId!='' ">
+                and a.organization_id=#{ organizationId }
+            </if>
+            <if test="code!=null and code!='' ">
+                and a.code LIKE CONCAT('%', #{ code }, '%')
+            </if>
+            <if test="name!=null and name!='' ">
+                and a.name LIKE CONCAT('%', #{ name }, '%')
+            </if>
+            <if test="typeId!=null and typeId!='' ">
+                and a.type_id=#{ typeId }
+            </if>
+            <if test="remark!=null and remark!='' ">
+                and a.remark LIKE CONCAT('%', #{ remark }, '%')
+            </if>
+            <if test="status!=null and status!='' ">
+                and a.status LIKE CONCAT('%', #{ status }, '%')
+            </if>
+            <if test="created!=null and created!='' ">
+                and a.created LIKE CONCAT('%', #{ created }, '%')
+            </if>
+        </where>
+    </select>
 </mapper>
