@@ -18,6 +18,44 @@
 	<resultMap id="dto" type="com.chris.bulleyeadmin.system.dto.MenuDto" extends="BaseResultMap">
 
 	</resultMap>
+
+	<sql id="basic_list">
+		a.id, a.p_id, a.icon, a.code, a.name, a.path, a.status, a.sort, a.created
+	</sql>
+	<select id="getListByParams" resultMap="dto" parameterType="map">
+		SELECT
+		<include refid="basic_list"/>
+		FROM b_menus a
+		<where>
+			<if test="id!=null and id!='' ">
+				and a.id=#{ id }
+			</if>
+			<if test="pId!=null and pId!='' ">
+				and a.p_id=#{ pId }
+			</if>
+			<if test="icon!=null and icon!='' ">
+				and a.icon LIKE CONCAT('%', #{ icon }, '%')
+			</if>
+			<if test="code!=null and code!='' ">
+				and a.code LIKE CONCAT('%', #{ code }, '%')
+			</if>
+			<if test="name!=null and name!='' ">
+				and a.name LIKE CONCAT('%', #{ name }, '%')
+			</if>
+			<if test="path!=null and path!='' ">
+				and a.path LIKE CONCAT('%', #{ path }, '%')
+			</if>
+			<if test="status!=null and status!='' ">
+				and a.status LIKE CONCAT('%', #{ status }, '%')
+			</if>
+			<if test="sort!=null and sort!='' ">
+				and a.sort LIKE CONCAT('%', #{ sort }, '%')
+			</if>
+			<if test="created!=null and created!='' ">
+				and a.created LIKE CONCAT('%', #{ created }, '%')
+			</if>
+		</where>
+	</select>
   <select id="getMenusByAccountId" parameterType="string" resultMap="dto">
   		SELECT DISTINCT
 			m.*

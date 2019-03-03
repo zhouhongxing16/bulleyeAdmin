@@ -15,6 +15,44 @@
     <result column="created" jdbcType="BIGINT" property="created" />
   </resultMap>
 
+  <resultMap id="dto" type="com.chris.bulleyeadmin.system.dto.StaffDto" extends="BaseResultMap">
+
+  </resultMap>
+  <sql id="basic_list">
+		a.id, a.organization_id, a.code, a.name, a.data_auth_flag, a.describle, a.status, a.created
+	</sql>
+  <select id="getListByParams" resultMap="dto" parameterType="map">
+    SELECT
+    <include refid="basic_list"/>
+    FROM b_roles a
+    <where>
+      <if test="id!=null and id!='' ">
+        and a.id=#{ id }
+      </if>
+      <if test="organizationId!=null and organizationId!='' ">
+        and a.organization_id=#{ organizationId }
+      </if>
+      <if test="code!=null and code!='' ">
+        and a.code LIKE CONCAT('%', #{ code }, '%')
+      </if>
+      <if test="name!=null and name!='' ">
+        and a.name LIKE CONCAT('%', #{ name }, '%')
+      </if>
+      <if test="dataAuthFlag!=null and dataAuthFlag!='' ">
+        and a.data_auth_flag LIKE CONCAT('%', #{ dataAuthFlag }, '%')
+      </if>
+      <if test="describle!=null and describle!='' ">
+        and a.describle LIKE CONCAT('%', #{ describle }, '%')
+      </if>
+      <if test="status!=null and status!='' ">
+        and a.status LIKE CONCAT('%', #{ status }, '%')
+      </if>
+      <if test="created!=null and created!='' ">
+        and a.created LIKE CONCAT('%', #{ created }, '%')
+      </if>
+    </where>
+  </select>
+
   <select id="getRolesByAccountId" parameterType="String" resultMap="BaseResultMap">
     select distinct * from b_roles r
     where r.id in
