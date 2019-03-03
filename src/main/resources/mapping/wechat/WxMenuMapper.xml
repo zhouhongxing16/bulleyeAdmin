@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.chris.bulleyeadmin.wechat.mapper.WxMenuMapper">
+
     <resultMap id="BaseResultMap" type="com.chris.bulleyeadmin.wechat.pojo.WxMenu">
         <id column="id" jdbcType="VARCHAR" property="id" />
         <result column="account_id" jdbcType="VARCHAR" property="accountId" />
@@ -9,15 +10,17 @@
         <result column="key" jdbcType="VARCHAR" property="key" />
         <result column="url" jdbcType="VARCHAR" property="url" />
         <result column="media_id" jdbcType="VARCHAR" property="mediaId" />
-        <result column="appid" jdbcType="VARCHAR" property="appId" />
-        <result column="pagepath" jdbcType="VARCHAR" property="pagePath" />
+        <result column="app_id" jdbcType="VARCHAR" property="appId" />
+        <result column="page_path" jdbcType="VARCHAR" property="pagePath" />
         <result column="parent_id" jdbcType="VARCHAR" property="parentId" />
         <result column="author" jdbcType="VARCHAR" property="author" />
         <result column="sort" jdbcType="INTEGER" property="sort" />
         <result column="remark" jdbcType="VARCHAR" property="remark" />
+
     </resultMap>
+
     <sql id="basic_list">
-		a.id, a.qr_code, a.name, a.source_id, a.app_id, a.aes_key, a.app_secret, a.token, a.domain, a.access_token, a.token_time, a.menu_state, a.user_id, a.created, a.updated, a.remark, a.partner, a.partner_key, a.certificate_path, a.status
+		a.id, a.account_id, a.type, a.name, a.key, a.url, a.media_id, a.app_id, a.page_path, a.parent_id, a.author, a.sort, a.remark
 	</sql>
 
     <select id="getListByParams" resultMap="BaseResultMap" parameterType="map">
@@ -29,12 +32,41 @@
                 and a.id=#{ id }
             </if>
             <if test="accountId!=null and accountId!='' ">
-                and a.account_id = #{ accountId }
+                and a.account_id=#{ accountId }
+            </if>
+            <if test="type!=null and type!='' ">
+                and a.type LIKE CONCAT('%', #{ type }, '%')
+            </if>
+            <if test="name!=null and name!='' ">
+                and a.name LIKE CONCAT('%', #{ name }, '%')
+            </if>
+            <if test="key!=null and key!='' ">
+                and a.key LIKE CONCAT('%', #{ key }, '%')
+            </if>
+            <if test="url!=null and url!='' ">
+                and a.url LIKE CONCAT('%', #{ url }, '%')
+            </if>
+            <if test="mediaId!=null and mediaId!='' ">
+                and a.media_id=#{ mediaId }
+            </if>
+            <if test="appId!=null and appId!='' ">
+                and a.app_id=#{ appId }
+            </if>
+            <if test="pagePath!=null and pagePath!='' ">
+                and a.page_path LIKE CONCAT('%', #{ pagePath }, '%')
             </if>
             <if test="parentId!=null and parentId!='' ">
-                and a.parent_id = #{ parentId }
+                and a.parent_id=#{ parentId }
             </if>
-            order by sort
+            <if test="author!=null and author!='' ">
+                and a.author LIKE CONCAT('%', #{ author }, '%')
+            </if>
+            <if test="sort!=null and sort!='' ">
+                and a.sort LIKE CONCAT('%', #{ sort }, '%')
+            </if>
+            <if test="remark!=null and remark!='' ">
+                and a.remark LIKE CONCAT('%', #{ remark }, '%')
+            </if>
         </where>
     </select>
 </mapper>
