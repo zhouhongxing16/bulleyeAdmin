@@ -38,10 +38,6 @@ public class WxMenuService extends BaseService<WxMenu> {
         return wxMenuMapper.selectlist(wxMenu);
     }
 
-    public List<WxMenu> selectTwolist(WxMenu wxMenu) {
-        return wxMenuMapper.selectTwolist(wxMenu);
-    }
-
     public String createWxMenu(String appId){
         WxMpService wxService = WxMpConfiguration.getMpServices().get(appId);
 
