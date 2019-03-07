@@ -69,4 +69,22 @@
             </if>
         </where>
     </select>
+
+    <select id="selectlist" resultMap="BaseResultMap" parameterType="map">
+        SELECT
+        <include refid="basic_list"/>
+        FROM wx_menu a
+        <where>
+            <if test="id!=null and id!='' ">
+                and a.id=#{ id }
+            </if>
+            <if test="accountId!=null and accountId!='' ">
+                and a.account_id = #{ accountId }
+            </if>
+            <if test="parentId!=null and parentId!='' ">
+                and a.parent_id = #{ parentId }
+            </if>
+        </where>
+        order by sort
+    </select>
 </mapper>

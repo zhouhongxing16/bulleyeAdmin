@@ -15,4 +15,5 @@ import java.util.List;
 public interface WxMenuMapper extends BaseMapper<WxMenu> {
 
     List<WxMenu> selectlist(WxMenu wxMenu);
+
 }
