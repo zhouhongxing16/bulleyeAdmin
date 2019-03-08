@@ -32,20 +32,20 @@ public class WxMenuController extends BaseController<WxMenu> {
     }
 
     @ResponseBody
-    @GetMapping("/getWxMenu/{appId}")
-    public Object listPage(@PathVariable String appId) {
+    @GetMapping("/getWxMenu/{accountId}")
+    public Object listPage(@PathVariable String accountId) {
         //根据不同的参数配置,有些传递的是offset
         JSONArray array = new JSONArray();
 
         WxMenu wxMenuOne = new WxMenu();
-        wxMenuOne.setAppId(appId);
+        wxMenuOne.setAccountId(accountId);
         wxMenuOne.setParentId("0");
         List<WxMenu> wxMenuListOne = wxMenuService.selectlist(wxMenuOne);
         for (WxMenu menuOne:wxMenuListOne){
             JSONObject jsonObject = JSONObject.parseObject(JSONObject.toJSON(menuOne).toString());
 
             WxMenu wxMenuTwo = new WxMenu();
-            wxMenuTwo.setAppId(appId);
+            wxMenuTwo.setAccountId(accountId);
             wxMenuTwo.setParentId(menuOne.getId());
             jsonObject.put("children", wxMenuService.selectlist(wxMenuTwo));
             array.add(jsonObject);

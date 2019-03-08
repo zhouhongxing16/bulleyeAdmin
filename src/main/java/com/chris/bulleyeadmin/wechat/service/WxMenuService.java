@@ -46,12 +46,12 @@ public class WxMenuService extends BaseService<WxMenu> {
         WxAccount wxAccount = wxAccountMapper.selectOne(account);
 
         WxMenu menu = new WxMenu();
-        menu.setAppId(appId);
+        menu.setAccountId(wxAccount.getId());
         menu.setParentId("0");
         List<WxMenu> firstMenuList = wxMenuMapper.selectlist(menu);
 
         WxMenu menu1 = new WxMenu();
-        menu1.setAppId(appId);
+        menu1.setAccountId(wxAccount.getId());
 
         //要传向接口的类
         me.chanjar.weixin.common.bean.menu.WxMenu createMenu = new me.chanjar.weixin.common.bean.menu.WxMenu();

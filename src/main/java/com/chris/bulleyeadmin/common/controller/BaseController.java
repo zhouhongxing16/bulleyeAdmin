@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.*;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 
@@ -110,6 +111,17 @@ public abstract class BaseController<T> {
     @GetMapping("/getById/{id}")
     public Object getById(@PathVariable String id) {
         return getService().getById(id);
+    }
+
+    //获取一个list
+    @ResponseBody
+    @RequestMapping("/select")
+    public Object select(@RequestBody T t) {
+        //根据不同的参数配置,有些传递的是offset
+        List<T> list = getService().select(t);
+        Map<String,Object> jsonMap = new HashMap<>();
+        jsonMap.put("list", list);
+        return jsonMap;
     }
 
     @InitBinder
