@@ -3,6 +3,7 @@ package com.chris.bulleyeadmin.wechat.controller;
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 import com.chris.bulleyeadmin.common.controller.BaseController;
+import com.chris.bulleyeadmin.common.pojo.JsonResult;
 import com.chris.bulleyeadmin.common.service.BaseService;
 import com.chris.bulleyeadmin.wechat.pojo.WxMenu;
 import com.chris.bulleyeadmin.wechat.service.WxMenuService;
@@ -31,6 +32,11 @@ public class WxMenuController extends BaseController<WxMenu> {
         return "wxmenu";
     }
 
+    /**
+     * 通过accountId获取菜单列表
+     * @param accountId
+     * @return
+     */
     @ResponseBody
     @GetMapping("/getWxMenu/{accountId}")
     public Object listPage(@PathVariable String accountId) {
@@ -55,4 +61,11 @@ public class WxMenuController extends BaseController<WxMenu> {
         jsonMap.put("wxMenu", array);
         return jsonMap;
     }
+
+    @GetMapping("/createWxMenu/{accountId}")
+    @ResponseBody
+    public JsonResult create(@PathVariable String accountId)  throws Exception {
+        return wxMenuService.createWxMenu(accountId);
+    }
+
 }
