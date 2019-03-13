@@ -83,7 +83,7 @@
 
     <select id="getAllMenus" parameterType="String" resultMap="dto">
   		SELECT
-			m.*
+			m.*,m.id as key
 		FROM
 			b_menus m
 		ORDER BY
