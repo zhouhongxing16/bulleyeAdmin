@@ -15,8 +15,8 @@ public class Menu implements Serializable {
     /**
      * 父菜单id
      */
-    @Column(name = "p_id")
-    private String pId;
+    @Column(name = "parent_id")
+    private String parentId;
 
     /**
      * 图标
@@ -31,7 +31,7 @@ public class Menu implements Serializable {
     /**
      * 名称
      */
-    private String name;
+    private String title;
 
     /**
      * 路径
@@ -73,22 +73,12 @@ public class Menu implements Serializable {
         this.id = id == null ? null : id.trim();
     }
 
-    /**
-     * 获取父菜单id
-     *
-     * @return p_id - 父菜单id
-     */
-    public String getpId() {
-        return pId;
+    public String getParentId() {
+        return parentId;
     }
 
-    /**
-     * 设置父菜单id
-     *
-     * @param pId 父菜单id
-     */
-    public void setpId(String pId) {
-        this.pId = pId == null ? null : pId.trim();
+    public void setParentId(String parentId) {
+        this.parentId = parentId;
     }
 
     /**
@@ -127,22 +117,12 @@ public class Menu implements Serializable {
         this.code = code == null ? null : code.trim();
     }
 
-    /**
-     * 获取名称
-     *
-     * @return name - 名称
-     */
-    public String getName() {
-        return name;
+    public String getTitle() {
+        return title;
     }
 
-    /**
-     * 设置名称
-     *
-     * @param name 名称
-     */
-    public void setName(String name) {
-        this.name = name == null ? null : name.trim();
+    public void setTitle(String title) {
+        this.title = title;
     }
 
     /**

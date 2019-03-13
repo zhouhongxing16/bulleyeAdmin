@@ -66,4 +66,5 @@ public class MenuController extends BaseController<Menu> {
         List<Menu> menuList = menuService.getMenusByRoleId(roleId);
         return new JsonResult(true, menuList);
     }
+
 }

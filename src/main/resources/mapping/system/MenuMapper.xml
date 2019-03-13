@@ -1,62 +1,63 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.chris.bulleyeadmin.system.mapper.MenuMapper">
-  <resultMap id="BaseResultMap" type="com.chris.bulleyeadmin.system.pojo.Menu">
-    <!--
-      WARNING - @mbg.generated
-    -->
-    <id column="id" jdbcType="VARCHAR" property="id" />
-    <result column="p_id" jdbcType="VARCHAR" property="pId" />
-    <result column="icon" jdbcType="VARCHAR" property="icon" />
-    <result column="code" jdbcType="VARCHAR" property="code" />
-    <result column="name" jdbcType="VARCHAR" property="name" />
-    <result column="path" jdbcType="VARCHAR" property="path" />
-    <result column="status" jdbcType="INTEGER" property="status" />
-    <result column="sort" jdbcType="INTEGER" property="sort" />
-    <result column="created" jdbcType="BIGINT" property="created" />
-  </resultMap>
-	<resultMap id="dto" type="com.chris.bulleyeadmin.system.dto.MenuDto" extends="BaseResultMap">
+    <resultMap id="BaseResultMap" type="com.chris.bulleyeadmin.system.pojo.Menu">
+        <!--
+          WARNING - @mbg.generated
+        -->
+        <id column="id" jdbcType="VARCHAR" property="id"/>
+        <result column="parent_id" jdbcType="VARCHAR" property="parentId"/>
+        <result column="icon" jdbcType="VARCHAR" property="icon"/>
+        <result column="code" jdbcType="VARCHAR" property="code"/>
+        <result column="title" jdbcType="VARCHAR" property="title"/>
+        <result column="path" jdbcType="VARCHAR" property="path"/>
+        <result column="status" jdbcType="INTEGER" property="status"/>
+        <result column="sort" jdbcType="INTEGER" property="sort"/>
+        <result column="created" jdbcType="BIGINT" property="created"/>
 
-	</resultMap>
+    </resultMap>
+    <resultMap id="dto" type="com.chris.bulleyeadmin.system.dto.MenuDto" extends="BaseResultMap">
+        <result column="key" jdbcType="VARCHAR" property="key"/>
+    </resultMap>
 
-	<sql id="basic_list">
-		a.id, a.p_id, a.icon, a.code, a.name, a.path, a.status, a.sort, a.created
+    <sql id="basic_list">
+		a.id, a.parent_id, a.icon, a.code, a.title, a.path, a.status, a.sort, a.created
 	</sql>
-	<select id="getListByParams" resultMap="dto" parameterType="map">
-		SELECT
-		<include refid="basic_list"/>
-		FROM b_menus a
-		<where>
-			<if test="id!=null and id!='' ">
-				and a.id=#{ id }
-			</if>
-			<if test="pId!=null and pId!='' ">
-				and a.p_id=#{ pId }
-			</if>
-			<if test="icon!=null and icon!='' ">
-				and a.icon LIKE CONCAT('%', #{ icon }, '%')
-			</if>
-			<if test="code!=null and code!='' ">
-				and a.code LIKE CONCAT('%', #{ code }, '%')
-			</if>
-			<if test="name!=null and name!='' ">
-				and a.name LIKE CONCAT('%', #{ name }, '%')
-			</if>
-			<if test="path!=null and path!='' ">
-				and a.path LIKE CONCAT('%', #{ path }, '%')
-			</if>
-			<if test="status!=null and status!='' ">
-				and a.status LIKE CONCAT('%', #{ status }, '%')
-			</if>
-			<if test="sort!=null and sort!='' ">
-				and a.sort LIKE CONCAT('%', #{ sort }, '%')
-			</if>
-			<if test="created!=null and created!='' ">
-				and a.created LIKE CONCAT('%', #{ created }, '%')
-			</if>
-		</where>
-	</select>
-  <select id="getMenusByAccountId" parameterType="string" resultMap="dto">
+    <select id="getListByParams" resultMap="dto" parameterType="map">
+        SELECT
+        <include refid="basic_list"/>,a.id as key
+        FROM b_menus a
+        <where>
+            <if test="id!=null and id!='' ">
+                and a.id=#{ id }
+            </if>
+            <if test="parentId!=null and parentId!='' ">
+                and a.parent_id=#{ parentId }
+            </if>
+            <if test="icon!=null and icon!='' ">
+                and a.icon LIKE CONCAT('%', #{ icon }, '%')
+            </if>
+            <if test="code!=null and code!='' ">
+                and a.code LIKE CONCAT('%', #{ code }, '%')
+            </if>
+            <if test="title!=null and title!='' ">
+                and a.title LIKE CONCAT('%', #{ title }, '%')
+            </if>
+            <if test="path!=null and path!='' ">
+                and a.path LIKE CONCAT('%', #{ path }, '%')
+            </if>
+            <if test="status!=null and status!='' ">
+                and a.status LIKE CONCAT('%', #{ status }, '%')
+            </if>
+            <if test="sort!=null and sort!='' ">
+                and a.sort LIKE CONCAT('%', #{ sort }, '%')
+            </if>
+            <if test="created!=null and created!='' ">
+                and a.created LIKE CONCAT('%', #{ created }, '%')
+            </if>
+        </where>
+    </select>
+    <select id="getMenusByAccountId" parameterType="string" resultMap="dto">
   		SELECT DISTINCT
 			m.*
 		FROM
@@ -68,7 +69,7 @@
 		order BY m.sort ASC
   </select>
 
-	<select id="getMenusByRoleId" parameterType="String" resultMap="BaseResultMap">
+    <select id="getMenusByRoleId" parameterType="String" resultMap="BaseResultMap">
   		SELECT
 			m.*
 		FROM
@@ -80,7 +81,7 @@
 			m.sort ASC
   </select>
 
-	<select id="getAllMenus" parameterType="String" resultMap="dto">
+    <select id="getAllMenus" parameterType="String" resultMap="dto">
   		SELECT
 			m.*
 		FROM

@@ -8,17 +8,15 @@ import java.util.List;
 public class MenuDto extends Menu {
     private boolean open;
     private boolean checked;
-    private String rId;
+    private String key;
     private List<MenuDto> children;
 
-    public String getrId()
-    {
-        return this.rId;
+    public String getKey() {
+        return key;
     }
 
-    public void setrId(String rId)
-    {
-        this.rId = rId;
+    public void setKey(String key) {
+        this.key = key;
     }
 
     public boolean isOpen()

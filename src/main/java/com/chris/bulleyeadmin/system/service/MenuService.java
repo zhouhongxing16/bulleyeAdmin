@@ -37,7 +37,7 @@ public class MenuService extends BaseService<Menu> {
         // 先找到所有的一级菜单
         for(MenuDto menu : menus){
             // 一级菜单没有pId
-            if(menu.getpId()==null){
+            if(menu.getParentId().isEmpty()){
                 menuList.add(menu);
             }
         }
@@ -61,7 +61,7 @@ public class MenuService extends BaseService<Menu> {
         // 先找到所有的一级菜单
         for(MenuDto menu : menus){
             // 一级菜单没有pId
-            if(menu.getpId()==null){
+            if(menu.getParentId()==null){
                 menuList.add(menu);
             }
         }
@@ -69,7 +69,6 @@ public class MenuService extends BaseService<Menu> {
         for(MenuDto menu : menuList){
             menu.setChildren(getChild(menu.getId(),menus));
         }
-
         return menuList;
     }
 
@@ -78,24 +77,13 @@ public class MenuService extends BaseService<Menu> {
         List<MenuDto> childList = new ArrayList<>();
         //遍历所有节点，将父级菜单ID与传过来的ID做比较
         for(MenuDto menu:menuList){
-            if(menu.getrId()!=null){
-                menu.setOpen(true);
-                menu.setChecked(true);
-            }
-            if(menu.getpId()!=null){
-                if (menu.getpId().equals(id)){
+            if(menu.getParentId()!=null){
+                if (menu.getParentId().equals(id)){
                     menu.setChildren(getChild(menu.getId(),menuList));
                     childList.add(menu);
                 }
             }
         }
-        // 把子菜单的子菜单再循环一遍
-       /* for(MenuDto menu:menuList){
-            // 没有url子菜单还有子菜单
-            if(menu.getUri()==null){
-                menu.setChildMenu(getChild(menu.getId(),menuList));
-            }
-        }*/
         if (childList.size()==0){
             return null;
         }
