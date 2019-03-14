@@ -1,6 +1,7 @@
 package com.chris.bulleyeadmin.system.controller;
 
 import com.chris.bulleyeadmin.common.controller.BaseController;
+import com.chris.bulleyeadmin.common.utils.Help;
 import com.chris.bulleyeadmin.system.dto.MenuDto;
 import com.chris.bulleyeadmin.common.pojo.JsonResult;
 import com.chris.bulleyeadmin.system.pojo.Account;
@@ -14,6 +15,7 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
@@ -41,6 +43,13 @@ public class MenuController extends BaseController<Menu> {
     @Override
     public String getViewPrefix() {
         return "menu";
+    }
+
+    @RequestMapping("/create")
+    @Override
+    public JsonResult create(@RequestBody Menu obj) throws Exception {
+        obj.setCreated(Help.getCurrentTimeMillis());
+        return super.create(obj);
     }
 
     @ResponseBody

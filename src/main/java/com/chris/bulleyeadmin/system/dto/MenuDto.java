@@ -8,8 +8,17 @@ import java.util.List;
 public class MenuDto extends Menu {
     private boolean open;
     private boolean checked;
+    private String value;
     private String key;
     private List<MenuDto> children;
+
+    public String getValue() {
+        return value;
+    }
+
+    public void setValue(String value) {
+        this.value = value;
+    }
 
     public String getKey() {
         return key;

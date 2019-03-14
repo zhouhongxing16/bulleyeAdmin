@@ -17,7 +17,8 @@
 
     </resultMap>
     <resultMap id="dto" type="com.chris.bulleyeadmin.system.dto.MenuDto" extends="BaseResultMap">
-        <result column="key" jdbcType="VARCHAR" property="key"/>
+        <result column="menu_value" jdbcType="VARCHAR" property="value"/>
+        <result column="menu_key" jdbcType="VARCHAR" property="key"/>
     </resultMap>
 
     <sql id="basic_list">
@@ -25,7 +26,7 @@
 	</sql>
     <select id="getListByParams" resultMap="dto" parameterType="map">
         SELECT
-        <include refid="basic_list"/>,a.id as key
+        <include refid="basic_list"/>,a.id as menu_key,a.id as menu_value
         FROM b_menus a
         <where>
             <if test="id!=null and id!='' ">
@@ -83,7 +84,7 @@
 
     <select id="getAllMenus" parameterType="String" resultMap="dto">
   		SELECT
-			m.*,m.id as key
+			m.*,m.id as menu_key,m.id as menu_value
 		FROM
 			b_menus m
 		ORDER BY
