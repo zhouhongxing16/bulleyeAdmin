@@ -1,11 +1,13 @@
 package com.chris.bulleyeadmin.system.service;
 
 import com.chris.bulleyeadmin.common.basemapper.BaseMapper;
+import com.chris.bulleyeadmin.common.pojo.JsonResult;
 import com.chris.bulleyeadmin.common.service.BaseService;
 import com.chris.bulleyeadmin.system.dto.MenuDto;
 import com.chris.bulleyeadmin.system.mapper.MenuMapper;
 import com.chris.bulleyeadmin.system.pojo.Menu;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -28,6 +30,12 @@ public class MenuService extends BaseService<Menu> {
         return menuMapper;
     }
 
+    @Override
+    public JsonResult update(Menu obj) {
+        int updateCount = getMapper().updateByPrimaryKey(obj);
+        String msg = updateCount>0?"成功更新"+updateCount+"条记录":"数据更新失败！";
+        return new JsonResult(updateCount>0?true:false,null,msg,null, HttpStatus.OK);
+    }
 
     public List<MenuDto> getMenusByAccountId(String accountId){
         Map<String,Object> map = new HashMap<>(2);
@@ -89,4 +97,5 @@ public class MenuService extends BaseService<Menu> {
         }
         return childList;
     }
+
 }
