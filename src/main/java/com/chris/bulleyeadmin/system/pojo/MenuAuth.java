@@ -21,8 +21,8 @@ public class MenuAuth implements Serializable {
     @Column(name = "code")
     private String code;
     
-    @Column(name = "url")
-    private String url;
+    @Column(name = "path")
+    private String path;
     
     @Column(name = "status")
     private Integer status;
@@ -86,21 +86,15 @@ public class MenuAuth implements Serializable {
     public void setCode(String code) {
         this.code = code == null ? null : code.trim();
     }
-    
-    /**
-     * @return url
-     */
-    public String getUrl() {
-        return url;
+
+    public String getPath() {
+        return path;
     }
 
-    /**
-     * @param url
-     */
-    public void setUrl(String url) {
-        this.url = url == null ? null : url.trim();
+    public void setPath(String path) {
+        this.path = path;
     }
-    
+
     /**
      * @return status
      */
