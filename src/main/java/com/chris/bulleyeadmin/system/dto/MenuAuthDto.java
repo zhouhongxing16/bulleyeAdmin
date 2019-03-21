@@ -7,4 +7,14 @@ import com.chris.bulleyeadmin.system.pojo.MenuAuth;
  */
 public class MenuAuthDto extends MenuAuth {
 
+    private String menuName;
+
+
+    public String getMenuName() {
+        return menuName;
+    }
+
+    public void setMenuName(String menuName) {
+        this.menuName = menuName;
+    }
 }

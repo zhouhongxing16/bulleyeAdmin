@@ -15,14 +15,19 @@
 
     </resultMap>
 
+    <resultMap id="BaseResultMapDto" type="com.chris.bulleyeadmin.system.dto.MenuAuthDto">
+        <result column="menu_name" jdbcType="VARCHAR" property="menuName"/>
+    </resultMap>
+
     <sql id="basic_list">
-		a.id, a.name, a.menu_id, a.code, a.path, a.status, a.created
+		a.id, a.name, a.menu_id, a.code, a.path, a.status, a.created,m.title as menuName
 	</sql>
 
-    <select id="getListByParams" resultMap="BaseResultMap" parameterType="map">
+    <select id="getListByParams" resultMap="BaseResultMapDto" parameterType="map">
         SELECT
         <include refid="basic_list"/>
         FROM b_menu_auth a
+        left join b_menus m on m.id = a.menu_id
         <where>
             <if test="id!=null and id!='' ">
                 and a.id=#{ id }
