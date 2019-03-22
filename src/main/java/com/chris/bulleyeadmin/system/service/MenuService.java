@@ -80,6 +80,49 @@ public class MenuService extends BaseService<Menu> {
         return menuList;
     }
 
+
+
+
+    public List<MenuDto> getOrganizationMenus(Map<String,Object> map){
+        List<MenuDto> menus = menuMapper.getOrganizationMenus(map);
+        List<MenuDto> menuList = new ArrayList<>();
+        // 先找到所有的一级菜单
+        for(MenuDto menu : menus){
+            // 一级菜单没有pId
+            if(menu.getParentId()==null){
+                menuList.add(menu);
+            }
+        }
+        // 为一级菜单设置子菜单，getChild是递归调用的
+        List<MenuDto> list = null;
+        for(MenuDto menu : menuList){
+            list = getChild(menu.getId(),menus);
+            menu.setIsLeaf(list==null?true:false);
+            menu.setChildren(list);
+        }
+        return menuList;
+    }
+
+    public List<MenuDto> getOrganizationAuthMenus(Map<String,Object> map){
+        List<MenuDto> menus = menuMapper.getOrganizationAuthMenus(map);
+        List<MenuDto> menuList = new ArrayList<>();
+        // 先找到所有的一级菜单
+        for(MenuDto menu : menus){
+            // 一级菜单没有pId
+            if(menu.getParentId()==null){
+                menuList.add(menu);
+            }
+        }
+        // 为一级菜单设置子菜单，getChild是递归调用的
+        List<MenuDto> list = null;
+        for(MenuDto menu : menuList){
+            list = getChild(menu.getId(),menus);
+            menu.setIsLeaf(list==null?true:false);
+            menu.setChildren(list);
+        }
+        return menuList;
+    }
+
     private List<MenuDto> getChild(String id,List<MenuDto> menuList){
         // 子菜单
         List<MenuDto> childList = new ArrayList<>();
@@ -88,6 +131,7 @@ public class MenuService extends BaseService<Menu> {
             if(menu.getParentId()!=null){
                 if (menu.getParentId().equals(id)){
                     menu.setChildren(getChild(menu.getId(),menuList));
+                    menu.setIsLeaf(getChild(menu.getId(),menuList)==null?true:false);
                     childList.add(menu);
                 }
             }

@@ -22,6 +22,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
+import java.util.Map;
 
 
 /**
@@ -55,9 +56,28 @@ public class MenuController extends BaseController<Menu> {
     @ResponseBody
     @RequestMapping("/getAllMenus")
     public JsonResult getAllMenus() {
-        User user = AuthUtil.getCurrentUser();
-        System.out.println(user.getUsername());
         List<MenuDto> menuList = menuService.getAllMenus();
+        return new JsonResult(true, menuList);
+    }
+
+    @ResponseBody
+    @RequestMapping("/getOrganizationMenus")
+    public JsonResult getOrganizationMenus(@RequestBody Map<String,Object> map) {
+        if(map.get("organizationId")==null){
+            User user = AuthUtil.getCurrentUser();
+            map.put("organizationId",user.getOrganizationId());
+        }
+        List<MenuDto> menuList = menuService.getOrganizationMenus(map);
+        return new JsonResult(true, menuList);
+    }
+
+
+    @ResponseBody
+    @RequestMapping("/getOrganizationAuthMenus")
+    public JsonResult getOrganizationAuthMenus(@RequestBody Map<String,Object> map) {
+        User user = AuthUtil.getCurrentUser();
+        map.put("organizationId",user.getOrganizationId());
+        List<MenuDto> menuList = menuService.getOrganizationAuthMenus(map);
         return new JsonResult(true, menuList);
     }
 

@@ -17,6 +17,9 @@ public class OrganizationMenu implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY, generator = "select uuid()")
     private String id;
 
+    @Column(name = "organization_id")
+    private String organizationId;
+
     @Column(name = "menu_id")
     private String menuId;
 
@@ -38,6 +41,14 @@ public class OrganizationMenu implements Serializable {
 
     public void setId(String id) {
         this.id = id;
+    }
+
+    public String getOrganizationId() {
+        return organizationId;
+    }
+
+    public void setOrganizationId(String organizationId) {
+        this.organizationId = organizationId;
     }
 
     public String getMenuId() {

@@ -20,7 +20,7 @@
     </resultMap>
 
     <sql id="basic_list">
-		a.id, a.name, a.menu_id, a.code, a.path, a.status, a.created,m.title as menuName
+		a.id, a.name, a.menu_id, a.code, a.path, a.status, a.created,m.title as menu_name
 	</sql>
 
     <select id="getListByParams" resultMap="BaseResultMapDto" parameterType="map">

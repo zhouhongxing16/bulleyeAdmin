@@ -90,4 +90,20 @@
 		ORDER BY
 			m.sort ASC
   </select>
+
+    <select id="getOrganizationMenus" parameterType="String" resultMap="dto">
+        select m.*,if(om.id is null,0,1) as checked from b_menus m
+        left join b_organization_menu om on om.menu_id = m.id and om.organization_id=#{ organizationId }
+        <where>
+            m.status = 1
+        </where>
+        order by m.sort
+    </select>
+
+
+    <select id="getOrganizationAuthMenus" parameterType="String" resultMap="dto">
+        select * from b_menus m
+        right join b_organization_menu om on om.menu_id = m.id and om.organization_id =#{ organizationId }
+        where m.`status` = 1
+    </select>
 </mapper>

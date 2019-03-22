@@ -2,19 +2,18 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.chris.bulleyeadmin.system.mapper.OrganizationMapper">
     <resultMap id="BaseResultMap" type="com.chris.bulleyeadmin.system.pojo.Organization">
-        <!--
-          WARNING - @mbg.generated
-        -->
-        <id column="id" jdbcType="VARCHAR" property="id"/>
-        <result column="code" jdbcType="VARCHAR" property="code"/>
-        <result column="name" jdbcType="VARCHAR" property="name"/>
-        <result column="area_id" jdbcType="VARCHAR" property="areaId"/>
-        <result column="brief" jdbcType="VARCHAR" property="brief"/>
-        <result column="contact_name" jdbcType="VARCHAR" property="contactName"/>
-        <result column="contact_phone" jdbcType="VARCHAR" property="contactPhone"/>
-        <result column="status" jdbcType="INTEGER" property="status"/>
-        <result column="domain" jdbcType="VARCHAR" property="domain"/>
-        <result column="created" jdbcType="BIGINT" property="created"/>
+        <id column="id" jdbcType="VARCHAR" property="id" />
+        <result column="pid" jdbcType="VARCHAR" property="pid" />
+        <result column="code" jdbcType="VARCHAR" property="code" />
+        <result column="name" jdbcType="VARCHAR" property="name" />
+        <result column="area_id" jdbcType="VARCHAR" property="areaId" />
+        <result column="brief" jdbcType="VARCHAR" property="brief" />
+        <result column="contact_name" jdbcType="VARCHAR" property="contactName" />
+        <result column="contact_phone" jdbcType="VARCHAR" property="contactPhone" />
+        <result column="status" jdbcType="INTEGER" property="status" />
+        <result column="end_date" jdbcType="BIGINT" property="endDate" />
+        <result column="domain" jdbcType="VARCHAR" property="domain" />
+        <result column="created" jdbcType="BIGINT" property="created" />
     </resultMap>
 
     <resultMap id="dto" type="com.chris.bulleyeadmin.system.dto.OrganizationDto" extends="BaseResultMap">
@@ -22,19 +21,19 @@
     </resultMap>
 
     <sql id="basic_list">
-		a.id, a.organization_id, a.code, a.name, a.type_id, a.remark, a.status, a.created
+		a.id, a.pid, a.code, a.name, a.area_id, a.brief, a.contact_name, a.contact_phone, a.status, a.end_date, a.domain, a.created
 	</sql>
 
     <select id="getListByParams" resultMap="BaseResultMap" parameterType="map">
         SELECT
         <include refid="basic_list"/>
-        FROM b_departments a
+        FROM b_organizations a
         <where>
             <if test="id!=null and id!='' ">
                 and a.id=#{ id }
             </if>
-            <if test="organizationId!=null and organizationId!='' ">
-                and a.organization_id=#{ organizationId }
+            <if test="pid!=null and pid!='' ">
+                and a.pid=#{ pid }
             </if>
             <if test="code!=null and code!='' ">
                 and a.code LIKE CONCAT('%', #{ code }, '%')
@@ -42,14 +41,26 @@
             <if test="name!=null and name!='' ">
                 and a.name LIKE CONCAT('%', #{ name }, '%')
             </if>
-            <if test="typeId!=null and typeId!='' ">
-                and a.type_id=#{ typeId }
+            <if test="areaId!=null and areaId!='' ">
+                and a.area_id=#{ areaId }
             </if>
-            <if test="remark!=null and remark!='' ">
-                and a.remark LIKE CONCAT('%', #{ remark }, '%')
+            <if test="brief!=null and brief!='' ">
+                and a.brief LIKE CONCAT('%', #{ brief }, '%')
+            </if>
+            <if test="contactName!=null and contactName!='' ">
+                and a.contact_name LIKE CONCAT('%', #{ contactName }, '%')
+            </if>
+            <if test="contactPhone!=null and contactPhone!='' ">
+                and a.contact_phone LIKE CONCAT('%', #{ contactPhone }, '%')
             </if>
             <if test="status!=null and status!='' ">
                 and a.status LIKE CONCAT('%', #{ status }, '%')
+            </if>
+            <if test="endDate!=null and endDate!='' ">
+                and a.end_date LIKE CONCAT('%', #{ endDate }, '%')
+            </if>
+            <if test="domain!=null and domain!='' ">
+                and a.domain LIKE CONCAT('%', #{ domain }, '%')
             </if>
             <if test="created!=null and created!='' ">
                 and a.created LIKE CONCAT('%', #{ created }, '%')
