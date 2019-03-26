@@ -1,3 +1,4 @@
+
 CREATE DATABASE IF NOT EXISTS `bulleye_admin` /*!40100 DEFAULT CHARACTER SET utf8 */;
 USE `bulleye_admin`;
 
@@ -28,8 +29,8 @@ CREATE TABLE IF NOT EXISTS `b_accounts` (
 DELETE FROM `b_accounts`;
 /*!40000 ALTER TABLE `b_accounts` DISABLE KEYS */;
 INSERT INTO `b_accounts` (`id`, `username`, `password`, `account_locked`, `credentials_expired`, `account_expired`, `staff_id`, `organization_id`, `wx_openid`, `alipay_openid`, `email`, `status`, `mobile_login_flag`, `remark`, `created`, `modified`, `expired_date`) VALUES
-	('00278d19-9794-11e7-975b-000c29687dd9', 'admin', '{bcrypt}$2a$10$cBxwbxYB8iUZ2.W2BspGbOPxAlsZT1ppDtD.nFJsJMCQMAW8YCUWy', NULL, NULL, NULL, '1', 'suiji', NULL, NULL, NULL, NULL, NULL, NULL, 20180613110719, 20180613110719, NULL),
-	('4081fe65-125a-11e9-97db-382c4a232da1', 'zhx', '{bcrypt}$2a$10$cBxwbxYB8iUZ2.W2BspGbOPxAlsZT1ppDtD.nFJsJMCQMAW8YCUWy', NULL, NULL, NULL, '1', NULL, NULL, NULL, '961860916@qq.com', NULL, NULL, NULL, 20190107165716, NULL, NULL);
+	('00278d19-9794-11e7-975b-000c29687dd9', 'admin', '{bcrypt}$2a$10$cBxwbxYB8iUZ2.W2BspGbOPxAlsZT1ppDtD.nFJsJMCQMAW8YCUWy', 1, NULL, 1, '1', 'suiji', NULL, NULL, '961860916@qq.com', 1, NULL, NULL, 20180613110719, 20180613110719, NULL),
+	('4081fe65-125a-11e9-97db-382c4a232da1', 'zhx', '{bcrypt}$2a$10$cBxwbxYB8iUZ2.W2BspGbOPxAlsZT1ppDtD.nFJsJMCQMAW8YCUWy', 1, NULL, 1, '1', NULL, NULL, NULL, '961860916@qq.com', 1, NULL, NULL, 20190107165716, NULL, NULL);
 /*!40000 ALTER TABLE `b_accounts` ENABLE KEYS */;
 
 -- 导出  表 bulleye_admin.b_account_role 结构
@@ -143,7 +144,7 @@ CREATE TABLE IF NOT EXISTS `b_logs` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='操作日志';
 
--- 正在导出表  bulleye_admin.b_logs 的数据：~28 rows (大约)
+-- 正在导出表  bulleye_admin.b_logs 的数据：~0 rows (大约)
 DELETE FROM `b_logs`;
 /*!40000 ALTER TABLE `b_logs` DISABLE KEYS */;
 /*!40000 ALTER TABLE `b_logs` ENABLE KEYS */;
@@ -152,10 +153,10 @@ DELETE FROM `b_logs`;
 DROP TABLE IF EXISTS `b_menus`;
 CREATE TABLE IF NOT EXISTS `b_menus` (
   `id` varchar(40) NOT NULL COMMENT '唯一标识',
-  `p_id` varchar(40) DEFAULT NULL COMMENT '父菜单id',
+  `parent_id` varchar(40) DEFAULT NULL COMMENT '父菜单id',
   `icon` varchar(50) DEFAULT NULL COMMENT '图标',
   `code` varchar(40) DEFAULT NULL COMMENT '代码',
-  `name` varchar(50) DEFAULT NULL COMMENT '名称',
+  `title` varchar(50) DEFAULT NULL COMMENT '名称',
   `path` varchar(255) DEFAULT NULL COMMENT '路径',
   `status` int(11) DEFAULT NULL COMMENT '是否显示（0：不显示，1：显示）',
   `sort` int(11) DEFAULT NULL COMMENT '显示顺序',
@@ -163,22 +164,48 @@ CREATE TABLE IF NOT EXISTS `b_menus` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='菜单表';
 
--- 正在导出表  bulleye_admin.b_menus 的数据：~5 rows (大约)
+-- 正在导出表  bulleye_admin.b_menus 的数据：~16 rows (大约)
 DELETE FROM `b_menus`;
 /*!40000 ALTER TABLE `b_menus` DISABLE KEYS */;
-INSERT INTO `b_menus` (`id`, `p_id`, `icon`, `code`, `name`, `path`, `status`, `sort`, `created`) VALUES
-	('1', NULL, NULL, 'admin', '微信管理', '/menu', 0, 2, 20180731114527),
-	('10', '2', NULL, '111', '组织机构管理', '/organization/list', 0, 1, 20180731171128),
-	('11', '2', NULL, '111', '机构部门管理', '/department/list', 0, 1, 20180731171128),
-	('2', NULL, NULL, 'admin1', '系统管理', '/account/list', 0, 1, 20180731114527),
-	('3', '2', NULL, 'staff', '角色管理', '/role/list', 0, 1, 20180731114527),
-	('4', '2', NULL, 'admin2', '账号管理', '/account/list', 0, 1, 20180731114527),
-	('5', '2', NULL, '111', '员工管理', '/staff/list', 0, 1, 20180731171128),
-	('6', '1', NULL, '111', '微信菜单管理', '/wxmenu/list', 0, 1, 20180731171128),
-	('7', '1', NULL, '111', '微信公众号管理', '/wxaccount/list', 0, 1, 20180731171128),
-	('8', '1', NULL, '111', '微信会员管理', '/wxmember/list', 0, 1, 20180731171128),
+INSERT INTO `b_menus` (`id`, `parent_id`, `icon`, `code`, `title`, `path`, `status`, `sort`, `created`) VALUES
+	('1', NULL, 'wechat', 'admin', '微信管理', '/menu', 1, 2, 20180731114527),
+	('10', '2', NULL, '111', '组织机构管理', '/organization/list', 1, 1, 20180731171128),
+	('11', '2', NULL, '111', '机构部门管理', '/department/list', 1, 1, 20180731171128),
+	('12', NULL, NULL, NULL, '一级菜单', NULL, 1, 1, 20180865115616),
+	('13', '12', NULL, NULL, '二级菜单', NULL, 1, 1, 20180865115616),
+	('14', '13', 'wechat', '665869', '三级菜单', '111', 1, 1, 20180865115616),
+	('17', '2', NULL, NULL, '菜单管理', '/menu/list', 1, 1, 20180865115616),
+	('2', NULL, NULL, 'admin1', '系统管理', '/account/list', 1, 1, 20180731114527),
+	('3', '2', NULL, 'staff', '角色管理', '/role/list', 1, 1, 20180731114527),
+	('4', '3', NULL, 'admin2', '账号管理', '/account/list', 1, 1, 20180731114527),
+	('5', '3', NULL, '111', '员工管理', '/staff/list', 1, 1, 20180731171128),
+	('52091a21-460a-11e9-bd13-382c5e4d3b2a', '2', 'wechat', '1', '菜单权限管理', '/menuauth/list', 1, 111, 1552534575142),
+	('6', '1', 'wechat', '111', '微信菜单管理', '/wxmenu/list', 1, 1, 20180731171128),
+	('7', '1', 'wechat', '111', '微信公众号管理', '/wxaccount/list', 1, 1, 20180731171128),
+	('8', '1', NULL, '111', '微信会员管理', '/wxmember/list', 1, 1, 20180731171128),
 	('9', '1', NULL, '111', '微信自动回复管理', '/wxreply/list', 0, 1, 20180731171128);
 /*!40000 ALTER TABLE `b_menus` ENABLE KEYS */;
+
+-- 导出  表 bulleye_admin.b_menu_auth 结构
+DROP TABLE IF EXISTS `b_menu_auth`;
+CREATE TABLE IF NOT EXISTS `b_menu_auth` (
+  `id` varchar(50) NOT NULL,
+  `menu_id` varchar(50) DEFAULT NULL,
+  `code` varchar(50) DEFAULT NULL,
+  `name` varchar(50) DEFAULT NULL,
+  `path` varchar(50) DEFAULT NULL,
+  `status` varchar(50) DEFAULT NULL,
+  `created` bigint(20) DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='菜单权限表';
+
+-- 正在导出表  bulleye_admin.b_menu_auth 的数据：~2 rows (大约)
+DELETE FROM `b_menu_auth`;
+/*!40000 ALTER TABLE `b_menu_auth` DISABLE KEYS */;
+INSERT INTO `b_menu_auth` (`id`, `menu_id`, `code`, `name`, `path`, `status`, `created`) VALUES
+	('5376de89-4b9d-11e9-8600-382c5e4d3b2a', '1', 'query', '查看', '/query', '0', NULL),
+	('83e6e514-4c4b-11e9-8600-382c5e4d3b2a', '4', 'list', '查看', 'list', '0', NULL);
+/*!40000 ALTER TABLE `b_menu_auth` ENABLE KEYS */;
 
 -- 导出  表 bulleye_admin.b_menu_function 结构
 DROP TABLE IF EXISTS `b_menu_function`;
@@ -221,7 +248,7 @@ DELETE FROM `b_organizations`;
 /*!40000 ALTER TABLE `b_organizations` DISABLE KEYS */;
 INSERT INTO `b_organizations` (`id`, `pid`, `code`, `name`, `area_id`, `brief`, `contact_name`, `contact_phone`, `status`, `end_date`, `domain`, `created`) VALUES
 	('suiji', NULL, 'admin', '管理', NULL, '管理组', '管理员工', '1328179872', 0, 20180731114155, NULL, 20180731114156);
-/*!40000 ALTER TABLE `b_organizations` ENABLE KEYS */;
+
 
 -- 导出  表 bulleye_admin.b_organization_menu 结构
 DROP TABLE IF EXISTS `b_organization_menu`;
@@ -233,13 +260,16 @@ CREATE TABLE IF NOT EXISTS `b_organization_menu` (
   `display_name` varchar(40) DEFAULT NULL,
   `created` bigint(20) NOT NULL,
   `status` int(11) DEFAULT '0',
+  `is_leaf` bit(1) DEFAULT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='组织自己的菜单层级';
 
--- 正在导出表  bulleye_admin.b_organization_menu 的数据：~0 rows (大约)
+-- 正在导出表  bulleye_admin.b_organization_menu 的数据：~2 rows (大约)
 DELETE FROM `b_organization_menu`;
-/*!40000 ALTER TABLE `b_organization_menu` DISABLE KEYS */;
-/*!40000 ALTER TABLE `b_organization_menu` ENABLE KEYS */;
+INSERT INTO `b_organization_menu` (`id`, `organization_id`, `menu_id`, `p_id`, `display_name`, `created`, `status`, `is_leaf`) VALUES
+	('3513e2dd-4e9d-11e9-8600-382c5e4d3b2a', 'suiji', '8', NULL, '微信会员管理', 1553477236157, 1, b'0'),
+	('35170c04-4e9d-11e9-8600-382c5e4d3b2a', 'suiji', '1', NULL, '微信管理', 1553477236178, 1, b'0');
+
 
 -- 导出  表 bulleye_admin.b_organization_role 结构
 DROP TABLE IF EXISTS `b_organization_role`;
@@ -254,8 +284,6 @@ CREATE TABLE IF NOT EXISTS `b_organization_role` (
 
 -- 正在导出表  bulleye_admin.b_organization_role 的数据：~0 rows (大约)
 DELETE FROM `b_organization_role`;
-/*!40000 ALTER TABLE `b_organization_role` DISABLE KEYS */;
-/*!40000 ALTER TABLE `b_organization_role` ENABLE KEYS */;
 
 -- 导出  表 bulleye_admin.b_roles 结构
 DROP TABLE IF EXISTS `b_roles`;
@@ -273,11 +301,9 @@ CREATE TABLE IF NOT EXISTS `b_roles` (
 
 -- 正在导出表  bulleye_admin.b_roles 的数据：~2 rows (大约)
 DELETE FROM `b_roles`;
-/*!40000 ALTER TABLE `b_roles` DISABLE KEYS */;
 INSERT INTO `b_roles` (`id`, `organization_id`, `code`, `name`, `data_auth_flag`, `describle`, `status`, `created`) VALUES
 	('1', 'admin', 'admin', 'admin', 'personal', '1', 0, 20180731114418),
 	('2', 'super', 'super', 'super', 'personal', '超级', 0, 20180731115226);
-/*!40000 ALTER TABLE `b_roles` ENABLE KEYS */;
 
 -- 导出  表 bulleye_admin.b_role_function 结构
 DROP TABLE IF EXISTS `b_role_function`;
@@ -292,11 +318,9 @@ CREATE TABLE IF NOT EXISTS `b_role_function` (
 
 -- 正在导出表  bulleye_admin.b_role_function 的数据：~2 rows (大约)
 DELETE FROM `b_role_function`;
-/*!40000 ALTER TABLE `b_role_function` DISABLE KEYS */;
 INSERT INTO `b_role_function` (`id`, `role_id`, `menu_id`, `function_id`, `created`) VALUES
 	('dfgdf', '1', '1', '1', 20190107170559),
 	('dfvd', '1', '3', '2', 20190108142426);
-/*!40000 ALTER TABLE `b_role_function` ENABLE KEYS */;
 
 -- 导出  表 bulleye_admin.b_role_menu 结构
 DROP TABLE IF EXISTS `b_role_menu`;
@@ -310,14 +334,12 @@ CREATE TABLE IF NOT EXISTS `b_role_menu` (
 
 -- 正在导出表  bulleye_admin.b_role_menu 的数据：~5 rows (大约)
 DELETE FROM `b_role_menu`;
-/*!40000 ALTER TABLE `b_role_menu` DISABLE KEYS */;
 INSERT INTO `b_role_menu` (`id`, `role_id`, `menu_id`, `created`) VALUES
 	('1', '1', '1', 20180731114624),
 	('2', '1', '2', 20180731114624),
 	('3', '1', '3', 20180731114624),
 	('4', '1', '4', 20180731114624),
 	('5', '1', '5', 20180731114624);
-/*!40000 ALTER TABLE `b_role_menu` ENABLE KEYS */;
 
 -- 导出  表 bulleye_admin.b_staff 结构
 DROP TABLE IF EXISTS `b_staff`;
