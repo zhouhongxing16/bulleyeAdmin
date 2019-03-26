@@ -32,6 +32,9 @@ public class OrganizationMenu implements Serializable {
     @Column(name = "status")
     private Integer status;
 
+    @Column(name = "is_leaf")
+    private Boolean isLeaf;
+
     private Long created;
 
 
@@ -89,5 +92,13 @@ public class OrganizationMenu implements Serializable {
 
     public void setCreated(Long created) {
         this.created = created;
+    }
+
+    public Boolean getLeaf() {
+        return isLeaf;
+    }
+
+    public void setLeaf(Boolean leaf) {
+        isLeaf = leaf;
     }
 }

@@ -97,7 +97,6 @@ public class MenuService extends BaseService<Menu> {
         List<MenuDto> list = null;
         for(MenuDto menu : menuList){
             list = getChild(menu.getId(),menus);
-            menu.setIsLeaf(list==null?true:false);
             menu.setChildren(list);
         }
         return menuList;
@@ -117,7 +116,6 @@ public class MenuService extends BaseService<Menu> {
         List<MenuDto> list = null;
         for(MenuDto menu : menuList){
             list = getChild(menu.getId(),menus);
-            menu.setIsLeaf(list==null?true:false);
             menu.setChildren(list);
         }
         return menuList;
@@ -131,7 +129,6 @@ public class MenuService extends BaseService<Menu> {
             if(menu.getParentId()!=null){
                 if (menu.getParentId().equals(id)){
                     menu.setChildren(getChild(menu.getId(),menuList));
-                    menu.setIsLeaf(getChild(menu.getId(),menuList)==null?true:false);
                     childList.add(menu);
                 }
             }

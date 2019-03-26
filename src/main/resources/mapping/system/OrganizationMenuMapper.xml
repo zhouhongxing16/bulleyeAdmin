@@ -9,13 +9,13 @@
         <result column="display_name" jdbcType="VARCHAR" property="displayName" />
         <result column="created" jdbcType="BIGINT" property="created" />
         <result column="status" jdbcType="INTEGER" property="status" />
+        <result column="is_leaf" jdbcType="BIT" property="isLeaf" />
 
     </resultMap>
 
     <sql id="basic_list">
-		a.id, a.organization_id, a.menu_id, a.p_id, a.display_name, a.created, a.status
+		a.id, a.organization_id, a.menu_id, a.p_id, a.display_name, a.created, a.status,a.is_leaf
 	</sql>
-
 
     <select id="getListByParams" resultMap="BaseResultMap" parameterType="map">
         SELECT
@@ -42,6 +42,9 @@
             </if>
             <if test="status!=null and status!='' ">
                 and a.status LIKE CONCAT('%', #{ status }, '%')
+            </if>
+            <if test="leaf!=null and leaf!='' ">
+                and a.leaf = #{ leaf }
             </if>
         </where>
     </select>
