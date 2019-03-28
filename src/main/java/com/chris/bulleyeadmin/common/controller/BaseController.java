@@ -11,6 +11,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.*;
+import springfox.documentation.spring.web.json.Json;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -122,6 +123,15 @@ public abstract class BaseController<T> {
         Map<String,Object> jsonMap = new HashMap<>();
         jsonMap.put("list", list);
         return jsonMap;
+    }
+
+
+    //获取一个list
+    @ResponseBody
+    @RequestMapping("/getListByParams")
+    public JsonResult getListByParams(@RequestBody Map<String,Object> params){
+        List<T> list = getService().getListByParams(params);
+        return new JsonResult(true,list,"查询成功！",null,HttpStatus.OK);
     }
 
     @InitBinder

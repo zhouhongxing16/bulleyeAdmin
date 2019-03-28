@@ -6,13 +6,13 @@ import com.chris.bulleyeadmin.common.service.BaseService;
 import com.chris.bulleyeadmin.system.pojo.OrganizationMenu;
 import com.chris.bulleyeadmin.system.service.OrganizationMenuService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
+import java.util.Map;
 
 /**
  * @Auther: Chris

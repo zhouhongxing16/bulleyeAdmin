@@ -7,9 +7,10 @@ import java.util.List;
 
 public class MenuDto extends Menu {
     private boolean open;
-    private boolean checked;
     private String value;
     private String key;
+    private Boolean isLeaf;
+
     private List<MenuDto> children;
 
     public String getValue() {
@@ -50,14 +51,11 @@ public class MenuDto extends Menu {
         this.children = children;
     }
 
-
-    public boolean isChecked()
-    {
-        return this.checked;
+    public Boolean getIsLeaf() {
+        return isLeaf;
     }
 
-    public void setChecked(boolean checked)
-    {
-        this.checked = checked;
+    public void setIsLeaf(Boolean leaf) {
+        this.isLeaf = leaf;
     }
 }

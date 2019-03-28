@@ -43,8 +43,8 @@
             <if test="status!=null and status!='' ">
                 and a.status LIKE CONCAT('%', #{ status }, '%')
             </if>
-            <if test="leaf!=null and leaf!='' ">
-                and a.leaf = #{ leaf }
+            <if test="isLeaf!=null and isLeaf!='' ">
+                and a.is_leaf = #{ isLeaf }
             </if>
         </where>
     </select>
