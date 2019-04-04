@@ -19,7 +19,7 @@ import org.springframework.web.bind.annotation.*;
  * @Date: 2018-11-30 16:43
  * @Description:
  */
-@Controller
+@RestController
 @RequestMapping("/staff")
 public class StaffController extends BaseController<Staff> {
 

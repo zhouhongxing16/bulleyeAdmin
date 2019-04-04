@@ -18,6 +18,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.RestController;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -29,7 +30,7 @@ import java.util.Map;
  * @Author: Chris E-mail:961860916@qq.com
  * @Date: 2018-06-13 9:48
  */
-@Controller
+@RestController
 @RequestMapping("/menu")
 public class MenuController extends BaseController<Menu> {
 

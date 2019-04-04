@@ -7,13 +7,14 @@ import com.chris.bulleyeadmin.wechat.service.WxReplyService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
 /**
  * @Auther: Chris
  * @Date: 2019-03-03 14:18
  * @Description:
  */
-@Controller
+@RestController
 @RequestMapping("/wxreply")
 public class WxReplyController extends BaseController<WxReply> {
 

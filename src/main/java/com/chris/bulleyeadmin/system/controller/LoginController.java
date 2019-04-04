@@ -1,6 +1,5 @@
 package com.chris.bulleyeadmin.system.controller;
 
-import com.chris.bulleyeadmin.common.utils.Help;
 import com.chris.bulleyeadmin.system.pojo.Account;
 import com.chris.bulleyeadmin.system.pojo.User;
 import com.chris.bulleyeadmin.system.service.AccountService;
@@ -12,12 +11,8 @@ import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.factory.PasswordEncoderFactories;
-import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 
 import javax.imageio.ImageIO;
 import javax.servlet.http.HttpServletRequest;
@@ -29,7 +24,7 @@ import java.io.IOException;
  *
  */
 @Operalog("登陆")
-@Controller
+@RestController
 @Api("swaggerDemoController相关的api")
 public class LoginController {
 
