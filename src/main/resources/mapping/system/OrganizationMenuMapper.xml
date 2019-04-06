@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.chris.bulleyeadmin.system.mapper.OrganizationMenuMapper">
+    <resultMap id="BaseResultMap" type="com.chris.bulleyeadmin.system.pojo.OrganizationMenu">
+        <id column="id" jdbcType="VARCHAR" property="id" />
+        <result column="organization_id" jdbcType="VARCHAR" property="organizationId" />
+        <result column="menu_id" jdbcType="VARCHAR" property="menuId" />
+        <result column="p_id" jdbcType="VARCHAR" property="pId" />
+        <result column="display_name" jdbcType="VARCHAR" property="displayName" />
+        <result column="created" jdbcType="BIGINT" property="created" />
+        <result column="status" jdbcType="INTEGER" property="status" />
+        <result column="is_leaf" jdbcType="BIT" property="isLeaf" />
+
+    </resultMap>
+
+    <sql id="basic_list">
+		a.id, a.organization_id, a.menu_id, a.p_id, a.display_name, a.created, a.status,a.is_leaf
+	</sql>
+
+    <select id="getListByParams" resultMap="BaseResultMap" parameterType="map">
+        SELECT
+        <include refid="basic_list"/>
+        FROM b_organization_menu a
+        <where>
+            <if test="id!=null and id!='' ">
+                and a.id=#{ id }
+            </if>
+            <if test="organizationId!=null and organizationId!='' ">
+                and a.organization_id=#{ organizationId }
+            </if>
+            <if test="menuId!=null and menuId!='' ">
+                and a.menu_id=#{ menuId }
+            </if>
+            <if test="pId!=null and pId!='' ">
+                and a.p_id=#{ pId }
+            </if>
+            <if test="displayName!=null and displayName!='' ">
+                and a.display_name LIKE CONCAT('%', #{ displayName }, '%')
+            </if>
+            <if test="created!=null and created!='' ">
+                and a.created LIKE CONCAT('%', #{ created }, '%')
+            </if>
+            <if test="status!=null and status!='' ">
+                and a.status LIKE CONCAT('%', #{ status }, '%')
+            </if>
+            <if test="isLeaf!=null and isLeaf!='' ">
+                and a.is_leaf = #{ isLeaf }
+            </if>
+        </where>
+    </select>
+
+    <delete id="deleteByParams">
+        delete from b_organization_menu where organization_id=#{organizationId}
+    </delete>
+</mapper>

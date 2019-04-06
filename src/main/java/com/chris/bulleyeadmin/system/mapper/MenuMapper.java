@@ -16,4 +16,8 @@ public interface MenuMapper extends BaseMapper<Menu> {
      List<MenuDto> getMenusByAccountId(Map<String, Object> map);
 
      List<Menu> getMenusByRoleId(Map<String, Object> map);
+
+     List<MenuDto> getOrganizationMenus(Map<String, Object> map);
+
+     List<MenuDto> getOrganizationAuthMenus(Map<String, Object> map);
 }

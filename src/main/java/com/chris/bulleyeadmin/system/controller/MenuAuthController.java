@@ -1,6 +1,7 @@
 package com.chris.bulleyeadmin.system.controller;
 import com.chris.bulleyeadmin.common.controller.BaseController;
 import com.chris.bulleyeadmin.common.service.BaseService;
+import com.chris.bulleyeadmin.system.dto.MenuAuthDto;
 import com.chris.bulleyeadmin.system.pojo.MenuAuth;
 import com.chris.bulleyeadmin.system.service.MenuAuthService;
 import org.springframework.beans.factory.annotation.Autowired;

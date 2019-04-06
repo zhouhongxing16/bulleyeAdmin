@@ -16,7 +16,7 @@ import org.springframework.web.bind.annotation.*;
  * @Author: Chris E-mail:961860916@qq.com
  * @Date: 2018-06-11 12:00
  */
-@Controller
+@RestController
 @RequestMapping("/account")
 @Operalog("帐号")
 public class AccountController extends BaseController<Account> {

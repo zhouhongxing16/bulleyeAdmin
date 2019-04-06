@@ -74,8 +74,8 @@ public abstract class BaseService<T> {
         return t;
     }
 
-    public List<T> getListByParams(){
-        List<T> t = getMapper().selectAll();
+    public List<T> getListByParams(Map<String,Object> params){
+        List<T> t = getMapper().getListByParams(params);
         return t;
     }
 

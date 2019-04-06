@@ -27,11 +27,11 @@ CREATE TABLE IF NOT EXISTS `wx_account` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='微信公众号信息';
 
--- 正在导出表  bulleye_admin.wx_account 的数据：~1 rows (大约)
+-- 正在导出表  bulleye_admin.wx_account 的数据：~0 rows (大约)
 DELETE FROM `wx_account`;
 /*!40000 ALTER TABLE `wx_account` DISABLE KEYS */;
 INSERT INTO `wx_account` (`id`, `qr_code`, `name`, `source_id`, `app_id`, `aes_key`, `app_secret`, `token`, `domain`, `access_token`, `token_time`, `menu_state`, `user_id`, `created`, `updated`, `remark`, `partner`, `partner_key`, `certificate_path`, `status`) VALUES
-	('dfdfgsdfgsdfgsdfgsdfgsdfgsdfgsdfg', '3', '2', 'gh_89ac68370508', 'wx428db2722153d12d', '2', 'e1e8aed568ff374cb368428529c78d13', 'chris520', '2', '2', '2019-02-15 23:34:49', '2', '2', 2, 2, '2', '2', '2', '2', 2);
+	('dfdfgsdfgsdfgsdfgsdfgsdfgsdfgsdfg', '3', 'zhouhongxing16测试号', 'gh_89ac68370508', 'wx428db2722153d12d', '2', 'e1e8aed568ff374cb368428529c78d13', 'chris520', '2', '2', '2019-02-15 23:34:49', '2', '2', 2, 2, '2', '2', '2', '2', 2);
 /*!40000 ALTER TABLE `wx_account` ENABLE KEYS */;
 
 -- 导出  表 bulleye_admin.wx_graphic 结构
@@ -85,11 +85,12 @@ CREATE TABLE IF NOT EXISTS `wx_member` (
   KEY `openid` (`open_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='微信用户';
 
--- 正在导出表  bulleye_admin.wx_member 的数据：~1 rows (大约)
+-- 正在导出表  bulleye_admin.wx_member 的数据：~0 rows (大约)
 DELETE FROM `wx_member`;
 /*!40000 ALTER TABLE `wx_member` DISABLE KEYS */;
 INSERT INTO `wx_member` (`id`, `account_id`, `subscribe`, `open_id`, `nickname`, `sex`, `sex_desc`, `language`, `city`, `qr_code`, `province`, `country`, `head_img_url`, `subscribe_time`, `union_id`, `remark`, `group_id`, `privileges`, `tag_ids`, `subscribe_scene`, `qr_scene`, `qr_scene_str`, `user_id`, `unsubscribe_time`) VALUES
-	('a2624bad-3caf-11e9-a6e6-382c4a232da1', 'gh_89ac68370508', b'1', 'oXjM7wnpKt0pugyjZDw7ZeuvwWBo', 'Chris', '1', '男', 'zh_CN', '宜宾', NULL, '四川', '中国', 'http://thirdwx.qlogo.cn/mmopen/7DkVkX1qfEGSjTDwwYXoShDTqo60F3HiclqLUbZEfOh2eLJFXvKUkxS0j7hvsRDpshJkjQYDzmfNDLzvQUegXKRl0s8RyjwI5/132', 1551506024, NULL, '', '0', NULL, NULL, 'ADD_SCENE_QR_CODE', '0', '', NULL, 1551506018583);
+	('a2624bad-3caf-11e9-a6e6-382c4a232da1', 'gh_89ac68370508', b'1', 'oXjM7wnpKt0pugyjZDw7ZeuvwWBo', 'Chris', '1', '男', 'zh_CN', '宜宾', NULL, '四川', '中国', 'http://thirdwx.qlogo.cn/mmopen/7DkVkX1qfEGSjTDwwYXoShDTqo60F3HiclqLUbZEfOh2eLJFXvKUkxS0j7hvsRDpshJkjQYDzmfNDLzvQUegXKRl0s8RyjwI5/132', 1551506024, NULL, '', '0', NULL, NULL, 'ADD_SCENE_QR_CODE', '0', '', NULL, 1551506018583),
+	('c722a105-3e4c-11e9-a6e6-382c4a232da1', 'gh_89ac68370508', b'1', 'oXjM7wjcJSX7ztH8idZOw1bPfRqs', '空澄', '1', '男', 'zh_CN', '', NULL, '', '', 'http://thirdwx.qlogo.cn/mmopen/L4vS9NXCVM6Zlz9acR9MjQVW29hDTsF3RGqX4bm6QDxLwJQzcO22SbNJwyicLZAGwTpVPZeoZv4qbQp73QWk9Tfe6SRsF1oFX/132', 1551683443, NULL, '', '0', NULL, NULL, 'ADD_SCENE_PROFILE_CARD', '0', '', NULL, NULL);
 /*!40000 ALTER TABLE `wx_member` ENABLE KEYS */;
 
 -- 导出  表 bulleye_admin.wx_menu 结构
@@ -111,9 +112,12 @@ CREATE TABLE IF NOT EXISTS `wx_menu` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='微信菜单表';
 
--- 正在导出表  bulleye_admin.wx_menu 的数据：~0 rows (大约)
+-- 正在导出表  bulleye_admin.wx_menu 的数据：~2 rows (大约)
 DELETE FROM `wx_menu`;
 /*!40000 ALTER TABLE `wx_menu` DISABLE KEYS */;
+INSERT INTO `wx_menu` (`id`, `account_id`, `type`, `name`, `key`, `url`, `media_id`, `app_id`, `page_path`, `parent_id`, `author`, `sort`, `remark`) VALUES
+	('111', 'dfdfgsdfgsdfgsdfgsdfgsdfgsdfgsdfg', '1', '1', '1', '1', '1', '1', '1', '1·1·1', '1', 1, NULL),
+	('1·1·1', 'dfdfgsdfgsdfgsdfgsdfgsdfgsdfgsdfg', '1', '1', '1', '1', '1', '1', '1', '0', '1', 1, NULL);
 /*!40000 ALTER TABLE `wx_menu` ENABLE KEYS */;
 
 -- 导出  表 bulleye_admin.wx_reply 结构

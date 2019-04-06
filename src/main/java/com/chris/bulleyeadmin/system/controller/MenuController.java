@@ -18,17 +18,19 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.RestController;
 
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
+import java.util.Map;
 
 
 /**
  * @Author: Chris E-mail:961860916@qq.com
  * @Date: 2018-06-13 9:48
  */
-@Controller
+@RestController
 @RequestMapping("/menu")
 public class MenuController extends BaseController<Menu> {
 
@@ -55,9 +57,28 @@ public class MenuController extends BaseController<Menu> {
     @ResponseBody
     @RequestMapping("/getAllMenus")
     public JsonResult getAllMenus() {
-        User user = AuthUtil.getCurrentUser();
-        System.out.println(user.getUsername());
         List<MenuDto> menuList = menuService.getAllMenus();
+        return new JsonResult(true, menuList);
+    }
+
+    @ResponseBody
+    @RequestMapping("/getOrganizationMenus")
+    public JsonResult getOrganizationMenus(@RequestBody Map<String,Object> map) {
+        if(map.get("organizationId")==null){
+            User user = AuthUtil.getCurrentUser();
+            map.put("organizationId",user.getOrganizationId());
+        }
+        List<MenuDto> menuList = menuService.getOrganizationMenus(map);
+        return new JsonResult(true, menuList);
+    }
+
+
+    @ResponseBody
+    @RequestMapping("/getOrganizationAuthMenus")
+    public JsonResult getOrganizationAuthMenus(@RequestBody Map<String,Object> map) {
+        User user = AuthUtil.getCurrentUser();
+        map.put("organizationId",user.getOrganizationId());
+        List<MenuDto> menuList = menuService.getOrganizationAuthMenus(map);
         return new JsonResult(true, menuList);
     }
 
