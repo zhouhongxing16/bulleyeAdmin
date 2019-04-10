@@ -69,7 +69,7 @@ public class JWTLoginFilter extends UsernamePasswordAuthenticationFilter {
         res.addHeader("Authorization", "Bearer " + token);
         Map<String,Object> map = new HashMap<>();
         map.put("token",token);
-        String data = new JsonResult(true, map, "登录成功！",null, HttpStatus.OK).toString();
+        String data = new JsonResult(true, map, "登录成功！",null, HttpStatus.OK.value()).toString();
         req.setCharacterEncoding("UTF-8");
         res.setCharacterEncoding("UTF-8");
         PrintWriter writer = res.getWriter();
@@ -81,7 +81,7 @@ public class JWTLoginFilter extends UsernamePasswordAuthenticationFilter {
     @Override
     protected void unsuccessfulAuthentication(HttpServletRequest request, HttpServletResponse response, AuthenticationException failed) throws IOException, ServletException {
         Map<String,Object> map = new HashMap<>();
-        String data = new JsonResult(false, map, "登录失败！用户名或密码错误！",null,HttpStatus.UNAUTHORIZED).toString();
+        String data = new JsonResult(false, map, "登录失败！用户名或密码错误！",null,HttpStatus.UNAUTHORIZED.value()).toString();
         response.setCharacterEncoding("UTF-8");
         response.setCharacterEncoding("UTF-8");
         PrintWriter writer = response.getWriter();

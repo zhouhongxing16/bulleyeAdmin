@@ -111,11 +111,11 @@ public class WxMenuService extends BaseService<WxMenu> {
             int count = WxUtil.resultToGetCode(wxService.getMenuService().menuCreate(createMenu));
             System.out.println("菜单创建结果"+count);
             String msg = count==0?"创建成功":"创建失败！";
-            return new JsonResult(count==0?true:false,null,msg,count, HttpStatus.OK);
+            return new JsonResult(count==0?true:false,null,msg,count, HttpStatus.OK.value());
 
         } catch (WxErrorException e) {
             e.printStackTrace();
-            return new JsonResult(false,null,"创建失败！",null, HttpStatus.OK);
+            return new JsonResult(false,null,"创建失败！",null, HttpStatus.OK.value());
         }
 
     }

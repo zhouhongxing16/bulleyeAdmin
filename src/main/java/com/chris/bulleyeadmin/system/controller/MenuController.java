@@ -11,6 +11,7 @@ import com.chris.bulleyeadmin.system.pojo.User;
 import com.chris.bulleyeadmin.system.service.MenuService;
 import com.chris.bulleyeadmin.common.utils.AuthUtil;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -58,7 +59,7 @@ public class MenuController extends BaseController<Menu> {
     @RequestMapping("/getAllMenus")
     public JsonResult getAllMenus() {
         List<MenuDto> menuList = menuService.getAllMenus();
-        return new JsonResult(true, menuList);
+        return new JsonResult(true,menuList,null,null, HttpStatus.OK.value());
     }
 
     @ResponseBody
@@ -69,7 +70,7 @@ public class MenuController extends BaseController<Menu> {
             map.put("organizationId",user.getOrganizationId());
         }
         List<MenuDto> menuList = menuService.getOrganizationMenus(map);
-        return new JsonResult(true, menuList);
+        return new JsonResult(true, menuList,null,null, HttpStatus.OK.value());
     }
 
 
@@ -79,7 +80,7 @@ public class MenuController extends BaseController<Menu> {
         User user = AuthUtil.getCurrentUser();
         map.put("organizationId",user.getOrganizationId());
         List<MenuDto> menuList = menuService.getOrganizationAuthMenus(map);
-        return new JsonResult(true, menuList);
+        return new JsonResult(true, menuList,null,null, HttpStatus.OK.value());
     }
 
     @ResponseBody
@@ -87,14 +88,14 @@ public class MenuController extends BaseController<Menu> {
     public JsonResult getMenusByAccountId() {
         User user = AuthUtil.getCurrentUser();
         List<MenuDto> menuList = menuService.getMenusByAccountId(user.getId());
-        return new JsonResult(true, menuList);
+        return new JsonResult(true, menuList,null,null, HttpStatus.OK.value());
     }
 
     @ResponseBody
     @RequestMapping("/getMenusByRoleId")
     public JsonResult getMenusByRoleId(String roleId) {
         List<Menu> menuList = menuService.getMenusByRoleId(roleId);
-        return new JsonResult(true, menuList);
+        return new JsonResult(true, menuList,null,null, HttpStatus.OK.value());
     }
 
 }

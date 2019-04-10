@@ -129,7 +129,7 @@ public abstract class BaseController<T> {
     @RequestMapping("/getListByParams")
     public JsonResult getListByParams(@RequestBody Map<String,Object> params){
         List<T> list = getService().getListByParams(params);
-        return new JsonResult(true,list,"查询成功！",null,HttpStatus.OK);
+        return new JsonResult(true,list,"查询成功！",null,HttpStatus.OK.value());
     }
 
     @InitBinder
