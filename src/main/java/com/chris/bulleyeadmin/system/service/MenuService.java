@@ -34,7 +34,7 @@ public class MenuService extends BaseService<Menu> {
     public JsonResult update(Menu obj) {
         int updateCount = getMapper().updateByPrimaryKey(obj);
         String msg = updateCount>0?"成功更新"+updateCount+"条记录":"数据更新失败！";
-        return new JsonResult(updateCount>0?true:false,null,msg,null, HttpStatus.OK);
+        return new JsonResult(updateCount>0?true:false,null,msg,null, HttpStatus.OK.value());
     }
 
     public List<MenuDto> getMenusByAccountId(String accountId){

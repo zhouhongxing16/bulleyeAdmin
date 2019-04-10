@@ -21,7 +21,7 @@ public class JsonResult {
 
     private Integer code;
 
-    private HttpStatus httpStatus;
+    private Integer status;
 
     private Object data;
 
@@ -29,16 +29,16 @@ public class JsonResult {
     }
 
     public JsonResult failure(String msg) {
-        return new JsonResult(false, null, msg,null,HttpStatus.INTERNAL_SERVER_ERROR);
+        return new JsonResult(false, null, msg,null,HttpStatus.INTERNAL_SERVER_ERROR.value());
     }
 
-    public JsonResult(boolean success, Object data, String message,Integer code,HttpStatus httpStatus) {
+    public JsonResult(boolean success, Object data, String message,Integer code,Integer status) {
         super();
         this.success = success;
         this.data = data;
         this.message = message;
         this.code = code;
-        this.httpStatus = httpStatus;
+        this.status = status;
     }
 
     public JsonResult(Integer error, String message, String url) {
@@ -107,12 +107,12 @@ public class JsonResult {
         this.data = data;
     }
 
-    public HttpStatus getHttpStatus() {
-        return httpStatus;
+    public Integer getStatus() {
+        return status;
     }
 
-    public void setHttpStatus(HttpStatus httpStatus) {
-        this.httpStatus = httpStatus;
+    public void setStatus(Integer status) {
+        this.status = status;
     }
 
     @Override

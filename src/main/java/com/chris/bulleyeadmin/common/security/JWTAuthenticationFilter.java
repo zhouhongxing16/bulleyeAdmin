@@ -23,6 +23,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.*;
 import java.nio.charset.StandardCharsets;
+import java.nio.file.attribute.UserPrincipalNotFoundException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -43,11 +44,6 @@ public class JWTAuthenticationFilter extends BasicAuthenticationFilter {
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain chain) throws IOException, ServletException {
         String header = request.getHeader("Authorization");
-//        String path = request.getRequestURI().trim();
-//        if ("/formLogin".equals(path)) {
-//            System.out.println(getBody(request));
-//        }
-
         if (header == null || !header.startsWith("Bearer ")) {
             chain.doFilter(request, response);
             return;
@@ -61,16 +57,12 @@ public class JWTAuthenticationFilter extends BasicAuthenticationFilter {
 
     private UsernamePasswordAuthenticationToken getAuthentication(HttpServletRequest request, HttpServletResponse response) throws IOException {
         String token = request.getHeader("Authorization");
-        if (token != null) {
-            // parse the token.
+        if (!"null".equals(token.replace("Bearer ", "").trim())) {
             String jsonObject = null;
             User user = null;
             try {
-                jsonObject = Jwts.parser()
-                        .setSigningKey("BulleyeAdminSecret")
-                        .parseClaimsJws(token.replace("Bearer ", ""))
-                        .getBody().getSubject();
-                System.out.println(jsonObject);
+                jsonObject = Jwts.parser() .setSigningKey("BulleyeAdminSecret")
+                        .parseClaimsJws(token.replace("Bearer ", "")) .getBody().getSubject();
                 JSONObject obj = JSON.parseObject(jsonObject);
                 JSONArray ja = JSONArray.parseArray(obj.getString("authorities"));
                 List<Role> roleList = JSONArray.parseArray(obj.getString("role"),Role.class);
@@ -81,23 +73,28 @@ public class JWTAuthenticationFilter extends BasicAuthenticationFilter {
                 user.setDepartmentId(obj.getString("departmentId"));
                 user.setRole(roleList);
             } catch (Exception e) {
-                e.printStackTrace();
-                request.setCharacterEncoding("UTF-8");
-                response.setCharacterEncoding("UTF-8");
-                PrintWriter writer = response.getWriter();
-                System.out.println("授权认证失败，请重新登录");
-                String msg = new JsonResult(false, null, "授权认证失败，请重新登录！",null, HttpStatus.UNAUTHORIZED).toString();
-                writer.write(msg);
-                writer.flush();
-                writer.close();
+                return getFailAuthenticationTokenResult(request, response);
             }
             if (user != null) {
                 return new UsernamePasswordAuthenticationToken(user, null, user.getAuthorities());
             }else{
-                return null;
+                return new UsernamePasswordAuthenticationToken(null, null, null);
             }
-        }else{
-            return null;
+        }else {
+            return getFailAuthenticationTokenResult(request, response);
         }
+    }
+
+    private UsernamePasswordAuthenticationToken getFailAuthenticationTokenResult(HttpServletRequest request, HttpServletResponse response) throws IOException {
+        response.setStatus(HttpStatus.UNAUTHORIZED.value());
+        request.setCharacterEncoding("UTF-8");
+        response.setCharacterEncoding("UTF-8");
+        PrintWriter writer = response.getWriter();
+        System.out.println("授权认证失败，请重新登录");
+        String msg = new JsonResult(false, null, "授权认证失败，请重新登录！",null, HttpStatus.UNAUTHORIZED.value()).toString();
+        writer.write(msg);
+        writer.flush();
+        writer.close();
+        return null;
     }
 }
