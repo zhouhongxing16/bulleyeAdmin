@@ -19,6 +19,7 @@ public class Help {
     private static final Logger LOGGER = LoggerFactory.getLogger(DateUtils.class);
     public static final AntPathMatcher antPathMatcher = new AntPathMatcher();
 
+    //获取请求数据
     public static String getBody(HttpServletRequest request) throws IOException {
 
         String body = null;

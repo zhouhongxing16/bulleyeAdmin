@@ -63,12 +63,13 @@ public class LoggerAopService {
                 e.printStackTrace();
             }
             Logs logs = new Logs();
+            logs.setOptionType( optionType );
+            logs.setOptionName( optionName );
+
             if(AuthUtil.getCurrentUser() != null){
                 logs.setOrganizationId( AuthUtil.getCurrentUser().getOrganizationId() );
                 logs.setUserId( AuthUtil.getCurrentUser().getId() );
             }
-            logs.setOptionType( optionType );
-            logs.setOptionName( optionName );
             if(!StringUtils.isEmpty( ss )) {
                 String content = ss.substring( 1, ss.length() - 1 );
                 logs.setContent( Logger.formatJson( content ) );
