@@ -5,6 +5,7 @@ import com.alibaba.fastjson.JSONObject;
 import com.chris.bulleyeadmin.common.controller.BaseController;
 import com.chris.bulleyeadmin.common.pojo.JsonResult;
 import com.chris.bulleyeadmin.common.service.BaseService;
+import com.chris.bulleyeadmin.common.utils.OperationLog;
 import com.chris.bulleyeadmin.wechat.pojo.WxMenu;
 import com.chris.bulleyeadmin.wechat.service.WxMenuService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,6 +16,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+@OperationLog("公众号菜单管理")
 @RestController
 @RequestMapping("/wxmenu")
 public class WxMenuController extends BaseController<WxMenu> {

@@ -1,5 +1,6 @@
 package com.chris.bulleyeadmin.wechat.controller;
 
+import com.chris.bulleyeadmin.common.utils.OperationLog;
 import com.chris.bulleyeadmin.wechat.config.WxMpConfiguration;
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
@@ -19,11 +20,13 @@ import me.chanjar.weixin.mp.bean.message.WxMpXmlOutMessage;
 /**
  * @author Binary Wang(https://github.com/binarywang)
  */
+@OperationLog("微信消息")
 @RestController
 @RequestMapping("/wx/portal/{appId}")
 public class WxPortalController {
     private final Logger logger = LoggerFactory.getLogger(this.getClass());
 
+    @OperationLog("来自微信服务器的认证消息")
     @GetMapping(produces = "text/plain;charset=utf-8")
     public String authGet(@PathVariable String appId,
                           @RequestParam(name = "signature", required = false) String signature,
@@ -51,6 +54,7 @@ public class WxPortalController {
 
     }
 
+    @OperationLog("来自微信服务器的消息")
     @PostMapping(produces = "application/xml; charset=UTF-8")
     public String post(@PathVariable String appId,
                        @RequestBody String requestBody,
