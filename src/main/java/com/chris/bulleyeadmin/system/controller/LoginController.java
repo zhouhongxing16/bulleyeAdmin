@@ -61,7 +61,6 @@ public class LoginController {
         Account account = new Account();
         account.setEmail("961860916@qq.com");
         account.setPassword(PasswordEncoderFactories.createDelegatingPasswordEncoder().encode("1"));
-        account.setCreated(System.currentTimeMillis());
         accountService.add(account);
         User user = AuthUtil.getCurrentUser();
 

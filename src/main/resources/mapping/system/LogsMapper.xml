@@ -6,13 +6,12 @@
       WARNING - @mbg.generated
     -->
     <id column="id" jdbcType="VARCHAR" property="id" />
-    <result column="org_id" jdbcType="VARCHAR" property="orgId" />
-    <result column="optname" jdbcType="VARCHAR" property="optname" />
-    <result column="opttype" jdbcType="VARCHAR" property="opttype" />
+    <result column="org_id" jdbcType="VARCHAR" property="organizationId" />
+    <result column="optname" jdbcType="VARCHAR" property="optionName" />
+    <result column="opttype" jdbcType="VARCHAR" property="optionType" />
     <result column="user_id" jdbcType="VARCHAR" property="userId" />
-    <result column="staff_id" jdbcType="VARCHAR" property="staffId" />
-    <result column="created" jdbcType="TIMESTAMP" property="created" />
     <result column="status" jdbcType="INTEGER" property="status" />
     <result column="content" jdbcType="LONGVARCHAR" property="content" />
+    <result column="created" jdbcType="TIMESTAMP" property="created" />
   </resultMap>
 </mapper>

@@ -86,14 +86,16 @@ public class Account implements Serializable {
     private Date modified;
 
     @Column(name = "expired_date")
-    private Long expiredDate;
-
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss",timezone = "GMT+8")
+    private Date expiredDate;
+
     @Column(name = "last_login_date")
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss",timezone = "GMT+8")
     private Date lastLoginDate;
 
     @Column(name = "last_login_ip")
-    private String lastLoginIp;
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss",timezone = "GMT+8")
+    private Date lastLoginIp;
 
     private Integer status;
 
@@ -236,14 +238,6 @@ public class Account implements Serializable {
         this.modified = modified;
     }
 
-    public Long getExpiredDate() {
-        return expiredDate;
-    }
-
-    public void setExpiredDate(Long expiredDate) {
-        this.expiredDate = expiredDate;
-    }
-
     public List<Role> getRole() {
         return role;
     }
@@ -260,11 +254,19 @@ public class Account implements Serializable {
         this.lastLoginDate = lastLoginDate;
     }
 
-    public String getLastLoginIp() {
+    public Date getExpiredDate() {
+        return expiredDate;
+    }
+
+    public void setExpiredDate(Date expiredDate) {
+        this.expiredDate = expiredDate;
+    }
+
+    public Date getLastLoginIp() {
         return lastLoginIp;
     }
 
-    public void setLastLoginIp(String lastLoginIp) {
+    public void setLastLoginIp(Date lastLoginIp) {
         this.lastLoginIp = lastLoginIp;
     }
 }

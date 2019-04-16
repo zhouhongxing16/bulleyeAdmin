@@ -18,9 +18,8 @@ public class Logs implements Serializable {
     @Column(name = "option_name")
     private String optionName;
 
-    /**
-     * 新增、删除、修改、查询、登录
-     */
+    private String method;
+
     @Column(name = "option_type")
     private String optionType;
 
@@ -32,7 +31,12 @@ public class Logs implements Serializable {
 
     private Integer status;
 
-    private String content;
+    private String ip;
+
+    private String params;
+
+    @Column(name = "execution_time")
+    private Integer executionTime;
 
     private static final long serialVersionUID = 1L;
 
@@ -92,11 +96,35 @@ public class Logs implements Serializable {
         this.status = status;
     }
 
-    public String getContent() {
-        return content;
+    public String getParams() {
+        return params;
     }
 
-    public void setContent(String content) {
-        this.content = content;
+    public void setParams(String params) {
+        this.params = params;
+    }
+
+    public String getMethod() {
+        return method;
+    }
+
+    public void setMethod(String method) {
+        this.method = method;
+    }
+
+    public String getIp() {
+        return ip;
+    }
+
+    public void setIp(String ip) {
+        this.ip = ip;
+    }
+
+    public Integer getExecutionTime() {
+        return executionTime;
+    }
+
+    public void setExecutionTime(Integer executionTime) {
+        this.executionTime = executionTime;
     }
 }

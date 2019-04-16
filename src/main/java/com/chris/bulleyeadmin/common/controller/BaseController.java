@@ -138,13 +138,13 @@ public abstract class BaseController<T> {
         return new JsonResult(true,list,"查询成功！",null,HttpStatus.OK.value());
     }
 
-    @InitBinder
+    /*@InitBinder
     protected void initBinder(WebDataBinder binder)
     {
         SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
         dateFormat.setLenient(false);
         binder.registerCustomEditor(Date.class, new CustomDateEditor(dateFormat, true));
-    }
+    }*/
 
 
 }

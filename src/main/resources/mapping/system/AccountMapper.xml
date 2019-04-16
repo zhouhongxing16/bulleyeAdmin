@@ -19,9 +19,9 @@
     <result column="status" jdbcType="INTEGER" property="status" />
     <result column="mobile_login_flag" jdbcType="BIT" property="mobileLoginFlag" />
     <result column="remark" jdbcType="VARCHAR" property="remark" />
-    <result column="created" jdbcType="BIGINT" property="created" />
+    <result column="created" jdbcType="TIMESTAMP" property="created" />
     <result column="modified" jdbcType="TIMESTAMP" property="modified" />
-    <result column="expired_date" jdbcType="BIGINT" property="expiredDate" />
+    <result column="expired_date" jdbcType="TIMESTAMP" property="expiredDate" />
   </resultMap>
 
   <resultMap id="dto" type="com.chris.bulleyeadmin.system.dto.AccountDto" extends="BaseResultMap">
