@@ -2,6 +2,7 @@ package com.chris.bulleyeadmin.common.controller;
 
 import com.chris.bulleyeadmin.common.pojo.JsonResult;
 import com.chris.bulleyeadmin.common.service.BaseService;
+import com.chris.bulleyeadmin.common.utils.OperationLog;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.github.pagehelper.PageInfo;
 import io.swagger.annotations.ApiOperation;
@@ -39,6 +40,8 @@ public abstract class BaseController<T> {
     }
 
     @ApiOperation(value = "默认分页查询",notes = "根据传递的参数进行查询")
+
+    @OperationLog("查询分页数据")
     @RequestMapping("/listByPage")
     @ResponseBody
     public Object listPage(@RequestBody Map<String,Object> params) {
@@ -101,6 +104,7 @@ public abstract class BaseController<T> {
     //删除
     @GetMapping("/delete/{id}")
     @ResponseBody
+    @OperationLog("删除")
     public JsonResult remove(@PathVariable String id) {
         return getService().deleteById(id);
     }
@@ -108,6 +112,7 @@ public abstract class BaseController<T> {
     //获取一条数据
     @ResponseBody
     @GetMapping("/getById/{id}")
+    @OperationLog("获取一条数据")
     public Object getById(@PathVariable String id) {
         return getService().getById(id);
     }
@@ -127,6 +132,7 @@ public abstract class BaseController<T> {
     //获取一个list
     @ResponseBody
     @RequestMapping("/getListByParams")
+    @OperationLog("获取列表数据")
     public JsonResult getListByParams(@RequestBody Map<String,Object> params){
         List<T> list = getService().getListByParams(params);
         return new JsonResult(true,list,"查询成功！",null,HttpStatus.OK.value());

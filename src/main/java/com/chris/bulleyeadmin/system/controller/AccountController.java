@@ -6,9 +6,8 @@ import com.chris.bulleyeadmin.common.pojo.JsonResult;
 import com.chris.bulleyeadmin.system.service.AccountService;
 import com.chris.bulleyeadmin.common.service.BaseService;
 import com.chris.bulleyeadmin.system.service.RoleService;
-import com.chris.bulleyeadmin.common.utils.Operalog;
+import com.chris.bulleyeadmin.common.utils.OperationLog;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
@@ -16,9 +15,9 @@ import org.springframework.web.bind.annotation.*;
  * @Author: Chris E-mail:961860916@qq.com
  * @Date: 2018-06-11 12:00
  */
+@OperationLog("帐号管理")
 @RestController
 @RequestMapping("/account")
-@Operalog("帐号")
 public class AccountController extends BaseController<Account> {
 
     @Autowired
@@ -37,7 +36,7 @@ public class AccountController extends BaseController<Account> {
         return "account";
     }
 
-    @Operalog("登陆首页")
+    @OperationLog("登陆首页")
     @RequestMapping(value = "/index", method = RequestMethod.GET)
     public String index(Model view) {
         Account account = new Account();

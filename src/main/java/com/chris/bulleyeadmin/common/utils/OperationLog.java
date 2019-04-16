@@ -7,7 +7,7 @@ import java.lang.annotation.Target;
 
 @Retention(RetentionPolicy.RUNTIME)
 @Target( { ElementType.METHOD, ElementType.TYPE })
-public @interface Operalog {
+public @interface OperationLog {
 	/**
 	 * 业务名称
 	 * 

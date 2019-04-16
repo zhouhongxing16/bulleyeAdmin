@@ -2,9 +2,9 @@ package com.chris.bulleyeadmin.system.controller;
 
 import com.chris.bulleyeadmin.common.controller.BaseController;
 import com.chris.bulleyeadmin.common.utils.Help;
+import com.chris.bulleyeadmin.common.utils.OperationLog;
 import com.chris.bulleyeadmin.system.dto.MenuDto;
 import com.chris.bulleyeadmin.common.pojo.JsonResult;
-import com.chris.bulleyeadmin.system.pojo.Account;
 import com.chris.bulleyeadmin.system.pojo.Menu;
 import com.chris.bulleyeadmin.common.service.BaseService;
 import com.chris.bulleyeadmin.system.pojo.User;
@@ -12,17 +12,11 @@ import com.chris.bulleyeadmin.system.service.MenuService;
 import com.chris.bulleyeadmin.common.utils.AuthUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.GrantedAuthority;
-import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
-import java.util.ArrayList;
-import java.util.Collection;
 import java.util.List;
 import java.util.Map;
 
@@ -31,6 +25,7 @@ import java.util.Map;
  * @Author: Chris E-mail:961860916@qq.com
  * @Date: 2018-06-13 9:48
  */
+@OperationLog("菜单管理")
 @RestController
 @RequestMapping("/menu")
 public class MenuController extends BaseController<Menu> {
@@ -55,6 +50,7 @@ public class MenuController extends BaseController<Menu> {
         return super.create(obj);
     }
 
+    @OperationLog("获取所有菜单")
     @ResponseBody
     @RequestMapping("/getAllMenus")
     public JsonResult getAllMenus() {
@@ -62,6 +58,7 @@ public class MenuController extends BaseController<Menu> {
         return new JsonResult(true,menuList,null,null, HttpStatus.OK.value());
     }
 
+    @OperationLog("获取组织菜单")
     @ResponseBody
     @RequestMapping("/getOrganizationMenus")
     public JsonResult getOrganizationMenus(@RequestBody Map<String,Object> map) {
@@ -74,6 +71,7 @@ public class MenuController extends BaseController<Menu> {
     }
 
 
+    @OperationLog("获取组织授权后菜单")
     @ResponseBody
     @RequestMapping("/getOrganizationAuthMenus")
     public JsonResult getOrganizationAuthMenus(@RequestBody Map<String,Object> map) {

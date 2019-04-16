@@ -3,6 +3,7 @@ package com.chris.bulleyeadmin.system.controller;
 import com.chris.bulleyeadmin.common.controller.BaseController;
 import com.chris.bulleyeadmin.common.pojo.JsonResult;
 import com.chris.bulleyeadmin.common.service.BaseService;
+import com.chris.bulleyeadmin.common.utils.OperationLog;
 import com.chris.bulleyeadmin.system.pojo.OrganizationMenu;
 import com.chris.bulleyeadmin.system.service.OrganizationMenuService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,6 +19,7 @@ import java.util.List;
  * @Date: 2019-01-07 15:38
  * @Description:
  */
+@OperationLog("组织菜单")
 @RestController
 @RequestMapping("/organizationmenu")
 public class OrganizationMenuController extends BaseController<OrganizationMenu> {

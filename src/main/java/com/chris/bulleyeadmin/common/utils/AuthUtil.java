@@ -83,8 +83,4 @@ public class AuthUtil {
         return Constants.PERSONAL;  //当前用户
     }
 
-    public Map<String, Object> getSpeical() {
-        return (Map<String, Object>) request.getSession().getAttribute( "userInfo" );
-    }
-
 }

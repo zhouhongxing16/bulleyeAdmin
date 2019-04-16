@@ -1,10 +1,10 @@
-package com.chris.bulleyeadmin.common.config;
+package com.chris.bulleyeadmin.common.service;
 
+import com.chris.bulleyeadmin.common.utils.AuthUtil;
+import com.chris.bulleyeadmin.common.utils.OperationLog;
 import com.chris.bulleyeadmin.system.pojo.Logger;
 import com.chris.bulleyeadmin.system.pojo.Logs;
 import com.chris.bulleyeadmin.system.service.LogsService;
-import com.chris.bulleyeadmin.common.utils.AuthUtil;
-import com.chris.bulleyeadmin.common.utils.Operalog;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.apache.commons.lang3.StringUtils;
 import org.aspectj.lang.JoinPoint;
@@ -20,14 +20,14 @@ import java.lang.reflect.Method;
 //记录用户操作日志
 @Aspect
 @Component
-public class LoggerAop {
+public class LoggerAopService {
 
     @Autowired
     LogsService logsService;
 
     private ObjectMapper jsonMapper = new ObjectMapper();
 
-    @Pointcut("execution(* com.chris.bulleyeadmin.system.controller.*.*(..))")
+    @Pointcut("execution(* com.chris.bulleyeadmin.*.controller.*.*(..))")
     public void show() {
     }
 
@@ -36,38 +36,39 @@ public class LoggerAop {
     public void Before(JoinPoint jp) {
         try {
             Class clz = jp.getTarget().getClass();
-            String optname = "";
-            if (clz.isAnnotationPresent( Operalog.class )) {
-                Operalog opera = (Operalog) clz.getAnnotation( Operalog.class );
-                optname = opera.value();
+            String optionName = "";
+            if (clz.isAnnotationPresent( OperationLog.class )) {
+                OperationLog opera = (OperationLog) clz.getAnnotation( OperationLog.class );
+                optionName = opera.value();
             }
-            if (StringUtils.isEmpty( optname )) {
+            if (StringUtils.isEmpty( optionName )) {
                 return;
             }
             Method[] flds = jp.getTarget().getClass().getMethods();
-            String opttype = "";
+            String optionType = "";
             for (int i = 0; i < flds.length; i++) {
-                if (flds[i].isAnnotationPresent( Operalog.class ) && flds[i].getName().equals( jp.getSignature().getName() )) {
-                    Operalog opera = flds[i].getAnnotation( Operalog.class );
-                    opttype = opera.value();
+                if (flds[i].isAnnotationPresent( OperationLog.class ) && flds[i].getName().equals( jp.getSignature().getName() )) {
+                    OperationLog opera = flds[i].getAnnotation( OperationLog.class );
+                    optionType = opera.value();
                 }
             }
-            if (StringUtils.isEmpty( opttype )) {
+            if (StringUtils.isEmpty( optionType )) {
                 return;
             }
             Object data = jp.getArgs();
             String ss = "";
             try {
                 ss = jsonMapper.writeValueAsString( data ).trim();
-            }catch (Exception e){}
+            }catch (Exception e){
+                e.printStackTrace();
+            }
             Logs logs = new Logs();
             if(AuthUtil.getCurrentUser() != null){
-                logs.setOrgId( AuthUtil.getCurrentUser().getOrganizationId() );
-                logs.setStaffId( AuthUtil.getCurrentUser().getStaffId() );
+                logs.setOrganizationId( AuthUtil.getCurrentUser().getOrganizationId() );
                 logs.setUserId( AuthUtil.getCurrentUser().getId() );
             }
-            logs.setOpttype( opttype );
-            logs.setOptname( optname );
+            logs.setOptionType( optionType );
+            logs.setOptionName( optionName );
             if(!StringUtils.isEmpty( ss )) {
                 String content = ss.substring( 1, ss.length() - 1 );
                 logs.setContent( Logger.formatJson( content ) );

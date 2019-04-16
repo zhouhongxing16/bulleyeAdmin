@@ -4,7 +4,7 @@ import com.chris.bulleyeadmin.system.pojo.Account;
 import com.chris.bulleyeadmin.system.pojo.User;
 import com.chris.bulleyeadmin.system.service.AccountService;
 import com.chris.bulleyeadmin.common.utils.AuthUtil;
-import com.chris.bulleyeadmin.common.utils.Operalog;
+import com.chris.bulleyeadmin.common.utils.OperationLog;
 import com.chris.bulleyeadmin.common.utils.ValidateCodeUtils;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;
@@ -23,7 +23,7 @@ import java.io.IOException;
 /***
  *
  */
-@Operalog("登陆")
+@OperationLog("登陆")
 @RestController
 @Api("swaggerDemoController相关的api")
 public class LoginController {
@@ -53,7 +53,7 @@ public class LoginController {
         return baos.toByteArray();
     }
 
-    @Operalog("进入首页")
+    @OperationLog("进入首页")
     @ApiOperation(value = "根据id查询学生信息", notes = "查询数据库中某个的学生信息")
     @ApiImplicitParam(name = "id", value = "学生ID", paramType = "path", required = true, dataType = "Integer")
     @RequestMapping(value = "/home", method = RequestMethod.GET)

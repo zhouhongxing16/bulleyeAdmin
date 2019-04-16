@@ -5,13 +5,12 @@ import com.chris.bulleyeadmin.common.controller.BaseController;
 import com.chris.bulleyeadmin.common.pojo.JsonResult;
 import com.chris.bulleyeadmin.common.utils.AuthUtil;
 import com.chris.bulleyeadmin.common.utils.Help;
-import com.chris.bulleyeadmin.system.pojo.Account;
+import com.chris.bulleyeadmin.common.utils.OperationLog;
 import com.chris.bulleyeadmin.system.pojo.Staff;
 import com.chris.bulleyeadmin.common.service.BaseService;
 import com.chris.bulleyeadmin.system.pojo.User;
 import com.chris.bulleyeadmin.system.service.StaffService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
 /**
@@ -19,6 +18,7 @@ import org.springframework.web.bind.annotation.*;
  * @Date: 2018-11-30 16:43
  * @Description:
  */
+@OperationLog("员工管理")
 @RestController
 @RequestMapping("/staff")
 public class StaffController extends BaseController<Staff> {
