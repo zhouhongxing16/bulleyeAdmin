@@ -131,18 +131,21 @@ INSERT INTO `b_functions` (`id`, `code`, `name`, `icon`, `url`, `describe`, `sta
 
 -- 导出  表 bulleye_admin.b_logs 结构
 DROP TABLE IF EXISTS `b_logs`;
-CREATE TABLE IF NOT EXISTS `b_logs` (
-  `id` varchar(40) NOT NULL,
-  `org_id` varchar(40) DEFAULT NULL,
-  `optname` varchar(50) DEFAULT NULL,
-  `opttype` varchar(20) DEFAULT NULL COMMENT '新增、删除、修改、查询、登录',
-  `content` text,
-  `user_id` varchar(40) DEFAULT NULL,
-  `staff_id` varchar(40) DEFAULT NULL,
-  `created` bigint(20) NOT NULL,
-  `status` int(11) DEFAULT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='操作日志';
+CREATE TABLE `b_logs` (
+	`id` VARCHAR(40) NOT NULL,
+	`organization_id` VARCHAR(40) NULL DEFAULT NULL,
+	`option_name` VARCHAR(50) NULL DEFAULT NULL,
+	`option_type` VARCHAR(20) NULL DEFAULT NULL COMMENT '新增、删除、修改、查询、登录',
+	`content` TEXT NULL,
+	`user_id` VARCHAR(40) NULL DEFAULT NULL,
+	`created` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+	`status` INT(11) NULL DEFAULT NULL,
+	PRIMARY KEY (`id`)
+)
+COMMENT='操作日志'
+COLLATE='utf8_general_ci'
+ENGINE=InnoDB;
+
 
 -- 正在导出表  bulleye_admin.b_logs 的数据：~0 rows (大约)
 DELETE FROM `b_logs`;

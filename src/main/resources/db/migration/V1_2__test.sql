@@ -2,7 +2,7 @@
 drop procedure if exists createHolidays;
 delimiter $$
 create procedure createHolidays() begin
-  if not exists (select * FROM information_schema.columns WHERE table_schema = DATABASE()  AND table_name = 'kb_holidays') then
+  if not exists (select * FROM information_schema.columns WHERE table_schema = DATABASE()  AND table_name = 'kb_test') then
     create table kb_test
     (
        id                   varchar(40) not null,
