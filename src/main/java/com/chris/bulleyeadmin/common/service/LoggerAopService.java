@@ -63,6 +63,7 @@ public class LoggerAopService {
                 e.printStackTrace();
             }
             Logs logs = new Logs();
+            logs.setStatus(1);
             logs.setOptionType( optionType );
             logs.setOptionName( optionName );
 
