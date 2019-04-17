@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--Created by  on Tue Feb 19 2019 18:24:29 GMT+0800 (中国标准时间)-->
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.chris.bulleyeadmin.wechat.mapper.WxMaterialMapper">
+    <resultMap id="BaseResultMap" type="com.chris.bulleyeadmin.wechat.pojo.WxMaterial">
+        <id column="id" jdbcType="VARCHAR" property="id" />
+        <result column="media_id" jdbcType="VARCHAR" property="mediaId" />
+        <result column="account_id" jdbcType="VARCHAR" property="accountId" />
+        <result column="name" jdbcType="VARCHAR" property="name" />
+        <result column="parent_id" jdbcType="VARCHAR" property="parentId" />
+        <result column="type" jdbcType="VARCHAR" property="type" />
+        <result column="title" jdbcType="INTEGER" property="title" />
+        <result column="thumb_media_id" jdbcType="VARCHAR" property="thumbMediaId" />
+        <result column="author" jdbcType="VARCHAR" property="author" />
+        <result column="digest" jdbcType="VARCHAR" property="digest" />
+        <result column="show_cover_pic" jdbcType="BIT" property="showCoverPic" />
+        <result column="content" jdbcType="VARCHAR" property="content" />
+        <result column="content_source_url" jdbcType="VARCHAR" property="contentSourceUrl" />
+        <result column="need_open_comment" jdbcType="BIT" property="needOpenComment" />
+        <result column="only_fans_can_comment" jdbcType="BIT" property="onlyFansCanComment" />
+        <result column="introduction" jdbcType="VARCHAR" property="introduction" />
+        <result column="down_url" jdbcType="VARCHAR" property="downUrl" />
+        <result column="created" jdbcType="BIGINT" property="created" />
+
+    </resultMap>
+
+    <sql id="basic_list">
+		a.id, a.media_id, a.account_id, a.name, a.parent_id, a.type, a.title, a.thumb_media_id, a.author, a.digest, a.show_cover_pic, a.content,
+		 a.content_source_url, a.need_open_comment, a.only_fans_can_comment, a.introduction, a.down_url, a.created
+	</sql>
+
+    <select id="getListByParams" resultMap="BaseResultMap" parameterType="map">
+        SELECT
+        <include refid="basic_list"/>
+        FROM wx_material a
+        <where>
+            <if test="id!=null and id!='' ">
+                and a.id=#{ id }
+            </if>
+            <if test="mediaId!=null and mediaId!='' ">
+                and a.media_id=#{ mediaId}
+            </if>
+            <if test="accountId!=null and accountId!='' ">
+                and a.account_id=#{ accountId}
+            </if>
+            <if test="name!=null and name!='' ">
+                and a.name= LIKE CONCAT('%', #{ name}, '%')
+            </if>
+            <if test="parentId!=null parentIdand!='' ">
+                and a.parent_id=#{ parent_id}
+            </if>
+            <if test="type!=null and type!='' ">
+                and a.type=#{ type}
+            </if>
+            <if test="title!=null and title!='' ">
+                and a.title LIKE CONCAT('%', #{ title }, '%')
+            </if>
+            <if test="thumbMediaId!=null thumbMediaIdand!='' ">
+                and a.thumb_media_id=#{ thumbMediaId}
+            </if>
+            <if test="author!=null and author!='' ">
+                and a.author=#{ author}
+            </if>
+            <if test="digest!=null and digest!='' ">
+                and a.digest=#{ digest}
+            </if>
+            <if test="showCoverPic!=null and showCoverPic!='' ">
+                and a.show_cover_pic=#{ showCoverPic}
+            </if>
+            <if test="content!=null and content!='' ">
+                and a.content LIKE CONCAT('%', #{ content}, '%')
+            </if>
+            <if test="contentSourceUrl!=null and contentSourceUrl!='' ">
+                and a.content_source_url=#{ contentSourceUrl}
+            </if>
+            <if test="needOpenComment!=null and needOpenComment!='' ">
+                and a.need_open_comment=#{ needOpenComment}
+            </if>
+            <if test="onlyFansCanComment!=null and onlyFansCanComment!='' ">
+                and a.only_fans_can_comment=#{ onlyFansCanComment}
+            </if>
+            <if test="introduction!=null and introduction!='' ">
+                and a.introduction=#{ introduction}
+            </if>
+            <if test="downUrl!=null and downUrl!='' ">
+                and a.down_url=#{ downUrl}
+            </if>
+            <if test="created!=null and created!='' ">
+                and a.created=#{ created}
+            </if>
+        </where>
+    </select>
+</mapper>

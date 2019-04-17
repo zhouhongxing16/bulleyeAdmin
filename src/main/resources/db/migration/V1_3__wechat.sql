@@ -137,3 +137,31 @@ CREATE TABLE IF NOT EXISTS `wx_reply` (
 
 -- 正在导出表  bulleye_admin.wx_reply 的数据：~0 rows (大约)
 DELETE FROM `wx_reply`;
+
+DROP TABLE IF EXISTS `wx_material`;
+CREATE TABLE `wx_material` (
+	`id` VARCHAR(50) NOT NULL,
+	`media_id` VARCHAR(100) NOT NULL COMMENT '新增的永久素材的media_id',
+	`account_id` VARCHAR(50) NOT NULL COMMENT '所属公众号',
+	`name` VARCHAR(50) NOT NULL COMMENT '素材名称',
+	`parent_id` VARCHAR(50) NOT NULL COMMENT '父级id（图文时，可以由多个图文生成一个素材）',
+	`type` VARCHAR(50) NOT NULL COMMENT '图片（image）、语音（voice）、视频（video）、缩略图（thumb）、图文（news）',
+	`title` VARCHAR(50) NOT NULL COMMENT '标题',
+	`thumb_media_id` VARCHAR(50) NOT NULL COMMENT '图文消息的封面图片素材id（必须是永久mediaID）',
+	`author` VARCHAR(50) NOT NULL COMMENT '作者',
+	`digest` VARCHAR(50) NOT NULL COMMENT '图文消息的摘要，仅有单图文消息才有摘要，多图文此处为空。如果本字段为没有填写，则默认抓取正文前64个字。',
+	`show_cover_pic` BIT(1) NOT NULL COMMENT '是否显示封面，0为false，即不显示，1为true，即显示',
+	`content` VARCHAR(18000) NOT NULL COMMENT '图文消息的具体内容，支持HTML标签，必须少于2万字符，小于1M，且此处会去除JS,涉及图片url必须来源 "上传图文消息内的图片获取URL"接口获取。外部图片url将被过滤。',
+	`content_source_url` VARCHAR(200) NOT NULL COMMENT '图文消息的原文地址，即点击“阅读原文”后的URL',
+	`need_open_comment` BIT(1) NOT NULL COMMENT 'Uint32 是否打开评论，0不打开，1打开',
+	`only_fans_can_comment` BIT(1) NOT NULL COMMENT 'Uint32 是否粉丝才可评论，0所有人可评论，1粉丝才可评论',
+	`introduction` VARCHAR(100) NOT NULL COMMENT '视频素材的描述',
+	`down_url` VARCHAR(100) NOT NULL COMMENT '素材的url',
+	`created` BIGINT(20) NOT NULL COMMENT '添加时间',
+	PRIMARY KEY (`id`)
+)
+COMMENT='素材管理'
+COLLATE='utf8_general_ci'
+ENGINE=InnoDB
+;
+

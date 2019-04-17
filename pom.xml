@@ -149,6 +149,13 @@
             <version>3.3.0</version>
         </dependency>
 
+        <!-- 解析xml-->
+        <dependency>
+            <groupId>org.jdom</groupId>
+            <artifactId>jdom2</artifactId>
+        </dependency>
+
+
         <!--阿里云短信服务-->
         <dependency>
             <groupId>com.aliyun</groupId>
