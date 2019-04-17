@@ -47,18 +47,19 @@ public class SendSMSUtil {
     public static final String MESSAGENOTICECODE = "SMS_138075177";
 
     // TODO 此处需要替换成开发者自己的AK(在阿里云访问控制台寻找)
-    private static  String accessKeyId ;
+    private static String accessKeyId;
 
-    private static  String accessKeySecret;
+    private static String accessKeySecret;
 
     private static String signName;
 
     /**
      * 验证码短信
+     *
      * @return
      * @throws ClientException
      */
-    public static SendSmsResponse verificationCode(String code,String mobile) throws Exception {
+    public static SendSmsResponse verificationCode(String code, String mobile) throws Exception {
 
         System.out.println(accessKeyId);
         System.out.println(accessKeySecret);
@@ -80,7 +81,7 @@ public class SendSMSUtil {
         //验证码${code}，您正在进行身份验证，打死不要告诉别人哦！
         /*ObjectMapper jsonMapper = new ObjectMapper();
         String str =  jsonMapper.writeValueAsString(map);*/
-        request.setTemplateParam("{\"code\":'"+code+"'}");
+        request.setTemplateParam("{\"code\":'" + code + "'}");
         //选填-上行短信扩展码(无特殊需求用户请忽略此字段)
         //request.setSmsUpExtendCode("90997");
         //可选:outId为提供给业务方扩展字段,最终在短信回执消息中将此值带回给调用者
@@ -92,13 +93,14 @@ public class SendSMSUtil {
 
     /**
      * 通用短信发送接口
+     *
      * @param map
      * @param mobile
      * @param templateCode
      * @return
      * @throws Exception
      */
-    public static SendSmsResponse sendSMS(Map<String,Object> map,String mobile,String templateCode) throws Exception {
+    public static SendSmsResponse sendSMS(Map<String, Object> map, String mobile, String templateCode) throws Exception {
 
         System.out.println(accessKeyId);
         System.out.println(accessKeySecret);
@@ -123,7 +125,7 @@ public class SendSMSUtil {
         //${name}，您从${startdate}到${enddate}将转科到${section}，请在轮转开始日期当天准时到科室报到，谢谢！
 
         ObjectMapper jsonMapper = new ObjectMapper();
-        String str =  jsonMapper.writeValueAsString(map);
+        String str = jsonMapper.writeValueAsString(map);
         request.setTemplateParam(str);
 
         //选填-上行短信扩展码(无特殊需求用户请忽略此字段)
@@ -137,6 +139,7 @@ public class SendSMSUtil {
 
         return sendSmsResponse;
     }
+
     public static String getAccessKeyId() {
         return accessKeyId;
     }

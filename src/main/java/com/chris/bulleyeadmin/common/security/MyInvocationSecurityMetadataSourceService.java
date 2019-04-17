@@ -30,31 +30,32 @@ public class MyInvocationSecurityMetadataSourceService implements FilterInvocati
         System.out.println("===============================");
         System.out.println("初始化加载");
         System.out.println("===============================");
-        List<Map<String,String>> roleMap = roleFunctionMapper.getRoleAuthPaths();
+        List<Map<String, String>> roleMap = roleFunctionMapper.getRoleAuthPaths();
         Collection<ConfigAttribute> array;
-        for (Map<String,String> map : roleMap) {
+        for (Map<String, String> map : roleMap) {
             array = new ArrayList<>();
-            if(hashMap.get(map.get("path"))==null){
+            if (hashMap.get(map.get("path")) == null) {
                 cfg = new SecurityConfig(map.get("code"));
                 array.add(cfg);
-                hashMap.put(map.get("path"),array);
-            }else{
+                hashMap.put(map.get("path"), array);
+            } else {
                 cfg = new SecurityConfig(map.get("code"));
                 array.add(cfg);
-                hashMap.put(map.get("path"),array);
+                hashMap.put(map.get("path"), array);
             }
         }
         System.out.println(hashMap.toString());
     }
+
     //此方法是为了判定用户请求的url 是否在权限表中，如果在权限表中，则返回给 decide 方法，用来判定用户是否有此权限。如果不在权限表中则放行。
     @Override
     public Collection<ConfigAttribute> getAttributes(Object object) throws IllegalArgumentException {
-        if(hashMap ==null) loadResourceDefine();
+        if (hashMap == null) loadResourceDefine();
         //object 中包含用户请求的request 信息
         HttpServletRequest request = ((FilterInvocation) object).getHttpRequest();
         AntPathRequestMatcher matcher;
         String resUrl;
-        for(Iterator<String> iter = hashMap.keySet().iterator(); iter.hasNext(); ) {
+        for (Iterator<String> iter = hashMap.keySet().iterator(); iter.hasNext(); ) {
             resUrl = iter.next();
             //matches() 方法用于检测字符串是否匹配给定的正则表达式
             matcher = new AntPathRequestMatcher(resUrl);

@@ -61,11 +61,11 @@ public class JWTAuthenticationFilter extends BasicAuthenticationFilter {
             String jsonObject = null;
             User user = null;
             try {
-                jsonObject = Jwts.parser() .setSigningKey("BulleyeAdminSecret")
-                        .parseClaimsJws(token.replace("Bearer ", "")) .getBody().getSubject();
+                jsonObject = Jwts.parser().setSigningKey("BulleyeAdminSecret")
+                        .parseClaimsJws(token.replace("Bearer ", "")).getBody().getSubject();
                 JSONObject obj = JSON.parseObject(jsonObject);
                 JSONArray ja = JSONArray.parseArray(obj.getString("authorities"));
-                List<Role> roleList = JSONArray.parseArray(obj.getString("role"),Role.class);
+                List<Role> roleList = JSONArray.parseArray(obj.getString("role"), Role.class);
                 user = new User(obj.getString("username"), "", ja.toJavaList(GrantedAuthority.class));
                 user.setStaffId(obj.getString("staffId"));
                 user.setId(obj.getString("id"));
@@ -77,10 +77,10 @@ public class JWTAuthenticationFilter extends BasicAuthenticationFilter {
             }
             if (user != null) {
                 return new UsernamePasswordAuthenticationToken(user, null, user.getAuthorities());
-            }else{
+            } else {
                 return new UsernamePasswordAuthenticationToken(null, null, null);
             }
-        }else {
+        } else {
             return getFailAuthenticationTokenResult(request, response);
         }
     }
@@ -91,7 +91,7 @@ public class JWTAuthenticationFilter extends BasicAuthenticationFilter {
         response.setCharacterEncoding("UTF-8");
         PrintWriter writer = response.getWriter();
         System.out.println("授权认证失败，请重新登录");
-        String msg = new JsonResult(false, null, "授权认证失败，请重新登录！",null, HttpStatus.UNAUTHORIZED.value()).toString();
+        String msg = new JsonResult(false, null, "授权认证失败，请重新登录！", null, HttpStatus.UNAUTHORIZED.value()).toString();
         writer.write(msg);
         writer.flush();
         writer.close();

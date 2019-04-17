@@ -41,15 +41,15 @@ public class AuthUtil {
     }
 
     public static User getCurrentUser(HttpServletRequest request) {
-        if(request == null) {
+        if (request == null) {
             return null;
         }
 
         HttpSession session = request.getSession();
-        User user = (User)session.getAttribute("user");
-        if(user == null) {
+        User user = (User) session.getAttribute("user");
+        if (user == null) {
             user = getCurrentSpringUser();
-            session.setAttribute("user",user);
+            session.setAttribute("user", user);
         }
         return user;
     }
@@ -64,19 +64,19 @@ public class AuthUtil {
         User act = getCurrentUser();
         if (act != null) {
             for (Role role : act.getRole()) {
-                sb.append( role.getDataAuthFlag() );
-                sb.append( ";" );
+                sb.append(role.getDataAuthFlag());
+                sb.append(";");
             }
         }
 
         String strAuths = sb.toString();
-        if (strAuths.contains(Constants.ORG )) {
+        if (strAuths.contains(Constants.ORG)) {
             return Constants.ORG; //全院
         }
-        if (strAuths.contains( Constants.DEPARTMENT )) {
+        if (strAuths.contains(Constants.DEPARTMENT)) {
             return Constants.DEPARTMENT; //当前科室
         }
-        if (strAuths.contains( Constants.ORGADMIN )) {
+        if (strAuths.contains(Constants.ORGADMIN)) {
             return Constants.ORGADMIN;  //行政管理机构（卫计委）
         }
 

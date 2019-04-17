@@ -37,8 +37,8 @@ public class DateUtils {
         return date;
     }
 
-    public static long currentTimeMillis(){
-       return System.currentTimeMillis();
+    public static long currentTimeMillis() {
+        return System.currentTimeMillis();
     }
 
     public static String getCurrentMonth() {

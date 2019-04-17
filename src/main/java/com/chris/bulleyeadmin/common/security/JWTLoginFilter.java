@@ -45,7 +45,7 @@ public class JWTLoginFilter extends UsernamePasswordAuthenticationFilter {
 
     // 接收并解析用户凭证
     @Override
-    public Authentication attemptAuthentication(HttpServletRequest req,HttpServletResponse res) throws AuthenticationException {
+    public Authentication attemptAuthentication(HttpServletRequest req, HttpServletResponse res) throws AuthenticationException {
         try {
             User user = new ObjectMapper().readValue(req.getInputStream(), User.class);
             return authenticationManager.authenticate(
@@ -67,9 +67,9 @@ public class JWTLoginFilter extends UsernamePasswordAuthenticationFilter {
                 .signWith(SignatureAlgorithm.HS512, "BulleyeAdminSecret")
                 .compact();
         res.addHeader("Authorization", "Bearer " + token);
-        Map<String,Object> map = new HashMap<>();
-        map.put("token",token);
-        String data = new JsonResult(true, map, "登录成功！",null, HttpStatus.OK.value()).toString();
+        Map<String, Object> map = new HashMap<>();
+        map.put("token", token);
+        String data = new JsonResult(true, map, "登录成功！", null, HttpStatus.OK.value()).toString();
         req.setCharacterEncoding("UTF-8");
         res.setCharacterEncoding("UTF-8");
         PrintWriter writer = res.getWriter();
@@ -80,8 +80,8 @@ public class JWTLoginFilter extends UsernamePasswordAuthenticationFilter {
 
     @Override
     protected void unsuccessfulAuthentication(HttpServletRequest request, HttpServletResponse response, AuthenticationException failed) throws IOException, ServletException {
-        Map<String,Object> map = new HashMap<>();
-        String data = new JsonResult(false, map, "登录失败！用户名或密码错误！",null,HttpStatus.UNAUTHORIZED.value()).toString();
+        Map<String, Object> map = new HashMap<>();
+        String data = new JsonResult(false, map, "登录失败！用户名或密码错误！", null, HttpStatus.UNAUTHORIZED.value()).toString();
         response.setCharacterEncoding("UTF-8");
         response.setCharacterEncoding("UTF-8");
         PrintWriter writer = response.getWriter();

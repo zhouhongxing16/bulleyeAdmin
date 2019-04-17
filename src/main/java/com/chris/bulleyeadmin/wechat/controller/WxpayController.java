@@ -1,8 +1,8 @@
 package com.chris.bulleyeadmin.wechat.controller;
 
 import com.alibaba.fastjson.JSONObject;
+import com.chris.bulleyeadmin.common.utils.IPUtils;
 import com.chris.bulleyeadmin.wechat.utils.PayUtil;
-import com.chris.bulleyeadmin.wechat.utils.Tools;
 import com.chris.bulleyeadmin.wechat.utils.WxPayUtil;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -42,7 +42,7 @@ public class WxpayController {
 		model.put("json", json);
 		
 		Map<String, String> map = WxPayUtil.unifiedorder(appid, appsecret, partner, partnerkey,
-				body, order_code, Tools.changeY2F(total_fee), Tools.getIpAddr(request),"", "",
+				body, order_code, PayUtil.changeY2F(total_fee), IPUtils.getIpAddr(request),"", "",
 				notify_url, "JSAPI",openId);
 		
 		System.out.println("微信公众号支付,统一下单返回结果map："+map.toString());
