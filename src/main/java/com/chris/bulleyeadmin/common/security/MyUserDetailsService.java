@@ -2,17 +2,24 @@ package com.chris.bulleyeadmin.common.security;
 
 import com.chris.bulleyeadmin.common.excepition.RPCFailedException;
 import com.chris.bulleyeadmin.common.pojo.JsonResult;
+import com.chris.bulleyeadmin.common.utils.DateUtils;
+import com.chris.bulleyeadmin.common.utils.HttpContextUtils;
+import com.chris.bulleyeadmin.common.utils.IPUtils;
 import com.chris.bulleyeadmin.system.dto.AccountDto;
+import com.chris.bulleyeadmin.system.pojo.LoginRecord;
 import com.chris.bulleyeadmin.system.pojo.Role;
 import com.chris.bulleyeadmin.system.pojo.Staff;
 import com.chris.bulleyeadmin.system.pojo.User;
 import com.chris.bulleyeadmin.system.service.AccountService;
+import com.chris.bulleyeadmin.system.service.LoginRecordService;
 import com.chris.bulleyeadmin.system.service.RoleService;
 import com.chris.bulleyeadmin.system.service.StaffService;
+import eu.bitwalker.useragentutils.UserAgent;
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpRequest;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -21,6 +28,7 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import javax.servlet.http.HttpServletRequest;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -42,6 +50,8 @@ public class MyUserDetailsService implements UserDetailsService {
     @Autowired
     RoleService roleService;
 
+    @Autowired
+    LoginRecordService loginRecordService;
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
@@ -50,28 +60,45 @@ public class MyUserDetailsService implements UserDetailsService {
     }
 
     public UserDetails loadUser(String username, String pwd, String orgId) {
+        HttpServletRequest request = HttpContextUtils.getHttpServletRequest();
+        String ip = IPUtils.getIpAddr(request);
+        LoginRecord loginRecord = new LoginRecord();
+
+        UserAgent userAgent = UserAgent.parseUserAgentString(request.getHeader("User-Agent"));
+        // 获取客户端操作系统
+        String os = userAgent.getOperatingSystem().getName();
+        // 获取客户端浏览器
+        String browser = userAgent.getBrowser().getName();
+        loginRecord.setId(ip);
+        loginRecord.setOs(os);
+        loginRecord.setBrowser(browser);
+        loginRecord.setLoginLocation(IPUtils.getLocationByIP(ip));
         AccountDto accountDto;
         try {
             accountDto = accountService.getAccountByUserName(username);
+            loginRecord.setUsername(username);
         } catch (Exception e) {
             e.printStackTrace();
             logger.error(e.getMessage());
             throw new RPCFailedException(e.getMessage());
         }
         if (accountDto != null) {
-            //add by onion：设置账号过期
-            if (accountDto.getExpiredDate() != null) {
-                /*if (DateUtils.getNowDate().getTime() > account.getExpiredDate().getTime()) {
-                    throw new RuntimeException("非常抱歉,您的试用账号已到期,请联系我们!");
-                }*/
-
-                BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
-                if (!encoder.matches(pwd, accountDto.getPassword())) {
-                    logger.info("用户密码不正确...");
-                    return null;
+            BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
+            if (!encoder.matches(pwd, accountDto.getPassword())) {
+                loginRecord.setStatus(0);
+                logger.info("用户密码不正确...");
+                return null;
+            }else{
+                //判断账号过期
+                if (accountDto.getExpiredDate() != null) {
+                    if (DateUtils.getNowDate().getTime() > accountDto.getExpiredDate().getTime()) {
+                        throw new RuntimeException("非常抱歉,您的试用账号已到期,请联系我们!");
+                    }
                 }
+
+                loginRecord.setStatus(1);
             }
-            //				Authority auth = authService.getAuthsByUserId(account.getId());
+
             List<GrantedAuthority> grantedAuthorities = new ArrayList<>();
 
             String departmentId = "";

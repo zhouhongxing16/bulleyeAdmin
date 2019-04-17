@@ -1,12 +1,9 @@
 package com.chris.bulleyeadmin.common.utils;
 
 
-import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.util.AntPathMatcher;
-import org.springframework.web.context.request.RequestContextHolder;
-import org.springframework.web.context.request.ServletRequestAttributes;
 
 import javax.servlet.http.HttpServletRequest;
 import java.text.ParseException;
@@ -27,6 +24,11 @@ public class DateUtils {
         Date currentTime = new Date();
         SimpleDateFormat formatter = new SimpleDateFormat(format);
         String date = formatter.format(currentTime);
+        return date;
+    }
+
+    public static Date getNowDate (){
+        Date date = new Date();
         return date;
     }
 
@@ -130,39 +132,6 @@ public class DateUtils {
             return new String(buffer, request.getCharacterEncoding());
         }
         return null;
-    }
-
-    public static String getIpAdrress() {
-        HttpServletRequest request = ((ServletRequestAttributes) RequestContextHolder.getRequestAttributes()).getRequest();
-        String Xip = request.getHeader("X-Real-IP");
-        String XFor = request.getHeader("X-Forwarded-For");
-        if ((StringUtils.isNotEmpty(XFor)) && (!"unKnown".equalsIgnoreCase(XFor))) {
-            int index = XFor.indexOf(",");
-            if (index != -1) {
-                return XFor.substring(0, index);
-            }
-            return XFor;
-        }
-        XFor = Xip;
-        if ((StringUtils.isNotEmpty(XFor)) && (!"unKnown".equalsIgnoreCase(XFor))) {
-            return XFor;
-        }
-        if ((StringUtils.isBlank(XFor)) || ("unknown".equalsIgnoreCase(XFor))) {
-            XFor = request.getHeader("Proxy-Client-IP");
-        }
-        if ((StringUtils.isBlank(XFor)) || ("unknown".equalsIgnoreCase(XFor))) {
-            XFor = request.getHeader("WL-Proxy-Client-IP");
-        }
-        if ((StringUtils.isBlank(XFor)) || ("unknown".equalsIgnoreCase(XFor))) {
-            XFor = request.getHeader("HTTP_CLIENT_IP");
-        }
-        if ((StringUtils.isBlank(XFor)) || ("unknown".equalsIgnoreCase(XFor))) {
-            XFor = request.getHeader("HTTP_X_FORWARDED_FOR");
-        }
-        if ((StringUtils.isBlank(XFor)) || ("unknown".equalsIgnoreCase(XFor))) {
-            XFor = request.getRemoteAddr();
-        }
-        return XFor;
     }
 
     public static String getMinutes(String startDate, String endDate)
