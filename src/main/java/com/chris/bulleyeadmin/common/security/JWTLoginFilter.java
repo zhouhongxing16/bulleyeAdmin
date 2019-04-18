@@ -66,17 +66,25 @@ public class JWTLoginFilter extends UsernamePasswordAuthenticationFilter {
     // 用户成功登录后，这个方法会被调用，我们在这个方法里生成token
     @Override
     protected void successfulAuthentication(HttpServletRequest req, HttpServletResponse res, FilterChain chain, Authentication auth) throws IOException, ServletException {
-        User user = (User) auth.getPrincipal();
 
-        String token = Jwts.builder()
-                .setSubject(user.toString())
-                .setExpiration(new Date(System.currentTimeMillis() + 60 * 60 * 24 * 1000))
-                .signWith(SignatureAlgorithm.HS512, "BulleyeAdminSecret")
-                .compact();
-        res.addHeader("Authorization", "Bearer " + token);
+        User user = (User) auth.getPrincipal();
         Map<String, Object> map = new HashMap<>();
-        map.put("token", token);
-        String data = new JsonResult(true, map, "登录成功！", null, HttpStatus.OK.value()).toString();
+        String data = null;
+        if(user.getAccountLocked()){
+            data = new JsonResult(false, map, "对不起，您的账号已被锁定，请与我们联系！", null, HttpStatus.LOCKED.value()).toString();
+        }else if(user.getAccountExpired()){
+            data = new JsonResult(false, map, "对不起，您的试用账号已过期，请与我们联系！", null, HttpStatus.LOCKED.value()).toString();
+        }else{
+            String token = Jwts.builder()
+                    .setSubject(user.toString())
+                    .setExpiration(new Date(System.currentTimeMillis() + 60 * 60 * 24 * 1000))
+                    .signWith(SignatureAlgorithm.HS512, "BulleyeAdminSecret")
+                    .compact();
+            res.addHeader("Authorization", "Bearer " + token);
+            map.put("token", token);
+            data = new JsonResult(true, map, "登录成功！", null, HttpStatus.OK.value()).toString();
+        }
+
         req.setCharacterEncoding("UTF-8");
         res.setCharacterEncoding("UTF-8");
         PrintWriter writer = res.getWriter();

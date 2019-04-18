@@ -59,10 +59,10 @@ public class MyUserDetailsService implements UserDetailsService {
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         logger.info("用户的用户名: {}", username);
-        return loadUser(username,null);
+        return loadUser(username, null);
     }
 
-    public UserDetails loadUser(String username,String pwd) {
+    public UserDetails loadUser(String username, String pwd) {
 
         AccountDto accountDto;
         try {
@@ -73,35 +73,15 @@ public class MyUserDetailsService implements UserDetailsService {
             throw new RPCFailedException(e.getMessage());
         }
         if (accountDto != null) {
-            /*BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
-            if (!encoder.matches(pwd, accountDto.getPassword())) {
-                loginRecord.setStatus(0);
-                loginRecord.setMessage("用户密码不正确..");
-                loginRecordService.add(loginRecord);
-                logger.info("用户密码不正确...");
-                return null;
+            //判断账号过期
+            if (accountDto.getExpiredDate() != null && accountDto.getAccountExpired()) {
+                if (DateUtils.getNowDate().getTime() > accountDto.getExpiredDate().getTime()) {
+                    accountDto.setAccountExpired(true);
+                }else{
+                    accountDto.setAccountExpired(false);
+                }
             }else{
-                //判断账号过期
-                if (accountDto.getExpiredDate() != null) {
-                    if (DateUtils.getNowDate().getTime() > accountDto.getExpiredDate().getTime()) {
-                        throw new RuntimeException("非常抱歉,您的试用账号已到期,请联系我们!");
-                    }
-                }
-
-                loginRecord.setStatus(1);
-            }*/
-
-            //add by onion：设置账号过期
-            if(accountDto.getExpiredDate() != null) {
-                /*if (DateUtils.getNowDate().getTime() > account.getExpiredDate().getTime()) {
-                    throw new RuntimeException("非常抱歉,您的试用账号已到期,请联系我们!");
-                }*/
-
-                BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
-                if (!encoder.matches(pwd, accountDto.getPassword())) {
-                    logger.info("用户密码不正确...");
-                    return null;
-                }
+                accountDto.setAccountExpired(false);
             }
             List<GrantedAuthority> grantedAuthorities = new ArrayList<>();
 
@@ -126,7 +106,7 @@ public class MyUserDetailsService implements UserDetailsService {
             }
             System.out.println("当前用户角色:" + rolestr);
 
-            User user = new User(accountDto.getId(), accountDto.getUsername(), accountDto.getPassword(), accountDto.getOrganizationId(), staffId, departmentId, grantedAuthorities);
+            User user = new User(accountDto.getId(), accountDto.getUsername(), accountDto.getPassword(), accountDto.getOrganizationId(), staffId, departmentId,accountDto.getAccountLocked(),accountDto.getAccountExpired(), grantedAuthorities);
             if (StringUtils.isNotEmpty(accountDto.getOrganizationId())) {
                 //管理机构
                 user.setOrganizationId(accountDto.getOrganizationId());

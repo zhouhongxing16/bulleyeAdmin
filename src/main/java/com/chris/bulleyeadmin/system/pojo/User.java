@@ -16,19 +16,21 @@ import java.util.List;
 public class User extends org.springframework.security.core.userdetails.User {
     private static final long serialVersionUID = 1L;
 
-    public User(String id, String username, String password, String organizationId, String staffId, String departmentId, Collection<? extends GrantedAuthority> authorities) {
+    public User(String id, String username, String password, String organizationId, String staffId, String departmentId, Boolean accountLocked, Boolean accountExpired, Collection<? extends GrantedAuthority> authorities) {
         super(username, password, authorities);
         this.id = id;
         this.organizationId = organizationId;
         this.staffId = staffId;
         this.departmentId = departmentId;
+        this.accountLocked = accountLocked;
+        this.accountExpired = accountExpired;
     }
 
-    public User(String username, String password, Collection<? extends GrantedAuthority> authorities){
+    public User(String username, String password, Collection<? extends GrantedAuthority> authorities) {
         super(username, password, authorities);
     }
 
-    public User(){
+    public User() {
         super("construct", "", new ArrayList<>());
     }
 
@@ -40,6 +42,12 @@ public class User extends org.springframework.security.core.userdetails.User {
     private String staffId;
 
     private String departmentId;
+
+    //账户是否锁定
+    private Boolean accountLocked;
+
+    //账户是否过期
+    private Boolean accountExpired;
 
     private List<Role> role;
 
@@ -73,6 +81,22 @@ public class User extends org.springframework.security.core.userdetails.User {
 
     public void setDepartmentId(String departmentId) {
         this.departmentId = departmentId;
+    }
+
+    public Boolean getAccountLocked() {
+        return accountLocked;
+    }
+
+    public void setAccountLocked(Boolean accountLocked) {
+        this.accountLocked = accountLocked;
+    }
+
+    public Boolean getAccountExpired() {
+        return accountExpired;
+    }
+
+    public void setAccountExpired(Boolean accountExpired) {
+        this.accountExpired = accountExpired;
     }
 
     public List<Role> getRole() {
