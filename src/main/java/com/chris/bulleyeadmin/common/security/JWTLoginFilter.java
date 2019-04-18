@@ -2,10 +2,16 @@ package com.chris.bulleyeadmin.common.security;
 
 import com.chris.bulleyeadmin.common.pojo.JsonResult;
 import com.chris.bulleyeadmin.common.utils.AuthUtil;
+import com.chris.bulleyeadmin.common.utils.HttpContextUtils;
+import com.chris.bulleyeadmin.common.utils.IPUtils;
+import com.chris.bulleyeadmin.system.pojo.LoginRecord;
 import com.chris.bulleyeadmin.system.pojo.User;
+import com.chris.bulleyeadmin.system.service.LoginRecordService;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import eu.bitwalker.useragentutils.UserAgent;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -13,6 +19,7 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.web.authentication.AuthenticationFailureHandler;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
+import org.springframework.stereotype.Component;
 
 import javax.servlet.FilterChain;
 import javax.servlet.ServletException;
@@ -48,9 +55,8 @@ public class JWTLoginFilter extends UsernamePasswordAuthenticationFilter {
     public Authentication attemptAuthentication(HttpServletRequest req, HttpServletResponse res) throws AuthenticationException {
         try {
             User user = new ObjectMapper().readValue(req.getInputStream(), User.class);
-            return authenticationManager.authenticate(
-                    new UsernamePasswordAuthenticationToken(user.getUsername(), user.getPassword(), new ArrayList<>())
-            );
+            UsernamePasswordAuthenticationToken authenticationToken =  new UsernamePasswordAuthenticationToken(user.getUsername(), user.getPassword(), new ArrayList<>());
+            return authenticationManager.authenticate(authenticationToken);
         } catch (IOException e) {
             e.printStackTrace();
             throw new RuntimeException(e);
@@ -61,6 +67,7 @@ public class JWTLoginFilter extends UsernamePasswordAuthenticationFilter {
     @Override
     protected void successfulAuthentication(HttpServletRequest req, HttpServletResponse res, FilterChain chain, Authentication auth) throws IOException, ServletException {
         User user = (User) auth.getPrincipal();
+
         String token = Jwts.builder()
                 .setSubject(user.toString())
                 .setExpiration(new Date(System.currentTimeMillis() + 60 * 60 * 24 * 1000))

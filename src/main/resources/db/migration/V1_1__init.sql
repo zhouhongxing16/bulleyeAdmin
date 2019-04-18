@@ -152,9 +152,9 @@ CREATE TABLE IF NOT EXISTS `b_login_record` (
   `login_location` varchar(255) DEFAULT '' COMMENT '登录地点',
   `browser` varchar(50) DEFAULT '' COMMENT '浏览器类型',
   `os` varchar(50) DEFAULT '' COMMENT '操作系统',
-  `status` char(1) DEFAULT '0' COMMENT '登录状态（0成功 1失败）',
+  `status` char(1) DEFAULT '0' COMMENT '登录状态（1成功 0失败）',
   `message` varchar(255) DEFAULT '' COMMENT '提示消息',
-  `created` datetime DEFAULT NULL COMMENT '访问时间',
+	`created` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '访问时间',
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='系统访问记录';
 

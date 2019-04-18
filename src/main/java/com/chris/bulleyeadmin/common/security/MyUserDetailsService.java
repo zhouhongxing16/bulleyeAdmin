@@ -63,23 +63,10 @@ public class MyUserDetailsService implements UserDetailsService {
     }
 
     public UserDetails loadUser(String username,String pwd) {
-        HttpServletRequest request = HttpContextUtils.getHttpServletRequest();
-        String ip = IPUtils.getIpAddr(request);
-        LoginRecord loginRecord = new LoginRecord();
 
-        UserAgent userAgent = UserAgent.parseUserAgentString(request.getHeader("User-Agent"));
-        // 获取客户端操作系统
-        String os = userAgent.getOperatingSystem().getName();
-        // 获取客户端浏览器
-        String browser = userAgent.getBrowser().getName();
-        loginRecord.setIp(ip);
-        loginRecord.setOs(os);
-        loginRecord.setBrowser(browser);
-        loginRecord.setLoginLocation(IPUtils.getLocationByIP(ip));
         AccountDto accountDto;
         try {
             accountDto = accountService.getAccountByUserName(username);
-            loginRecord.setUsername(username);
         } catch (Exception e) {
             e.printStackTrace();
             logger.error(e.getMessage());
