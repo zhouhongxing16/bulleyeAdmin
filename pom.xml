@@ -174,12 +174,13 @@
             <artifactId>spring-boot-starter-mail</artifactId>
         </dependency>
 
-        <!-- 解析客户端操作系统、浏览器等 -->
+        <!-- https://mvnrepository.com/artifact/eu.bitwalker/UserAgentUtils -->
         <dependency>
             <groupId>eu.bitwalker</groupId>
             <artifactId>UserAgentUtils</artifactId>
-            <version>1.19</version>
+            <version>1.21</version>
         </dependency>
+
     </dependencies>
 
     <build>
