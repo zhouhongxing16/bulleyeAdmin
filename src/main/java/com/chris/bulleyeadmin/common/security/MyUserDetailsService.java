@@ -2,6 +2,7 @@ package com.chris.bulleyeadmin.common.security;
 
 import com.chris.bulleyeadmin.common.excepition.RPCFailedException;
 import com.chris.bulleyeadmin.common.pojo.JsonResult;
+import com.chris.bulleyeadmin.common.utils.AuthUtil;
 import com.chris.bulleyeadmin.common.utils.DateUtils;
 import com.chris.bulleyeadmin.common.utils.HttpContextUtils;
 import com.chris.bulleyeadmin.common.utils.IPUtils;
@@ -20,8 +21,10 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpRequest;
+import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -56,10 +59,10 @@ public class MyUserDetailsService implements UserDetailsService {
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         logger.info("用户的用户名: {}", username);
-        return loadUser(username, null, null);
+        return loadUser(username,null);
     }
 
-    public UserDetails loadUser(String username, String pwd, String orgId) {
+    public UserDetails loadUser(String username,String pwd) {
         HttpServletRequest request = HttpContextUtils.getHttpServletRequest();
         String ip = IPUtils.getIpAddr(request);
         LoginRecord loginRecord = new LoginRecord();
@@ -69,7 +72,7 @@ public class MyUserDetailsService implements UserDetailsService {
         String os = userAgent.getOperatingSystem().getName();
         // 获取客户端浏览器
         String browser = userAgent.getBrowser().getName();
-        loginRecord.setId(ip);
+        loginRecord.setIp(ip);
         loginRecord.setOs(os);
         loginRecord.setBrowser(browser);
         loginRecord.setLoginLocation(IPUtils.getLocationByIP(ip));
@@ -83,9 +86,11 @@ public class MyUserDetailsService implements UserDetailsService {
             throw new RPCFailedException(e.getMessage());
         }
         if (accountDto != null) {
-            BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
+            /*BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
             if (!encoder.matches(pwd, accountDto.getPassword())) {
                 loginRecord.setStatus(0);
+                loginRecord.setMessage("用户密码不正确..");
+                loginRecordService.add(loginRecord);
                 logger.info("用户密码不正确...");
                 return null;
             }else{
@@ -97,13 +102,24 @@ public class MyUserDetailsService implements UserDetailsService {
                 }
 
                 loginRecord.setStatus(1);
-            }
+            }*/
 
+            //add by onion：设置账号过期
+            if(accountDto.getExpiredDate() != null) {
+                /*if (DateUtils.getNowDate().getTime() > account.getExpiredDate().getTime()) {
+                    throw new RuntimeException("非常抱歉,您的试用账号已到期,请联系我们!");
+                }*/
+
+                BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
+                if (!encoder.matches(pwd, accountDto.getPassword())) {
+                    logger.info("用户密码不正确...");
+                    return null;
+                }
+            }
             List<GrantedAuthority> grantedAuthorities = new ArrayList<>();
 
             String departmentId = "";
             String staffId = accountDto.getStaffId();
-            orgId = accountDto.getOrganizationId();
             if (StringUtils.isNotEmpty(staffId)) {
                 JsonResult jsonResult = staffService.getById(staffId);
                 Staff staff = (Staff) jsonResult.getData();
@@ -123,7 +139,7 @@ public class MyUserDetailsService implements UserDetailsService {
             }
             System.out.println("当前用户角色:" + rolestr);
 
-            User user = new User(accountDto.getId(), accountDto.getUsername(), accountDto.getPassword(), orgId, staffId, departmentId, grantedAuthorities);
+            User user = new User(accountDto.getId(), accountDto.getUsername(), accountDto.getPassword(), accountDto.getOrganizationId(), staffId, departmentId, grantedAuthorities);
             if (StringUtils.isNotEmpty(accountDto.getOrganizationId())) {
                 //管理机构
                 user.setOrganizationId(accountDto.getOrganizationId());
