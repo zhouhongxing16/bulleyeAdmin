@@ -14,6 +14,8 @@ import org.springframework.stereotype.Component;
 
 import javax.servlet.http.HttpServletRequest;
 
+import static com.google.common.collect.ComparisonChain.start;
+
 /**
  * @Auther: Chris
  * @Date: 2019-04-18 14:41
@@ -29,22 +31,25 @@ public class AuthenticationSuccessEventListener implements ApplicationListener<A
     public void onApplicationEvent(AuthenticationSuccessEvent e) {
         UsernamePasswordAuthenticationToken authenticationToken = (UsernamePasswordAuthenticationToken) e.getSource();
         User user = (User) authenticationToken.getPrincipal();
-        HttpServletRequest request = HttpContextUtils.getHttpServletRequest();
-        String ip = IPUtils.getIpAddr(request);
-        LoginRecord loginRecord = new LoginRecord();
 
+        HttpServletRequest request = HttpContextUtils.getHttpServletRequest();
         UserAgent userAgent = UserAgent.parseUserAgentString(request.getHeader("User-Agent"));
         // 获取客户端操作系统
         String os = userAgent.getOperatingSystem().getName();
         // 获取客户端浏览器
         String browser = userAgent.getBrowser().getName();
-        loginRecord.setUsername(user.getUsername());
-        loginRecord.setIp(ip);
-        loginRecord.setOs(os);
-        loginRecord.setBrowser(browser);
-        loginRecord.setLoginLocation(IPUtils.getLocationByIP(ip));
-        loginRecord.setStatus(1);
-        loginRecord.setMessage("登录成功");
-        loginRecordService.add(loginRecord);
+
+        new Thread(() -> {
+            String ip = IPUtils.getIpAddr(request);
+            LoginRecord loginRecord = new LoginRecord();
+            loginRecord.setUsername(user.getUsername());
+            loginRecord.setIp(ip);
+            loginRecord.setOs(os);
+            loginRecord.setBrowser(browser);
+            loginRecord.setLoginLocation(IPUtils.getLocationByIP(ip));
+            loginRecord.setStatus(1);
+            loginRecord.setMessage("登录成功");
+            loginRecordService.add(loginRecord);
+        }).start();
     }
 }
