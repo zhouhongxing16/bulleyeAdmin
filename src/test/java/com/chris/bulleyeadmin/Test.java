@@ -1,5 +1,6 @@
 package com.chris.bulleyeadmin;
 
+import com.chris.bulleyeadmin.common.utils.IPUtils;
 import org.springframework.http.HttpStatus;
 
 /**
@@ -9,6 +10,6 @@ import org.springframework.http.HttpStatus;
  */
 public class Test {
     public static void main(String[] args){
-        System.out.println(HttpStatus.UNAUTHORIZED.value());
+        System.out.println(IPUtils.getLocationByIP("218.88.113.146"));
     }
 }

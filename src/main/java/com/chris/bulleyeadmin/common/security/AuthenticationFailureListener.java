@@ -45,7 +45,7 @@ public class AuthenticationFailureListener implements ApplicationListener<Authen
         loginRecord.setBrowser(browser);
         loginRecord.setLoginLocation(IPUtils.getLocationByIP(ip));
         loginRecord.setStatus(0);
-        loginRecord.setMessage("用户名或密码不正确..");
+        loginRecord.setMessage("用户名或密码不正确...");
         loginRecordService.add(loginRecord);
     }
 }

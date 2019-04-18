@@ -39,12 +39,38 @@ public class IPUtils {
 
     public static String getLocationByIP(String ip) {
         String address = "XX XX";
-        String IP_URL = "http://ip.taobao.com/service/getIpInfo.php";
+        String IP_URL = "https://restapi.amap.com/v3/ip";
+
         // 内网不查询
         if (internalIp(ip)) {
             return "内网IP";
         }
-        String rspStr = HttpUtils.sendPost(IP_URL, "ip=" + ip);
+        String rspStr = HttpUtils.sendGet(IP_URL, "&output=json&key=30a9f58222cb5a1859a7ecdb4f43fa0b&ip=" + ip);
+        if (StringUtils.isEmpty(rspStr)) {
+            logger.error("获取地理位置异常 {}", ip);
+            return address;
+        }
+
+        try {
+            JSONObject obj = JSON.parseObject(rspStr, JSONObject.class);
+            String province = obj.get("province").toString();
+            String city = obj.get("city").toString();
+            address = province + " " + city;
+        } catch (Exception e) {
+            logger.error("获取地理位置异常 {}", ip);
+        }
+        return address;
+    }
+
+    public static String getTaoBaoLocationByIP(String ip) {
+        String address = "XX XX";
+        String IP_URL = "http://ip.taobao.com/service/getIpInfo.php";
+
+        // 内网不查询
+        if (internalIp(ip)) {
+            return "内网IP";
+        }
+        String rspStr = HttpUtils.sendGet(IP_URL, "ip=" + ip);
         if (StringUtils.isEmpty(rspStr)) {
             logger.error("获取地理位置异常 {}", ip);
             return address;
@@ -61,6 +87,8 @@ public class IPUtils {
         }
         return address;
     }
+
+
 
     public static boolean internalIp(String ip) {
         byte[] address = textToNumericFormatV4(ip);
