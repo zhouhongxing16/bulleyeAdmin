@@ -1,9 +1,6 @@
 package com.chris.bulleyeadmin.system.pojo;
 
-import javax.persistence.Column;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 import java.io.Serializable;
 
 /**
@@ -11,6 +8,7 @@ import java.io.Serializable;
  * @Date: 2019-01-07 15:52
  * @Description:
  */
+@Table(name = "b_department")
 public class Department implements Serializable {
 
     @Id

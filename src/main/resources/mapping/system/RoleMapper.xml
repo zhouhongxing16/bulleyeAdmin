@@ -24,7 +24,7 @@
   <select id="getListByParams" resultMap="dto" parameterType="map">
     SELECT
     <include refid="basic_list"/>
-    FROM b_roles a
+    FROM b_role a
     <where>
       <if test="id!=null and id!='' ">
         and a.id=#{ id }
@@ -54,7 +54,7 @@
   </select>
 
   <select id="getRolesByAccountId" parameterType="String" resultMap="BaseResultMap">
-    select distinct * from b_roles r
+    select distinct * from b_role r
     where r.id in
     (select role_id from b_account_role ar where ar.account_id =#{accountId})
   </select>

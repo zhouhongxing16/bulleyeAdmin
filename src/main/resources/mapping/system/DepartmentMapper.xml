@@ -27,7 +27,7 @@
     <select id="getListByParams" resultMap="BaseResultMap" parameterType="map">
         SELECT
         <include refid="basic_list"/>
-        FROM b_organizations a
+        FROM b_organization a
         <where>
             <if test="id!=null and id!='' ">
                 and a.id=#{ id }

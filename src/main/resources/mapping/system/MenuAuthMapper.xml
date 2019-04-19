@@ -27,7 +27,7 @@
         SELECT
         <include refid="basic_list"/>
         FROM b_menu_auth a
-        left join b_menus m on m.id = a.menu_id
+        left join b_menu m on m.id = a.menu_id
         <where>
             <if test="id!=null and id!='' ">
                 and a.id=#{ id }

@@ -25,8 +25,8 @@
   <select id="getMenusByRoleId" resultMap="dto" parameterType="String">
     select  <include refid="basic_sql"/>,m.name as menu_name,m.sort as menu_sort,m.path as menu_path,m.icon as menu_icon
     from b_role_menu rm
-    left join b_menus m on m.id=rm.menu_id
-    left join b_roles r on r.id = rm_role_id
+    left join b_menu m on m.id=rm.menu_id
+    left join b_role r on r.id = rm_role_id
     <where>
       rm.role_id = #{roleId}
     </where>

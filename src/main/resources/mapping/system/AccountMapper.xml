@@ -35,7 +35,7 @@
   <select id="getListByParams" resultMap="BaseResultMap" parameterType="map">
     SELECT
     <include refid="basic_list"/>
-    FROM b_accounts a
+    FROM b_account a
     <where>
       <if test="id!=null and id!='' ">
         and a.id=#{ id }
@@ -92,8 +92,8 @@
   </select>
 
   <select id="getAccountByUserName" resultMap="dto" parameterType="String">
-    select a.*,o.name as organizationName from b_accounts a
-    left join b_organizations o on o.id = a.organization_id
+    select a.*,o.name as organizationName from b_account a
+    left join b_organization o on o.id = a.organization_id
     where a.username = #{0}
   </select>
 </mapper>

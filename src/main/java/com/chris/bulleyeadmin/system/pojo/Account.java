@@ -7,7 +7,7 @@ import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
 
-@Table(name = "b_accounts")
+@Table(name = "b_account")
 public class Account implements Serializable {
 
     private static final long serialVersionUID = 1L;

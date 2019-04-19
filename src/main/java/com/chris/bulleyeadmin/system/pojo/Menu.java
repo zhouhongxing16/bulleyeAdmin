@@ -3,7 +3,7 @@ package com.chris.bulleyeadmin.system.pojo;
 import javax.persistence.*;
 import java.io.Serializable;
 
-@Table(name = "b_menus")
+@Table(name = "b_menu")
 public class Menu implements Serializable {
     /**
      * 唯一标识
