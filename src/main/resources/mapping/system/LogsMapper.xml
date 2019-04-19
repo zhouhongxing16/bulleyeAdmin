@@ -14,4 +14,49 @@
     <result column="params" jdbcType="LONGVARCHAR" property="params" />
     <result column="created" jdbcType="TIMESTAMP" property="created" />
   </resultMap>
+
+  <sql id="basic_list">
+		a.id, a.organization_id, a.option_name, a.option_type, a.method, a.params, a.user_id, a.ip, a.execution_time, a.created, a.status
+	</sql>
+
+  <select id="getListByParams" resultMap="BaseResultMap" parameterType="map">
+    SELECT
+    <include refid="basic_list"/>
+    FROM b_logs a
+    <where>
+      <if test="id!=null and id!='' ">
+        and a.id=#{ id }
+      </if>
+      <if test="organizationId!=null and organizationId!='' ">
+        and a.organization_id=#{ organizationId }
+      </if>
+      <if test="optionName!=null and optionName!='' ">
+        and a.option_name LIKE CONCAT('%', #{ optionName }, '%')
+      </if>
+      <if test="optionType!=null and optionType!='' ">
+        and a.option_type LIKE CONCAT('%', #{ optionType }, '%')
+      </if>
+      <if test="method!=null and method!='' ">
+        and a.method LIKE CONCAT('%', #{ method }, '%')
+      </if>
+      <if test="params!=null and params!='' ">
+        and a.params LIKE CONCAT('%', #{ params }, '%')
+      </if>
+      <if test="userId!=null and userId!='' ">
+        and a.user_id=#{ userId }
+      </if>
+      <if test="ip!=null and ip!='' ">
+        and a.ip LIKE CONCAT('%', #{ ip }, '%')
+      </if>
+      <if test="executionTime!=null and executionTime!='' ">
+        and a.execution_time LIKE CONCAT('%', #{ executionTime }, '%')
+      </if>
+      <if test="created!=null and created!='' ">
+        and a.created LIKE CONCAT('%', #{ created }, '%')
+      </if>
+      <if test="status!=null and status!='' ">
+        and a.status LIKE CONCAT('%', #{ status }, '%')
+      </if>
+    </where>
+  </select>
 </mapper>

@@ -86,7 +86,7 @@
   		SELECT
 			m.*,m.id as menu_key,m.id as menu_value
 		FROM
-			b_menus m
+			b_menu m
 		ORDER BY
 			m.sort ASC
   </select>
@@ -104,7 +104,7 @@
 
     <select id="getOrganizationAuthMenus" parameterType="String" resultMap="dto">
         select m.*,m.id as menu_key,m.id as menu_value
-        from b_menus m
+        from b_menu m
         right join b_organization_menu om on om.menu_id = m.id and om.organization_id =#{ organizationId }
         where m.`status` = 1
     </select>

@@ -3,7 +3,7 @@ package com.chris.bulleyeadmin.system.pojo;
 import javax.persistence.*;
 import java.io.Serializable;
 
-@Table(name = "b_roles")
+@Table(name = "b_role")
 public class Role implements Serializable {
     /**
      * 唯一标识
