@@ -40,7 +40,6 @@ public class OrganizationMenuService extends BaseService<OrganizationMenu> {
             params.put("organizationId",list.get(0).getOrganizationId());
             organizationMenuMapper.deleteByParams(params);
             for(OrganizationMenu organizationMenu :list){
-                organizationMenu.setCreated(Help.getCurrentTimeMillis());
                 organizationMenuMapper.insert(organizationMenu);
             }
             result.setSuccess(true);

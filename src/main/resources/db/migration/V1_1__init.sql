@@ -310,7 +310,7 @@ CREATE TABLE IF NOT EXISTS `b_organization_menu` (
 -- Dumping data for table bulleye_admin.b_organization_menu: ~5 rows (approximately)
 DELETE FROM `b_organization_menu`;
 /*!40000 ALTER TABLE `b_organization_menu` DISABLE KEYS */;
-INSERT INTO `b_organization_menu` (`id`, `organization_id`, `menu_id`, `p_id`, `display_name`, `created`, `status`, `is_leaf`) VALUES
+INSERT INTO `b_organization_menu` (`id`, `organization_id`, `menu_id`, `parent_id`, `display_name`, `created`, `status`, `is_leaf`) VALUES
 	('c7c4cffd-603d-11e9-8e25-049226bfdadf', 'suiji', '5', NULL, '员工管理', 1555415403665, 1, b'1'),
 	('c7c6b725-603d-11e9-8e25-049226bfdadf', 'suiji', '8', NULL, '微信会员管理', 1555415403677, 1, b'1'),
 	('c7c7fbc3-603d-11e9-8e25-049226bfdadf', 'suiji', '2', NULL, '系统管理', 1555415403685, 1, b'0'),
