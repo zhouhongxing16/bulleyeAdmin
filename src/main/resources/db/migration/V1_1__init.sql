@@ -71,10 +71,11 @@ CREATE TABLE `b_department` (
 	`id` VARCHAR(40) NOT NULL COMMENT '唯一标识',
 	`organization_id` VARCHAR(40) NULL DEFAULT NULL COMMENT '组织标识',
 	`code` VARCHAR(30) NULL DEFAULT NULL COMMENT '代码',
-	`parent_id` VARCHAR(40) NULL DEFAULT NULL,
+	`parent_id` VARCHAR(40) NULL DEFAULT NULL COMMENT '父级ID',
 	`name` VARCHAR(100) NULL DEFAULT NULL COMMENT '名称',
 	`type_id` VARCHAR(40) NULL DEFAULT NULL COMMENT '类型',
 	`remark` VARCHAR(255) NULL DEFAULT NULL COMMENT '描述',
+	`user_id` VARCHAR(40) NULL DEFAULT NULL COMMENT '创建人',
 	`status` INT(11) NULL DEFAULT NULL COMMENT '状态',
 	`created` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建日期',
 	PRIMARY KEY (`id`)
@@ -82,6 +83,7 @@ CREATE TABLE `b_department` (
 COMMENT='部门表'
 COLLATE='utf8_general_ci'
 ENGINE=InnoDB;
+
 
 
 -- Dumping data for table bulleye_admin.b_department: ~1 rows (approximately)

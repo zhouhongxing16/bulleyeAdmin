@@ -5,63 +5,57 @@
         <!--
           WARNING - @mbg.generated
         -->
-        <id column="id" jdbcType="VARCHAR" property="id"/>
-        <result column="organization_id" jdbcType="VARCHAR" property="organizationId"/>
-        <result column="parent_id" jdbcType="VARCHAR" property="parentId"/>
-        <result column="name" jdbcType="VARCHAR" property="name"/>
-        <result column="code" jdbcType="VARCHAR" property="code"/>
-        <result column="name" jdbcType="VARCHAR" property="name"/>
-        <result column="type_id" jdbcType="VARCHAR" property="typeId"/>
-        <result column="remark" jdbcType="VARCHAR" property="remark"/>
-        <result column="status" jdbcType="INTEGER" property="status"/>
-        <result column="created" jdbcType="BIGINT" property="created"/>
+        <id column="id" jdbcType="VARCHAR" property="id" />
+        <result column="organization_id" jdbcType="VARCHAR" property="organizationId" />
+        <result column="code" jdbcType="VARCHAR" property="code" />
+        <result column="parent_id" jdbcType="VARCHAR" property="parentId" />
+        <result column="name" jdbcType="VARCHAR" property="name" />
+        <result column="type_id" jdbcType="VARCHAR" property="typeId" />
+        <result column="user_id" jdbcType="VARCHAR" property="userId" />
+        <result column="remark" jdbcType="VARCHAR" property="remark" />
+        <result column="status" jdbcType="INTEGER" property="status" />
+        <result column="created" jdbcType="TIMESTAMP" property="created" />
     </resultMap>
-    <resultMap id="dto" type="com.chris.bulleyeadmin.system.dto.OrganizationDto" extends="BaseResultMap">
+    <resultMap id="dto" type="com.chris.bulleyeadmin.system.dto.DepartmentDto" extends="BaseResultMap">
 
     </resultMap>
 
 
     <sql id="basic_list">
-		a.id, a.parent_id, a.code, a.name, a.area_id, a.brief, a.contact_name, a.contact_phone, a.status, a.end_date, a.domain, a.created
+		a.id, a.organization_id, a.code, a.parent_id, a.name, a.type_id, a.remark, a.status, a.created
 	</sql>
 
     <select id="getListByParams" resultMap="BaseResultMap" parameterType="map">
         SELECT
         <include refid="basic_list"/>
-        FROM b_organization a
+        FROM b_department a
         <where>
             <if test="id!=null and id!='' ">
                 and a.id=#{ id }
             </if>
-            <if test="parentId!=null and parentId!='' ">
-                and a.parent_id=#{ parentId }
+            <if test="organizationId!=null and organizationId!='' ">
+                and a.organization_id=#{ organizationId }
             </if>
             <if test="code!=null and code!='' ">
                 and a.code LIKE CONCAT('%', #{ code }, '%')
             </if>
+            <if test="parentId!=null and parentId!='' ">
+                and a.parent_id=#{ parentId }
+            </if>
             <if test="name!=null and name!='' ">
                 and a.name LIKE CONCAT('%', #{ name }, '%')
             </if>
-            <if test="areaId!=null and areaId!='' ">
-                and a.area_id=#{ areaId }
+            <if test="typeId!=null and typeId!='' ">
+                and a.type_id=#{ typeId }
             </if>
-            <if test="brief!=null and brief!='' ">
-                and a.brief LIKE CONCAT('%', #{ brief }, '%')
+            <if test="userId!=null and userId!='' ">
+                and a.user_id=#{ userId }
             </if>
-            <if test="contactName!=null and contactName!='' ">
-                and a.contact_name LIKE CONCAT('%', #{ contactName }, '%')
-            </if>
-            <if test="contactPhone!=null and contactPhone!='' ">
-                and a.contact_phone LIKE CONCAT('%', #{ contactPhone }, '%')
+            <if test="remark!=null and remark!='' ">
+                and a.remark LIKE CONCAT('%', #{ remark }, '%')
             </if>
             <if test="status!=null and status!='' ">
-                and a.status LIKE CONCAT('%', #{ status }, '%')
-            </if>
-            <if test="endDate!=null and endDate!='' ">
-                and a.end_date LIKE CONCAT('%', #{ endDate }, '%')
-            </if>
-            <if test="domain!=null and domain!='' ">
-                and a.domain LIKE CONCAT('%', #{ domain }, '%')
+                and a.status = #{ status }
             </if>
             <if test="created!=null and created!='' ">
                 and a.created LIKE CONCAT('%', #{ created }, '%')
