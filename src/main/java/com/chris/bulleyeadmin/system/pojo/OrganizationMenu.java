@@ -2,6 +2,7 @@ package com.chris.bulleyeadmin.system.pojo;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.util.Date;
 
 /**
  * @Auther: Chris
@@ -23,8 +24,8 @@ public class OrganizationMenu implements Serializable {
     @Column(name = "menu_id")
     private String menuId;
 
-    @Column(name = "p_id")
-    private String pId;
+    @Column(name = "parent_id")
+    private String parentId;
 
     @Column(name = "display_name")
     private String displayName;
@@ -35,7 +36,7 @@ public class OrganizationMenu implements Serializable {
     @Column(name = "is_leaf")
     private Boolean isLeaf;
 
-    private Long created;
+    private Date created;
 
 
     public String getId() {
@@ -62,12 +63,12 @@ public class OrganizationMenu implements Serializable {
         this.menuId = menuId;
     }
 
-    public String getpId() {
-        return pId;
+    public String getParentId() {
+        return parentId;
     }
 
-    public void setpId(String pId) {
-        this.pId = pId;
+    public void setParentId(String parentId) {
+        this.parentId = parentId;
     }
 
     public String getDisplayName() {
@@ -86,11 +87,11 @@ public class OrganizationMenu implements Serializable {
         this.status = status;
     }
 
-    public Long getCreated() {
+    public Date getCreated() {
         return created;
     }
 
-    public void setCreated(Long created) {
+    public void setCreated(Date created) {
         this.created = created;
     }
 

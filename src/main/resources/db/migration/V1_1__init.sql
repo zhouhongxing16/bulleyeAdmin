@@ -299,7 +299,7 @@ CREATE TABLE IF NOT EXISTS `b_organization_menu` (
   `id` varchar(40) NOT NULL,
   `organization_id` varchar(40) DEFAULT NULL,
   `menu_id` varchar(40) DEFAULT NULL,
-  `p_id` varchar(40) DEFAULT NULL,
+  `parent_id` varchar(40) DEFAULT NULL,
   `display_name` varchar(40) DEFAULT NULL,
   `created` bigint(20) NOT NULL,
   `status` int(11) DEFAULT '0',
