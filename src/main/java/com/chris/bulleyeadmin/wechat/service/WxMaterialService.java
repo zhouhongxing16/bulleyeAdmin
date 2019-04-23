@@ -81,6 +81,7 @@ public class WxMaterialService extends BaseService<WxMaterial> {
             }
 
         }else{
+            //处理非图文消息
             WxMpMaterial wxMpMaterial =  new WxMpMaterial();
             wxMpMaterial.setName(wxMaterial.getName());
             wxMpMaterial.setFile(null);
@@ -99,5 +100,27 @@ public class WxMaterialService extends BaseService<WxMaterial> {
             }
         }
 
+    }
+
+
+    public JsonResult materialDelete(String id){
+        WxMaterial QwxMaterial = new WxMaterial();
+        QwxMaterial.setId(id);
+
+        WxMaterial wxMaterial = wxMaterialMapper.selectOne(QwxMaterial);
+        //获取相关接口
+        WxAccount queryaccount = new WxAccount();
+        queryaccount.setId(wxMaterial.getAccount_id());
+
+        WxAccount account = wxAccountMapper.selectOne(queryaccount);
+        WxMpService wxService = WxMpConfiguration.getMpServices().get(account.getAppId());
+        try {
+            boolean flag = wxService.getMaterialService().materialDelete(wxMaterial.getMediaId());
+            String msg = flag?"删除成功":"删除失败！";
+            return new JsonResult(flag?true:false,null,msg, null, HttpStatus.OK.value());
+        }catch (WxErrorException e){
+
+        }
+        return null;
     }
 }
