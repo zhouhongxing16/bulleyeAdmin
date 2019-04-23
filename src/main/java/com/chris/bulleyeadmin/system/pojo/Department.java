@@ -1,7 +1,10 @@
 package com.chris.bulleyeadmin.system.pojo;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+
 import javax.persistence.*;
 import java.io.Serializable;
+import java.util.Date;
 
 /**
  * @Auther: Chris
@@ -15,8 +18,8 @@ public class Department implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY, generator = "select uuid()")
     private String id;
 
-    @Column(name = "p_id")
-    private String pid;
+    @Column(name = "parent_id")
+    private String parentId;
 
     @Column(name = "organization_id")
     private String organizationId;
@@ -38,7 +41,8 @@ public class Department implements Serializable {
     /**
      * 创建时间
      */
-    private Long created;
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss",timezone = "GMT+8")
+    private Date created;
 
 
     public String getId() {
@@ -49,12 +53,13 @@ public class Department implements Serializable {
         this.id = id;
     }
 
-    public String getPid() {
-        return pid;
+
+    public String getParentId() {
+        return parentId;
     }
 
-    public void setPid(String pid) {
-        this.pid = pid;
+    public void setParentId(String parentId) {
+        this.parentId = parentId;
     }
 
     public String getOrganizationId() {
@@ -113,11 +118,11 @@ public class Department implements Serializable {
         this.userId = userId;
     }
 
-    public Long getCreated() {
+    public Date getCreated() {
         return created;
     }
 
-    public void setCreated(Long created) {
+    public void setCreated(Date created) {
         this.created = created;
     }
 }

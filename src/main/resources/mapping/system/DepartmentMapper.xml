@@ -7,6 +7,7 @@
         -->
         <id column="id" jdbcType="VARCHAR" property="id"/>
         <result column="organization_id" jdbcType="VARCHAR" property="organizationId"/>
+        <result column="parent_id" jdbcType="VARCHAR" property="parentId"/>
         <result column="name" jdbcType="VARCHAR" property="name"/>
         <result column="code" jdbcType="VARCHAR" property="code"/>
         <result column="name" jdbcType="VARCHAR" property="name"/>
@@ -21,7 +22,7 @@
 
 
     <sql id="basic_list">
-		a.id, a.pid, a.code, a.name, a.area_id, a.brief, a.contact_name, a.contact_phone, a.status, a.end_date, a.domain, a.created
+		a.id, a.parent_id, a.code, a.name, a.area_id, a.brief, a.contact_name, a.contact_phone, a.status, a.end_date, a.domain, a.created
 	</sql>
 
     <select id="getListByParams" resultMap="BaseResultMap" parameterType="map">
@@ -32,8 +33,8 @@
             <if test="id!=null and id!='' ">
                 and a.id=#{ id }
             </if>
-            <if test="pid!=null and pid!='' ">
-                and a.pid=#{ pid }
+            <if test="parentId!=null and parentId!='' ">
+                and a.parent_id=#{ parentId }
             </if>
             <if test="code!=null and code!='' ">
                 and a.code LIKE CONCAT('%', #{ code }, '%')

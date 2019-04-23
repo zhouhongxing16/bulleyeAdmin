@@ -67,17 +67,22 @@ INSERT INTO `b_account_role` (`id`, `role_id`, `account_id`, `created`) VALUES
 
 -- Dumping structure for table bulleye_admin.b_department
 DROP TABLE IF EXISTS `b_department`;
-CREATE TABLE IF NOT EXISTS `b_department` (
-  `id` varchar(40) NOT NULL COMMENT '唯一标识',
-  `organization_id` varchar(40) DEFAULT NULL COMMENT '组织标识',
-  `code` varchar(30) DEFAULT NULL COMMENT '代码',
-  `name` varchar(100) DEFAULT NULL COMMENT '名称',
-  `type_id` varchar(40) DEFAULT NULL COMMENT '类型',
-  `remark` varchar(255) DEFAULT NULL COMMENT '描述',
-  `status` int(11) DEFAULT NULL COMMENT '状态',
-  `created` bigint(20) NOT NULL COMMENT '创建日期',
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='部门表';
+CREATE TABLE `b_department` (
+	`id` VARCHAR(40) NOT NULL COMMENT '唯一标识',
+	`organization_id` VARCHAR(40) NULL DEFAULT NULL COMMENT '组织标识',
+	`code` VARCHAR(30) NULL DEFAULT NULL COMMENT '代码',
+	`parent_id` VARCHAR(40) NULL DEFAULT NULL,
+	`name` VARCHAR(100) NULL DEFAULT NULL COMMENT '名称',
+	`type_id` VARCHAR(40) NULL DEFAULT NULL COMMENT '类型',
+	`remark` VARCHAR(255) NULL DEFAULT NULL COMMENT '描述',
+	`status` INT(11) NULL DEFAULT NULL COMMENT '状态',
+	`created` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建日期',
+	PRIMARY KEY (`id`)
+)
+COMMENT='部门表'
+COLLATE='utf8_general_ci'
+ENGINE=InnoDB;
+
 
 -- Dumping data for table bulleye_admin.b_department: ~1 rows (approximately)
 DELETE FROM `b_department`;
