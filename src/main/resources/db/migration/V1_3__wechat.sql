@@ -100,7 +100,7 @@ CREATE TABLE IF NOT EXISTS `wx_menu` (
   `account_id` varchar(50) DEFAULT NULL COMMENT '公众号id',
   `type` varchar(20) DEFAULT NULL COMMENT '菜单的响应动作类型，view表示网页类型，click表示点击类型，miniprogram表示小程序类型',
   `name` varchar(100) DEFAULT NULL COMMENT '菜单标题',
-  `key` varchar(100) DEFAULT NULL COMMENT '菜单KEY值，用于消息接口推送',
+  `key_value` varchar(100) DEFAULT NULL COMMENT '菜单KEY值，用于消息接口推送',
   `url` varchar(1000) DEFAULT NULL COMMENT '网页 链接',
   `media_id` varchar(100) DEFAULT NULL COMMENT '永久素材media_id',
   `app_id` varchar(50) DEFAULT NULL COMMENT '小程序的appid',
@@ -115,7 +115,7 @@ CREATE TABLE IF NOT EXISTS `wx_menu` (
 -- 正在导出表  bulleye_admin.wx_menu 的数据：~2 rows (大约)
 DELETE FROM `wx_menu`;
 /*!40000 ALTER TABLE `wx_menu` DISABLE KEYS */;
-INSERT INTO `wx_menu` (`id`, `account_id`, `type`, `name`, `key`, `url`, `media_id`, `app_id`, `page_path`, `parent_id`, `author`, `sort`, `remark`) VALUES
+INSERT INTO `wx_menu` (`id`, `account_id`, `type`, `name`, `key_value`, `url`, `media_id`, `app_id`, `page_path`, `parent_id`, `author`, `sort`, `remark`) VALUES
 	('111', 'dfdfgsdfgsdfgsdfgsdfgsdfgsdfgsdfg', '1', '1', '1', '1', '1', '1', '1', '1·1·1', '1', 1, NULL),
 	('1·1·1', 'dfdfgsdfgsdfgsdfgsdfgsdfgsdfgsdfg', '1', '1', '1', '1', '1', '1', '1', '0', '1', 1, NULL);
 /*!40000 ALTER TABLE `wx_menu` ENABLE KEYS */;

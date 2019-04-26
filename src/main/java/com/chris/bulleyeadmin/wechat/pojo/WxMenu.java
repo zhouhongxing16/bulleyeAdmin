@@ -23,8 +23,8 @@ public class WxMenu implements Serializable {
     @Column(name = "name")
     private String name;
 
-    @Column(name = "key")
-    private String key;
+    @Column(name = "key_value")
+    private String keyValue;
 
     @Column(name = "url")
     private String url;
@@ -82,12 +82,12 @@ public class WxMenu implements Serializable {
         this.name = name;
     }
 
-    public String getKey() {
-        return key;
+    public String getKeyValue() {
+        return keyValue;
     }
 
-    public void setKey(String key) {
-        this.key = key;
+    public void setKeyValue(String keyValue) {
+        this.keyValue = keyValue;
     }
 
     public String getUrl() {

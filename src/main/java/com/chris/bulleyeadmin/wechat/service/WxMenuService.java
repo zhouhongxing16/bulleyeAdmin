@@ -71,7 +71,7 @@ public class WxMenuService extends BaseService<WxMenu> {
             //一级菜单
             WxMenuButton wxMenuButtonOne = new WxMenuButton();
             wxMenuButtonOne.setAppId(item.getAppId());
-            wxMenuButtonOne.setKey(item.getKey());
+            wxMenuButtonOne.setKey(item.getKeyValue());
             wxMenuButtonOne.setMediaId(item.getMediaId());
             wxMenuButtonOne.setName(item.getName());
             wxMenuButtonOne.setPagePath(item.getPagePath());
@@ -89,7 +89,7 @@ public class WxMenuService extends BaseService<WxMenu> {
                 }
                 WxMenuButton wxMenuButtonSecond = new WxMenuButton();
                 wxMenuButtonSecond.setAppId(item.getAppId());
-                wxMenuButtonSecond.setKey(item.getKey());
+                wxMenuButtonSecond.setKey(item.getKeyValue());
                 wxMenuButtonSecond.setMediaId(item.getMediaId());
                 wxMenuButtonSecond.setName(item.getName());
                 wxMenuButtonSecond.setPagePath(item.getPagePath());

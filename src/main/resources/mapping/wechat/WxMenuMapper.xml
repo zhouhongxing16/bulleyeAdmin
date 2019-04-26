@@ -7,7 +7,7 @@
         <result column="account_id" jdbcType="VARCHAR" property="accountId" />
         <result column="type" jdbcType="VARCHAR" property="type" />
         <result column="name" jdbcType="VARCHAR" property="name" />
-        <result column="key" jdbcType="VARCHAR" property="key" />
+        <result column="key_value" jdbcType="VARCHAR" property="keyValue" />
         <result column="url" jdbcType="VARCHAR" property="url" />
         <result column="media_id" jdbcType="VARCHAR" property="mediaId" />
         <result column="app_id" jdbcType="VARCHAR" property="appId" />
@@ -20,7 +20,7 @@
     </resultMap>
 
     <sql id="basic_list">
-		a.id, a.account_id, a.type, a.name, a.key, a.url, a.media_id, a.app_id, a.page_path, a.parent_id, a.author, a.sort, a.remark
+		a.id, a.account_id, a.type, a.name, a.key_value, a.url, a.media_id, a.app_id, a.page_path, a.parent_id, a.author, a.sort, a.remark
 	</sql>
 
     <select id="getListByParams" resultMap="BaseResultMap" parameterType="map">
@@ -40,8 +40,8 @@
             <if test="name!=null and name!='' ">
                 and a.name LIKE CONCAT('%', #{ name }, '%')
             </if>
-            <if test="key!=null and key!='' ">
-                and a.key LIKE CONCAT('%', #{ key }, '%')
+            <if test="keyValue!=null and keyValue!='' ">
+                and a.key_value LIKE CONCAT('%', #{ keyValue }, '%')
             </if>
             <if test="url!=null and url!='' ">
                 and a.url LIKE CONCAT('%', #{ url }, '%')
