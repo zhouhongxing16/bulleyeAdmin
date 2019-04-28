@@ -1,18 +1,16 @@
 package com.chris.bulleyeadmin.system.pojo;
 
-import javax.persistence.Column;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import java.util.Date;
+import javax.persistence.*;
+import java.math.BigDecimal;
 import java.io.Serializable;
-
+import com.fasterxml.jackson.annotation.JsonFormat;
 /**
- * @Auther: Chris
- * @Date: 2019-01-07 17:14
- * @Description:
+ * @Author: Chris  E-mail:961860916@qq.com
+ * @Date:  2019-04-28 22:46
  */
+@Table(name = "b_role_function")
 public class RoleFunction implements Serializable {
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY, generator = "select uuid()")
     private String id;
@@ -23,53 +21,82 @@ public class RoleFunction implements Serializable {
     @Column(name = "menu_id")
     private String menuId;
 
+    @Column(name = "function_id")
+    private String functionId;
+
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+8")
+    @Column(name = "created")
+    private Date created;
+
+
     /**
-     * 创建时间
+     * @return id
      */
-    private Long created;
-
-    @Column(name = "user_id")
-    private String userId;
-
-
     public String getId() {
         return id;
     }
 
+    /**
+     * @param id
+     */
     public void setId(String id) {
-        this.id = id;
+        this.id = id == null ? null : id.trim();
     }
 
+    /**
+     * @return roleId
+     */
     public String getRoleId() {
         return roleId;
     }
 
+    /**
+     * @param roleId
+     */
     public void setRoleId(String roleId) {
-        this.roleId = roleId;
+        this.roleId = roleId == null ? null : roleId.trim();
     }
 
+    /**
+     * @return menuId
+     */
     public String getMenuId() {
         return menuId;
     }
 
+    /**
+     * @param menuId
+     */
     public void setMenuId(String menuId) {
-        this.menuId = menuId;
+        this.menuId = menuId == null ? null : menuId.trim();
     }
 
+    /**
+     * @return functionId
+     */
+    public String getFunctionId() {
+        return functionId;
+    }
 
-    public Long getCreated() {
+    /**
+     * @param functionId
+     */
+    public void setFunctionId(String functionId) {
+        this.functionId = functionId == null ? null : functionId.trim();
+    }
+
+    /**
+     * @return created
+     */
+    public Date getCreated() {
         return created;
     }
 
-    public void setCreated(Long created) {
+    /**
+     * @param created
+     */
+    public void setCreated(Date created) {
         this.created = created;
     }
 
-    public String getUserId() {
-        return userId;
-    }
-
-    public void setUserId(String userId) {
-        this.userId = userId;
-    }
 }

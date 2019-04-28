@@ -1,189 +1,170 @@
 package com.chris.bulleyeadmin.system.pojo;
 
+import java.util.Date;
 import javax.persistence.*;
+import java.math.BigDecimal;
 import java.io.Serializable;
-
+import com.fasterxml.jackson.annotation.JsonFormat;
+/**
+ * @Author: Chris  E-mail:961860916@qq.com
+ * @Date:  2019-04-28 22:42
+ */
 @Table(name = "b_menu")
 public class Menu implements Serializable {
-    /**
-     * 唯一标识
-     */
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY, generator = "select uuid()")
     private String id;
 
-    /**
-     * 父菜单id
-     */
     @Column(name = "parent_id")
     private String parentId;
 
-    /**
-     * 图标
-     */
+    @Column(name = "icon")
     private String icon;
 
-    /**
-     * 代码
-     */
+    @Column(name = "code")
     private String code;
 
-    /**
-     * 名称
-     */
+    @Column(name = "title")
     private String title;
 
-    /**
-     * 路径
-     */
+    @Column(name = "path")
     private String path;
 
-    /**
-     * 是否显示（0：不显示，1：显示）
-     */
+    @Column(name = "status")
     private Integer status;
 
-    /**
-     * 显示顺序
-     */
+    @Column(name = "sort")
     private Integer sort;
 
-    /**
-     * 创建时间
-     */
-    private Long created;
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+8")
+    @Column(name = "created")
+    private Date created;
 
-    private static final long serialVersionUID = 1L;
 
     /**
-     * 获取唯一标识
-     *
-     * @return id - 唯一标识
+     * @return id
      */
     public String getId() {
         return id;
     }
 
     /**
-     * 设置唯一标识
-     *
-     * @param id 唯一标识
+     * @param id
      */
     public void setId(String id) {
         this.id = id == null ? null : id.trim();
     }
 
+    /**
+     * @return parentId
+     */
     public String getParentId() {
         return parentId;
     }
 
+    /**
+     * @param parentId
+     */
     public void setParentId(String parentId) {
-        this.parentId = parentId;
+        this.parentId = parentId == null ? null : parentId.trim();
     }
 
     /**
-     * 获取图标
-     *
-     * @return icon - 图标
+     * @return icon
      */
     public String getIcon() {
         return icon;
     }
 
     /**
-     * 设置图标
-     *
-     * @param icon 图标
+     * @param icon
      */
     public void setIcon(String icon) {
         this.icon = icon == null ? null : icon.trim();
     }
 
     /**
-     * 获取代码
-     *
-     * @return code - 代码
+     * @return code
      */
     public String getCode() {
         return code;
     }
 
     /**
-     * 设置代码
-     *
-     * @param code 代码
+     * @param code
      */
     public void setCode(String code) {
         this.code = code == null ? null : code.trim();
     }
 
+    /**
+     * @return title
+     */
     public String getTitle() {
         return title;
     }
 
+    /**
+     * @param title
+     */
     public void setTitle(String title) {
-        this.title = title;
+        this.title = title == null ? null : title.trim();
     }
 
     /**
-     * 获取路径
-     *
-     * @return path - 路径
+     * @return path
      */
     public String getPath() {
         return path;
     }
 
     /**
-     * 设置路径
-     *
-     * @param path 路径
+     * @param path
      */
     public void setPath(String path) {
         this.path = path == null ? null : path.trim();
     }
 
     /**
-     * 获取是否显示（0：不显示，1：显示）
-     *
-     * @return status - 是否显示（0：不显示，1：显示）
+     * @return status
      */
     public Integer getStatus() {
         return status;
     }
 
     /**
-     * 设置是否显示（0：不显示，1：显示）
-     *
-     * @param status 是否显示（0：不显示，1：显示）
+     * @param status
      */
     public void setStatus(Integer status) {
         this.status = status;
     }
 
     /**
-     * 获取显示顺序
-     *
-     * @return sort - 显示顺序
+     * @return sort
      */
     public Integer getSort() {
         return sort;
     }
 
     /**
-     * 设置显示顺序
-     *
-     * @param sort 显示顺序
+     * @param sort
      */
     public void setSort(Integer sort) {
         this.sort = sort;
     }
 
-    public Long getCreated() {
+    /**
+     * @return created
+     */
+    public Date getCreated() {
         return created;
     }
 
-    public void setCreated(Long created) {
+    /**
+     * @param created
+     */
+    public void setCreated(Date created) {
         this.created = created;
     }
+
 }

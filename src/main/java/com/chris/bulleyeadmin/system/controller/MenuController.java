@@ -43,13 +43,6 @@ public class MenuController extends BaseController<Menu> {
         return "menu";
     }
 
-    @RequestMapping("/create")
-    @Override
-    public JsonResult create(@RequestBody Menu obj) throws Exception {
-        obj.setCreated(Help.getCurrentTimeMillis());
-        return super.create(obj);
-    }
-
     @OperationLog("获取所有菜单")
     @ResponseBody
     @RequestMapping("/getAllMenus")

@@ -1,145 +1,121 @@
 <?xml version="1.0" encoding="UTF-8"?>
+<!--Created by  on Sun Apr 28 2019 22:19:09 GMT+0800 (中国标准时间)-->
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.chris.bulleyeadmin.system.mapper.StaffMapper">
-  <resultMap id="BaseResultMap" type="com.chris.bulleyeadmin.system.pojo.Staff">
-    <!--
-      WARNING - @mbg.generated
-    -->
-    <id column="id" jdbcType="VARCHAR" property="id" />
-    <result column="serial_no" jdbcType="VARCHAR" property="serialNo" />
-    <result column="name" jdbcType="VARCHAR" property="name" />
-    <result column="gender_id" jdbcType="VARCHAR" property="genderId" />
-    <result column="birthday" jdbcType="VARCHAR" property="birthday" />
-    <result column="academic_id" jdbcType="VARCHAR" property="academicId" />
-    <result column="degree_id" jdbcType="VARCHAR" property="degreeId" />
-    <result column="avatar" jdbcType="VARCHAR" property="avatar" />
-    <result column="organization_id" jdbcType="VARCHAR" property="organizationId" />
-    <result column="department_id" jdbcType="VARCHAR" property="departmentId" />
-    <result column="position_id" jdbcType="VARCHAR" property="positionId" />
-    <result column="title_id" jdbcType="VARCHAR" property="titleId" />
-    <result column="type_id" jdbcType="VARCHAR" property="typeId" />
-    <result column="mobile" jdbcType="VARCHAR" property="mobile" />
-    <result column="identify_type_id" jdbcType="VARCHAR" property="identifyTypeId" />
-    <result column="identify_no" jdbcType="VARCHAR" property="identifyNo" />
-    <result column="email" jdbcType="VARCHAR" property="email" />
-    <result column="remark" jdbcType="VARCHAR" property="remark" />
-    <result column="birth_province_id" jdbcType="VARCHAR" property="birthProvinceId" />
-    <result column="birth_city_id" jdbcType="VARCHAR" property="birthCityId" />
-    <result column="policy" jdbcType="VARCHAR" property="policy" />
-    <result column="weight" jdbcType="DECIMAL" property="weight" />
-    <result column="height" jdbcType="INTEGER" property="height" />
-    <result column="health_status" jdbcType="VARCHAR" property="healthStatus" />
-    <result column="marry_status_id" jdbcType="VARCHAR" property="marryStatusId" />
-    <result column="nation_id" jdbcType="VARCHAR" property="nationId" />
-    <result column="vmnet_no" jdbcType="VARCHAR" property="vmnetNo" />
-    <result column="join_date" jdbcType="VARCHAR" property="joinDate" />
-    <result column="status" jdbcType="INTEGER" property="status" />
-    <result column="created" jdbcType="BIGINT" property="created" />
-  </resultMap>
+    <resultMap id="BaseResultMap" type="com.chris.bulleyeadmin.system.pojo.Staff">
+        <id column="id" jdbcType="VARCHAR" property="id"/>
+        <result column="serial_no" jdbcType="VARCHAR" property="serialNo"/>
+        <result column="name" jdbcType="VARCHAR" property="name"/>
+        <result column="gender_id" jdbcType="VARCHAR" property="genderId"/>
+        <result column="mobile" jdbcType="VARCHAR" property="mobile"/>
+        <result column="email" jdbcType="VARCHAR" property="email"/>
+        <result column="avatar" jdbcType="VARCHAR" property="avatar"/>
+        <result column="organization_id" jdbcType="VARCHAR" property="organizationId"/>
+        <result column="department_id" jdbcType="VARCHAR" property="departmentId"/>
+        <result column="birthday" jdbcType="VARCHAR" property="birthday"/>
+        <result column="academic_id" jdbcType="VARCHAR" property="academicId"/>
+        <result column="degree_id" jdbcType="VARCHAR" property="degreeId"/>
+        <result column="position_id" jdbcType="VARCHAR" property="positionId"/>
+        <result column="title_id" jdbcType="VARCHAR" property="titleId"/>
+        <result column="type_id" jdbcType="VARCHAR" property="typeId"/>
+        <result column="identify_type_id" jdbcType="VARCHAR" property="identifyTypeId"/>
+        <result column="identify_no" jdbcType="VARCHAR" property="identifyNo"/>
+        <result column="status" jdbcType="INTEGER" property="status"/>
+        <result column="birth_province_id" jdbcType="VARCHAR" property="birthProvinceId"/>
+        <result column="birth_city_id" jdbcType="VARCHAR" property="birthCityId"/>
+        <result column="policy" jdbcType="VARCHAR" property="policy"/>
+        <result column="nation_id" jdbcType="VARCHAR" property="nationId"/>
+        <result column="join_date" jdbcType="VARCHAR" property="joinDate"/>
+        <result column="remark" jdbcType="VARCHAR" property="remark"/>
+        <result column="created" jdbcType="TIMESTAMP" property="created"/>
 
-  <sql id="basic_list">
-		a.id, a.serial_no, a.name, a.birthday, a.gender_id, a.academic_id, a.degree_id, a.avatar, a.organization_id, a.department_id, a.position_id, a.title_id, a.type_id, a.mobile, a.identify_type_id, a.identify_no, a.email, a.remark, a.status, a.birth_province_id, a.birth_city_id, a.policy, a.weight, a.height, a.health_status, a.marry_status_id, a.nation_id, a.vmnet_no, a.join_date, a.created
-  </sql>
+    </resultMap>
 
-  <select id="getListByParams" resultMap="BaseResultMap" parameterType="map">
-    select
-    <include refid="basic_list" />
-    from b_staff a
-    <where>
-      <if test="id!=null and id!='' ">
-        and a.id=#{ id }
-      </if>
-      <if test="serialNo!=null and serialNo!='' ">
-        and a.serial_no LIKE CONCAT('%', #{ serialNo }, '%')
-      </if>
-      <if test="name!=null and name!='' ">
-        and a.name LIKE CONCAT('%', #{ name }, '%')
-      </if>
-      <if test="birthday!=null and birthday!='' ">
-        and a.birthday LIKE CONCAT('%', #{ birthday }, '%')
-      </if>
-      <if test="genderId!=null and genderId!='' ">
-        and a.gender_id=#{ genderId }
-      </if>
-      <if test="academicId!=null and academicId!='' ">
-        and a.academic_id=#{ academicId }
-      </if>
-      <if test="degreeId!=null and degreeId!='' ">
-        and a.degree_id=#{ degreeId }
-      </if>
-      <if test="avatar!=null and avatar!='' ">
-        and a.avatar LIKE CONCAT('%', #{ avatar }, '%')
-      </if>
-      <if test="organizationId!=null and organizationId!='' ">
-        and a.organization_id=#{ organizationId }
-      </if>
-      <if test="departmentId!=null and departmentId!='' ">
-        and a.department_id=#{ departmentId }
-      </if>
-      <if test="positionId!=null and positionId!='' ">
-        and a.position_id=#{ positionId }
-      </if>
-      <if test="titleId!=null and titleId!='' ">
-        and a.title_id=#{ titleId }
-      </if>
-      <if test="typeId!=null and typeId!='' ">
-        and a.type_id=#{ typeId }
-      </if>
-      <if test="mobile!=null and mobile!='' ">
-        and a.mobile LIKE CONCAT('%', #{ mobile }, '%')
-      </if>
-      <if test="identifyTypeId!=null and identifyTypeId!='' ">
-        and a.identify_type_id=#{ identifyTypeId }
-      </if>
-      <if test="identifyNo!=null and identifyNo!='' ">
-        and a.identify_no=#{ identifyNo }
-      </if>
-      <if test="email!=null and email!='' ">
-        and a.email LIKE CONCAT('%', #{ email }, '%')
-      </if>
-      <if test="remark!=null and remark!='' ">
-        and a.remark LIKE CONCAT('%', #{ remark }, '%')
-      </if>
-      <if test="status!=null and status!='' ">
-        and a.status LIKE CONCAT('%', #{ status }, '%')
-      </if>
-      <if test="birthProvinceId!=null and birthProvinceId!='' ">
-        and a.birth_province_id=#{ birthProvinceId }
-      </if>
-      <if test="birthCityId!=null and birthCityId!='' ">
-        and a.birth_city_id=#{ birthCityId }
-      </if>
-      <if test="policy!=null and policy!='' ">
-        and a.policy LIKE CONCAT('%', #{ policy }, '%')
-      </if>
-      <if test="weight!=null and weight!='' ">
-        and a.weight LIKE CONCAT('%', #{ weight }, '%')
-      </if>
-      <if test="height!=null and height!='' ">
-        and a.height LIKE CONCAT('%', #{ height }, '%')
-      </if>
-      <if test="healthStatus!=null and healthStatus!='' ">
-        and a.health_status LIKE CONCAT('%', #{ healthStatus }, '%')
-      </if>
-      <if test="marryStatusId!=null and marryStatusId!='' ">
-        and a.marry_status_id=#{ marryStatusId }
-      </if>
-      <if test="nationId!=null and nationId!='' ">
-        and a.nation_id=#{ nationId }
-      </if>
-      <if test="vmnetNo!=null and vmnetNo!='' ">
-        and a.vmnet_no LIKE CONCAT('%', #{ vmnetNo }, '%')
-      </if>
-      <if test="joinDate!=null and joinDate!='' ">
-        and a.join_date LIKE CONCAT('%', #{ joinDate }, '%')
-      </if>
-      <if test="created!=null and created!='' ">
-        and a.created LIKE CONCAT('%', #{ created }, '%')
-      </if>
-    </where>
-    order by a.created desc
-    <if test="sortField!=null and sortField!=''  and sortField!='null' ">
-     order by a.${sortField}
-    </if>
-  </select>
+    <sql id="basic_list">
+		a.id, a.serial_no, a.name, a.gender_id, a.mobile, a.email, a.avatar, a.organization_id, a.department_id, a.birthday, a.academic_id, a.degree_id, a.position_id, a.title_id, a.type_id, a.identify_type_id, a.identify_no, a.status, a.birth_province_id, a.birth_city_id, a.policy, a.nation_id, a.join_date, a.remark, a.created
+	</sql>
+
+    <select id="getListByParams" resultMap="BaseResultMap" parameterType="map">
+        SELECT
+        <include refid="basic_list"/>
+        FROM b_staff a
+        <where>
+            <if test="id!=null and id!='' ">
+                and a.id=#{ id }
+            </if>
+            <if test="serialNo!=null and serialNo!='' ">
+                and a.serial_no LIKE CONCAT('%', #{ serialNo }, '%')
+            </if>
+            <if test="name!=null and name!='' ">
+                and a.name LIKE CONCAT('%', #{ name }, '%')
+            </if>
+            <if test="genderId!=null and genderId!='' ">
+                and a.gender_id=#{ genderId }
+            </if>
+            <if test="mobile!=null and mobile!='' ">
+                and a.mobile LIKE CONCAT('%', #{ mobile }, '%')
+            </if>
+            <if test="email!=null and email!='' ">
+                and a.email LIKE CONCAT('%', #{ email }, '%')
+            </if>
+            <if test="avatar!=null and avatar!='' ">
+                and a.avatar LIKE CONCAT('%', #{ avatar }, '%')
+            </if>
+            <if test="organizationId!=null and organizationId!='' ">
+                and a.organization_id=#{ organizationId }
+            </if>
+            <if test="departmentId!=null and departmentId!='' ">
+                and a.department_id=#{ departmentId }
+            </if>
+            <if test="birthday!=null and birthday!='' ">
+                and a.birthday LIKE CONCAT('%', #{ birthday }, '%')
+            </if>
+            <if test="academicId!=null and academicId!='' ">
+                and a.academic_id=#{ academicId }
+            </if>
+            <if test="degreeId!=null and degreeId!='' ">
+                and a.degree_id=#{ degreeId }
+            </if>
+            <if test="positionId!=null and positionId!='' ">
+                and a.position_id=#{ positionId }
+            </if>
+            <if test="titleId!=null and titleId!='' ">
+                and a.title_id=#{ titleId }
+            </if>
+            <if test="typeId!=null and typeId!='' ">
+                and a.type_id=#{ typeId }
+            </if>
+            <if test="identifyTypeId!=null and identifyTypeId!='' ">
+                and a.identify_type_id=#{ identifyTypeId }
+            </if>
+            <if test="identifyNo!=null and identifyNo!='' ">
+                and a.identify_no=#{ identifyNo }
+            </if>
+            <if test="status!=null and status!='' ">
+                and a.status LIKE CONCAT('%', #{ status }, '%')
+            </if>
+            <if test="birthProvinceId!=null and birthProvinceId!='' ">
+                and a.birth_province_id=#{ birthProvinceId }
+            </if>
+            <if test="birthCityId!=null and birthCityId!='' ">
+                and a.birth_city_id=#{ birthCityId }
+            </if>
+            <if test="policy!=null and policy!='' ">
+                and a.policy LIKE CONCAT('%', #{ policy }, '%')
+            </if>
+            <if test="nationId!=null and nationId!='' ">
+                and a.nation_id=#{ nationId }
+            </if>
+            <if test="joinDate!=null and joinDate!='' ">
+                and a.join_date LIKE CONCAT('%', #{ joinDate }, '%')
+            </if>
+            <if test="remark!=null and remark!='' ">
+                and a.remark LIKE CONCAT('%', #{ remark }, '%')
+            </if>
+            <if test="created!=null and created!='' ">
+                and a.created LIKE CONCAT('%', #{ created }, '%')
+            </if>
+        </where>
+        order by a.created
+    </select>
 </mapper>

@@ -2,15 +2,12 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.chris.bulleyeadmin.system.mapper.AccountMapper">
   <resultMap id="BaseResultMap" type="com.chris.bulleyeadmin.system.pojo.Account">
-    <!--
-      WARNING - @mbg.generated
-    -->
     <id column="id" jdbcType="VARCHAR" property="id" />
     <result column="username" jdbcType="VARCHAR" property="username" />
     <result column="password" jdbcType="VARCHAR" property="password" />
-    <result column="account_locked" jdbcType="BIT" property="accountLocked" />
-    <result column="credentials_expired" jdbcType="BIT" property="credentialsExpired" />
-    <result column="account_expired" jdbcType="BIT" property="accountExpired" />
+    <result column="account_locked" jdbcType="TINYINT" property="accountLocked" />
+    <result column="credentials_expired" jdbcType="TINYINT" property="credentialsExpired" />
+    <result column="account_expired" jdbcType="TINYINT" property="accountExpired" />
     <result column="staff_id" jdbcType="VARCHAR" property="staffId" />
     <result column="organization_id" jdbcType="VARCHAR" property="organizationId" />
     <result column="wx_openid" jdbcType="VARCHAR" property="wxOpenid" />
@@ -19,9 +16,9 @@
     <result column="status" jdbcType="INTEGER" property="status" />
     <result column="mobile_login_flag" jdbcType="BIT" property="mobileLoginFlag" />
     <result column="remark" jdbcType="VARCHAR" property="remark" />
-    <result column="created" jdbcType="TIMESTAMP" property="created" />
     <result column="modified" jdbcType="TIMESTAMP" property="modified" />
     <result column="expired_date" jdbcType="TIMESTAMP" property="expiredDate" />
+    <result column="created" jdbcType="TIMESTAMP" property="created" />
   </resultMap>
 
   <resultMap id="dto" type="com.chris.bulleyeadmin.system.dto.AccountDto" extends="BaseResultMap">
@@ -29,7 +26,7 @@
   </resultMap>
 
   <sql id="basic_list">
-		a.id, a.username, a.password, a.account_locked, a.credentials_expired, a.account_expired, a.staff_id, a.organization_id, a.wx_openid, a.alipay_openid, a.email, a.status, a.mobile_login_flag, a.remark, a.created, a.modified, a.expired_date
+			a.id, a.username, a.password, a.account_locked, a.credentials_expired, a.account_expired, a.staff_id, a.organization_id, a.wx_openid, a.alipay_openid, a.email, a.status, a.mobile_login_flag, a.remark, a.modified, a.expired_date, a.created
 	</sql>
 
   <select id="getListByParams" resultMap="BaseResultMap" parameterType="map">
@@ -79,17 +76,17 @@
       <if test="remark!=null and remark!='' ">
         and a.remark LIKE CONCAT('%', #{ remark }, '%')
       </if>
-      <if test="created!=null and created!='' ">
-        and a.created LIKE CONCAT('%', #{ created }, '%')
-      </if>
       <if test="modified!=null and modified!='' ">
         and a.modified LIKE CONCAT('%', #{ modified }, '%')
       </if>
       <if test="expiredDate!=null and expiredDate!='' ">
         and a.expired_date LIKE CONCAT('%', #{ expiredDate }, '%')
       </if>
+      <if test="created!=null and created!='' ">
+        and a.created LIKE CONCAT('%', #{ created }, '%')
+      </if>
     </where>
-    order by a.created desc
+    order by a.created
   </select>
 
   <select id="getAccountByUserName" resultMap="dto" parameterType="String">

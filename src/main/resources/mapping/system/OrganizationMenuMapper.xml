@@ -5,16 +5,15 @@
         <id column="id" jdbcType="VARCHAR" property="id" />
         <result column="organization_id" jdbcType="VARCHAR" property="organizationId" />
         <result column="menu_id" jdbcType="VARCHAR" property="menuId" />
-        <result column="p_id" jdbcType="VARCHAR" property="pId" />
+        <result column="parent_id" jdbcType="VARCHAR" property="parentId" />
         <result column="display_name" jdbcType="VARCHAR" property="displayName" />
-        <result column="created" jdbcType="BIGINT" property="created" />
         <result column="status" jdbcType="INTEGER" property="status" />
         <result column="is_leaf" jdbcType="BIT" property="isLeaf" />
-
+        <result column="created" jdbcType="TIMESTAMP" property="created" />
     </resultMap>
 
     <sql id="basic_list">
-		a.id, a.organization_id, a.menu_id, a.p_id, a.display_name, a.created, a.status,a.is_leaf
+		a.id, a.organization_id, a.menu_id, a.parent_id, a.display_name, a.created, a.status, a.is_leaf
 	</sql>
 
     <select id="getListByParams" resultMap="BaseResultMap" parameterType="map">

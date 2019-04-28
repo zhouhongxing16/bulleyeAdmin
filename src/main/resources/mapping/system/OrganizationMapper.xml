@@ -13,7 +13,7 @@
         <result column="status" jdbcType="INTEGER" property="status" />
         <result column="end_date" jdbcType="BIGINT" property="endDate" />
         <result column="domain" jdbcType="VARCHAR" property="domain" />
-        <result column="created" jdbcType="BIGINT" property="created" />
+        <result column="created" jdbcType="TIMESTAMP" property="created" />
     </resultMap>
 
     <resultMap id="dto" type="com.chris.bulleyeadmin.system.dto.OrganizationDto" extends="BaseResultMap">

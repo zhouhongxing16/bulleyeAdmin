@@ -99,7 +99,7 @@
         <where>
             m.status = 1
         </where>
-        order by m.sort
+        order by m.created, m.sort
     </select>
 
 
@@ -108,5 +108,6 @@
         from b_menu m
         right join b_organization_menu om on om.menu_id = m.id and om.organization_id =#{ organizationId }
         where m.`status` = 1
+        order by m.sort desc
     </select>
 </mapper>

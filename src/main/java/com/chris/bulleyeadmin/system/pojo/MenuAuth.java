@@ -1,36 +1,40 @@
 package com.chris.bulleyeadmin.system.pojo;
 
+import java.util.Date;
 import javax.persistence.*;
+import java.math.BigDecimal;
 import java.io.Serializable;
+import com.fasterxml.jackson.annotation.JsonFormat;
 /**
  * @Author: Chris  E-mail:961860916@qq.com
- * @Date:  2019-03-17 21:00
+ * @Date:  2019-04-28 22:42
  */
 @Table(name = "b_menu_auth")
 public class MenuAuth implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY, generator = "select uuid()")
     private String id;
-    
-    @Column(name = "name")
-    private String name;
-    
+
     @Column(name = "menu_id")
     private String menuId;
-    
+
     @Column(name = "code")
     private String code;
-    
+
+    @Column(name = "name")
+    private String name;
+
     @Column(name = "path")
     private String path;
-    
+
     @Column(name = "status")
-    private Integer status;
-    
+    private String status;
+
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+8")
     @Column(name = "created")
-    private Long created;
-    
-    
+    private Date created;
+
+
     /**
      * @return id
      */
@@ -44,21 +48,7 @@ public class MenuAuth implements Serializable {
     public void setId(String id) {
         this.id = id == null ? null : id.trim();
     }
-    
-    /**
-     * @return name
-     */
-    public String getName() {
-        return name;
-    }
 
-    /**
-     * @param name
-     */
-    public void setName(String name) {
-        this.name = name == null ? null : name.trim();
-    }
-    
     /**
      * @return menuId
      */
@@ -72,7 +62,7 @@ public class MenuAuth implements Serializable {
     public void setMenuId(String menuId) {
         this.menuId = menuId == null ? null : menuId.trim();
     }
-    
+
     /**
      * @return code
      */
@@ -87,40 +77,60 @@ public class MenuAuth implements Serializable {
         this.code = code == null ? null : code.trim();
     }
 
+    /**
+     * @return name
+     */
+    public String getName() {
+        return name;
+    }
+
+    /**
+     * @param name
+     */
+    public void setName(String name) {
+        this.name = name == null ? null : name.trim();
+    }
+
+    /**
+     * @return path
+     */
     public String getPath() {
         return path;
     }
 
+    /**
+     * @param path
+     */
     public void setPath(String path) {
-        this.path = path;
+        this.path = path == null ? null : path.trim();
     }
 
     /**
      * @return status
      */
-    public Integer getStatus() {
+    public String getStatus() {
         return status;
     }
 
     /**
      * @param status
      */
-    public void setStatus(Integer status) {
-        this.status = status;
+    public void setStatus(String status) {
+        this.status = status == null ? null : status.trim();
     }
-    
+
     /**
      * @return created
      */
-    public Long getCreated() {
+    public Date getCreated() {
         return created;
     }
 
     /**
      * @param created
      */
-    public void setCreated(Long created) {
+    public void setCreated(Date created) {
         this.created = created;
     }
-    
+
 }

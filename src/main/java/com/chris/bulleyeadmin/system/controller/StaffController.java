@@ -51,7 +51,6 @@ public class StaffController extends BaseController<Staff> {
     public JsonResult create(@RequestBody Staff obj) throws Exception {
         User user = AuthUtil.getCurrentUser();
         obj.setOrganizationId(user.getOrganizationId());
-        obj.setCreated(Help.getCurrentTimeMillis());
         return staffService.add(obj);
     }
 }

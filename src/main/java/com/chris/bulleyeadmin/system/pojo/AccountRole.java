@@ -1,95 +1,85 @@
 package com.chris.bulleyeadmin.system.pojo;
 
+import java.util.Date;
 import javax.persistence.*;
+import java.math.BigDecimal;
 import java.io.Serializable;
-
+import com.fasterxml.jackson.annotation.JsonFormat;
+/**
+ * @Author: Chris  E-mail:961860916@qq.com
+ * @Date:  2019-04-28 22:44
+ */
 @Table(name = "b_account_role")
 public class AccountRole implements Serializable {
-    /**
-     * 唯一标识
-     */
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY, generator = "select uuid()")
     private String id;
 
-    /**
-     * 角色外键
-     */
     @Column(name = "role_id")
     private String roleId;
 
-    /**
-     * 用户外键
-     */
     @Column(name = "account_id")
     private String accountId;
 
-    /**
-     * 创建日期
-     */
-    private Long created;
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+8")
+    @Column(name = "created")
+    private Date created;
 
-    private static final long serialVersionUID = 1L;
 
     /**
-     * 获取唯一标识
-     *
-     * @return id - 唯一标识
+     * @return id
      */
     public String getId() {
         return id;
     }
 
     /**
-     * 设置唯一标识
-     *
-     * @param id 唯一标识
+     * @param id
      */
     public void setId(String id) {
         this.id = id == null ? null : id.trim();
     }
 
     /**
-     * 获取角色外键
-     *
-     * @return role_id - 角色外键
+     * @return roleId
      */
     public String getRoleId() {
         return roleId;
     }
 
     /**
-     * 设置角色外键
-     *
-     * @param roleId 角色外键
+     * @param roleId
      */
     public void setRoleId(String roleId) {
         this.roleId = roleId == null ? null : roleId.trim();
     }
 
     /**
-     * 获取用户外键
-     *
-     * @return account_id - 用户外键
+     * @return accountId
      */
     public String getAccountId() {
         return accountId;
     }
 
     /**
-     * 设置用户外键
-     *
-     * @param accountId 用户外键
+     * @param accountId
      */
     public void setAccountId(String accountId) {
         this.accountId = accountId == null ? null : accountId.trim();
     }
 
-    public Long getCreated() {
+    /**
+     * @return created
+     */
+    public Date getCreated() {
         return created;
     }
 
-    public void setCreated(Long created) {
+    /**
+     * @param created
+     */
+    public void setCreated(Date created) {
         this.created = created;
     }
+
 }
