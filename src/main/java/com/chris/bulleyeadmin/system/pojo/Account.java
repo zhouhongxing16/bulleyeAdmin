@@ -24,9 +24,6 @@ public class Account implements Serializable {
     @Column(name = "account_locked")
     private Boolean accountLocked;
 
-    @Column(name = "credentials_expired")
-    private Boolean credentialsExpired;
-
     @Column(name = "account_expired")
     private Boolean accountExpired;
 
@@ -96,14 +93,6 @@ public class Account implements Serializable {
 
     public void setAccountLocked(Boolean accountLocked) {
         this.accountLocked = accountLocked;
-    }
-
-    public Boolean getCredentialsExpired() {
-        return credentialsExpired;
-    }
-
-    public void setCredentialsExpired(Boolean credentialsExpired) {
-        this.credentialsExpired = credentialsExpired;
     }
 
     public Boolean getAccountExpired() {

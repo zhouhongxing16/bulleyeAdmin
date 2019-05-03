@@ -6,7 +6,7 @@ import java.io.Serializable;
 import com.fasterxml.jackson.annotation.JsonFormat;
 /**
  * @Author: Chris  E-mail:961860916@qq.com
- * @Date:  2019-04-28 22:31
+ * @Date:  2019-05-01 17:31
  */
 @Table(name = "b_role")
 public class Role implements Serializable {
@@ -17,17 +17,17 @@ public class Role implements Serializable {
     @Column(name = "organization_id")
     private String organizationId;
 
-    @Column(name = "code")
-    private String code;
-
     @Column(name = "name")
     private String name;
+
+    @Column(name = "code")
+    private String code;
 
     @Column(name = "data_auth_flag")
     private String dataAuthFlag;
 
-    @Column(name = "describe")
-    private String describe;
+    @Column(name = "remark")
+    private String remark;
 
     @Column(name = "status")
     private Integer status;
@@ -66,20 +66,6 @@ public class Role implements Serializable {
     }
 
     /**
-     * @return code
-     */
-    public String getCode() {
-        return code;
-    }
-
-    /**
-     * @param code
-     */
-    public void setCode(String code) {
-        this.code = code == null ? null : code.trim();
-    }
-
-    /**
      * @return name
      */
     public String getName() {
@@ -91,6 +77,20 @@ public class Role implements Serializable {
      */
     public void setName(String name) {
         this.name = name == null ? null : name.trim();
+    }
+
+    /**
+     * @return code
+     */
+    public String getCode() {
+        return code;
+    }
+
+    /**
+     * @param code
+     */
+    public void setCode(String code) {
+        this.code = code == null ? null : code.trim();
     }
 
     /**
@@ -108,17 +108,17 @@ public class Role implements Serializable {
     }
 
     /**
-     * @return describe
+     * @return remark
      */
-    public String getDescribe() {
-        return describe;
+    public String getRemark() {
+        return remark;
     }
 
     /**
-     * @param describe
+     * @param remark
      */
-    public void setDescribe(String describe) {
-        this.describe = describe == null ? null : describe.trim();
+    public void setRemark(String remark) {
+        this.remark = remark == null ? null : remark.trim();
     }
 
     /**

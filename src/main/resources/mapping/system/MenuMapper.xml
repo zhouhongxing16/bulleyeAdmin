@@ -104,10 +104,38 @@
 
 
     <select id="getOrganizationAuthMenus" parameterType="String" resultMap="dto">
-        select m.*,m.id as menu_key,m.id as menu_value
-        from b_menu m
-        right join b_organization_menu om on om.menu_id = m.id and om.organization_id =#{ organizationId }
-        where m.`status` = 1
-        order by m.sort desc
+        select m.*,m.id as menu_key,m.id as menu_value from b_organization_menu om
+        left join b_menu m on m.id = om.menu_id
+
+        <where>
+            <if test="id!=null and id!='' ">
+                and m.id=#{ id }
+            </if>
+            <if test="parentId!=null and parentId!='' ">
+                and m.parent_id=#{ parentId }
+            </if>
+            <if test="icon!=null and icon!='' ">
+                and m.icon LIKE CONCAT('%', #{ icon }, '%')
+            </if>
+            <if test="code!=null and code!='' ">
+                and m.code LIKE CONCAT('%', #{ code }, '%')
+            </if>
+            <if test="title!=null and title!='' ">
+                and m.title LIKE CONCAT('%', #{ title }, '%')
+            </if>
+            <if test="path!=null and path!='' ">
+                and m.path LIKE CONCAT('%', #{ path }, '%')
+            </if>
+            <if test="status!=null and status!='' ">
+                and m.status LIKE CONCAT('%', #{ status }, '%')
+            </if>
+            <if test="sort!=null and sort!='' ">
+                and m.sort LIKE CONCAT('%', #{ sort }, '%')
+            </if>
+            <if test="created!=null and created!='' ">
+                and m.created LIKE CONCAT('%', #{ created }, '%')
+            </if>
+        </where>
+        order by m.created desc
     </select>
 </mapper>

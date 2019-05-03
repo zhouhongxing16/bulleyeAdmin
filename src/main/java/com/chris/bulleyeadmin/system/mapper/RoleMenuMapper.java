@@ -12,5 +12,5 @@ public interface RoleMenuMapper extends BaseMapper<RoleMenu> {
 
     List<RoleMenuDto> getMenusByRoleId(Map<String, Object> map);
 
-
+    int deleteByParams(Map<String,Object> params);
 }

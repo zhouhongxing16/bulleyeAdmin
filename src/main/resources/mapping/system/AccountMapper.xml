@@ -6,7 +6,6 @@
     <result column="username" jdbcType="VARCHAR" property="username" />
     <result column="password" jdbcType="VARCHAR" property="password" />
     <result column="account_locked" jdbcType="TINYINT" property="accountLocked" />
-    <result column="credentials_expired" jdbcType="TINYINT" property="credentialsExpired" />
     <result column="account_expired" jdbcType="TINYINT" property="accountExpired" />
     <result column="staff_id" jdbcType="VARCHAR" property="staffId" />
     <result column="organization_id" jdbcType="VARCHAR" property="organizationId" />
@@ -26,7 +25,7 @@
   </resultMap>
 
   <sql id="basic_list">
-			a.id, a.username, a.password, a.account_locked, a.credentials_expired, a.account_expired, a.staff_id, a.organization_id, a.wx_openid, a.alipay_openid, a.email, a.status, a.mobile_login_flag, a.remark, a.modified, a.expired_date, a.created
+			a.id, a.username, a.password, a.account_locked, a.account_expired, a.staff_id, a.organization_id, a.wx_openid, a.alipay_openid, a.email, a.status, a.mobile_login_flag, a.remark, a.modified, a.expired_date, a.created
 	</sql>
 
   <select id="getListByParams" resultMap="BaseResultMap" parameterType="map">
@@ -45,9 +44,6 @@
       </if>
       <if test="accountLocked!=null and accountLocked!='' ">
         and a.account_locked LIKE CONCAT('%', #{ accountLocked }, '%')
-      </if>
-      <if test="credentialsExpired!=null and credentialsExpired!='' ">
-        and a.credentials_expired LIKE CONCAT('%', #{ credentialsExpired }, '%')
       </if>
       <if test="accountExpired!=null and accountExpired!='' ">
         and a.account_expired LIKE CONCAT('%', #{ accountExpired }, '%')

@@ -6,6 +6,7 @@ import com.chris.bulleyeadmin.common.service.BaseService;
 import com.chris.bulleyeadmin.system.dto.MenuDto;
 import com.chris.bulleyeadmin.system.mapper.MenuMapper;
 import com.chris.bulleyeadmin.system.pojo.Menu;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
@@ -45,7 +46,7 @@ public class MenuService extends BaseService<Menu> {
         // 先找到所有的一级菜单
         for(MenuDto menu : menus){
             // 一级菜单没有pId
-            if(menu.getParentId().isEmpty()){
+            if(StringUtils.isEmpty(menu.getParentId())){
                 menuList.add(menu);
             }
         }

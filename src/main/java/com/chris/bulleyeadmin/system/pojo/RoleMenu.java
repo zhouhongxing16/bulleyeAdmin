@@ -21,6 +21,14 @@ public class RoleMenu implements Serializable {
     @Column(name = "menu_id")
     private String menuId;
 
+
+    @Column(name = "status")
+    private Integer status;
+
+    @Column(name = "is_leaf")
+    private Boolean isLeaf;
+
+
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+8")
     @Column(name = "created")
     private Date created;
@@ -80,6 +88,28 @@ public class RoleMenu implements Serializable {
      */
     public void setCreated(Date created) {
         this.created = created;
+    }
+
+    public Integer getStatus() {
+        return status;
+    }
+
+    public void setStatus(Integer status) {
+        this.status = status;
+    }
+
+    /**
+     * @return isLeaf
+     */
+    public Boolean getIsLeaf() {
+        return isLeaf;
+    }
+
+    /**
+     * @param isLeaf
+     */
+    public void setIsLeaf(Boolean isLeaf) {
+        this.isLeaf = isLeaf;
     }
 
 }

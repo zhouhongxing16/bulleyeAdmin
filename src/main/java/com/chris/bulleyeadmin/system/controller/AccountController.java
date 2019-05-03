@@ -8,6 +8,7 @@ import com.chris.bulleyeadmin.common.service.BaseService;
 import com.chris.bulleyeadmin.system.service.RoleService;
 import com.chris.bulleyeadmin.common.utils.OperationLog;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.factory.PasswordEncoderFactories;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
@@ -22,9 +23,6 @@ public class AccountController extends BaseController<Account> {
 
     @Autowired
     private AccountService accountService;
-
-    @Autowired
-    private RoleService roleService;
 
     @Override
     public BaseService<Account> getService() {
@@ -46,17 +44,14 @@ public class AccountController extends BaseController<Account> {
         return "index";
     }
 
-    //返回所有角色
-    @PostMapping("/getAllRole")
-    @ResponseBody
-    public JsonResult getAllRole(){
-       return null;
-    }
 
-    //通过账户Id获取对应角色
-    @PostMapping("/getRoleByAccountId/{id}")
+    @Override
+    @OperationLog("创建账号")
+    @PostMapping("/create")
     @ResponseBody
-    public JsonResult getRoleByAccountId(@PathVariable String id){
-        return  null;
+    public JsonResult create(Account obj) throws Exception {
+        String password = PasswordEncoderFactories.createDelegatingPasswordEncoder().encode(obj.getUsername());
+        obj.setPassword(password);
+        return getService().add(obj);
     }
 }

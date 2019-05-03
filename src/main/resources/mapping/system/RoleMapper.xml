@@ -3,19 +3,19 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.chris.bulleyeadmin.system.mapper.RoleMapper">
     <resultMap id="BaseResultMap" type="com.chris.bulleyeadmin.system.pojo.Role">
-        <id column="id" jdbcType="VARCHAR" property="id"/>
-        <result column="organization_id" jdbcType="VARCHAR" property="organizationId"/>
-        <result column="code" jdbcType="VARCHAR" property="code"/>
-        <result column="name" jdbcType="VARCHAR" property="name"/>
-        <result column="data_auth_flag" jdbcType="VARCHAR" property="dataAuthFlag"/>
-        <result column="describe" jdbcType="VARCHAR" property="describe"/>
-        <result column="status" jdbcType="INTEGER" property="status"/>
-        <result column="created" jdbcType="TIMESTAMP" property="created"/>
+        <id column="id" jdbcType="VARCHAR" property="id" />
+        <result column="organization_id" jdbcType="VARCHAR" property="organizationId" />
+        <result column="name" jdbcType="VARCHAR" property="name" />
+        <result column="code" jdbcType="VARCHAR" property="code" />
+        <result column="data_auth_flag" jdbcType="VARCHAR" property="dataAuthFlag" />
+        <result column="remark" jdbcType="VARCHAR" property="remark" />
+        <result column="status" jdbcType="INTEGER" property="status" />
+        <result column="created" jdbcType="TIMESTAMP" property="created" />
 
     </resultMap>
 
     <sql id="basic_list">
-		a.id, a.organization_id, a.code, a.name, a.data_auth_flag, a.describe, a.status, a.created
+		a.id, a.organization_id, a.name, a.code, a.data_auth_flag, a.remark, a.status, a.created
 	</sql>
 
     <select id="getListByParams" resultMap="BaseResultMap" parameterType="map">
@@ -29,17 +29,17 @@
             <if test="organizationId!=null and organizationId!='' ">
                 and a.organization_id=#{ organizationId }
             </if>
-            <if test="code!=null and code!='' ">
-                and a.code LIKE CONCAT('%', #{ code }, '%')
-            </if>
             <if test="name!=null and name!='' ">
                 and a.name LIKE CONCAT('%', #{ name }, '%')
+            </if>
+            <if test="code!=null and code!='' ">
+                and a.code LIKE CONCAT('%', #{ code }, '%')
             </if>
             <if test="dataAuthFlag!=null and dataAuthFlag!='' ">
                 and a.data_auth_flag LIKE CONCAT('%', #{ dataAuthFlag }, '%')
             </if>
-            <if test="describe!=null and describe!='' ">
-                and a.describe LIKE CONCAT('%', #{ describe }, '%')
+            <if test="remark!=null and remark!='' ">
+                and a.remark LIKE CONCAT('%', #{ remark }, '%')
             </if>
             <if test="status!=null and status!='' ">
                 and a.status LIKE CONCAT('%', #{ status }, '%')

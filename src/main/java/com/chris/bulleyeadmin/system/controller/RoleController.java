@@ -2,14 +2,13 @@ package com.chris.bulleyeadmin.system.controller;
 
 import com.chris.bulleyeadmin.common.controller.BaseController;
 import com.chris.bulleyeadmin.common.pojo.JsonResult;
+import com.chris.bulleyeadmin.common.utils.AuthUtil;
 import com.chris.bulleyeadmin.common.utils.OperationLog;
 import com.chris.bulleyeadmin.system.pojo.Role;
 import com.chris.bulleyeadmin.common.service.BaseService;
 import com.chris.bulleyeadmin.system.service.RoleService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.HashMap;
 import java.util.List;
@@ -37,11 +36,30 @@ public class RoleController extends BaseController<Role> {
         return "role";
     }
 
+    @Override
+    @OperationLog("创建角色")
+    @PostMapping("/create")
+    @ResponseBody
+    public JsonResult create(Role obj) throws Exception {
+        obj.setOrganizationId(AuthUtil.getCurrentUser().getOrganizationId());
+        return getService().add(obj);
+    }
+
     @ResponseBody
     @RequestMapping("/getAllRoles")
     public JsonResult getAllRoles(){
         Map<String,Object> map = new HashMap<>(2);
-        List<Role> roles = roleService.getMapper().selectAll();
+        map.put("organizationId", AuthUtil.getCurrentUser().getOrganizationId());
+        List<Role> roles = roleService.getListByParams(map);
         return new JsonResult(true,roles);
     }
+
+    @ResponseBody
+    @RequestMapping("/getRolesByAccountId/{accountId}")
+    public JsonResult getRolesByAccountId(@PathVariable String accountId){
+        List<Role> roles = roleService.getRolesByAccountId(accountId);
+        return new JsonResult(true,roles);
+    }
+
+
 }

@@ -5,7 +5,8 @@ import com.chris.bulleyeadmin.common.pojo.JsonResult;
 import com.chris.bulleyeadmin.common.service.BaseService;
 import com.chris.bulleyeadmin.common.utils.OperationLog;
 import com.chris.bulleyeadmin.system.pojo.OrganizationMenu;
-import com.chris.bulleyeadmin.system.service.OrganizationMenuService;
+import com.chris.bulleyeadmin.system.pojo.RoleMenu;
+import com.chris.bulleyeadmin.system.service.RoleMenuService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -14,34 +15,26 @@ import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
 
-/**
- * @Auther: Chris
- * @Date: 2019-01-07 15:38
- * @Description:
- */
-@OperationLog("组织菜单")
 @RestController
-@RequestMapping("/organizationmenu")
-public class OrganizationMenuController extends BaseController<OrganizationMenu> {
+@RequestMapping("/rolemenu")
+public class RoleMenuController extends BaseController<RoleMenu> {
 
     @Autowired
-    OrganizationMenuService organizationMenuService;
-
+    RoleMenuService roleMenuService;
 
     @Override
-    public BaseService<OrganizationMenu> getService() {
-        return organizationMenuService;
+    public BaseService<RoleMenu> getService() {
+        return roleMenuService;
     }
 
     @Override
     public String getViewPrefix() {
-        return "organizationmenu";
+        return "rolemenu";
     }
 
-
-    @OperationLog("组织菜单授权")
-    @PostMapping("/createOrganizationMenu")
-    public JsonResult createOrganizationMenu(@RequestBody List<OrganizationMenu> list){
-        return organizationMenuService.createOrganizationMenu(list);
+    @OperationLog("角色菜单授权")
+    @PostMapping("/createRoleMenu")
+    public JsonResult createRoleMenu(@RequestBody List<RoleMenu> list){
+        return roleMenuService.createRoleMenu(list);
     }
 }

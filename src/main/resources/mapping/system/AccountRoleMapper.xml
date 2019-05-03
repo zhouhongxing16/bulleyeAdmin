@@ -34,4 +34,8 @@
     </where>
     order by a.created
   </select>
+
+  <delete id="deleteByAccountId" parameterType="string">
+     delete from b_account_role where account_id = #{accountId}
+  </delete>
 </mapper>

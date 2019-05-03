@@ -74,6 +74,7 @@ public class MenuController extends BaseController<Menu> {
         return new JsonResult(true, menuList,null,null, HttpStatus.OK.value());
     }
 
+    @OperationLog("获取登录用户菜单")
     @ResponseBody
     @RequestMapping("/getMenusByAccountId")
     public JsonResult getMenusByAccountId() {
@@ -82,6 +83,7 @@ public class MenuController extends BaseController<Menu> {
         return new JsonResult(true, menuList,null,null, HttpStatus.OK.value());
     }
 
+    @OperationLog("根据角色或缺菜单")
     @ResponseBody
     @RequestMapping("/getMenusByRoleId")
     public JsonResult getMenusByRoleId(String roleId) {
