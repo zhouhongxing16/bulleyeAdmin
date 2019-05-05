@@ -21,7 +21,7 @@ public class Swagger2 {
                 .apiInfo(apiInfo())
                 .select()
                 //为当前包路径
-                .apis(RequestHandlerSelectors.basePackage("com.chris.bulleyeadmin.system.controller"))
+                .apis(RequestHandlerSelectors.basePackage("com.chris.bulleyeadmin.**.controller"))
                 .paths(PathSelectors.any())
                 .build();
     }
@@ -29,9 +29,9 @@ public class Swagger2 {
     private ApiInfo apiInfo() {
         return new ApiInfoBuilder()
                 //页面标题
-                .title("Spring Boot 测试使用 Swagger2 构建RESTful API")
+                .title("BulleyeAdmin文档")
                 //创建人
-                .contact(new Contact("Chris", "http://www.baidu.com", ""))
+                .contact(new Contact("Chris", "http://www.zhouhongxing.cn", ""))
                 //版本号
                 .version("1.0")
                 //描述
