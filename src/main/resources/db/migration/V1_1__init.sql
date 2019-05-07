@@ -22,16 +22,15 @@ CREATE TABLE IF NOT EXISTS `b_account` (
   `id` varchar(40) NOT NULL COMMENT '唯一标识',
   `username` varchar(50) DEFAULT NULL COMMENT '账户',
   `password` varchar(128) DEFAULT NULL COMMENT '密码',
+  `email` varchar(50) DEFAULT NULL COMMENT '邮箱',
+  `mobile_login_flag` bit(1) DEFAULT NULL COMMENT '是否开通手机号登录',
   `account_locked` tinyint(1) DEFAULT NULL COMMENT '是否锁定',
-  `credentials_expired` tinyint(1) DEFAULT NULL COMMENT '是否凭证过期',
   `account_expired` tinyint(1) DEFAULT NULL COMMENT '是否过期',
   `staff_id` varchar(40) DEFAULT NULL COMMENT '人员标识',
   `organization_id` varchar(40) DEFAULT NULL COMMENT '组织标识',
   `wx_openid` varchar(64) DEFAULT NULL COMMENT '微信OpenId',
   `alipay_openid` varchar(64) DEFAULT NULL COMMENT '支付宝OpenId',
-  `email` varchar(50) DEFAULT NULL COMMENT '邮箱',
   `status` int(11) DEFAULT NULL COMMENT '状态',
-  `mobile_login_flag` bit(1) DEFAULT NULL COMMENT '是否开通手机号登录',
   `remark` varchar(200) DEFAULT NULL COMMENT '备注',
   `modified` timestamp NULL DEFAULT CURRENT_TIMESTAMP COMMENT '修改时间',
   `expired_date` timestamp NULL DEFAULT CURRENT_TIMESTAMP COMMENT '账号过期时间',
@@ -42,9 +41,9 @@ CREATE TABLE IF NOT EXISTS `b_account` (
 -- 正在导出表  bulleye_admin.b_account 的数据：~2 rows (大约)
 DELETE FROM `b_account`;
 /*!40000 ALTER TABLE `b_account` DISABLE KEYS */;
-INSERT INTO `b_account` (`id`, `username`, `password`, `account_locked`, `credentials_expired`, `account_expired`, `staff_id`, `organization_id`, `wx_openid`, `alipay_openid`, `email`, `status`, `mobile_login_flag`, `remark`, `modified`, `expired_date`, `created`) VALUES
-	('00278d19-9794-11e7-975b-000c29687dd9', 'admin', '{bcrypt}$2a$10$cBxwbxYB8iUZ2.W2BspGbOPxAlsZT1ppDtD.nFJsJMCQMAW8YCUWy', 1, NULL, 1, '1', 'suiji', NULL, NULL, '961860916@qq.com', 1, NULL, NULL, '2018-06-13 11:07:19', NULL, '2019-04-16 19:25:32'),
-	('4081fe65-125a-11e9-97db-382c4a232da1', 'zhx', '{bcrypt}$2a$10$cBxwbxYB8iUZ2.W2BspGbOPxAlsZT1ppDtD.nFJsJMCQMAW8YCUWy', 0, NULL, 0, '1', 'suiji', NULL, NULL, '961860916@qq.com', 1, NULL, NULL, NULL, '2019-04-13 15:16:20', '2019-04-16 19:25:32');
+INSERT INTO `b_account` (`id`, `username`, `password`, `email`, `mobile_login_flag`, `account_locked`, `account_expired`, `staff_id`, `organization_id`, `wx_openid`, `alipay_openid`, `status`, `remark`, `modified`, `expired_date`, `created`) VALUES
+	('4081fe65-125a-11e9-97db-382c4a232da1', 'zhx', '{bcrypt}$2a$10$cBxwbxYB8iUZ2.W2BspGbOPxAlsZT1ppDtD.nFJsJMCQMAW8YCUWy', '961860916@qq.com', NULL, 0, 0, '1', 'suiji', NULL, NULL, 1, NULL, NULL, '2019-04-13 15:16:20', '2019-04-16 19:25:32'),
+	('fe885bfa-6bf9-11e9-8e25-049226bfdadf', '18080332897', NULL, '961860916@qq.com', b'1', 0, 0, '1', NULL, NULL, NULL, 1, '111', NULL, NULL, '2019-05-01 18:15:15');
 /*!40000 ALTER TABLE `b_account` ENABLE KEYS */;
 
 -- 导出  表 bulleye_admin.b_account_role 结构
@@ -57,12 +56,14 @@ CREATE TABLE IF NOT EXISTS `b_account_role` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='用户角色中间表';
 
--- 正在导出表  bulleye_admin.b_account_role 的数据：~2 rows (大约)
+-- 正在导出表  bulleye_admin.b_account_role 的数据：~4 rows (大约)
 DELETE FROM `b_account_role`;
 /*!40000 ALTER TABLE `b_account_role` DISABLE KEYS */;
 INSERT INTO `b_account_role` (`id`, `role_id`, `account_id`, `created`) VALUES
 	('1', '1', '00278d19-9794-11e7-975b-000c29687dd9', '2018-07-31 11:49:48'),
-	('2', '2', '4081fe65-125a-11e9-97db-382c4a232da1', '2019-01-08 14:24:11');
+	('e77c7026-6cef-11e9-8e25-049226bfdadf', '5ebcefdf-6c2a-11e9-8e25-049226bfdadf', 'fe885bfa-6bf9-11e9-8e25-049226bfdadf', '2019-05-02 23:35:33'),
+	('e77d46df-6cef-11e9-8e25-049226bfdadf', '12312312312312123', 'fe885bfa-6bf9-11e9-8e25-049226bfdadf', '2019-05-02 23:35:33'),
+	('e9d83753-6cef-11e9-8e25-049226bfdadf', '2', '4081fe65-125a-11e9-97db-382c4a232da1', '2019-05-02 23:35:37');
 /*!40000 ALTER TABLE `b_account_role` ENABLE KEYS */;
 
 -- 导出  表 bulleye_admin.b_department 结构
@@ -81,7 +82,7 @@ CREATE TABLE IF NOT EXISTS `b_department` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='部门表';
 
--- 正在导出表  bulleye_admin.b_department 的数据：~1 rows (大约)
+-- 正在导出表  bulleye_admin.b_department 的数据：~0 rows (大约)
 DELETE FROM `b_department`;
 /*!40000 ALTER TABLE `b_department` DISABLE KEYS */;
 INSERT INTO `b_department` (`id`, `organization_id`, `code`, `parent_id`, `name`, `type_id`, `remark`, `user_id`, `status`, `created`) VALUES
@@ -160,7 +161,7 @@ CREATE TABLE IF NOT EXISTS `b_login_record` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='系统访问记录';
 
--- 正在导出表  bulleye_admin.b_login_record 的数据：~2 rows (大约)
+-- 正在导出表  bulleye_admin.b_login_record 的数据：~0 rows (大约)
 DELETE FROM `b_login_record`;
 /*!40000 ALTER TABLE `b_login_record` DISABLE KEYS */;
 /*!40000 ALTER TABLE `b_login_record` ENABLE KEYS */;
@@ -182,7 +183,7 @@ CREATE TABLE IF NOT EXISTS `b_logs` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='操作日志';
 
--- 正在导出表  bulleye_admin.b_logs 的数据：~236 rows (大约)
+-- 正在导出表  bulleye_admin.b_logs 的数据：~0 rows (大约)
 DELETE FROM `b_logs`;
 /*!40000 ALTER TABLE `b_logs` DISABLE KEYS */;
 /*!40000 ALTER TABLE `b_logs` ENABLE KEYS */;
@@ -283,7 +284,7 @@ CREATE TABLE IF NOT EXISTS `b_organization` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='组织信息表';
 
--- 正在导出表  bulleye_admin.b_organization 的数据：~1 rows (大约)
+-- 正在导出表  bulleye_admin.b_organization 的数据：~0 rows (大约)
 DELETE FROM `b_organization`;
 /*!40000 ALTER TABLE `b_organization` DISABLE KEYS */;
 INSERT INTO `b_organization` (`id`, `pid`, `code`, `name`, `area_id`, `brief`, `contact_name`, `contact_phone`, `domain`, `status`, `end_date`, `created`) VALUES
@@ -304,19 +305,26 @@ CREATE TABLE IF NOT EXISTS `b_organization_menu` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='组织自己的菜单层级';
 
--- 正在导出表  bulleye_admin.b_organization_menu 的数据：~9 rows (大约)
+-- 正在导出表  bulleye_admin.b_organization_menu 的数据：~16 rows (大约)
 DELETE FROM `b_organization_menu`;
 /*!40000 ALTER TABLE `b_organization_menu` DISABLE KEYS */;
 INSERT INTO `b_organization_menu` (`id`, `organization_id`, `menu_id`, `parent_id`, `display_name`, `status`, `is_leaf`, `created`) VALUES
-	('0596a869-69c7-11e9-8e25-049226bfdadf', 'suiji', '12', NULL, '一级菜单', 1, b'0', '2019-04-28 23:05:13'),
-	('05976383-69c7-11e9-8e25-049226bfdadf', 'suiji', '13', NULL, '二级菜单', 1, b'0', '2019-04-28 23:05:13'),
-	('05983cec-69c7-11e9-8e25-049226bfdadf', 'suiji', '14', NULL, '三级菜单', 1, b'1', '2019-04-28 23:05:13'),
-	('059923e3-69c7-11e9-8e25-049226bfdadf', 'suiji', '2333', NULL, '登录日志管理', 1, b'1', '2019-04-28 23:05:13'),
-	('0599fcf3-69c7-11e9-8e25-049226bfdadf', 'suiji', '343223', NULL, '操作日志管理', 1, b'1', '2019-04-28 23:05:13'),
-	('059aae46-69c7-11e9-8e25-049226bfdadf', 'suiji', '4', NULL, '账号管理', 1, b'1', '2019-04-28 23:05:13'),
-	('059b70af-69c7-11e9-8e25-049226bfdadf', 'suiji', '3', NULL, '角色管理', 1, b'1', '2019-04-28 23:05:13'),
-	('059c3504-69c7-11e9-8e25-049226bfdadf', 'suiji', '52091a21-460a-11e9-bd13-382c5e4d3b2a', NULL, '菜单权限管理', 1, b'1', '2019-04-28 23:05:13'),
-	('059cf54b-69c7-11e9-8e25-049226bfdadf', 'suiji', '2', NULL, '系统管理', 1, NULL, '2019-04-28 23:05:13');
+	('2b001133-6d8a-11e9-8e25-049226bfdadf', 'suiji', '2', NULL, '系统管理', 1, b'0', '2019-05-03 17:59:46'),
+	('2b023e22-6d8a-11e9-8e25-049226bfdadf', 'suiji', '11', NULL, '机构部门管理', 1, b'1', '2019-05-03 17:59:46'),
+	('2b035148-6d8a-11e9-8e25-049226bfdadf', 'suiji', '2333', NULL, '登录日志管理', 1, b'1', '2019-05-03 17:59:46'),
+	('2b046260-6d8a-11e9-8e25-049226bfdadf', 'suiji', '4', NULL, '账号管理', 1, b'1', '2019-05-03 17:59:46'),
+	('2b0594ae-6d8a-11e9-8e25-049226bfdadf', 'suiji', '10', NULL, '组织机构管理', 1, b'1', '2019-05-03 17:59:46'),
+	('2b0684d8-6d8a-11e9-8e25-049226bfdadf', 'suiji', '3', NULL, '角色管理', 1, b'1', '2019-05-03 17:59:46'),
+	('2b076383-6d8a-11e9-8e25-049226bfdadf', 'suiji', '17', NULL, '菜单管理', 1, b'1', '2019-05-03 17:59:46'),
+	('2b08293f-6d8a-11e9-8e25-049226bfdadf', 'suiji', '343223', NULL, '操作日志管理', 1, b'1', '2019-05-03 17:59:46'),
+	('2b08fb1e-6d8a-11e9-8e25-049226bfdadf', 'suiji', '52091a21-460a-11e9-bd13-382c5e4d3b2a', NULL, '菜单权限管理', 1, b'1', '2019-05-03 17:59:46'),
+	('2b09e65a-6d8a-11e9-8e25-049226bfdadf', 'suiji', '12', NULL, '一级菜单', 1, b'0', '2019-05-03 17:59:46'),
+	('2b0ace59-6d8a-11e9-8e25-049226bfdadf', 'suiji', '13', NULL, '二级菜单', 1, b'0', '2019-05-03 17:59:46'),
+	('2b0bd0f3-6d8a-11e9-8e25-049226bfdadf', 'suiji', '14', NULL, '三级菜单', 1, b'1', '2019-05-03 17:59:46'),
+	('2b0c9d59-6d8a-11e9-8e25-049226bfdadf', 'suiji', '1', NULL, '微信管理', 1, b'0', '2019-05-03 17:59:46'),
+	('2b0d5beb-6d8a-11e9-8e25-049226bfdadf', 'suiji', '6', NULL, '微信菜单管理', 1, b'1', '2019-05-03 17:59:46'),
+	('2b0e35b3-6d8a-11e9-8e25-049226bfdadf', 'suiji', '8', NULL, '微信会员管理', 1, b'1', '2019-05-03 17:59:46'),
+	('2b0f0f4f-6d8a-11e9-8e25-049226bfdadf', 'suiji', '7', NULL, '微信公众号管理', 1, b'1', '2019-05-03 17:59:46');
 /*!40000 ALTER TABLE `b_organization_menu` ENABLE KEYS */;
 
 -- 导出  表 bulleye_admin.b_organization_role 结构
@@ -340,21 +348,23 @@ DROP TABLE IF EXISTS `b_role`;
 CREATE TABLE IF NOT EXISTS `b_role` (
   `id` varchar(40) NOT NULL COMMENT '唯一标识',
   `organization_id` varchar(40) DEFAULT NULL COMMENT '组织标识',
-  `code` varchar(50) DEFAULT NULL COMMENT '角色代码',
   `name` varchar(50) DEFAULT NULL COMMENT '角色名称',
+  `code` varchar(50) DEFAULT NULL COMMENT '角色代码',
   `data_auth_flag` varchar(30) DEFAULT 'personal' COMMENT '个人（pesonal），部门（department）,组织（organization）,系统（system）',
-  `describe` varchar(100) DEFAULT NULL COMMENT '角色描述',
+  `remark` varchar(100) DEFAULT NULL COMMENT '角色描述',
   `status` int(11) DEFAULT NULL COMMENT '状态',
   `created` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '创建日期',
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='角色表';
 
--- 正在导出表  bulleye_admin.b_role 的数据：~2 rows (大约)
+-- 正在导出表  bulleye_admin.b_role 的数据：~4 rows (大约)
 DELETE FROM `b_role`;
 /*!40000 ALTER TABLE `b_role` DISABLE KEYS */;
-INSERT INTO `b_role` (`id`, `organization_id`, `code`, `name`, `data_auth_flag`, `describe`, `status`, `created`) VALUES
-	('1', 'admin', 'admin', 'admin', 'personal', '1', 0, '2018-07-31 11:44:18'),
-	('2', 'super', 'super', 'super', 'personal', '超级', 0, '2018-07-31 11:52:26');
+INSERT INTO `b_role` (`id`, `organization_id`, `name`, `code`, `data_auth_flag`, `remark`, `status`, `created`) VALUES
+	('1', 'admin', 'admin', 'admin', 'personal', '1212122222222', 0, '2018-07-31 11:44:18'),
+	('12312312312312123', 'suiji', '4325345', 'test', NULL, '测试角色', 0, '2019-05-02 00:01:33'),
+	('2', 'suiji', 'super', 'super', 'personal', '超级', 0, '2019-05-02 20:22:31'),
+	('5ebcefdf-6c2a-11e9-8e25-049226bfdadf', 'suiji', '测试', 'test', NULL, '测试角色', 0, '2019-05-02 00:01:33');
 /*!40000 ALTER TABLE `b_role` ENABLE KEYS */;
 
 -- 导出  表 bulleye_admin.b_role_function 结构
@@ -382,19 +392,49 @@ CREATE TABLE IF NOT EXISTS `b_role_menu` (
   `id` varchar(40) NOT NULL COMMENT '唯一标识',
   `role_id` varchar(40) DEFAULT NULL COMMENT '角色外键',
   `menu_id` varchar(40) NOT NULL COMMENT '菜单外键',
+  `status` int(11) DEFAULT '1',
+  `is_leaf` bit(1) DEFAULT b'1',
   `created` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '创建日期',
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='角色菜单表';
 
--- 正在导出表  bulleye_admin.b_role_menu 的数据：~5 rows (大约)
+-- 正在导出表  bulleye_admin.b_role_menu 的数据：~33 rows (大约)
 DELETE FROM `b_role_menu`;
 /*!40000 ALTER TABLE `b_role_menu` DISABLE KEYS */;
-INSERT INTO `b_role_menu` (`id`, `role_id`, `menu_id`, `created`) VALUES
-	('1', '1', '1', '2018-07-31 11:46:24'),
-	('2', '1', '2', '2018-07-31 11:46:24'),
-	('3', '1', '3', '2018-07-31 11:46:24'),
-	('4', '1', '4', '2018-07-31 11:46:24'),
-	('5', '1', '5', '2018-07-31 11:46:24');
+INSERT INTO `b_role_menu` (`id`, `role_id`, `menu_id`, `status`, `is_leaf`, `created`) VALUES
+	('2ea343da-6d4d-11e9-8e25-049226bfdadf', '5ebcefdf-6c2a-11e9-8e25-049226bfdadf', '2', 1, b'0', '2019-05-03 10:43:13'),
+	('2ea44e42-6d4d-11e9-8e25-049226bfdadf', '5ebcefdf-6c2a-11e9-8e25-049226bfdadf', '52091a21-460a-11e9-bd13-382c5e4d3b2a', 1, b'1', '2019-05-03 10:43:13'),
+	('2ea52a76-6d4d-11e9-8e25-049226bfdadf', '5ebcefdf-6c2a-11e9-8e25-049226bfdadf', '343223', 1, b'1', '2019-05-03 10:43:13'),
+	('2ea651e2-6d4d-11e9-8e25-049226bfdadf', '5ebcefdf-6c2a-11e9-8e25-049226bfdadf', '3', 1, b'1', '2019-05-03 10:43:13'),
+	('2ea7825c-6d4d-11e9-8e25-049226bfdadf', '5ebcefdf-6c2a-11e9-8e25-049226bfdadf', '2333', 1, b'1', '2019-05-03 10:43:13'),
+	('2ea87ee4-6d4d-11e9-8e25-049226bfdadf', '5ebcefdf-6c2a-11e9-8e25-049226bfdadf', '4', 1, b'1', '2019-05-03 10:43:13'),
+	('33272454-6d8a-11e9-8e25-049226bfdadf', '2', '2', 1, b'0', '2019-05-03 18:00:00'),
+	('33290afb-6d8a-11e9-8e25-049226bfdadf', '2', '17', 1, b'1', '2019-05-03 18:00:00'),
+	('332a303e-6d8a-11e9-8e25-049226bfdadf', '2', '4', 1, b'1', '2019-05-03 18:00:00'),
+	('332b1383-6d8a-11e9-8e25-049226bfdadf', '2', '52091a21-460a-11e9-bd13-382c5e4d3b2a', 1, b'1', '2019-05-03 18:00:00'),
+	('332bf46f-6d8a-11e9-8e25-049226bfdadf', '2', '3', 1, b'1', '2019-05-03 18:00:00'),
+	('332cbadf-6d8a-11e9-8e25-049226bfdadf', '2', '2333', 1, b'1', '2019-05-03 18:00:00'),
+	('332d7bc1-6d8a-11e9-8e25-049226bfdadf', '2', '343223', 1, b'1', '2019-05-03 18:00:00'),
+	('332e3d64-6d8a-11e9-8e25-049226bfdadf', '2', '10', 1, b'1', '2019-05-03 18:00:00'),
+	('332ee83c-6d8a-11e9-8e25-049226bfdadf', '2', '11', 1, b'1', '2019-05-03 18:00:00'),
+	('332f8633-6d8a-11e9-8e25-049226bfdadf', '2', '1', 1, b'0', '2019-05-03 18:00:00'),
+	('33302ad1-6d8a-11e9-8e25-049226bfdadf', '2', '8', 1, b'1', '2019-05-03 18:00:00'),
+	('3330dee5-6d8a-11e9-8e25-049226bfdadf', '2', '6', 1, b'1', '2019-05-03 18:00:00'),
+	('33319acd-6d8a-11e9-8e25-049226bfdadf', '2', '7', 1, b'1', '2019-05-03 18:00:00'),
+	('33324769-6d8a-11e9-8e25-049226bfdadf', '2', '12', 1, b'0', '2019-05-03 18:00:00'),
+	('3332f0ea-6d8a-11e9-8e25-049226bfdadf', '2', '13', 1, b'0', '2019-05-03 18:00:00'),
+	('3333aa58-6d8a-11e9-8e25-049226bfdadf', '2', '14', 1, b'1', '2019-05-03 18:00:00'),
+	('64e36753-6d7e-11e9-8e25-049226bfdadf', '12312312312312123', '3', 1, b'1', '2019-05-03 16:35:29'),
+	('64e44ae8-6d7e-11e9-8e25-049226bfdadf', '12312312312312123', '3', 1, b'1', '2019-05-03 17:58:31'),
+	('64e540b1-6d7e-11e9-8e25-049226bfdadf', '12312312312312123', '3', 1, b'0', '2019-05-03 17:58:30'),
+	('68863f3b-6d7e-11e9-8e25-049226bfdadf', '1', '4', 1, b'1', '2019-05-03 16:35:35'),
+	('688722b6-6d7e-11e9-8e25-049226bfdadf', '1', '3', 1, b'1', '2019-05-03 16:35:35'),
+	('68881792-6d7e-11e9-8e25-049226bfdadf', '1', '52091a21-460a-11e9-bd13-382c5e4d3b2a', 1, b'1', '2019-05-03 16:35:35'),
+	('6888cc6e-6d7e-11e9-8e25-049226bfdadf', '1', '343223', 1, b'1', '2019-05-03 16:35:35'),
+	('68899510-6d7e-11e9-8e25-049226bfdadf', '1', '12', 1, b'0', '2019-05-03 16:35:35'),
+	('688a5527-6d7e-11e9-8e25-049226bfdadf', '1', '13', 1, b'0', '2019-05-03 16:35:35'),
+	('688b1e81-6d7e-11e9-8e25-049226bfdadf', '1', '3', 1, b'1', '2019-05-03 17:58:17'),
+	('688bffdc-6d7e-11e9-8e25-049226bfdadf', '1', '2', 1, b'0', '2019-05-03 16:35:35');
 /*!40000 ALTER TABLE `b_role_menu` ENABLE KEYS */;
 
 -- 导出  表 bulleye_admin.b_staff 结构
