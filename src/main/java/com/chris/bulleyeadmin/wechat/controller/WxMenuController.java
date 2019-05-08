@@ -71,9 +71,10 @@ public class WxMenuController extends BaseController<WxMenu> {
         JsonResult jsonResult = getService().getById( id );
         view.addAttribute("readonly","readonly");
         view.addAttribute(getViewPrefix(), jsonResult.getData());
-        return getViewPrefix() + "/add";
+        return getViewPrefix() + "/edit";
     }
 
+    //创建菜单
     @GetMapping("/createWxMenu/{accountId}")
     @ResponseBody
     public JsonResult create(@PathVariable String accountId)  throws Exception {

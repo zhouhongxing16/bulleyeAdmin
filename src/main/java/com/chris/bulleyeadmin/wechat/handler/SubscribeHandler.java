@@ -37,16 +37,8 @@ public class SubscribeHandler extends AbstractHandler {
                 .userInfo(wxMessage.getFromUser(), null);
             WxMember wxMember = JSON.parseObject(userWxInfo.toString(),WxMember.class);
             if (userWxInfo != null) {
-
                 wxMember.setAccountId(wxMessage.getToUser());
-                WxMember member = wxMemberService.getMemberByOpenId(wxMember.getOpenId());
-                if(member==null){
-                    wxMemberService.add(wxMember);
-                }else{
-                    wxMember.setId(member.getId());
-                    wxMember.setSubscribe(true);
-                    wxMemberService.update(wxMember);
-                }
+                Subscirbe(wxMember, wxMemberService);
             }
         } catch (WxErrorException e) {
             if (e.getError().getErrorCode() == 48001) {
@@ -85,4 +77,15 @@ public class SubscribeHandler extends AbstractHandler {
         return null;
     }
 
+    //将用户关注事件的数据写入独立，防止多线程时的重复录入和菜单访问时获取用户信息的记录
+    public static synchronized void  Subscirbe(WxMember wxMember,WxMemberService wxMemberService){
+        WxMember member = wxMemberService.getMemberByOpenId(wxMember.getOpenId());
+        if(member==null){
+            wxMemberService.add(wxMember);
+        }else{
+            wxMember.setId(member.getId());
+            wxMember.setSubscribe(true);
+            wxMemberService.update(wxMember);
+        }
+    }
 }

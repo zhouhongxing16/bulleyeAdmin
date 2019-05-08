@@ -31,7 +31,9 @@ CREATE TABLE IF NOT EXISTS `wx_account` (
 DELETE FROM `wx_account`;
 /*!40000 ALTER TABLE `wx_account` DISABLE KEYS */;
 INSERT INTO `wx_account` (`id`, `qr_code`, `name`, `source_id`, `app_id`, `aes_key`, `app_secret`, `token`, `domain`, `access_token`, `token_time`, `menu_state`, `user_id`, `created`, `updated`, `remark`, `partner`, `partner_key`, `certificate_path`, `status`) VALUES
-	('dfdfgsdfgsdfgsdfgsdfgsdfgsdfgsdfg', '3', 'zhouhongxing16测试号', 'gh_89ac68370508', 'wx428db2722153d12d', '2', 'e1e8aed568ff374cb368428529c78d13', 'chris520', '2', '2', '2019-02-15 23:34:49', '2', '2', 2, 2, '2', '2', '2', '2', 2);
+	('dfdfgsdfgsdfgsdfgsdfgsdfgsdfgsdfg', '3', 'zhouhongxing16测试号', 'gh_89ac68370508', 'wx428db2722153d12d', '2', 'e1e8aed568ff374cb368428529c78d13', 'chris520', '2', '2', '2019-02-15 23:34:49', '2', '2', 2, 2, '2', '2', '2', '2', 2),
+    ('1', '0', 'lhs', 'gh_1065c22dc61c', 'wx0a8f9a49c445fd2b', '2', '5aaea0afe5b65d60892a475bf43d668b', 'myToken', '167702s65a.iok.la', NULL, NULL, 'lhs', NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0);
+
 /*!40000 ALTER TABLE `wx_account` ENABLE KEYS */;
 
 -- 导出  表 bulleye_admin.wx_graphic 结构
@@ -117,7 +119,10 @@ DELETE FROM `wx_menu`;
 /*!40000 ALTER TABLE `wx_menu` DISABLE KEYS */;
 INSERT INTO `wx_menu` (`id`, `account_id`, `type`, `name`, `key_value`, `url`, `media_id`, `app_id`, `page_path`, `parent_id`, `author`, `sort`, `remark`) VALUES
 	('111', 'dfdfgsdfgsdfgsdfgsdfgsdfgsdfgsdfg', '1', '1', '1', '1', '1', '1', '1', '1·1·1', '1', 1, NULL),
-	('1·1·1', 'dfdfgsdfgsdfgsdfgsdfgsdfgsdfgsdfg', '1', '1', '1', '1', '1', '1', '1', '0', '1', 1, NULL);
+	('1·1·1', 'dfdfgsdfgsdfgsdfgsdfgsdfgsdfgsdfg', '1', '1', '1', '1', '1', '1', '1', '0', '1', 1, NULL),
+    ('1', '1', 'click', '一级菜单', '#', NULL, '1', '1', '1', '0', '1', 1, ''),
+    ('2', '1', 'view', '二级菜单', NULL, 'http://167702s65a.iok.la', '3', '3', '3', '1', '1', 3, '3');
+
 /*!40000 ALTER TABLE `wx_menu` ENABLE KEYS */;
 
 -- 导出  表 bulleye_admin.wx_reply 结构
