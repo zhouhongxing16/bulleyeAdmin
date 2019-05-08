@@ -1,177 +1,152 @@
 package com.chris.bulleyeadmin.system.pojo;
 
+import java.util.Date;
 import javax.persistence.*;
 import java.io.Serializable;
-
+import com.fasterxml.jackson.annotation.JsonFormat;
+/**
+ * @Author: Chris  E-mail:961860916@qq.com
+ * @Date:  2019-05-01 17:31
+ */
 @Table(name = "b_role")
 public class Role implements Serializable {
-    /**
-     * 唯一标识
-     */
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY, generator = "select uuid()")
     private String id;
 
-    /**
-     * 组织标识
-     */
     @Column(name = "organization_id")
     private String organizationId;
 
-    /**
-     * 角色代码
-     */
-    private String code;
-
-    /**
-     * 角色名称
-     */
+    @Column(name = "name")
     private String name;
 
-    /**
-     * 个人（pesonal），部门（department）,组织（organization）,系统（system）
-     */
+    @Column(name = "code")
+    private String code;
+
     @Column(name = "data_auth_flag")
     private String dataAuthFlag;
 
-    /**
-     * 角色描述
-     */
-    private String describe;
+    @Column(name = "remark")
+    private String remark;
 
-    /**
-     * 状态
-     */
+    @Column(name = "status")
     private Integer status;
 
-    /**
-     * 创建日期
-     */
-    private Long created;
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+8")
+    @Column(name = "created")
+    private Date created;
 
-    private static final long serialVersionUID = 1L;
 
     /**
-     * 获取唯一标识
-     *
-     * @return id - 唯一标识
+     * @return id
      */
     public String getId() {
         return id;
     }
 
     /**
-     * 设置唯一标识
-     *
-     * @param id 唯一标识
+     * @param id
      */
     public void setId(String id) {
         this.id = id == null ? null : id.trim();
     }
 
     /**
-     * 获取组织标识
-     *
-     * @return organizationId - 组织标识
+     * @return organizationId
      */
     public String getOrganizationId() {
         return organizationId;
     }
 
     /**
-     * 设置组织标识
-     *
-     * @param organizationId 组织标识
+     * @param organizationId
      */
     public void setOrganizationId(String organizationId) {
-        this.organizationId = organizationId;
+        this.organizationId = organizationId == null ? null : organizationId.trim();
     }
 
     /**
-     * 获取角色代码
-     *
-     * @return code - 角色代码
-     */
-    public String getCode() {
-        return code;
-    }
-
-    /**
-     * 设置角色代码
-     *
-     * @param code 角色代码
-     */
-    public void setCode(String code) {
-        this.code = code == null ? null : code.trim();
-    }
-
-    /**
-     * 获取角色名称
-     *
-     * @return name - 角色名称
+     * @return name
      */
     public String getName() {
         return name;
     }
 
     /**
-     * 设置角色名称
-     *
-     * @param name 角色名称
+     * @param name
      */
     public void setName(String name) {
         this.name = name == null ? null : name.trim();
     }
 
     /**
-     * 获取个人（pesonal），部门（department）,组织（organization）,系统（system）
-     *
-     * @return data_auth_flag - 个人（pesonal），部门（department）,组织（organization）,系统（system）
+     * @return code
+     */
+    public String getCode() {
+        return code;
+    }
+
+    /**
+     * @param code
+     */
+    public void setCode(String code) {
+        this.code = code == null ? null : code.trim();
+    }
+
+    /**
+     * @return dataAuthFlag
      */
     public String getDataAuthFlag() {
         return dataAuthFlag;
     }
 
     /**
-     * 设置个人（pesonal），部门（department）,组织（organization）,系统（system）
-     *
-     * @param dataAuthFlag 个人（pesonal），部门（department）,组织（organization）,系统（system）
+     * @param dataAuthFlag
      */
     public void setDataAuthFlag(String dataAuthFlag) {
         this.dataAuthFlag = dataAuthFlag == null ? null : dataAuthFlag.trim();
     }
 
-    public String getDescribe() {
-        return describe;
-    }
-
-    public void setDescribe(String describe) {
-        this.describe = describe;
+    /**
+     * @return remark
+     */
+    public String getRemark() {
+        return remark;
     }
 
     /**
-     * 获取状态
-     *
-     * @return status - 状态
+     * @param remark
+     */
+    public void setRemark(String remark) {
+        this.remark = remark == null ? null : remark.trim();
+    }
+
+    /**
+     * @return status
      */
     public Integer getStatus() {
         return status;
     }
 
     /**
-     * 设置状态
-     *
-     * @param status 状态
+     * @param status
      */
     public void setStatus(Integer status) {
         this.status = status;
     }
 
-    public Long getCreated() {
+    /**
+     * @return created
+     */
+    public Date getCreated() {
         return created;
     }
 
-    public void setCreated(Long created) {
+    /**
+     * @param created
+     */
+    public void setCreated(Date created) {
         this.created = created;
     }
+
 }

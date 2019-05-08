@@ -27,8 +27,6 @@ public class RoleService extends BaseService<Role> {
     }
 
     public List<Role> getRolesByAccountId(String accountId) {
-        Map<String,Object> map = new HashMap<>(2);
-        map.put("accountId",accountId);
-        return roleMapper.getRolesByAccountId(map);
+        return roleMapper.getRolesByAccountId(accountId);
     }
 }

@@ -1,60 +1,57 @@
 <?xml version="1.0" encoding="UTF-8"?>
+<!--Created by  on Sun Apr 28 2019 22:55:10 GMT+0800 (中国标准时间)-->
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.chris.bulleyeadmin.system.mapper.RoleMapper">
-  <resultMap id="BaseResultMap" type="com.chris.bulleyeadmin.system.pojo.Role">
-    <!--
-      WARNING - @mbg.generated
-    -->
-    <id column="id" jdbcType="VARCHAR" property="id" />
-    <result column="organization_id" jdbcType="VARCHAR" property="organizationId" />
-    <result column="code" jdbcType="VARCHAR" property="code" />
-    <result column="name" jdbcType="VARCHAR" property="name" />
-    <result column="data_auth_flag" jdbcType="VARCHAR" property="dataAuthFlag" />
-    <result column="describe" jdbcType="VARCHAR" property="describe" />
-    <result column="status" jdbcType="INTEGER" property="status" />
-    <result column="created" jdbcType="BIGINT" property="created" />
-  </resultMap>
+    <resultMap id="BaseResultMap" type="com.chris.bulleyeadmin.system.pojo.Role">
+        <id column="id" jdbcType="VARCHAR" property="id" />
+        <result column="organization_id" jdbcType="VARCHAR" property="organizationId" />
+        <result column="name" jdbcType="VARCHAR" property="name" />
+        <result column="code" jdbcType="VARCHAR" property="code" />
+        <result column="data_auth_flag" jdbcType="VARCHAR" property="dataAuthFlag" />
+        <result column="remark" jdbcType="VARCHAR" property="remark" />
+        <result column="status" jdbcType="INTEGER" property="status" />
+        <result column="created" jdbcType="TIMESTAMP" property="created" />
 
-  <resultMap id="dto" type="com.chris.bulleyeadmin.system.dto.RoleDto" extends="BaseResultMap">
+    </resultMap>
 
-  </resultMap>
-  <sql id="basic_list">
-		a.id, a.organization_id, a.code, a.name, a.data_auth_flag, a.describle, a.status, a.created
+    <sql id="basic_list">
+		a.id, a.organization_id, a.name, a.code, a.data_auth_flag, a.remark, a.status, a.created
 	</sql>
-  <select id="getListByParams" resultMap="dto" parameterType="map">
-    SELECT
-    <include refid="basic_list"/>
-    FROM b_role a
-    <where>
-      <if test="id!=null and id!='' ">
-        and a.id=#{ id }
-      </if>
-      <if test="organizationId!=null and organizationId!='' ">
-        and a.organization_id=#{ organizationId }
-      </if>
-      <if test="code!=null and code!='' ">
-        and a.code LIKE CONCAT('%', #{ code }, '%')
-      </if>
-      <if test="name!=null and name!='' ">
-        and a.name LIKE CONCAT('%', #{ name }, '%')
-      </if>
-      <if test="dataAuthFlag!=null and dataAuthFlag!='' ">
-        and a.data_auth_flag LIKE CONCAT('%', #{ dataAuthFlag }, '%')
-      </if>
-      <if test="describle!=null and describle!='' ">
-        and a.describle LIKE CONCAT('%', #{ describle }, '%')
-      </if>
-      <if test="status!=null and status!='' ">
-        and a.status LIKE CONCAT('%', #{ status }, '%')
-      </if>
-      <if test="created!=null and created!='' ">
-        and a.created LIKE CONCAT('%', #{ created }, '%')
-      </if>
-    </where>
-    order by a.created desc
-  </select>
 
-  <select id="getRolesByAccountId" parameterType="String" resultMap="BaseResultMap">
+    <select id="getListByParams" resultMap="BaseResultMap" parameterType="map">
+        SELECT
+        <include refid="basic_list"/>
+        FROM b_role a
+        <where>
+            <if test="id!=null and id!='' ">
+                and a.id=#{ id }
+            </if>
+            <if test="organizationId!=null and organizationId!='' ">
+                and a.organization_id=#{ organizationId }
+            </if>
+            <if test="name!=null and name!='' ">
+                and a.name LIKE CONCAT('%', #{ name }, '%')
+            </if>
+            <if test="code!=null and code!='' ">
+                and a.code LIKE CONCAT('%', #{ code }, '%')
+            </if>
+            <if test="dataAuthFlag!=null and dataAuthFlag!='' ">
+                and a.data_auth_flag LIKE CONCAT('%', #{ dataAuthFlag }, '%')
+            </if>
+            <if test="remark!=null and remark!='' ">
+                and a.remark LIKE CONCAT('%', #{ remark }, '%')
+            </if>
+            <if test="status!=null and status!='' ">
+                and a.status LIKE CONCAT('%', #{ status }, '%')
+            </if>
+            <if test="created!=null and created!='' ">
+                and a.created LIKE CONCAT('%', #{ created }, '%')
+            </if>
+        </where>
+        order by a.created
+    </select>
+
+    <select id="getRolesByAccountId" parameterType="String" resultMap="BaseResultMap">
     select distinct * from b_role r
     where r.id in
     (select role_id from b_account_role ar where ar.account_id =#{accountId})

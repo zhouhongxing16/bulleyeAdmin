@@ -1,90 +1,115 @@
 package com.chris.bulleyeadmin.system.pojo;
 
+import java.util.Date;
 import javax.persistence.*;
 import java.io.Serializable;
+import com.fasterxml.jackson.annotation.JsonFormat;
 
+/**
+ * @Author: Chris  E-mail:961860916@qq.com
+ * @Date:  2019-04-28 22:27
+ */
 @Table(name = "b_role_menu")
 public class RoleMenu implements Serializable {
-    /**
-     * 唯一标识
-     */
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY, generator = "select uuid()")
     private String id;
 
-    /**
-     * 菜单外键
-     */
-    @Column(name = "menu_id")
-    private String menuId;
-
-    /**
-     * 角色外键
-     */
     @Column(name = "role_id")
     private String roleId;
 
-    /**
-     * 创建日期
-     */
-    private Long created;
+    @Column(name = "menu_id")
+    private String menuId;
 
-    private static final long serialVersionUID = 1L;
+
+    @Column(name = "status")
+    private Integer status;
+
+    @Column(name = "is_leaf")
+    private Boolean isLeaf;
+
+
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+8")
+    @Column(name = "created")
+    private Date created;
+
 
     /**
-     * 获取唯一标识
-     *
-     * @return id - 唯一标识
+     * @return id
      */
     public String getId() {
         return id;
     }
 
     /**
-     * 设置唯一标识
-     *
-     * @param id 唯一标识
+     * @param id
      */
     public void setId(String id) {
         this.id = id == null ? null : id.trim();
     }
 
     /**
-     * 获取菜单外键
-     *
-     * @return menu_id - 菜单外键
+     * @return roleId
+     */
+    public String getRoleId() {
+        return roleId;
+    }
+
+    /**
+     * @param roleId
+     */
+    public void setRoleId(String roleId) {
+        this.roleId = roleId == null ? null : roleId.trim();
+    }
+
+    /**
+     * @return menuId
      */
     public String getMenuId() {
         return menuId;
     }
 
     /**
-     * 设置菜单外键
-     *
-     * @param menuId 菜单外键
+     * @param menuId
      */
     public void setMenuId(String menuId) {
         this.menuId = menuId == null ? null : menuId.trim();
     }
 
     /**
-     * 获取角色外键
-     *
-     * @return role_id - 角色外键
+     * @return created
      */
-    public String getRoleId() {
-        return roleId;
-    }
-
-    public void setRoleId(String roleId) {
-        this.roleId = roleId;
-    }
-
-    public Long getCreated() {
+    public Date getCreated() {
         return created;
     }
 
-    public void setCreated(Long created) {
+    /**
+     * @param created
+     */
+    public void setCreated(Date created) {
         this.created = created;
     }
+
+    public Integer getStatus() {
+        return status;
+    }
+
+    public void setStatus(Integer status) {
+        this.status = status;
+    }
+
+    /**
+     * @return isLeaf
+     */
+    public Boolean getIsLeaf() {
+        return isLeaf;
+    }
+
+    /**
+     * @param isLeaf
+     */
+    public void setIsLeaf(Boolean isLeaf) {
+        this.isLeaf = isLeaf;
+    }
+
 }

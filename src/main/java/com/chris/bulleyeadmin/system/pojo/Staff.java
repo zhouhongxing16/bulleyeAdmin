@@ -1,9 +1,14 @@
 package com.chris.bulleyeadmin.system.pojo;
 
+import java.util.Date;
 import javax.persistence.*;
-import java.io.Serializable;
 import java.math.BigDecimal;
-
+import java.io.Serializable;
+import com.fasterxml.jackson.annotation.JsonFormat;
+/**
+ * @Author: Chris  E-mail:961860916@qq.com
+ * @Date:  2019-04-28 22:49
+ */
 @Table(name = "b_staff")
 public class Staff implements Serializable {
     @Id
@@ -13,22 +18,19 @@ public class Staff implements Serializable {
     @Column(name = "serial_no")
     private String serialNo;
 
+    @Column(name = "name")
     private String name;
 
     @Column(name = "gender_id")
     private String genderId;
 
-    private String birthday;
+    @Column(name = "mobile")
+    private String mobile;
 
-    @Column(name = "academic_id")
-    private String academicId;
+    @Column(name = "email")
+    private String email;
 
-    @Column(name = "degree_id")
-    private String degreeId;
-
-    /**
-     * 头像
-     */
+    @Column(name = "avatar")
     private String avatar;
 
     @Column(name = "organization_id")
@@ -36,6 +38,15 @@ public class Staff implements Serializable {
 
     @Column(name = "department_id")
     private String departmentId;
+
+    @Column(name = "birthday")
+    private String birthday;
+
+    @Column(name = "academic_id")
+    private String academicId;
+
+    @Column(name = "degree_id")
+    private String degreeId;
 
     @Column(name = "position_id")
     private String positionId;
@@ -46,21 +57,11 @@ public class Staff implements Serializable {
     @Column(name = "type_id")
     private String typeId;
 
-    private String mobile;
-
     @Column(name = "identify_type_id")
     private String identifyTypeId;
 
     @Column(name = "identify_no")
     private String identifyNo;
-
-    private String email;
-
-    private String remark;
-
-    private Integer status;
-
-    private Long created;
 
     @Column(name = "birth_province_id")
     private String birthProvinceId;
@@ -68,35 +69,25 @@ public class Staff implements Serializable {
     @Column(name = "birth_city_id")
     private String birthCityId;
 
-    /**
-     * 党员、共青团员、群众
-     */
+    @Column(name = "policy")
     private String policy;
-
-    private BigDecimal weight;
-
-    private Integer height;
-
-    @Column(name = "health_status")
-    private String healthStatus;
-
-    /**
-     * 已婚、未婚、离异
-     */
-    @Column(name = "marry_status_id")
-    private String marryStatusId;
-
 
     @Column(name = "nation_id")
     private String nationId;
 
-    @Column(name = "vmnet_no")
-    private String vmnetNo;
-
     @Column(name = "join_date")
     private String joinDate;
 
-    private static final long serialVersionUID = 1L;
+    @Column(name = "remark")
+    private String remark;
+
+    @Column(name = "status")
+    private Integer status;
+
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+8")
+    @Column(name = "created")
+    private Date created;
+
 
     /**
      * @return id
@@ -113,7 +104,7 @@ public class Staff implements Serializable {
     }
 
     /**
-     * @return serial_no
+     * @return serialNo
      */
     public String getSerialNo() {
         return serialNo;
@@ -141,7 +132,7 @@ public class Staff implements Serializable {
     }
 
     /**
-     * @return gender_id
+     * @return genderId
      */
     public String getGenderId() {
         return genderId;
@@ -152,119 +143,6 @@ public class Staff implements Serializable {
      */
     public void setGenderId(String genderId) {
         this.genderId = genderId == null ? null : genderId.trim();
-    }
-
-    /**
-     * @return birthday
-     */
-    public String getBirthday() {
-        return birthday;
-    }
-
-    /**
-     * @param birthday
-     */
-    public void setBirthday(String birthday) {
-        this.birthday = birthday == null ? null : birthday.trim();
-    }
-
-    /**
-     * @return academic_id
-     */
-    public String getAcademicId() {
-        return academicId;
-    }
-
-    /**
-     * @param academicId
-     */
-    public void setAcademicId(String academicId) {
-        this.academicId = academicId == null ? null : academicId.trim();
-    }
-
-    /**
-     * @return degree_id
-     */
-    public String getDegreeId() {
-        return degreeId;
-    }
-
-    /**
-     * @param degreeId
-     */
-    public void setDegreeId(String degreeId) {
-        this.degreeId = degreeId == null ? null : degreeId.trim();
-    }
-
-    public String getAvatar() {
-        return avatar;
-    }
-
-    public void setAvatar(String avatar) {
-        this.avatar = avatar;
-    }
-
-    /**
-     * 获取冗余字段，便于查询
-     *
-     * @return org_id - 冗余字段，便于查询
-     */
-    public String getOrganizationId() {
-        return organizationId;
-    }
-
-    public void setOrganizationId(String organizationId) {
-        this.organizationId = organizationId;
-    }
-
-    public String getDepartmentId() {
-        return departmentId;
-    }
-
-    public void setDepartmentId(String departmentId) {
-        this.departmentId = departmentId;
-    }
-
-    /**
-     * @return position_id
-     */
-    public String getPositionId() {
-        return positionId;
-    }
-
-    /**
-     * @param positionId
-     */
-    public void setPositionId(String positionId) {
-        this.positionId = positionId == null ? null : positionId.trim();
-    }
-
-    /**
-     * @return title_id
-     */
-    public String getTitleId() {
-        return titleId;
-    }
-
-    /**
-     * @param titleId
-     */
-    public void setTitleId(String titleId) {
-        this.titleId = titleId == null ? null : titleId.trim();
-    }
-
-    /**
-     * @return type_id
-     */
-    public String getTypeId() {
-        return typeId;
-    }
-
-    /**
-     * @param typeId
-     */
-    public void setTypeId(String typeId) {
-        this.typeId = typeId == null ? null : typeId.trim();
     }
 
     /**
@@ -282,7 +160,147 @@ public class Staff implements Serializable {
     }
 
     /**
-     * @return identify_type_id
+     * @return email
+     */
+    public String getEmail() {
+        return email;
+    }
+
+    /**
+     * @param email
+     */
+    public void setEmail(String email) {
+        this.email = email == null ? null : email.trim();
+    }
+
+    /**
+     * @return avatar
+     */
+    public String getAvatar() {
+        return avatar;
+    }
+
+    /**
+     * @param avatar
+     */
+    public void setAvatar(String avatar) {
+        this.avatar = avatar == null ? null : avatar.trim();
+    }
+
+    /**
+     * @return organizationId
+     */
+    public String getOrganizationId() {
+        return organizationId;
+    }
+
+    /**
+     * @param organizationId
+     */
+    public void setOrganizationId(String organizationId) {
+        this.organizationId = organizationId == null ? null : organizationId.trim();
+    }
+
+    /**
+     * @return departmentId
+     */
+    public String getDepartmentId() {
+        return departmentId;
+    }
+
+    /**
+     * @param departmentId
+     */
+    public void setDepartmentId(String departmentId) {
+        this.departmentId = departmentId == null ? null : departmentId.trim();
+    }
+
+    /**
+     * @return birthday
+     */
+    public String getBirthday() {
+        return birthday;
+    }
+
+    /**
+     * @param birthday
+     */
+    public void setBirthday(String birthday) {
+        this.birthday = birthday == null ? null : birthday.trim();
+    }
+
+    /**
+     * @return academicId
+     */
+    public String getAcademicId() {
+        return academicId;
+    }
+
+    /**
+     * @param academicId
+     */
+    public void setAcademicId(String academicId) {
+        this.academicId = academicId == null ? null : academicId.trim();
+    }
+
+    /**
+     * @return degreeId
+     */
+    public String getDegreeId() {
+        return degreeId;
+    }
+
+    /**
+     * @param degreeId
+     */
+    public void setDegreeId(String degreeId) {
+        this.degreeId = degreeId == null ? null : degreeId.trim();
+    }
+
+    /**
+     * @return positionId
+     */
+    public String getPositionId() {
+        return positionId;
+    }
+
+    /**
+     * @param positionId
+     */
+    public void setPositionId(String positionId) {
+        this.positionId = positionId == null ? null : positionId.trim();
+    }
+
+    /**
+     * @return titleId
+     */
+    public String getTitleId() {
+        return titleId;
+    }
+
+    /**
+     * @param titleId
+     */
+    public void setTitleId(String titleId) {
+        this.titleId = titleId == null ? null : titleId.trim();
+    }
+
+    /**
+     * @return typeId
+     */
+    public String getTypeId() {
+        return typeId;
+    }
+
+    /**
+     * @param typeId
+     */
+    public void setTypeId(String typeId) {
+        this.typeId = typeId == null ? null : typeId.trim();
+    }
+
+    /**
+     * @return identifyTypeId
      */
     public String getIdentifyTypeId() {
         return identifyTypeId;
@@ -296,7 +314,7 @@ public class Staff implements Serializable {
     }
 
     /**
-     * @return identify_no
+     * @return identifyNo
      */
     public String getIdentifyNo() {
         return identifyNo;
@@ -310,17 +328,73 @@ public class Staff implements Serializable {
     }
 
     /**
-     * @return email
+     * @return birthProvinceId
      */
-    public String getEmail() {
-        return email;
+    public String getBirthProvinceId() {
+        return birthProvinceId;
     }
 
     /**
-     * @param email
+     * @param birthProvinceId
      */
-    public void setEmail(String email) {
-        this.email = email == null ? null : email.trim();
+    public void setBirthProvinceId(String birthProvinceId) {
+        this.birthProvinceId = birthProvinceId == null ? null : birthProvinceId.trim();
+    }
+
+    /**
+     * @return birthCityId
+     */
+    public String getBirthCityId() {
+        return birthCityId;
+    }
+
+    /**
+     * @param birthCityId
+     */
+    public void setBirthCityId(String birthCityId) {
+        this.birthCityId = birthCityId == null ? null : birthCityId.trim();
+    }
+
+    /**
+     * @return policy
+     */
+    public String getPolicy() {
+        return policy;
+    }
+
+    /**
+     * @param policy
+     */
+    public void setPolicy(String policy) {
+        this.policy = policy == null ? null : policy.trim();
+    }
+
+    /**
+     * @return nationId
+     */
+    public String getNationId() {
+        return nationId;
+    }
+
+    /**
+     * @param nationId
+     */
+    public void setNationId(String nationId) {
+        this.nationId = nationId == null ? null : nationId.trim();
+    }
+
+    /**
+     * @return joinDate
+     */
+    public String getJoinDate() {
+        return joinDate;
+    }
+
+    /**
+     * @param joinDate
+     */
+    public void setJoinDate(String joinDate) {
+        this.joinDate = joinDate == null ? null : joinDate.trim();
     }
 
     /**
@@ -351,160 +425,18 @@ public class Staff implements Serializable {
         this.status = status;
     }
 
-    public Long getCreated() {
+    /**
+     * @return created
+     */
+    public Date getCreated() {
         return created;
     }
 
-    public void setCreated(Long created) {
+    /**
+     * @param created
+     */
+    public void setCreated(Date created) {
         this.created = created;
     }
 
-    /**
-     * @return birth_province_id
-     */
-    public String getBirthProvinceId() {
-        return birthProvinceId;
-    }
-
-    /**
-     * @param birthProvinceId
-     */
-    public void setBirthProvinceId(String birthProvinceId) {
-        this.birthProvinceId = birthProvinceId == null ? null : birthProvinceId.trim();
-    }
-
-    /**
-     * @return birth_city_id
-     */
-    public String getBirthCityId() {
-        return birthCityId;
-    }
-
-    /**
-     * @param birthCityId
-     */
-    public void setBirthCityId(String birthCityId) {
-        this.birthCityId = birthCityId == null ? null : birthCityId.trim();
-    }
-
-    /**
-     * 获取党员、共青团员、群众
-     *
-     * @return policy - 党员、共青团员、群众
-     */
-    public String getPolicy() {
-        return policy;
-    }
-
-    /**
-     * 设置党员、共青团员、群众
-     *
-     * @param policy 党员、共青团员、群众
-     */
-    public void setPolicy(String policy) {
-        this.policy = policy == null ? null : policy.trim();
-    }
-
-    /**
-     * @return weight
-     */
-    public BigDecimal getWeight() {
-        return weight;
-    }
-
-    /**
-     * @param weight
-     */
-    public void setWeight(BigDecimal weight) {
-        this.weight = weight;
-    }
-
-    /**
-     * @return height
-     */
-    public Integer getHeight() {
-        return height;
-    }
-
-    /**
-     * @param height
-     */
-    public void setHeight(Integer height) {
-        this.height = height;
-    }
-
-    /**
-     * @return health_status
-     */
-    public String getHealthStatus() {
-        return healthStatus;
-    }
-
-    /**
-     * @param healthStatus
-     */
-    public void setHealthStatus(String healthStatus) {
-        this.healthStatus = healthStatus == null ? null : healthStatus.trim();
-    }
-
-    /**
-     * 获取已婚、未婚、离异
-     *
-     * @return marry_status_id - 已婚、未婚、离异
-     */
-    public String getMarryStatusId() {
-        return marryStatusId;
-    }
-
-    /**
-     * 设置已婚、未婚、离异
-     *
-     * @param marryStatusId 已婚、未婚、离异
-     */
-    public void setMarryStatusId(String marryStatusId) {
-        this.marryStatusId = marryStatusId == null ? null : marryStatusId.trim();
-    }
-
-
-    /**
-     * @return nation_id
-     */
-    public String getNationId() {
-        return nationId;
-    }
-
-    /**
-     * @param nationId
-     */
-    public void setNationId(String nationId) {
-        this.nationId = nationId == null ? null : nationId.trim();
-    }
-
-    /**
-     * @return vmnet_no
-     */
-    public String getVmnetNo() {
-        return vmnetNo;
-    }
-
-    /**
-     * @param vmnetNo
-     */
-    public void setVmnetNo(String vmnetNo) {
-        this.vmnetNo = vmnetNo == null ? null : vmnetNo.trim();
-    }
-
-    /**
-     * @return join_date
-     */
-    public String getJoinDate() {
-        return joinDate;
-    }
-
-    /**
-     * @param joinDate
-     */
-    public void setJoinDate(String joinDate) {
-        this.joinDate = joinDate == null ? null : joinDate.trim();
-    }
 }

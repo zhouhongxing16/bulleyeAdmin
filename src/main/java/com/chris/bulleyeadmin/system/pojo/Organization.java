@@ -1,88 +1,65 @@
 package com.chris.bulleyeadmin.system.pojo;
 
+import java.util.Date;
 import javax.persistence.*;
+import java.math.BigDecimal;
 import java.io.Serializable;
-
+import com.fasterxml.jackson.annotation.JsonFormat;
+/**
+ * @Author: Chris  E-mail:961860916@qq.com
+ * @Date:  2019-04-28 22:40
+ */
 @Table(name = "b_organization")
 public class Organization implements Serializable {
-    /**
-     * 唯一标识
-     */
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY, generator = "select uuid()")
     private String id;
 
+    @Column(name = "pid")
     private String pid;
 
-    /**
-     * 组织编码
-     */
+    @Column(name = "code")
     private String code;
 
-    /**
-     * 组织名称
-     */
+    @Column(name = "name")
     private String name;
 
-    /**
-     * 所在地区
-     */
     @Column(name = "area_id")
     private String areaId;
 
-    /**
-     * 组织简介
-     */
+    @Column(name = "brief")
     private String brief;
 
-    /**
-     * 联系人
-     */
     @Column(name = "contact_name")
     private String contactName;
 
-    /**
-     * 联系电话
-     */
     @Column(name = "contact_phone")
     private String contactPhone;
 
-    /**
-     * 状态
-     */
-    private Integer status;
-
-    /**
-     * 试用结束日期
-     */
-    @Column(name = "end_date")
-    private Long endDate;
-
-    /**
-     * 创建日期
-     */
-    private Long created;
-
-    /**
-     * 域名
-     */
+    @Column(name = "domain")
     private String domain;
 
-    private static final long serialVersionUID = 1L;
+    @Column(name = "status")
+    private Integer status;
+
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+8")
+    @Column(name = "end_date")
+    private Date endDate;
+
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+8")
+    @Column(name = "created")
+    private Date created;
+
 
     /**
-     * 获取唯一标识
-     *
-     * @return id - 唯一标识
+     * @return id
      */
     public String getId() {
         return id;
     }
 
     /**
-     * 设置唯一标识
-     *
-     * @param id 唯一标识
+     * @param id
      */
     public void setId(String id) {
         this.id = id == null ? null : id.trim();
@@ -103,162 +80,143 @@ public class Organization implements Serializable {
     }
 
     /**
-     * 获取组织编码
-     *
-     * @return code - 组织编码
+     * @return code
      */
     public String getCode() {
         return code;
     }
 
     /**
-     * 设置组织编码
-     *
-     * @param code 组织编码
+     * @param code
      */
     public void setCode(String code) {
         this.code = code == null ? null : code.trim();
     }
 
     /**
-     * 获取组织名称
-     *
-     * @return name - 组织名称
+     * @return name
      */
     public String getName() {
         return name;
     }
 
     /**
-     * 设置组织名称
-     *
-     * @param name 组织名称
+     * @param name
      */
     public void setName(String name) {
         this.name = name == null ? null : name.trim();
     }
 
     /**
-     * 获取所在地区
-     *
-     * @return area_id - 所在地区
+     * @return areaId
      */
     public String getAreaId() {
         return areaId;
     }
 
     /**
-     * 设置所在地区
-     *
-     * @param areaId 所在地区
+     * @param areaId
      */
     public void setAreaId(String areaId) {
         this.areaId = areaId == null ? null : areaId.trim();
     }
 
     /**
-     * 获取组织简介
-     *
-     * @return brief - 组织简介
+     * @return brief
      */
     public String getBrief() {
         return brief;
     }
 
     /**
-     * 设置组织简介
-     *
-     * @param brief 组织简介
+     * @param brief
      */
     public void setBrief(String brief) {
         this.brief = brief == null ? null : brief.trim();
     }
 
     /**
-     * 获取联系人
-     *
-     * @return contact_name - 联系人
+     * @return contactName
      */
     public String getContactName() {
         return contactName;
     }
 
     /**
-     * 设置联系人
-     *
-     * @param contactName 联系人
+     * @param contactName
      */
     public void setContactName(String contactName) {
         this.contactName = contactName == null ? null : contactName.trim();
     }
 
     /**
-     * 获取联系电话
-     *
-     * @return contact_phone - 联系电话
+     * @return contactPhone
      */
     public String getContactPhone() {
         return contactPhone;
     }
 
     /**
-     * 设置联系电话
-     *
-     * @param contactPhone 联系电话
+     * @param contactPhone
      */
     public void setContactPhone(String contactPhone) {
         this.contactPhone = contactPhone == null ? null : contactPhone.trim();
     }
 
     /**
-     * 获取状态
-     *
-     * @return status - 状态
-     */
-    public Integer getStatus() {
-        return status;
-    }
-
-    /**
-     * 设置状态
-     *
-     * @param status 状态
-     */
-    public void setStatus(Integer status) {
-        this.status = status;
-    }
-
-    /**
-     * 获取域名
-     *
-     * @return domain - 域名
+     * @return domain
      */
     public String getDomain() {
         return domain;
     }
 
     /**
-     * 设置域名
-     *
-     * @param domain 域名
+     * @param domain
      */
     public void setDomain(String domain) {
         this.domain = domain == null ? null : domain.trim();
     }
 
-    public Long getEndDate() {
+    /**
+     * @return status
+     */
+    public Integer getStatus() {
+        return status;
+    }
+
+    /**
+     * @param status
+     */
+    public void setStatus(Integer status) {
+        this.status = status;
+    }
+
+    /**
+     * @return endDate
+     */
+    public Date getEndDate() {
         return endDate;
     }
 
-    public void setEndDate(Long endDate) {
+    /**
+     * @param endDate
+     */
+    public void setEndDate(Date endDate) {
         this.endDate = endDate;
     }
 
-    public Long getCreated() {
+    /**
+     * @return created
+     */
+    public Date getCreated() {
         return created;
     }
 
-    public void setCreated(Long created) {
+    /**
+     * @param created
+     */
+    public void setCreated(Date created) {
         this.created = created;
     }
+
 }

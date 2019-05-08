@@ -43,13 +43,6 @@ public class MenuController extends BaseController<Menu> {
         return "menu";
     }
 
-    @RequestMapping("/create")
-    @Override
-    public JsonResult create(@RequestBody Menu obj) throws Exception {
-        obj.setCreated(Help.getCurrentTimeMillis());
-        return super.create(obj);
-    }
-
     @OperationLog("获取所有菜单")
     @ResponseBody
     @RequestMapping("/getAllMenus")
@@ -81,6 +74,7 @@ public class MenuController extends BaseController<Menu> {
         return new JsonResult(true, menuList,null,null, HttpStatus.OK.value());
     }
 
+    @OperationLog("获取登录用户菜单")
     @ResponseBody
     @RequestMapping("/getMenusByAccountId")
     public JsonResult getMenusByAccountId() {
@@ -89,6 +83,7 @@ public class MenuController extends BaseController<Menu> {
         return new JsonResult(true, menuList,null,null, HttpStatus.OK.value());
     }
 
+    @OperationLog("根据角色或缺菜单")
     @ResponseBody
     @RequestMapping("/getMenusByRoleId")
     public JsonResult getMenusByRoleId(String roleId) {

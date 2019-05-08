@@ -1,106 +1,67 @@
 package com.chris.bulleyeadmin.system.pojo;
 
-import com.fasterxml.jackson.annotation.JsonFormat;
-
-import javax.persistence.*;
-import java.io.Serializable;
 import java.util.Date;
-import java.util.List;
-
+import javax.persistence.*;
+import java.math.BigDecimal;
+import java.io.Serializable;
+import com.fasterxml.jackson.annotation.JsonFormat;
+/**
+ * @Author: Chris  E-mail:961860916@qq.com
+ * @Date:  2019-04-28 22:44
+ */
 @Table(name = "b_account")
 public class Account implements Serializable {
-
-    private static final long serialVersionUID = 1L;
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY, generator = "select uuid()")
     private String id;
 
-    /**
-     * 账户
-     */
+    @Column(name = "username")
     private String username;
 
-    /**
-     * 密码
-     */
+    @Column(name = "password")
     private String password;
 
-    /**
-     * 是否锁定
-     */
     @Column(name = "account_locked")
     private Boolean accountLocked;
 
-    /**
-     * 是否凭证过期
-     */
-    @Column(name = "credentials_expired")
-    private Boolean credentialsExpired;
-
-    /**
-     * 是否过期
-     */
     @Column(name = "account_expired")
     private Boolean accountExpired;
 
-    /**
-     * 人员标识
-     */
     @Column(name = "staff_id")
     private String staffId;
 
-    /**
-     * 组织标识
-     */
     @Column(name = "organization_id")
     private String organizationId;
 
-    /**
-     * 微信OpenId
-     */
     @Column(name = "wx_openid")
     private String wxOpenid;
 
-    /**
-     * 支付宝OpenId
-     */
     @Column(name = "alipay_openid")
     private String alipayOpenid;
 
-    /**
-     * 邮箱
-     */
+    @Column(name = "email")
     private String email;
 
-    /**
-     * 是否开通手机号登录
-     */
+    @Column(name = "status")
+    private Integer status;
+
     @Column(name = "mobile_login_flag")
     private Boolean mobileLoginFlag;
 
-    /**
-     * 修改时间
-     */
-    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss",timezone = "GMT+8")
-    private Date modified;
-
-    @Column(name = "expired_date")
-    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss",timezone = "GMT+8")
-    private Date expiredDate;
-
-    private Integer status;
-
+    @Column(name = "remark")
     private String remark;
 
-    /**
-     * 创建时间
-     */
-    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss",timezone = "GMT+8")
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+8")
+    @Column(name = "modified")
+    private Date modified;
+
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+8")
+    @Column(name = "expired_date")
+    private Date expiredDate;
+
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+8")
+    @Column(name = "created")
     private Date created;
-
-
-    private List<Role> role;
 
     public String getId() {
         return id;
@@ -132,14 +93,6 @@ public class Account implements Serializable {
 
     public void setAccountLocked(Boolean accountLocked) {
         this.accountLocked = accountLocked;
-    }
-
-    public Boolean getCredentialsExpired() {
-        return credentialsExpired;
-    }
-
-    public void setCredentialsExpired(Boolean credentialsExpired) {
-        this.credentialsExpired = credentialsExpired;
     }
 
     public Boolean getAccountExpired() {
@@ -214,28 +167,12 @@ public class Account implements Serializable {
         this.remark = remark;
     }
 
-    public Date getCreated() {
-        return created;
-    }
-
-    public void setCreated(Date created) {
-        this.created = created;
-    }
-
     public Date getModified() {
         return modified;
     }
 
     public void setModified(Date modified) {
         this.modified = modified;
-    }
-
-    public List<Role> getRole() {
-        return role;
-    }
-
-    public void setRole(List<Role> role) {
-        this.role = role;
     }
 
     public Date getExpiredDate() {
@@ -246,4 +183,11 @@ public class Account implements Serializable {
         this.expiredDate = expiredDate;
     }
 
+    public Date getCreated() {
+        return created;
+    }
+
+    public void setCreated(Date created) {
+        this.created = created;
+    }
 }
