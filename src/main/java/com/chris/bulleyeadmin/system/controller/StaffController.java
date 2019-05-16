@@ -32,11 +32,6 @@ public class StaffController extends BaseController<Staff> {
         return staffService;
     }
 
-    @Override
-    public String getViewPrefix() {
-        return "staff";
-    }
-
     @ResponseBody
     @GetMapping(value = "/getStaffInfo")
     public Object getStaffInfo(){

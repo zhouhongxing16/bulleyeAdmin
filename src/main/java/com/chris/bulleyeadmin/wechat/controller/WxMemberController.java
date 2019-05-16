@@ -27,9 +27,4 @@ public class WxMemberController extends BaseController<WxMember> {
     public BaseService<WxMember> getService() {
         return wxMemberService;
     }
-
-    @Override
-    public String getViewPrefix() {
-        return "wxmember";
-    }
 }

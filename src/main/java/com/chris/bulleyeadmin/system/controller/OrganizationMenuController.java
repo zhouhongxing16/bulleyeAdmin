@@ -33,12 +33,6 @@ public class OrganizationMenuController extends BaseController<OrganizationMenu>
         return organizationMenuService;
     }
 
-    @Override
-    public String getViewPrefix() {
-        return "organizationmenu";
-    }
-
-
     @OperationLog("组织菜单授权")
     @PostMapping("/createOrganizationMenu")
     public JsonResult createOrganizationMenu(@RequestBody List<OrganizationMenu> list){

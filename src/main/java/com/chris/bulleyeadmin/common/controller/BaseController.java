@@ -29,45 +29,6 @@ public abstract class BaseController<T> {
 
     public abstract BaseService<T> getService();
 
-    public abstract String getViewPrefix();
-
-    @GetMapping(value = "/list")
-    public String list(String menuId) {
-        return getViewPrefix() + "/list";
-    }
-
-    //进入添加页面
-    @GetMapping("/add")
-    public String add(String menuId, Model view) {
-        return getViewPrefix() + "/add";
-    }
-
-
-    //进入详情页面
-    @GetMapping("/view/{id}")
-    public String view(Model view, @PathVariable String id) {
-        JsonResult jsonResult = getService().getById( id );
-        view.addAttribute("readonly","readonly");
-        view.addAttribute(getViewPrefix(), jsonResult.getData());
-        return getViewPrefix()  + "/view";
-    }
-
-    //进入编辑页面
-    @GetMapping("/edit/{id}")
-    public String edit(Model view, @PathVariable String id) {
-        JsonResult jsonResult = getService().getById( id );
-        view.addAttribute(getViewPrefix(),jsonResult.getData());
-        return getViewPrefix() + "/edit";
-    }
-
-
-    //进入编辑页面2
-    @GetMapping("/edit")
-    public String editEntity(Model view, T obj) {
-        view.addAttribute(getViewPrefix(), obj);
-        return getViewPrefix() + "/edit";
-    }
-
 
     @ApiOperation(value = "默认分页查询",notes = "根据传递的参数进行查询")
     @OperationLog("查询分页数据")

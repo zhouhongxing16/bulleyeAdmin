@@ -26,9 +26,4 @@ public class DictionaryDataController extends BaseController<DictionaryData> {
     public BaseService<DictionaryData> getService() {
         return dictionaryDataService;
     }
-
-    @Override
-    public String getViewPrefix() {
-        return "dictionarydata";
-    }
 }

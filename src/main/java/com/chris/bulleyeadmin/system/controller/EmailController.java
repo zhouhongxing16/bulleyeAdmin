@@ -32,11 +32,6 @@ public class EmailController extends BaseController<Email> {
     }
 
     @Override
-    public String getViewPrefix() {
-        return "email";
-    }
-
-    @Override
     @ResponseBody
     @RequestMapping("/create")
     public JsonResult create(Email obj) throws Exception {

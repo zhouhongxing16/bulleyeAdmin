@@ -32,17 +32,6 @@ public class LoginController {
     @Autowired
     private AccountService accountService;
 
-
-    @RequestMapping(value = "/welcome", method = RequestMethod.GET)
-    public String home() {
-        return "welcome";
-    }
-
-    @RequestMapping(value = "/login", method = RequestMethod.GET)
-    public String loginPage()  {
-        return "login";
-    }
-
     @ResponseBody
     @GetMapping(value={"/imagevcode"}, produces={"image/jpeg"})
     public byte[] validateCodeImage(HttpServletRequest request) throws IOException

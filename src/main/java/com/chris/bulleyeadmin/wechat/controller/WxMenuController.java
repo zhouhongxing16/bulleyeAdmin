@@ -30,11 +30,6 @@ public class WxMenuController extends BaseController<WxMenu> {
         return wxMenuService;
     }
 
-    @Override
-    public String getViewPrefix() {
-        return "wxmenu";
-    }
-
     /**
      * 通过accountId获取菜单列表
      * @param accountId
@@ -63,15 +58,6 @@ public class WxMenuController extends BaseController<WxMenu> {
         Map<String,Object> jsonMap = new HashMap<>();
         jsonMap.put("wxMenu", array);
         return jsonMap;
-    }
-
-    //进入添加子菜单页面
-    @GetMapping("/addChild/{id}")
-    public String add(@PathVariable String id,Model view) {
-        JsonResult jsonResult = getService().getById( id );
-        view.addAttribute("readonly","readonly");
-        view.addAttribute(getViewPrefix(), jsonResult.getData());
-        return getViewPrefix() + "/edit";
     }
 
     //创建菜单

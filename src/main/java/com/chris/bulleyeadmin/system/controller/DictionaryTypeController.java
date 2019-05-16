@@ -26,9 +26,4 @@ public class DictionaryTypeController extends BaseController<DictionaryType> {
     public BaseService<DictionaryType> getService() {
         return dictionaryTypeService;
     }
-
-    @Override
-    public String getViewPrefix() {
-        return "dictionarytype";
-    }
 }

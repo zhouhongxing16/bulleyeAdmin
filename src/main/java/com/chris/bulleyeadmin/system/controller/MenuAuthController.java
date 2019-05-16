@@ -24,9 +24,4 @@ public class MenuAuthController extends BaseController<MenuAuth> {
     public BaseService getService() {
         return menuAuthService;
     }
-
-    @Override
-    public String getViewPrefix() {
-        return "menuauth";
-    }
 }

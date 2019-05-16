@@ -21,9 +21,4 @@ public class LogsController extends BaseController {
     public BaseService getService() {
         return logsService;
     }
-
-    @Override
-    public String getViewPrefix() {
-        return "log";
-    }
 }

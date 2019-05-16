@@ -27,11 +27,6 @@ public class RoleMenuController extends BaseController<RoleMenu> {
         return roleMenuService;
     }
 
-    @Override
-    public String getViewPrefix() {
-        return "rolemenu";
-    }
-
     @OperationLog("角色菜单授权")
     @PostMapping("/createRoleMenu")
     public JsonResult createRoleMenu(@RequestBody List<RoleMenu> list){

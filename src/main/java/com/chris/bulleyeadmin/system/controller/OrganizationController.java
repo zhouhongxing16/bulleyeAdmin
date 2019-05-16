@@ -27,9 +27,4 @@ public class OrganizationController extends BaseController<Organization> {
     public BaseService<Organization> getService() {
         return organizationService;
     }
-
-    @Override
-    public String getViewPrefix() {
-        return "organization";
-    }
 }
