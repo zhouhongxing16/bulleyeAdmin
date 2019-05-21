@@ -26,9 +26,4 @@ public class DepartmentController extends BaseController<Department> {
     public BaseService<Department> getService() {
         return departmentService;
     }
-
-    @Override
-    public String getViewPrefix() {
-        return "department";
-    }
 }

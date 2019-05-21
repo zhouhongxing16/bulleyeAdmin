@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--Created by  on Thu May 16 2019 21:29:06 GMT+0800 (中国标准时间)-->
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.chris.bulleyeadmin.system.mapper.RoleMenuAuthMapper">
+    <resultMap id="BaseResultMap" type="com.chris.bulleyeadmin.system.pojo.RoleMenuAuth">
+        <id column="id" jdbcType="VARCHAR" property="id" />
+        <result column="role_id" jdbcType="VARCHAR" property="roleId" />
+        <result column="menu_auth_id" jdbcType="VARCHAR" property="menuAuthId" />
+        <result column="user_id" jdbcType="VARCHAR" property="userId" />
+        <result column="status" jdbcType="INTEGER" property="status" />
+        <result column="created" jdbcType="TIMESTAMP" property="created" />
+        
+    </resultMap>
+
+    <sql id="basic_list">
+		a.id, a.role_id, a.menu_auth_id, a.user_id, a.status, a.created
+	</sql>
+
+    <select id="getListByParams" resultMap="BaseResultMap" parameterType="map">
+        SELECT
+        <include refid="basic_list"/>
+        FROM b_role_menu_auth a
+        <where>
+            <if test="id!=null and id!='' ">
+                and a.id=#{ id }
+            </if>
+            <if test="roleId!=null and roleId!='' ">
+                and a.role_id=#{ roleId }
+            </if>
+            <if test="menuAuthId!=null and menuAuthId!='' ">
+                and a.menu_auth_id=#{ menuAuthId }
+            </if>
+            <if test="userId!=null and userId!='' ">
+                and a.user_id=#{ userId }
+            </if>
+            <if test="status!=null and status!='' ">
+                and a.status LIKE CONCAT('%', #{ status }, '%')
+            </if>
+            <if test="created!=null and created!='' ">
+                and a.created LIKE CONCAT('%', #{ created }, '%')
+            </if>
+        </where>
+        order by a.created
+    </select>
+    
+    <select id="getRoleAuthPaths" resultType="map">
+    select r.CODE,ma.path as path
+    from b_role_menu_auth rma
+	left join b_role r on r.id = rma.role_id
+	left join b_menu_auth ma on ma.id = rma.menu_auth_id
+
+
+    </select>
+</mapper>

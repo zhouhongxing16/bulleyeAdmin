@@ -40,9 +40,4 @@ public class WxAccountController extends BaseController<WxAccount> {
     public BaseService<WxAccount> getService() {
         return wxAccountService;
     }
-
-    @Override
-    public String getViewPrefix() {
-        return "wxaccount";
-    }
 }

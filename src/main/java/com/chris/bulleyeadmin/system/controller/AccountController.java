@@ -29,21 +29,6 @@ public class AccountController extends BaseController<Account> {
         return accountService;
     }
 
-    @Override
-    public String getViewPrefix() {
-        return "account";
-    }
-
-    @OperationLog("登陆首页")
-    @RequestMapping(value = "/index", method = RequestMethod.GET)
-    public String index(Model view) {
-        Account account = new Account();
-        account.setEmail("961860916@qq.com");
-        accountService.add(account);
-        view.addAttribute("user","");
-        return "index";
-    }
-
 
     @Override
     @OperationLog("创建账号")

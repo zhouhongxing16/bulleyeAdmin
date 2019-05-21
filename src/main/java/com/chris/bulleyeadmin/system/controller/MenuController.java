@@ -38,11 +38,6 @@ public class MenuController extends BaseController<Menu> {
         return menuService;
     }
 
-    @Override
-    public String getViewPrefix() {
-        return "menu";
-    }
-
     @OperationLog("获取所有菜单")
     @ResponseBody
     @RequestMapping("/getAllMenus")

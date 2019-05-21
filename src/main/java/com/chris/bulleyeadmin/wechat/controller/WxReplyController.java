@@ -27,9 +27,4 @@ public class WxReplyController extends BaseController<WxReply> {
     public BaseService<WxReply> getService() {
         return wxReplyService;
     }
-
-    @Override
-    public String getViewPrefix() {
-        return "wxreply";
-    }
 }

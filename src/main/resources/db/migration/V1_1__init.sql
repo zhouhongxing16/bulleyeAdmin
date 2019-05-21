@@ -1,8 +1,8 @@
 -- --------------------------------------------------------
 -- 主机:                           localhost
--- 服务器版本:                        5.7.9-log - MySQL Community Server (GPL)
--- 服务器操作系统:                      Win64
--- HeidiSQL 版本:                  9.5.0.5196
+-- Server version:               5.7.9-log - MySQL Community Server (GPL)
+-- Server OS:                    Win64
+-- HeidiSQL 版本:                  10.1.0.5464
 -- --------------------------------------------------------
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
@@ -12,12 +12,11 @@
 /*!40101 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_VALUE_ON_ZERO' */;
 
 
--- 导出 bulleye_admin 的数据库结构
+-- Dumping database structure for bulleye_admin
 CREATE DATABASE IF NOT EXISTS `bulleye_admin` /*!40100 DEFAULT CHARACTER SET utf8 */;
 USE `bulleye_admin`;
 
--- 导出  表 bulleye_admin.b_account 结构
-DROP TABLE IF EXISTS `b_account`;
+-- Dumping structure for table bulleye_admin.b_account
 CREATE TABLE IF NOT EXISTS `b_account` (
   `id` varchar(40) NOT NULL COMMENT '唯一标识',
   `username` varchar(50) DEFAULT NULL COMMENT '账户',
@@ -38,7 +37,7 @@ CREATE TABLE IF NOT EXISTS `b_account` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='用户表';
 
--- 正在导出表  bulleye_admin.b_account 的数据：~2 rows (大约)
+-- Dumping data for table bulleye_admin.b_account: ~2 rows (approximately)
 DELETE FROM `b_account`;
 /*!40000 ALTER TABLE `b_account` DISABLE KEYS */;
 INSERT INTO `b_account` (`id`, `username`, `password`, `email`, `mobile_login_flag`, `account_locked`, `account_expired`, `staff_id`, `organization_id`, `wx_openid`, `alipay_openid`, `status`, `remark`, `modified`, `expired_date`, `created`) VALUES
@@ -46,8 +45,7 @@ INSERT INTO `b_account` (`id`, `username`, `password`, `email`, `mobile_login_fl
 	('fe885bfa-6bf9-11e9-8e25-049226bfdadf', '18080332897', NULL, '961860916@qq.com', b'1', 0, 0, '1', NULL, NULL, NULL, 1, '111', NULL, NULL, '2019-05-01 18:15:15');
 /*!40000 ALTER TABLE `b_account` ENABLE KEYS */;
 
--- 导出  表 bulleye_admin.b_account_role 结构
-DROP TABLE IF EXISTS `b_account_role`;
+-- Dumping structure for table bulleye_admin.b_account_role
 CREATE TABLE IF NOT EXISTS `b_account_role` (
   `id` varchar(40) NOT NULL COMMENT '唯一标识',
   `role_id` varchar(40) DEFAULT NULL COMMENT '角色外键',
@@ -56,7 +54,7 @@ CREATE TABLE IF NOT EXISTS `b_account_role` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='用户角色中间表';
 
--- 正在导出表  bulleye_admin.b_account_role 的数据：~4 rows (大约)
+-- Dumping data for table bulleye_admin.b_account_role: ~4 rows (approximately)
 DELETE FROM `b_account_role`;
 /*!40000 ALTER TABLE `b_account_role` DISABLE KEYS */;
 INSERT INTO `b_account_role` (`id`, `role_id`, `account_id`, `created`) VALUES
@@ -66,8 +64,7 @@ INSERT INTO `b_account_role` (`id`, `role_id`, `account_id`, `created`) VALUES
 	('e9d83753-6cef-11e9-8e25-049226bfdadf', '2', '4081fe65-125a-11e9-97db-382c4a232da1', '2019-05-02 23:35:37');
 /*!40000 ALTER TABLE `b_account_role` ENABLE KEYS */;
 
--- 导出  表 bulleye_admin.b_department 结构
-DROP TABLE IF EXISTS `b_department`;
+-- Dumping structure for table bulleye_admin.b_department
 CREATE TABLE IF NOT EXISTS `b_department` (
   `id` varchar(40) NOT NULL COMMENT '唯一标识',
   `organization_id` varchar(40) DEFAULT NULL COMMENT '组织标识',
@@ -82,15 +79,14 @@ CREATE TABLE IF NOT EXISTS `b_department` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='部门表';
 
--- 正在导出表  bulleye_admin.b_department 的数据：~0 rows (大约)
+-- Dumping data for table bulleye_admin.b_department: ~0 rows (approximately)
 DELETE FROM `b_department`;
 /*!40000 ALTER TABLE `b_department` DISABLE KEYS */;
 INSERT INTO `b_department` (`id`, `organization_id`, `code`, `parent_id`, `name`, `type_id`, `remark`, `user_id`, `status`, `created`) VALUES
 	('test', 'suiji', '管理部门', NULL, '管理部门', 'guanli', '管理', NULL, 0, '2018-07-31 11:43:02');
 /*!40000 ALTER TABLE `b_department` ENABLE KEYS */;
 
--- 导出  表 bulleye_admin.b_dictionary_data 结构
-DROP TABLE IF EXISTS `b_dictionary_data`;
+-- Dumping structure for table bulleye_admin.b_dictionary_data
 CREATE TABLE IF NOT EXISTS `b_dictionary_data` (
   `id` varchar(40) NOT NULL COMMENT '唯一标识',
   `type_id` varchar(40) DEFAULT NULL COMMENT '类型标识',
@@ -102,13 +98,12 @@ CREATE TABLE IF NOT EXISTS `b_dictionary_data` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='字典数据表';
 
--- 正在导出表  bulleye_admin.b_dictionary_data 的数据：~0 rows (大约)
+-- Dumping data for table bulleye_admin.b_dictionary_data: ~0 rows (approximately)
 DELETE FROM `b_dictionary_data`;
 /*!40000 ALTER TABLE `b_dictionary_data` DISABLE KEYS */;
 /*!40000 ALTER TABLE `b_dictionary_data` ENABLE KEYS */;
 
--- 导出  表 bulleye_admin.b_dictionary_type 结构
-DROP TABLE IF EXISTS `b_dictionary_type`;
+-- Dumping structure for table bulleye_admin.b_dictionary_type
 CREATE TABLE IF NOT EXISTS `b_dictionary_type` (
   `id` varchar(40) NOT NULL COMMENT '唯一标识',
   `code` varchar(30) DEFAULT NULL COMMENT '类型代码',
@@ -119,13 +114,12 @@ CREATE TABLE IF NOT EXISTS `b_dictionary_type` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='部门类型、性别、专业、学历、职位、职称';
 
--- 正在导出表  bulleye_admin.b_dictionary_type 的数据：~0 rows (大约)
+-- Dumping data for table bulleye_admin.b_dictionary_type: ~0 rows (approximately)
 DELETE FROM `b_dictionary_type`;
 /*!40000 ALTER TABLE `b_dictionary_type` DISABLE KEYS */;
 /*!40000 ALTER TABLE `b_dictionary_type` ENABLE KEYS */;
 
--- 导出  表 bulleye_admin.b_function 结构
-DROP TABLE IF EXISTS `b_function`;
+-- Dumping structure for table bulleye_admin.b_function
 CREATE TABLE IF NOT EXISTS `b_function` (
   `id` varchar(40) NOT NULL COMMENT '唯一标识',
   `code` varchar(40) DEFAULT NULL COMMENT '功能code',
@@ -138,7 +132,7 @@ CREATE TABLE IF NOT EXISTS `b_function` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='权限表';
 
--- 正在导出表  bulleye_admin.b_function 的数据：~2 rows (大约)
+-- Dumping data for table bulleye_admin.b_function: ~2 rows (approximately)
 DELETE FROM `b_function`;
 /*!40000 ALTER TABLE `b_function` DISABLE KEYS */;
 INSERT INTO `b_function` (`id`, `code`, `name`, `icon`, `url`, `describe`, `status`, `created`) VALUES
@@ -146,8 +140,7 @@ INSERT INTO `b_function` (`id`, `code`, `name`, `icon`, `url`, `describe`, `stat
 	('2', 'list', NULL, NULL, NULL, NULL, NULL, '2019-01-08 14:26:19');
 /*!40000 ALTER TABLE `b_function` ENABLE KEYS */;
 
--- 导出  表 bulleye_admin.b_login_record 结构
-DROP TABLE IF EXISTS `b_login_record`;
+-- Dumping structure for table bulleye_admin.b_login_record
 CREATE TABLE IF NOT EXISTS `b_login_record` (
   `id` varchar(50) NOT NULL COMMENT '访问ID',
   `username` varchar(50) DEFAULT '' COMMENT '登录账号',
@@ -161,13 +154,12 @@ CREATE TABLE IF NOT EXISTS `b_login_record` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='系统访问记录';
 
--- 正在导出表  bulleye_admin.b_login_record 的数据：~0 rows (大约)
+-- Dumping data for table bulleye_admin.b_login_record: ~0 rows (approximately)
 DELETE FROM `b_login_record`;
 /*!40000 ALTER TABLE `b_login_record` DISABLE KEYS */;
 /*!40000 ALTER TABLE `b_login_record` ENABLE KEYS */;
 
--- 导出  表 bulleye_admin.b_logs 结构
-DROP TABLE IF EXISTS `b_logs`;
+-- Dumping structure for table bulleye_admin.b_logs
 CREATE TABLE IF NOT EXISTS `b_logs` (
   `id` varchar(40) NOT NULL COMMENT 'ID',
   `organization_id` varchar(40) DEFAULT NULL COMMENT '所属组织',
@@ -183,13 +175,12 @@ CREATE TABLE IF NOT EXISTS `b_logs` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='操作日志';
 
--- 正在导出表  bulleye_admin.b_logs 的数据：~0 rows (大约)
+-- Dumping data for table bulleye_admin.b_logs: ~0 rows (approximately)
 DELETE FROM `b_logs`;
 /*!40000 ALTER TABLE `b_logs` DISABLE KEYS */;
 /*!40000 ALTER TABLE `b_logs` ENABLE KEYS */;
 
--- 导出  表 bulleye_admin.b_menu 结构
-DROP TABLE IF EXISTS `b_menu`;
+-- Dumping structure for table bulleye_admin.b_menu
 CREATE TABLE IF NOT EXISTS `b_menu` (
   `id` varchar(40) NOT NULL COMMENT '唯一标识',
   `parent_id` varchar(40) DEFAULT NULL COMMENT '父菜单id',
@@ -203,7 +194,7 @@ CREATE TABLE IF NOT EXISTS `b_menu` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='菜单表';
 
--- 正在导出表  bulleye_admin.b_menu 的数据：~18 rows (大约)
+-- Dumping data for table bulleye_admin.b_menu: ~18 rows (approximately)
 DELETE FROM `b_menu`;
 /*!40000 ALTER TABLE `b_menu` DISABLE KEYS */;
 INSERT INTO `b_menu` (`id`, `parent_id`, `icon`, `code`, `title`, `path`, `status`, `sort`, `created`) VALUES
@@ -227,8 +218,7 @@ INSERT INTO `b_menu` (`id`, `parent_id`, `icon`, `code`, `title`, `path`, `statu
 	('9', '1', NULL, '111', '微信自动回复管理', '/wxreply/list', 0, 1, '2019-04-28 22:38:42');
 /*!40000 ALTER TABLE `b_menu` ENABLE KEYS */;
 
--- 导出  表 bulleye_admin.b_menu_auth 结构
-DROP TABLE IF EXISTS `b_menu_auth`;
+-- Dumping structure for table bulleye_admin.b_menu_auth
 CREATE TABLE IF NOT EXISTS `b_menu_auth` (
   `id` varchar(50) NOT NULL,
   `menu_id` varchar(50) DEFAULT NULL,
@@ -240,34 +230,15 @@ CREATE TABLE IF NOT EXISTS `b_menu_auth` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='菜单权限表';
 
--- 正在导出表  bulleye_admin.b_menu_auth 的数据：~2 rows (大约)
+-- Dumping data for table bulleye_admin.b_menu_auth: ~2 rows (approximately)
 DELETE FROM `b_menu_auth`;
 /*!40000 ALTER TABLE `b_menu_auth` DISABLE KEYS */;
 INSERT INTO `b_menu_auth` (`id`, `menu_id`, `code`, `name`, `path`, `status`, `created`) VALUES
 	('5376de89-4b9d-11e9-8600-382c5e4d3b2a', '1', 'query', '查看', '/query', '0', '2019-04-28 22:38:53'),
-	('83e6e514-4c4b-11e9-8600-382c5e4d3b2a', '4', 'list', '查看', 'list', '0', '2019-04-28 22:38:53');
+	('83e6e514-4c4b-11e9-8600-382c5e4d3b2a', '4', 'list', '查看', '/list', '0', '2019-04-28 22:38:53');
 /*!40000 ALTER TABLE `b_menu_auth` ENABLE KEYS */;
 
--- 导出  表 bulleye_admin.b_menu_function 结构
-DROP TABLE IF EXISTS `b_menu_function`;
-CREATE TABLE IF NOT EXISTS `b_menu_function` (
-  `id` varchar(40) NOT NULL COMMENT '唯一标识',
-  `menu_id` varchar(40) DEFAULT NULL COMMENT '菜单外键',
-  `function_id` varchar(40) DEFAULT NULL COMMENT '功能外键',
-  `created` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建日期',
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='菜单功能中间表';
-
--- 正在导出表  bulleye_admin.b_menu_function 的数据：~2 rows (大约)
-DELETE FROM `b_menu_function`;
-/*!40000 ALTER TABLE `b_menu_function` DISABLE KEYS */;
-INSERT INTO `b_menu_function` (`id`, `menu_id`, `function_id`, `created`) VALUES
-	('dfdf', '3', '2', '2019-01-08 14:26:05'),
-	('dsdfsfdsdfsdfs', '2', '1', '2019-01-07 17:03:17');
-/*!40000 ALTER TABLE `b_menu_function` ENABLE KEYS */;
-
--- 导出  表 bulleye_admin.b_organization 结构
-DROP TABLE IF EXISTS `b_organization`;
+-- Dumping structure for table bulleye_admin.b_organization
 CREATE TABLE IF NOT EXISTS `b_organization` (
   `id` varchar(40) NOT NULL COMMENT '唯一标识',
   `pid` varchar(40) DEFAULT NULL,
@@ -284,15 +255,14 @@ CREATE TABLE IF NOT EXISTS `b_organization` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='组织信息表';
 
--- 正在导出表  bulleye_admin.b_organization 的数据：~0 rows (大约)
+-- Dumping data for table bulleye_admin.b_organization: ~0 rows (approximately)
 DELETE FROM `b_organization`;
 /*!40000 ALTER TABLE `b_organization` DISABLE KEYS */;
 INSERT INTO `b_organization` (`id`, `pid`, `code`, `name`, `area_id`, `brief`, `contact_name`, `contact_phone`, `domain`, `status`, `end_date`, `created`) VALUES
 	('suiji', NULL, 'admin', '管理', NULL, '管理组', '管理员工', '1328179872', NULL, 0, '2018-07-31 11:41:55', '2018-07-31 11:41:56');
 /*!40000 ALTER TABLE `b_organization` ENABLE KEYS */;
 
--- 导出  表 bulleye_admin.b_organization_menu 结构
-DROP TABLE IF EXISTS `b_organization_menu`;
+-- Dumping structure for table bulleye_admin.b_organization_menu
 CREATE TABLE IF NOT EXISTS `b_organization_menu` (
   `id` varchar(40) NOT NULL,
   `organization_id` varchar(40) DEFAULT NULL,
@@ -305,7 +275,7 @@ CREATE TABLE IF NOT EXISTS `b_organization_menu` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='组织自己的菜单层级';
 
--- 正在导出表  bulleye_admin.b_organization_menu 的数据：~16 rows (大约)
+-- Dumping data for table bulleye_admin.b_organization_menu: ~16 rows (approximately)
 DELETE FROM `b_organization_menu`;
 /*!40000 ALTER TABLE `b_organization_menu` DISABLE KEYS */;
 INSERT INTO `b_organization_menu` (`id`, `organization_id`, `menu_id`, `parent_id`, `display_name`, `status`, `is_leaf`, `created`) VALUES
@@ -327,8 +297,7 @@ INSERT INTO `b_organization_menu` (`id`, `organization_id`, `menu_id`, `parent_i
 	('2b0f0f4f-6d8a-11e9-8e25-049226bfdadf', 'suiji', '7', NULL, '微信公众号管理', 1, b'1', '2019-05-03 17:59:46');
 /*!40000 ALTER TABLE `b_organization_menu` ENABLE KEYS */;
 
--- 导出  表 bulleye_admin.b_organization_role 结构
-DROP TABLE IF EXISTS `b_organization_role`;
+-- Dumping structure for table bulleye_admin.b_organization_role
 CREATE TABLE IF NOT EXISTS `b_organization_role` (
   `id` varchar(50) NOT NULL,
   `organization_id` varchar(50) NOT NULL,
@@ -338,13 +307,12 @@ CREATE TABLE IF NOT EXISTS `b_organization_role` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='组织角色授权';
 
--- 正在导出表  bulleye_admin.b_organization_role 的数据：~0 rows (大约)
+-- Dumping data for table bulleye_admin.b_organization_role: ~0 rows (approximately)
 DELETE FROM `b_organization_role`;
 /*!40000 ALTER TABLE `b_organization_role` DISABLE KEYS */;
 /*!40000 ALTER TABLE `b_organization_role` ENABLE KEYS */;
 
--- 导出  表 bulleye_admin.b_role 结构
-DROP TABLE IF EXISTS `b_role`;
+-- Dumping structure for table bulleye_admin.b_role
 CREATE TABLE IF NOT EXISTS `b_role` (
   `id` varchar(40) NOT NULL COMMENT '唯一标识',
   `organization_id` varchar(40) DEFAULT NULL COMMENT '组织标识',
@@ -357,7 +325,7 @@ CREATE TABLE IF NOT EXISTS `b_role` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='角色表';
 
--- 正在导出表  bulleye_admin.b_role 的数据：~4 rows (大约)
+-- Dumping data for table bulleye_admin.b_role: ~4 rows (approximately)
 DELETE FROM `b_role`;
 /*!40000 ALTER TABLE `b_role` DISABLE KEYS */;
 INSERT INTO `b_role` (`id`, `organization_id`, `name`, `code`, `data_auth_flag`, `remark`, `status`, `created`) VALUES
@@ -367,27 +335,7 @@ INSERT INTO `b_role` (`id`, `organization_id`, `name`, `code`, `data_auth_flag`,
 	('5ebcefdf-6c2a-11e9-8e25-049226bfdadf', 'suiji', '测试', 'test', NULL, '测试角色', 0, '2019-05-02 00:01:33');
 /*!40000 ALTER TABLE `b_role` ENABLE KEYS */;
 
--- 导出  表 bulleye_admin.b_role_function 结构
-DROP TABLE IF EXISTS `b_role_function`;
-CREATE TABLE IF NOT EXISTS `b_role_function` (
-  `id` varchar(40) NOT NULL COMMENT '唯一标识',
-  `role_id` varchar(40) DEFAULT NULL COMMENT '角色标识',
-  `menu_id` varchar(40) DEFAULT NULL COMMENT '菜单标识',
-  `function_id` varchar(40) DEFAULT NULL COMMENT '功能标识',
-  `created` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '创建时间',
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='角色功能关系表';
-
--- 正在导出表  bulleye_admin.b_role_function 的数据：~2 rows (大约)
-DELETE FROM `b_role_function`;
-/*!40000 ALTER TABLE `b_role_function` DISABLE KEYS */;
-INSERT INTO `b_role_function` (`id`, `role_id`, `menu_id`, `function_id`, `created`) VALUES
-	('dfgdf', '1', '1', '1', '2019-01-07 17:05:59'),
-	('dfvd', '1', '3', '2', '2019-01-08 14:24:26');
-/*!40000 ALTER TABLE `b_role_function` ENABLE KEYS */;
-
--- 导出  表 bulleye_admin.b_role_menu 结构
-DROP TABLE IF EXISTS `b_role_menu`;
+-- Dumping structure for table bulleye_admin.b_role_menu
 CREATE TABLE IF NOT EXISTS `b_role_menu` (
   `id` varchar(40) NOT NULL COMMENT '唯一标识',
   `role_id` varchar(40) DEFAULT NULL COMMENT '角色外键',
@@ -398,7 +346,7 @@ CREATE TABLE IF NOT EXISTS `b_role_menu` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='角色菜单表';
 
--- 正在导出表  bulleye_admin.b_role_menu 的数据：~33 rows (大约)
+-- Dumping data for table bulleye_admin.b_role_menu: ~33 rows (approximately)
 DELETE FROM `b_role_menu`;
 /*!40000 ALTER TABLE `b_role_menu` DISABLE KEYS */;
 INSERT INTO `b_role_menu` (`id`, `role_id`, `menu_id`, `status`, `is_leaf`, `created`) VALUES
@@ -437,8 +385,26 @@ INSERT INTO `b_role_menu` (`id`, `role_id`, `menu_id`, `status`, `is_leaf`, `cre
 	('688bffdc-6d7e-11e9-8e25-049226bfdadf', '1', '2', 1, b'0', '2019-05-03 16:35:35');
 /*!40000 ALTER TABLE `b_role_menu` ENABLE KEYS */;
 
--- 导出  表 bulleye_admin.b_staff 结构
-DROP TABLE IF EXISTS `b_staff`;
+-- Dumping structure for table bulleye_admin.b_role_menu_auth
+CREATE TABLE IF NOT EXISTS `b_role_menu_auth` (
+  `id` varchar(40) NOT NULL COMMENT '唯一标识',
+  `role_id` varchar(40) DEFAULT NULL COMMENT '角色ID',
+  `menu_auth_id` varchar(40) DEFAULT NULL COMMENT '授权路径ID',
+  `user_id` varchar(40) DEFAULT NULL COMMENT '操作人',
+  `status` int(2) DEFAULT NULL COMMENT '状态',
+  `created` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建日期',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='角色菜单路径授权';
+
+-- Dumping data for table bulleye_admin.b_role_menu_auth: ~2 rows (approximately)
+DELETE FROM `b_role_menu_auth`;
+/*!40000 ALTER TABLE `b_role_menu_auth` DISABLE KEYS */;
+INSERT INTO `b_role_menu_auth` (`id`, `role_id`, `menu_auth_id`, `user_id`, `status`, `created`) VALUES
+	('dfdf', '1', '5376de89-4b9d-11e9-8600-382c5e4d3b2a', NULL, NULL, '2019-01-08 14:26:05'),
+	('dsdfsfdsdfsdfs', '2', '83e6e514-4c4b-11e9-8600-382c5e4d3b2a', NULL, NULL, '2019-01-07 17:03:17');
+/*!40000 ALTER TABLE `b_role_menu_auth` ENABLE KEYS */;
+
+-- Dumping structure for table bulleye_admin.b_staff
 CREATE TABLE IF NOT EXISTS `b_staff` (
   `id` varchar(40) NOT NULL COMMENT 'ID',
   `serial_no` varchar(20) DEFAULT NULL COMMENT '工号',
@@ -468,7 +434,7 @@ CREATE TABLE IF NOT EXISTS `b_staff` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='人员信息表';
 
--- 正在导出表  bulleye_admin.b_staff 的数据：~12 rows (大约)
+-- Dumping data for table bulleye_admin.b_staff: ~12 rows (approximately)
 DELETE FROM `b_staff`;
 /*!40000 ALTER TABLE `b_staff` DISABLE KEYS */;
 INSERT INTO `b_staff` (`id`, `serial_no`, `name`, `gender_id`, `mobile`, `email`, `avatar`, `organization_id`, `department_id`, `birthday`, `academic_id`, `degree_id`, `position_id`, `title_id`, `type_id`, `identify_type_id`, `identify_no`, `birth_province_id`, `birth_city_id`, `policy`, `nation_id`, `join_date`, `remark`, `status`, `created`) VALUES

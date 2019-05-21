@@ -29,9 +29,4 @@ public class AccountRoleController extends BaseController<AccountRole> {
     public JsonResult saveAccountRoles(@RequestBody Map<String,String> map){
        return accountRoleService.saveAccountRoles(map);
     }
-
-    @Override
-    public String getViewPrefix() {
-        return "accountrole";
-    }
 }

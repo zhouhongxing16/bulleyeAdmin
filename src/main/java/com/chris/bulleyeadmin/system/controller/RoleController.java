@@ -32,11 +32,6 @@ public class RoleController extends BaseController<Role> {
     }
 
     @Override
-    public String getViewPrefix() {
-        return "role";
-    }
-
-    @Override
     @OperationLog("创建角色")
     @PostMapping("/create")
     @ResponseBody

@@ -27,11 +27,6 @@ public class WxMaterialController extends BaseController<WxMaterial> {
         return wxMaterialService;
     }
 
-    @Override
-    public String getViewPrefix() {
-        return "wxmaterial";
-    }
-
     @OperationLog("生成永久素材")
     @PostMapping("/materialUpload/{id}")
     public JsonResult materialUpload(@PathVariable String id){
