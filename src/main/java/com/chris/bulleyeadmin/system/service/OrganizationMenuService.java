@@ -1,14 +1,12 @@
 package com.chris.bulleyeadmin.system.service;
 
 import com.chris.bulleyeadmin.common.basemapper.BaseMapper;
-import com.chris.bulleyeadmin.common.pojo.JsonResult;
+import com.chris.bulleyeadmin.common.entity.JsonResult;
 import com.chris.bulleyeadmin.common.service.BaseService;
-import com.chris.bulleyeadmin.common.utils.Help;
 import com.chris.bulleyeadmin.system.mapper.OrganizationMenuMapper;
 import com.chris.bulleyeadmin.system.pojo.OrganizationMenu;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import springfox.documentation.spring.web.json.Json;
 
 import java.util.HashMap;
 import java.util.List;

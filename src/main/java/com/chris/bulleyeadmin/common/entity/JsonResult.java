@@ -1,4 +1,4 @@
-package com.chris.bulleyeadmin.common.pojo;
+package com.chris.bulleyeadmin.common.entity;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;

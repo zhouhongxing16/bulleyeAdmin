@@ -2,7 +2,7 @@ package com.chris.bulleyeadmin.system.service;
 
 import com.chris.bulleyeadmin.common.basemapper.BaseMapper;
 import com.chris.bulleyeadmin.common.service.BaseService;
-import com.chris.bulleyeadmin.system.mapper.EmailMapper;
+import com.chris.bulleyeadmin.common.mapper.EmailMapper;
 import com.chris.bulleyeadmin.system.pojo.Email;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

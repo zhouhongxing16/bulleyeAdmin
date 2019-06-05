@@ -1,13 +1,9 @@
 package com.chris.bulleyeadmin.common.security;
 
 import com.chris.bulleyeadmin.common.excepition.RPCFailedException;
-import com.chris.bulleyeadmin.common.pojo.JsonResult;
-import com.chris.bulleyeadmin.common.utils.AuthUtil;
+import com.chris.bulleyeadmin.common.entity.JsonResult;
 import com.chris.bulleyeadmin.common.utils.DateUtils;
-import com.chris.bulleyeadmin.common.utils.HttpContextUtils;
-import com.chris.bulleyeadmin.common.utils.IPUtils;
 import com.chris.bulleyeadmin.system.dto.AccountDto;
-import com.chris.bulleyeadmin.system.pojo.LoginRecord;
 import com.chris.bulleyeadmin.system.pojo.Role;
 import com.chris.bulleyeadmin.system.pojo.Staff;
 import com.chris.bulleyeadmin.system.pojo.User;
@@ -15,23 +11,17 @@ import com.chris.bulleyeadmin.system.service.AccountService;
 import com.chris.bulleyeadmin.system.service.LoginRecordService;
 import com.chris.bulleyeadmin.system.service.RoleService;
 import com.chris.bulleyeadmin.system.service.StaffService;
-import eu.bitwalker.useragentutils.UserAgent;
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpRequest;
-import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
-import javax.servlet.http.HttpServletRequest;
 import java.util.ArrayList;
 import java.util.List;
 

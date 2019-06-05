@@ -1,8 +1,7 @@
 package com.chris.bulleyeadmin.wechat.service;
 
-import com.alibaba.fastjson.JSONObject;
 import com.chris.bulleyeadmin.common.basemapper.BaseMapper;
-import com.chris.bulleyeadmin.common.pojo.JsonResult;
+import com.chris.bulleyeadmin.common.entity.JsonResult;
 import com.chris.bulleyeadmin.common.service.BaseService;
 import com.chris.bulleyeadmin.wechat.config.WxMpConfiguration;
 import com.chris.bulleyeadmin.wechat.mapper.WxAccountMapper;
@@ -20,7 +19,6 @@ import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 
 
 @Service

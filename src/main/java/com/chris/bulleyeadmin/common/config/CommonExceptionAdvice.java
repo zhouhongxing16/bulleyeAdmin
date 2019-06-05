@@ -1,7 +1,7 @@
 package com.chris.bulleyeadmin.common.config;
 
 import com.chris.bulleyeadmin.common.excepition.RPCFailedException;
-import com.chris.bulleyeadmin.common.pojo.JsonResult;
+import com.chris.bulleyeadmin.common.entity.JsonResult;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.dao.DataIntegrityViolationException;

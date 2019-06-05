@@ -44,7 +44,7 @@
     </select>
     
     <select id="getRoleAuthPaths" resultType="map">
-    select r.CODE,ma.path as path
+    select r.code,ma.path as path
     from b_role_menu_auth rma
 	left join b_role r on r.id = rma.role_id
 	left join b_menu_auth ma on ma.id = rma.menu_auth_id

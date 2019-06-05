@@ -1,6 +1,7 @@
 package com.chris.bulleyeadmin.common.utils;
 
 
+import com.github.pagehelper.PageHelper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.util.AntPathMatcher;
@@ -10,6 +11,7 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.util.Map;
 
 public class Help {
 
@@ -52,4 +54,15 @@ public class Help {
         return System.currentTimeMillis();
     }
 
+
+    public static void startPage(Map<String, Object> params) {
+        if(params.get("pageNum") != null){
+            if(params.get("pageSize").toString().equals( "0" )){
+                params.remove( "pageNum" );
+                params.remove( "pageSize" );
+            } else {
+                PageHelper.startPage(params);
+            }
+        }
+    }
 }

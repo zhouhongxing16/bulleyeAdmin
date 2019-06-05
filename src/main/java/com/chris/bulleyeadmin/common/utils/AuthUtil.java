@@ -1,6 +1,6 @@
 package com.chris.bulleyeadmin.common.utils;
 
-import com.chris.bulleyeadmin.common.pojo.Constants;
+import com.chris.bulleyeadmin.common.entity.Constants;
 import com.chris.bulleyeadmin.system.pojo.Role;
 import com.chris.bulleyeadmin.system.pojo.User;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,7 +12,6 @@ import org.springframework.web.context.request.ServletRequestAttributes;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
-import java.util.Map;
 
 @Component
 public class AuthUtil {

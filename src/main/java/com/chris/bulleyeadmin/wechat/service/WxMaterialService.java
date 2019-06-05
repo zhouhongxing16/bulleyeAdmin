@@ -1,7 +1,7 @@
 package com.chris.bulleyeadmin.wechat.service;
 
 import com.chris.bulleyeadmin.common.basemapper.BaseMapper;
-import com.chris.bulleyeadmin.common.pojo.JsonResult;
+import com.chris.bulleyeadmin.common.entity.JsonResult;
 import com.chris.bulleyeadmin.common.service.BaseService;
 import com.chris.bulleyeadmin.wechat.Enums.WxMaterialEnum;
 import com.chris.bulleyeadmin.wechat.config.WxMpConfiguration;
@@ -18,7 +18,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 
-import java.io.File;
 import java.util.List;
 
 

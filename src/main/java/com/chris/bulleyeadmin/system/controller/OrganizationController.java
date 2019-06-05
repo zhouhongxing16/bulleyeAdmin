@@ -5,6 +5,7 @@ import com.chris.bulleyeadmin.common.utils.OperationLog;
 import com.chris.bulleyeadmin.system.pojo.Organization;
 import com.chris.bulleyeadmin.common.service.BaseService;
 import com.chris.bulleyeadmin.system.service.OrganizationService;
+import io.swagger.annotations.Api;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -14,6 +15,7 @@ import org.springframework.web.bind.annotation.RestController;
  * @Date: 2019-01-07 15:38
  * @Description:
  */
+@Api(tags = "organization", description = "组织管理")
 @OperationLog("组织管理")
 @RestController
 @RequestMapping("/organization")

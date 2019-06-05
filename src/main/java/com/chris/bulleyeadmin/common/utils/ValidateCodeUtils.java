@@ -8,7 +8,7 @@ import java.util.Random;
 
 /**
  * 验证码（系统登陆用）工具类
- * 
+ *
  *
  */
 public class ValidateCodeUtils {
@@ -73,6 +73,29 @@ public class ValidateCodeUtils {
 		return buffImg;
 	}
 
+
+	/**
+	 * 获取验证码字符串
+	 * @return
+	 */
+	public static String  getRandomValidateCode(HttpSession session) {
+		// 创建一个随机数生成器类
+		Random random = new Random();
+		// randomCode用于保存随机产生的验证码，以便用户登录后进行验证。
+		StringBuffer randomCode = new StringBuffer();
+		// 随机产生codeCount数字的验证码。
+		for (int i = 0; i < codeCount; i++) {
+			// 得到随机产生的验证码数字。
+			String strRand = String.valueOf(codeSequence[random.nextInt(10)]);
+			// 将产生的四个随机数组合在一起。
+			randomCode.append(strRand);
+		}
+		System.out.println(randomCode.toString());
+		// 将验证码写入Session
+		session.setAttribute("VALIDATE_CODE", randomCode.toString());
+		return  randomCode.toString();
+	}
+
 	/**
 	 * 获取验证码字符串（用于验证用户验证码输入）
 	 * @return
@@ -83,7 +106,7 @@ public class ValidateCodeUtils {
 
 	/**
 	 * 产生随机颜色
-	 * 
+	 *
 	 * @param num1
 	 * @param num2
 	 * @return Color

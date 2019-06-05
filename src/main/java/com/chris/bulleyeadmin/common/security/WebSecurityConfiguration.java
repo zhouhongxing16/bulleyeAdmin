@@ -38,6 +38,11 @@ public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter {
                 .antMatchers("/login").permitAll()
                 .antMatchers("/imagevcode").permitAll()
                 .antMatchers("/wx/portal/**").permitAll()
+                .antMatchers("/file/view/**").permitAll()
+                .antMatchers("/file/download/**").permitAll()
+//                .antMatchers("/file/uploadfile").permitAll()
+                .antMatchers("/message/sendVerificationCode").permitAll()
+                .antMatchers("/message/verificationCode").permitAll()
                 .anyRequest().authenticated()
                 .and()
                 .addFilter(new JWTLoginFilter(authenticationManager()))
@@ -63,6 +68,7 @@ public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter {
                 .antMatchers("/**.js")
                 .antMatchers("/**.css")
                 .antMatchers("/**.txt");
+        web.ignoring().antMatchers("/v2/api-docs", "/swagger-resources/**", "/swagger-ui.html**", "/webjars/**","/medical-provider/api-docs");
     }
 
     @Bean

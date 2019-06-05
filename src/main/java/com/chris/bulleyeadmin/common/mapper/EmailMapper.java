@@ -1,4 +1,4 @@
-package com.chris.bulleyeadmin.system.mapper;
+package com.chris.bulleyeadmin.common.mapper;
 
 
 import com.chris.bulleyeadmin.common.basemapper.BaseMapper;

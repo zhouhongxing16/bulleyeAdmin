@@ -2,7 +2,7 @@ package com.chris.bulleyeadmin.system.service;
 
 
 import com.chris.bulleyeadmin.common.basemapper.BaseMapper;
-import com.chris.bulleyeadmin.common.pojo.JsonResult;
+import com.chris.bulleyeadmin.common.entity.JsonResult;
 import com.chris.bulleyeadmin.common.service.BaseService;
 import com.chris.bulleyeadmin.system.mapper.AccountRoleMapper;
 import com.chris.bulleyeadmin.system.pojo.AccountRole;

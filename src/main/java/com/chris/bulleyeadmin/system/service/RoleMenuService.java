@@ -1,10 +1,9 @@
 package com.chris.bulleyeadmin.system.service;
 
 import com.chris.bulleyeadmin.common.basemapper.BaseMapper;
-import com.chris.bulleyeadmin.common.pojo.JsonResult;
+import com.chris.bulleyeadmin.common.entity.JsonResult;
 import com.chris.bulleyeadmin.common.service.BaseService;
 import com.chris.bulleyeadmin.system.mapper.RoleMenuMapper;
-import com.chris.bulleyeadmin.system.pojo.OrganizationMenu;
 import com.chris.bulleyeadmin.system.pojo.RoleMenu;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
