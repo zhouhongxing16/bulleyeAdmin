@@ -16,11 +16,11 @@ public class FileUploadResult implements Serializable {
 
     private Boolean success;
 
-    private String msg;
+    private String message;
 
     private String url;
 
-    private String urlpath;
+    private String downloadPath;
 
     private String fileName;
 
@@ -50,12 +50,12 @@ public class FileUploadResult implements Serializable {
         this.status = status;
     }
 
-    public String getMsg() {
-        return msg;
+    public String getMessage() {
+        return message;
     }
 
-    public void setMsg(String msg) {
-        this.msg = msg;
+    public void setMessage(String message) {
+        this.message = message;
     }
 
     public Boolean getSuccess() {
@@ -74,12 +74,12 @@ public class FileUploadResult implements Serializable {
         this.url = url;
     }
 
-    public String getUrlpath() {
-        return urlpath;
+    public String getDownloadPath() {
+        return downloadPath;
     }
 
-    public void setUrlpath(String urlpath) {
-        this.urlpath = urlpath;
+    public void setDownloadPath(String downloadPath) {
+        this.downloadPath = downloadPath;
     }
 
     public String getFileName() {

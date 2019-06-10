@@ -30,12 +30,10 @@ public class FileUploadUtils {
     public static FileUploadResult fileUpload(MultipartFile file, String schoolId,
                                               FileUploadResult fileUploadResult, FileUploadPath fileUploadPath) {
 
-        Map<String, Object> map = new HashMap<String, Object>();
-        File targetFile = null;
-
+        File targetFile;
         if (file.isEmpty()) {
             fileUploadResult.setStatus(0);
-            fileUploadResult.setMsg("上传失败,文件不存在!");
+            fileUploadResult.setMessage("上传失败,文件不存在!");
         } else {
 
             String fileName = file.getOriginalFilename();
@@ -50,24 +48,24 @@ public class FileUploadUtils {
                     targetFile = new File(filePath, finalName);
                     String viewUrl = "/"+schoolId+"/"+finalName;
                     file.transferTo(targetFile);
-                    fileUploadResult.setMsg("上传成功!");
+                    fileUploadResult.setMessage("上传成功!");
                     fileUploadResult.setSuccess(true);
                     fileUploadResult.setStatus(1);
                     fileUploadResult.setError(0);
                     fileUploadResult.setUploaded("1");
                     fileUploadResult.setFileName(fileName);
                     fileUploadResult.setUrl(viewUrl);
-                    fileUploadResult.setUrlpath(viewUrl);
+                    fileUploadResult.setDownloadPath(viewUrl);
                 } catch (Exception e) {
                     e.printStackTrace();
-                    fileUploadResult.setMsg("系统异常，上传失败!");
+                    fileUploadResult.setMessage("系统异常，上传失败!");
                     fileUploadResult.setStatus(0);
                     fileUploadResult.setUploaded("1");
                     fileUploadResult.setError(1);
                     fileUploadResult.setSuccess(false);
                 }
             } else {
-                fileUploadResult.setMsg("请上传图片,zip,rar,及office文件!");
+                fileUploadResult.setMessage("请上传图片,zip,rar,及office文件!");
                 fileUploadResult.setStatus(1);
                 fileUploadResult.setError(1);
                 fileUploadResult.setSuccess(false);

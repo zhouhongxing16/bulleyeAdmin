@@ -66,14 +66,13 @@ public class FileUploadService extends BaseService<AttachFiles>{
     public FileUploadResult fileUpload(MultipartFile file, String schoolId, String bizId) {
         if(file.isEmpty()){
             fileUploadResult.setStatus(0);
-            fileUploadResult.setMsg("上传失败,文件不存在!");
+            fileUploadResult.setMessage("上传失败,文件不存在!");
         }else if(StringUtils.isEmpty(schoolId)){
             fileUploadResult.setStatus(0);
-            fileUploadResult.setMsg("用户信息不存在,请重新登录!");
+            fileUploadResult.setMessage("用户信息不存在,请重新登录!");
         }else{
             fileUploadResult =  FileUploadUtils.fileUpload(file,schoolId,fileUploadResult,fileUploadPath);
             if(fileUploadResult.getSuccess()){
-
                 AttachFiles attachFiles = new AttachFiles();
                 attachFiles.setBizId(bizId);
                 attachFiles.setDownloadCount(0);
@@ -83,8 +82,9 @@ public class FileUploadService extends BaseService<AttachFiles>{
                 attachFilesMapper.insert(attachFiles);
                 fileUploadResult.setId(attachFiles.getId());
                 String path = fileUploadPath.getUploadUrl()+"/file/view/"+fileUploadResult.getId();
+                String downloadPath = fileUploadPath.getUploadUrl()+"/file/download/"+fileUploadResult.getId();
                 fileUploadResult.setUrl(path);
-                fileUploadResult.setUrlpath(path);
+                fileUploadResult.setDownloadPath(downloadPath);
             }
 
         }
