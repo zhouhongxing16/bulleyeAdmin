@@ -51,6 +51,36 @@ public class User extends org.springframework.security.core.userdetails.User {
 
     private List<Role> role;
 
+    private String mobile;
+
+    private String captcha;
+
+    private String remember;
+
+    public String getRemember() {
+        return remember;
+    }
+
+    public void setRemember(String remember) {
+        this.remember = remember;
+    }
+
+    public String getCaptcha() {
+        return captcha;
+    }
+
+    public void setCaptcha(String captcha) {
+        this.captcha = captcha;
+    }
+
+    public String getMobile() {
+        return mobile;
+    }
+
+    public void setMobile(String mobile) {
+        this.mobile = mobile;
+    }
+
     public String getId() {
         return id;
     }
