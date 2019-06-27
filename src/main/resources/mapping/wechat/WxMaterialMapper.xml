@@ -47,7 +47,7 @@
             <if test="name!=null and name!='' ">
                 and a.name= LIKE CONCAT('%', #{ name}, '%')
             </if>
-            <if test="parentId!=null parentIdand!='' ">
+            <if test="parentId!=null and parentId!='' ">
                 and a.parent_id=#{ parent_id}
             </if>
             <if test="type!=null and type!='' ">
@@ -56,7 +56,7 @@
             <if test="title!=null and title!='' ">
                 and a.title LIKE CONCAT('%', #{ title }, '%')
             </if>
-            <if test="thumbMediaId!=null thumbMediaIdand!='' ">
+            <if test="thumbMediaId!=null and thumbMediaId!='' ">
                 and a.thumb_media_id=#{ thumbMediaId}
             </if>
             <if test="author!=null and author!='' ">
