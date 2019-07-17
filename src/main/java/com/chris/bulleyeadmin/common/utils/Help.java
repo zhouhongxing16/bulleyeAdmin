@@ -12,6 +12,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.util.Map;
+import java.util.UUID;
 
 public class Help {
 
@@ -64,5 +65,10 @@ public class Help {
                 PageHelper.startPage(params);
             }
         }
+    }
+
+    public static String getUUID() {
+        String uuid = UUID.randomUUID().toString();
+        return uuid;
     }
 }
