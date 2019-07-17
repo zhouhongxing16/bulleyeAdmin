@@ -14,7 +14,7 @@ public class WxMaterial implements Serializable {
     private String mediaId;
 
     @Column(name = "account_id")
-    private String account_id;
+    private String accountId;
 
     @Column(name = "name")
     private String name;
@@ -77,12 +77,12 @@ public class WxMaterial implements Serializable {
         this.mediaId = mediaId;
     }
 
-    public String getAccount_id() {
-        return account_id;
+    public String getAccountId() {
+        return accountId;
     }
 
-    public void setAccount_id(String account_id) {
-        this.account_id = account_id;
+    public void setAccountId(String accountId) {
+        this.accountId = accountId;
     }
 
     public String getName() {

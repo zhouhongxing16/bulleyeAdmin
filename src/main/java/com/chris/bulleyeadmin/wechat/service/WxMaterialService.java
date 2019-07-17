@@ -17,6 +17,8 @@ import me.chanjar.weixin.mp.bean.material.WxMpMaterialUploadResult;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Propagation;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -34,6 +36,7 @@ public class WxMaterialService extends BaseService<WxMaterial> {
         return wxMaterialMapper;
     }
 
+    @Transactional(propagation = Propagation.REQUIRED)
     public JsonResult materialUpload(String id){
         WxMaterial queryWxMaterial = new WxMaterial();
         queryWxMaterial.setId(id);
@@ -41,7 +44,7 @@ public class WxMaterialService extends BaseService<WxMaterial> {
         WxMaterial wxMaterial = wxMaterialMapper.selectOne(queryWxMaterial);
         //获取相关接口
         WxAccount queryaccount = new WxAccount();
-        queryaccount.setId(wxMaterial.getAccount_id());
+        queryaccount.setId(wxMaterial.getAccountId());
 
         WxAccount account = wxAccountMapper.selectOne(queryaccount);
         WxMpService wxService = WxMpConfiguration.getMpServices().get(account.getAppId());
@@ -101,7 +104,7 @@ public class WxMaterialService extends BaseService<WxMaterial> {
 
     }
 
-
+    @Transactional(propagation = Propagation.REQUIRED)
     public JsonResult materialDelete(String id){
         WxMaterial QwxMaterial = new WxMaterial();
         QwxMaterial.setId(id);
@@ -109,7 +112,7 @@ public class WxMaterialService extends BaseService<WxMaterial> {
         WxMaterial wxMaterial = wxMaterialMapper.selectOne(QwxMaterial);
         //获取相关接口
         WxAccount queryaccount = new WxAccount();
-        queryaccount.setId(wxMaterial.getAccount_id());
+        queryaccount.setId(wxMaterial.getAccountId());
 
         WxAccount account = wxAccountMapper.selectOne(queryaccount);
         WxMpService wxService = WxMpConfiguration.getMpServices().get(account.getAppId());
