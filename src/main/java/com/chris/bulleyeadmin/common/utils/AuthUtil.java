@@ -7,8 +7,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Component;
-import org.springframework.web.context.request.RequestContextHolder;
-import org.springframework.web.context.request.ServletRequestAttributes;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -21,7 +19,7 @@ public class AuthUtil {
     @Autowired
     private HttpServletRequest request;
 
-    private static User getCurrentSpringUser() {
+    public static User getCurrentUser() {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         if (authentication != null) {
             Object object = authentication.getPrincipal();
@@ -34,11 +32,6 @@ public class AuthUtil {
         return null;
     }
 
-    public static User getCurrentUser() {
-        HttpServletRequest request = ((ServletRequestAttributes) RequestContextHolder.getRequestAttributes()).getRequest();
-        return getCurrentUser(request);
-    }
-
     public static User getCurrentUser(HttpServletRequest request) {
         if (request == null) {
             return null;
@@ -47,7 +40,7 @@ public class AuthUtil {
         HttpSession session = request.getSession();
         User user = (User) session.getAttribute("user");
         if (user == null) {
-            user = getCurrentSpringUser();
+            user = getCurrentUser();
             session.setAttribute("user", user);
         }
         return user;
