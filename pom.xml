@@ -176,6 +176,14 @@
         </dependency>
         <!-- 阿里云短信  end-->
 
+
+
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-quartz</artifactId>
+            <version>2.1.4.RELEASE</version>
+        </dependency>
+
     </dependencies>
 
     <build>
