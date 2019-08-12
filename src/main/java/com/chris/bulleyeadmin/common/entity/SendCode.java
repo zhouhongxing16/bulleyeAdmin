@@ -9,15 +9,34 @@ import java.io.Serializable;
 public class SendCode implements Serializable {
 
     @Value("${aliyunSMS.accessKeyId}")
-    private   String accessKeyId;
+    private String defaultSMS;
+
+    //阿里云短信服务
+    @Value("${aliyunSMS.accessKeyId}")
+    private String accessKeyId;
+
     @Value("${aliyunSMS.accessKeySecret}")
-    private  String accessKeySecret;
+    private String accessKeySecret;
+
     @Value("${aliyunSMS.signName}")
-    private  String signName;
+    private String signName;
+
     @Value("${aliyunSMS.product}")
-    private  String product;
+    private String product;
+
     @Value("${aliyunSMS.domain}")
-    private  String domain;
+    private String domain;
+
+
+    //腾讯短信服务
+    @Value("${tencentSMS.appId}")
+    private Integer appId;
+
+    @Value("${tencentSMS.appKey}")
+    private String appKey;
+
+    @Value("${tencentSMS.smsSign}")
+    private String smsSign;
 
 
     public String getAccessKeyId() {
@@ -58,5 +77,37 @@ public class SendCode implements Serializable {
 
     public void setDomain(String domain) {
         this.domain = domain;
+    }
+
+    public Integer getAppId() {
+        return appId;
+    }
+
+    public void setAppId(Integer appId) {
+        this.appId = appId;
+    }
+
+    public String getAppKey() {
+        return appKey;
+    }
+
+    public void setAppKey(String appKey) {
+        this.appKey = appKey;
+    }
+
+    public String getSmsSign() {
+        return smsSign;
+    }
+
+    public void setSmsSign(String smsSign) {
+        this.smsSign = smsSign;
+    }
+
+    public String getDefaultSMS() {
+        return defaultSMS;
+    }
+
+    public void setDefaultSMS(String defaultSMS) {
+        this.defaultSMS = defaultSMS;
     }
 }
