@@ -32,25 +32,9 @@ public class SendSMSUtil {
     private SendSMSUtil() {
     }
 
-    public static JSONObject sendSMS(Map<String,Object> map, String mobiles, Integer templateCode, SendCode sendCode) throws Exception {
+    public static JSONObject sendSMS(Map<String,Object> map, String mobiles, String templateCode, SendCode sendCode) throws Exception {
         JSONObject jo = null;
-        if("tencent".equals(sendCode.getDefaultSMS())){
-            try {
-                String[] params = {"394263"};
-                SmsSingleSender ssender = new SmsSingleSender(sendCode.getAppId(), sendCode.getAppKey());
-                SmsSingleSenderResult result = ssender.sendWithParam("86", mobiles,templateCode, params, sendCode.getSmsSign(), "", "");  // 签名参数未提供或者为空时，会使用默认签名发送短信
-                System.out.println(result);
-            } catch (HTTPException e) {
-                // HTTP 响应码错误
-                e.printStackTrace();
-            } catch (JSONException e) {
-                // JSON 解析错误
-                e.printStackTrace();
-            } catch (IOException e) {
-                // 网络 IO 错误
-                e.printStackTrace();
-            }
-        }else{
+
             DefaultProfile profile = DefaultProfile.getProfile("default", sendCode.getAccessKeyId(), sendCode.getAccessKeySecret());
             IAcsClient client = new DefaultAcsClient(profile);
 
@@ -77,8 +61,26 @@ public class SendSMSUtil {
             } catch (ClientException e) {
                 e.printStackTrace();
             }
-
-        }
+        return jo;
+    }
+    public static JSONObject sendSMS(Map<String,Object> map, String mobiles, Integer templateCode, SendCode sendCode) throws Exception {
+        JSONObject jo = null;
+            try {
+                mobiles = "13258179872,18080332897";
+                String[] params = {"394263"};
+                SmsSingleSender ssender = new SmsSingleSender(sendCode.getAppId(), sendCode.getAppKey());
+                SmsSingleSenderResult result = ssender.sendWithParam("86", mobiles,templateCode, params, sendCode.getSmsSign(), "", "");  // 签名参数未提供或者为空时，会使用默认签名发送短信
+                System.out.println(result);
+            } catch (HTTPException e) {
+                // HTTP 响应码错误
+                e.printStackTrace();
+            } catch (JSONException e) {
+                // JSON 解析错误
+                e.printStackTrace();
+            } catch (IOException e) {
+                // 网络 IO 错误
+                e.printStackTrace();
+            }
         return jo;
     }
 
