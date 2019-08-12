@@ -31,15 +31,25 @@ mapper:
   not-empty: false
   identity: MYSQL
   before: true
+
+defaultSMS: tencent
 aliyunSMS:
   accessKeyId: LTAI1dbEIUJOaeog
   accessKeySecret: 02Rs1BwHg5cQcdbIRrpvhkSXIxC7J2
   signName: U创邦
   product: Dysmsapi
   domain: dysmsapi.aliyuncs.com
+tencentSMS:
+  appId: LTAI1dbEIUJOaeog
+  appKey: 02Rs1BwHg5cQcdbIRrpvhkSXIxC7J2
+  smsSign : 克里斯周
+  product: Dysmsapi
+  domain: dysmsapi.aliyuncs.com
+
 serverConfig:
   uploadPath: c:/aaa
-  uploadUrl: http://bulleye.zhouhongxing.cn:8001
+  #uploadUrl: http://bulleye.zhouhongxing.cn:8001
+  uploadUrl: http://localhost:8001
   isDebug: false
 sysconfig:
   organizationId: c77e18b0-1ffa-11e7-b036-00163e0603fa
