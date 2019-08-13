@@ -12,7 +12,7 @@ public enum  SendCodeEnum  {
 
     private String typeCode;
 
-    public String getTypeCode() {
+    public Object getTypeCode() {
         return typeCode;
     }
 

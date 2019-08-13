@@ -36,7 +36,7 @@ public class SendMessageService {
                 return result;
             }else{
                 String mobiles = map.get("mobiles").toString();
-                JSONObject jo =  SendSMSUtil.sendSMS(map,mobiles, codeEnum.name(),sendCode);
+                JSONObject jo =  SendSMSUtil.sendSMS(map,mobiles,0,sendCode);
                 if("OK".equals(jo.get("Code"))){
                     result.setSuccess(false);
                     result.setMessage("短信发送成功！");
