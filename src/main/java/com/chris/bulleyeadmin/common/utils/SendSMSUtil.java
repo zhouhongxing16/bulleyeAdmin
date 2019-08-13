@@ -66,10 +66,10 @@ public class SendSMSUtil {
     public static JSONObject sendSMS(Map<String,Object> map, String mobiles, Integer templateCode, SendCode sendCode) throws Exception {
         JSONObject jo = null;
             try {
-                mobiles = "13258179872,18080332897";
-                String[] params = {"394263"};
+
+                String[] params = {"9527"};
                 SmsSingleSender ssender = new SmsSingleSender(sendCode.getAppId(), sendCode.getAppKey());
-                SmsSingleSenderResult result = ssender.sendWithParam("86", mobiles,templateCode, params, sendCode.getSmsSign(), "", "");  // 签名参数未提供或者为空时，会使用默认签名发送短信
+                SmsSingleSenderResult result = ssender.sendWithParam("86", mobiles,394263, params, "验证码", "", "");  // 签名参数未提供或者为空时，会使用默认签名发送短信
                 System.out.println(result);
             } catch (HTTPException e) {
                 // HTTP 响应码错误

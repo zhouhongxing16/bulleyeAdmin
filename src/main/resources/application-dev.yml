@@ -40,7 +40,7 @@ aliyunSMS:
   product: Dysmsapi
   domain: dysmsapi.aliyuncs.com
 tencentSMS:
-  appId: LTAI1dbEIUJOaeog
+  appId: 1400047724
   appKey: 02Rs1BwHg5cQcdbIRrpvhkSXIxC7J2
   smsSign : 克里斯周
   product: Dysmsapi
