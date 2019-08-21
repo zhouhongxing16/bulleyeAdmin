@@ -1,7 +1,6 @@
 package com.chris.bulleyeadmin.common.service;
 
 
-import com.alibaba.fastjson.JSONObject;
 import com.chris.bulleyeadmin.common.entity.JsonResult;
 import com.chris.bulleyeadmin.common.entity.SendCode;
 import com.chris.bulleyeadmin.common.entity.SendCodeEnum;
@@ -36,15 +35,7 @@ public class SendMessageService {
                 return result;
             }else{
                 String mobiles = map.get("mobiles").toString();
-                JSONObject jo =  SendSMSUtil.sendSMS(map,mobiles,0,sendCode);
-                if("OK".equals(jo.get("Code"))){
-                    result.setSuccess(false);
-                    result.setMessage("短信发送成功！");
-                }else{
-                    System.out.println(jo.toJSONString());
-                    result.setSuccess(false);
-                    result.setMessage(jo.toJSONString());
-                }
+                result =  SendSMSUtil.sendSMS(map,mobiles,0,sendCode);
                 return result;
             }
         }
