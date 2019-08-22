@@ -1,7 +1,6 @@
 package com.chris.bulleyeadmin.common.service;
 
 
-import com.chris.bulleyeadmin.common.entity.Constants;
 import com.chris.bulleyeadmin.common.entity.JsonResult;
 import com.chris.bulleyeadmin.common.entity.SendCode;
 import com.chris.bulleyeadmin.common.entity.SendCodeEnum;
@@ -28,26 +27,18 @@ public class SendMessageService {
             result.setMessage("模版Code不能为空！");
             return result;
         }else{
-            String code = map.get("templateCode").toString();
-            //如果是阿里云短信模版
-            if(code.startsWith("SMS")){
-                SendCodeEnum codeEnum = SendCodeEnum.getEnumValue(code);
+            String templateCode = map.get("templateCode").toString();
+                SendCodeEnum codeEnum = SendCodeEnum.getEnumValue(templateCode);
                 if(codeEnum==null){
                     result.setSuccess(false);
                     result.setMessage("模版Code错误！");
                     return result;
                 }else{
                     String mobiles = map.get("mobiles").toString();
-                    result =  SendSMSUtil.sendSMS(map,mobiles, codeEnum.name(),sendCode);
+                    result =  SendSMSUtil.sendSMS(map,mobiles, templateCode,sendCode);
                     return result;
                 }
-                //否则执行腾讯短信模版
-            }else{
-                Integer templateId = (Integer) map.get("templateCode");
-                String mobiles = map.get("mobiles").toString();
-                result =  SendSMSUtil.sendSMS((String[]) map.get("params"),mobiles,templateId,sendCode);
-                return result;
-            }
+
         }
     }
 }

@@ -30,10 +30,41 @@ public class SendSMSUtil {
         return ourInstance;
     }
 
+    public static Integer getTencentSMSTemplateId(String templateCode) {
+        switch (templateCode) {
+            case "":
+                return 1;
+            default:
+                return 0;
+        }
+    }
+
+    public static String getAliyunSMSTemplateId(String templateCode) {
+        switch (templateCode) {
+            case "VERIFICATION_CODE":
+                return "SMS_122282577";
+            default:
+                return "";
+        }
+    }
+
     private SendSMSUtil() {
     }
 
-    public static JsonResult sendSMS(Map<String, Object> map, String mobiles, String templateCode, SendCode sendCode) throws Exception {
+    public static JsonResult sendSMS(Map<String, Object> params, String templateCode, String mobiles, SendCode sendCode) throws Exception {
+        JsonResult jr;
+        if ("tencent".equals(sendCode.getDefaultSMS())) {
+            String[] array = params.keySet().stream().toArray(String[]::new);
+            jr = sendTencentSMS(array, mobiles, getTencentSMSTemplateId(templateCode), sendCode);
+        } else {
+            jr = sendAliyunSMS(params, mobiles, getAliyunSMSTemplateId(templateCode), sendCode);
+        }
+        return jr;
+
+    }
+
+
+    public static JsonResult sendAliyunSMS(Map<String, Object> params, String mobiles, String templateCode, SendCode sendCode) throws Exception {
         JsonResult jr = new JsonResult();
 
         DefaultProfile profile = DefaultProfile.getProfile("default", sendCode.getAccessKeyId(), sendCode.getAccessKeySecret());
@@ -47,9 +78,9 @@ public class SendSMSUtil {
         request.setAction("SendSms");
         request.putQueryParameter("PhoneNumbers", mobiles);
         request.putQueryParameter("SignName", sendCode.getSignName());
-        request.putQueryParameter("TemplateCode", templateCode.toString());
+        request.putQueryParameter("TemplateCode", templateCode);
         ObjectMapper jsonMapper = new ObjectMapper();
-        String str = jsonMapper.writeValueAsString(map);
+        String str = jsonMapper.writeValueAsString(params);
         System.out.println(str);
         request.putQueryParameter("TemplateParam", str);
 
@@ -72,7 +103,7 @@ public class SendSMSUtil {
         return jr;
     }
 
-    public static JsonResult sendSMS(String[] params, String mobiles, Integer templateCode, SendCode sendCode) throws Exception {
+    public static JsonResult sendTencentSMS(String[] params, String mobiles, Integer templateCode, SendCode sendCode) throws Exception {
         JsonResult jr = new JsonResult();
         try {
 
