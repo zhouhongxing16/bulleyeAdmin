@@ -8,7 +8,8 @@ import java.io.Serializable;
 @Component
 public class SendCode implements Serializable {
 
-    @Value("${aliyunSMS.accessKeyId}")
+    //默认短信服务
+    @Value("${defaultSMS}")
     private String defaultSMS;
 
     //阿里云短信服务

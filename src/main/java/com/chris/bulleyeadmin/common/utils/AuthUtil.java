@@ -62,14 +62,11 @@ public class AuthUtil {
         }
 
         String strAuths = sb.toString();
-        if (strAuths.contains(Constants.ORG)) {
-            return Constants.ORG; //全院
+        if (strAuths.contains(Constants.ORGANIZATION)) {
+            return Constants.ORGANIZATION; //全院
         }
         if (strAuths.contains(Constants.DEPARTMENT)) {
             return Constants.DEPARTMENT; //当前科室
-        }
-        if (strAuths.contains(Constants.ORGADMIN)) {
-            return Constants.ORGADMIN;  //行政管理机构（卫计委）
         }
 
         return Constants.PERSONAL;  //当前用户

@@ -1,5 +1,6 @@
 package com.chris.bulleyeadmin.common.controller;
 
+import com.chris.bulleyeadmin.common.entity.Constants;
 import com.chris.bulleyeadmin.common.service.SendMessageService;
 import com.chris.bulleyeadmin.common.utils.OperationLog;
 import com.chris.bulleyeadmin.common.utils.ValidateCodeUtils;
@@ -44,7 +45,7 @@ public class SendMessageController {
     @OperationLog("发送验证码")
     public Object sendVerificationCode(@RequestBody Map<String,Object> map, HttpServletRequest request) throws Exception {
         map.put("code", ValidateCodeUtils.getRandomValidateCode(request.getSession()));
-        map.put("templateCode","VERIFICATION_CODE");
+        map.put("templateCode", Constants.SMS_VERIFICATION);
         return sendMessageService.send(map);
     }
 
