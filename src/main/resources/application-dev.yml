@@ -32,7 +32,7 @@ mapper:
   identity: MYSQL
   before: true
 
-defaultSMS: tencent
+defaultSMS: Tencent
 aliyunSMS:
   accessKeyId: LTAI1dbEIUJOaeog
   accessKeySecret: 02Rs1BwHg5cQcdbIRrpvhkSXIxC7J2
