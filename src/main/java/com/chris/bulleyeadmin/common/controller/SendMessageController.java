@@ -3,6 +3,7 @@ package com.chris.bulleyeadmin.common.controller;
 import com.chris.bulleyeadmin.common.entity.Constants;
 import com.chris.bulleyeadmin.common.service.SendMessageService;
 import com.chris.bulleyeadmin.common.utils.OperationLog;
+import com.chris.bulleyeadmin.common.utils.SendSMSUtil;
 import com.chris.bulleyeadmin.common.utils.ValidateCodeUtils;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;
@@ -35,18 +36,18 @@ public class SendMessageController {
     @ApiImplicitParam(name = "发送短信", value = "参数:手机号mobiles、模版代码templateCode")
     @PostMapping("/send")
     @OperationLog("发送短信")
-    public Object SendMessage(@RequestBody Map<String,Object> map) throws Exception {
-        return sendMessageService.send(map);
+    public Object sendMessage(@RequestBody Map<String,String> map) throws Exception {
+        return sendMessageService.send(map,SendSMSUtil.SMS_VERIFICATION, map.get("mobiles"));
     }
 
     @ApiOperation(value = "发送验证码", notes = "发送验证码")
     @ApiImplicitParam(name = "发送验证码", value = "参数:手机号mobiles")
     @PostMapping("/sendVerificationCode")
     @OperationLog("发送验证码")
-    public Object sendVerificationCode(@RequestBody Map<String,Object> map, HttpServletRequest request) throws Exception {
+    public Object sendVerificationCode(@RequestBody Map<String,String> map, HttpServletRequest request) throws Exception {
+        map.put("optionType","登录");
         map.put("code", ValidateCodeUtils.getRandomValidateCode(request.getSession()));
-        map.put("templateCode", Constants.SMS_VERIFICATION);
-        return sendMessageService.send(map);
+        return sendMessageService.send(map,SendSMSUtil.SMS_VERIFICATION, map.get("mobiles"));
     }
 
     @PostMapping("/verificationCode")

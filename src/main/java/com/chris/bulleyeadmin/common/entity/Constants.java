@@ -30,8 +30,6 @@ public class Constants {
      */
     public static String DEPARTMENT = "department";
 
-    //验证码模版ID
-    public static Integer SMS_VERIFICATION = 394263;
 
 
 

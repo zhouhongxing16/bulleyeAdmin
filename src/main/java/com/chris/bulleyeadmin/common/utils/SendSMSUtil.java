@@ -20,6 +20,8 @@ import org.json.JSONException;
 
 import javax.xml.ws.http.HTTPException;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
 
 public class SendSMSUtil {
@@ -30,10 +32,14 @@ public class SendSMSUtil {
         return ourInstance;
     }
 
+    //验证码模版ID
+    public static String SMS_VERIFICATION = "VERIFICATION_CODE";
+
+
     public static Integer getTencentSMSTemplateId(String templateCode) {
         switch (templateCode) {
-            case "":
-                return 1;
+            case "VERIFICATION_CODE":
+                return 402871;
             default:
                 return 0;
         }
@@ -51,11 +57,12 @@ public class SendSMSUtil {
     private SendSMSUtil() {
     }
 
-    public static JsonResult sendSMS(Map<String, Object> params, String templateCode, String mobiles, SendCode sendCode) throws Exception {
+    public static JsonResult sendSMS(Map<String, String> params, String templateCode, String mobiles, SendCode sendCode) throws Exception {
         JsonResult jr;
-        if ("tencent".equals(sendCode.getDefaultSMS())) {
-            String[] array = params.keySet().stream().toArray(String[]::new);
-            jr = sendTencentSMS(array, mobiles, getTencentSMSTemplateId(templateCode), sendCode);
+        if ("Tencent".equals(sendCode.getDefaultSMS())) {
+            List<String> list = new ArrayList<String>(params.values());
+            String[] array = new String[list.size()];
+            jr = sendTencentSMS(list.toArray(array), mobiles, getTencentSMSTemplateId(templateCode), sendCode);
         } else {
             jr = sendAliyunSMS(params, mobiles, getAliyunSMSTemplateId(templateCode), sendCode);
         }
@@ -64,7 +71,7 @@ public class SendSMSUtil {
     }
 
 
-    public static JsonResult sendAliyunSMS(Map<String, Object> params, String mobiles, String templateCode, SendCode sendCode) throws Exception {
+    public static JsonResult sendAliyunSMS(Map<String, String> params, String mobiles, String templateCode, SendCode sendCode) throws Exception {
         JsonResult jr = new JsonResult();
 
         DefaultProfile profile = DefaultProfile.getProfile("default", sendCode.getAccessKeyId(), sendCode.getAccessKeySecret());
