@@ -47,6 +47,7 @@ public class AccountController extends BaseController<Account> {
 
     @Autowired
     LoginRecordService loginRecordService;
+
     @Override
     public BaseService<Account> getService() {
         return accountService;
@@ -78,11 +79,11 @@ public class AccountController extends BaseController<Account> {
     public Object adminMobileLogin(@RequestBody Map<String, String> map) {
         String username = map.get("mobile");
         String code = map.get("code");
-        if(code.equals("")){
+        if (code.equals("")) {
             AccountDto accountDto = accountService.getAccountByUserName(username);
             return login(accountDto, "", "");
-        }else{
-
+        } else {
+            return null;
         }
 
 
@@ -123,7 +124,7 @@ public class AccountController extends BaseController<Account> {
             }
             System.out.println("当前用户角色:" + rolestr);
 
-            User user = new User(accountDto.getId(), accountDto.getUsername(), accountDto.getPassword(),accountDto.getOrganizationId(),staff.getId(),staff.getDepartmentId(),accountDto.getAccountLocked(),accountDto.getAccountExpired(),grantedAuthorities);
+            User user = new User(accountDto.getId(), accountDto.getUsername(), accountDto.getPassword(), accountDto.getOrganizationId(), staff.getId(), staff.getDepartmentId(), accountDto.getAccountLocked(), accountDto.getAccountExpired(), grantedAuthorities);
             System.out.println(grantedAuthorities);
             String onlineName = "";
             if (roles != null && roles.size() > 0) {
