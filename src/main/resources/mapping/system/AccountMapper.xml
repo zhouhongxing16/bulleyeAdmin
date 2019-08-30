@@ -86,8 +86,17 @@
   </select>
 
   <select id="getAccountByUserName" resultMap="dto" parameterType="String">
-    select a.*,o.name as organizationName from b_account a
+    select a.*,o.name as organizationName
+    from b_account a
     left join b_organization o on o.id = a.organization_id
     where a.username = #{0}
+  </select>
+
+  <select id="getAccountByStaffMobile" resultMap="dto" parameterType="String">
+    select a.*,o.name as organizationName
+    from b_account a
+    left join b_organization o on o.id = a.organization_id
+    left join b_staff s on s.id = a.staff_id
+    where s.mobile = #{0}
   </select>
 </mapper>

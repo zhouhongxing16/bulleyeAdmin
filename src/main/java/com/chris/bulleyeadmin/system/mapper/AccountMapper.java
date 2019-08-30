@@ -8,4 +8,6 @@ import com.chris.bulleyeadmin.system.pojo.Account;
 public interface AccountMapper extends BaseMapper<Account> {
 
      AccountDto getAccountByUserName(String userName);
+
+     AccountDto getAccountByStaffMobile(String mobile);
 }

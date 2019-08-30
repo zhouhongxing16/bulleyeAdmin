@@ -16,7 +16,7 @@ import java.util.Map;
 /**
  * Created by charlie on 2019/5/17.
  */
-@Api(tags = "quartz",description = "任务调度")
+@Api(tags = "quartz",produces = "任务调度")
 @OperationLog("任务调度")
 @RestController
 @RequestMapping(value="/quartz")

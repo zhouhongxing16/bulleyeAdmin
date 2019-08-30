@@ -62,10 +62,7 @@ public class AccountController extends BaseController<Account> {
         return getService().add(obj);
     }
 
-
-
-
-    @ApiOperation(value = "管理员登录", notes = "参数：用户名username，密码password")
+    @ApiOperation(value = "管理员账号密码登录", notes = "参数：用户名username，密码password")
     @OperationLog("管理员登录")
     @PostMapping("/adminLogin")
     public Object adminLogin(@RequestBody Map<String, String> map) {
@@ -73,6 +70,22 @@ public class AccountController extends BaseController<Account> {
         String password = map.get("password");
         AccountDto accountDto = accountService.getAccountByUserName(username);
         return login(accountDto, username, password);
+    }
+
+    @ApiOperation(value = "管理员短信登录", notes = "参数：用户名username，密码password")
+    @OperationLog("管理员短信登录")
+    @PostMapping("/adminMobileLogin")
+    public Object adminMobileLogin(@RequestBody Map<String, String> map) {
+        String username = map.get("mobile");
+        String code = map.get("code");
+        if(code.equals("")){
+            AccountDto accountDto = accountService.getAccountByUserName(username);
+            return login(accountDto, "", "");
+        }else{
+
+        }
+
+
     }
 
     public JsonResult login(AccountDto accountDto, String username, String password) {

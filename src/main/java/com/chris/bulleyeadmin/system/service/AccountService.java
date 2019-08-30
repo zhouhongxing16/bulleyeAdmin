@@ -26,4 +26,8 @@ public class AccountService extends BaseService<Account> {
     public AccountDto getAccountByUserName(String userName){
         return accountMapper.getAccountByUserName(userName);
     }
+
+    public AccountDto getAccountByStaffMobile(String userName){
+        return accountMapper.getAccountByStaffMobile(userName);
+    }
 }
