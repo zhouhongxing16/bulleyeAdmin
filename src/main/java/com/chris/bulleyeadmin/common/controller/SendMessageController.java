@@ -56,7 +56,7 @@ public class SendMessageController {
     @ApiImplicitParam(name = "验证验证码", value = "参数:手机号mobiles，验证码code")
     public Object verificationCode(@RequestBody Map<String,Object> map, HttpServletRequest request) throws Exception {
         String code = map.get("code").toString();
-        if (code.equals(ValidateCodeUtils.getValidateCode(request.getSession()))){
+        if (code.equals(ValidateCodeUtils.getValidateCode())){
             return true;
         }else {
             return false;

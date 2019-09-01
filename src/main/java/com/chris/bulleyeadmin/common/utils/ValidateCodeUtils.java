@@ -1,5 +1,8 @@
 package com.chris.bulleyeadmin.common.utils;
 
+import com.chris.bulleyeadmin.system.pojo.Logger;
+
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import java.awt.*;
 import java.awt.image.BufferedImage;
@@ -79,6 +82,17 @@ public class ValidateCodeUtils {
 	 * @return
 	 */
 	public static String  getRandomValidateCode(HttpSession session) {
+		String code =  getRandomCode();
+		// 将验证码写入Session/缓存
+		session.setAttribute("VALIDATE_CODE", code);
+		return  code;
+	}
+
+	/**
+	 * 获取验证码字符串
+	 * @return
+	 */
+	public static String  getRandomCode() {
 		// 创建一个随机数生成器类
 		Random random = new Random();
 		// randomCode用于保存随机产生的验证码，以便用户登录后进行验证。
@@ -90,18 +104,49 @@ public class ValidateCodeUtils {
 			// 将产生的四个随机数组合在一起。
 			randomCode.append(strRand);
 		}
-		System.out.println(randomCode.toString());
-		// 将验证码写入Session
-		session.setAttribute("VALIDATE_CODE", randomCode.toString());
 		return  randomCode.toString();
+	}
+
+	/**
+	 * 获取验证码字符串
+	 * @return
+	 */
+	public static String  getRandomValidateCode(String mobile) {
+		String code =  getRandomCode();
+		System.out.println(code);
+		// 将验证码写入Session/缓存
+		EhcacheUtil.put(mobile, code);
+		return  code;
 	}
 
 	/**
 	 * 获取验证码字符串（用于验证用户验证码输入）
 	 * @return
 	 */
-	public static String getValidateCode(HttpSession session) {
-		return (String)session.getAttribute("VALIDATE_CODE");
+	public static String getValidateCode() {
+		HttpServletRequest request = HttpContextUtils.getHttpServletRequest();
+		String code = (String)request.getSession().getAttribute("VALIDATE_CODE");
+		Logger.debug("验证码是："+code);
+		return code;
+	}
+
+	/**
+	 * 获取验证码字符串（用于验证用户验证码输入）
+	 * @return
+	 */
+	public static String getValidateCode(String mobile) {
+		Object code =  EhcacheUtil.get(mobile);
+		Logger.debug("验证码是："+code);
+		return code==null?"":code.toString();
+	}
+
+	/**
+	 * 获取验证码字符串（用于验证用户验证码输入）
+	 * @return
+	 */
+	public static void removeValidateCode() {
+		HttpServletRequest request = HttpContextUtils.getHttpServletRequest();
+		request.getSession().removeAttribute("VALIDATE_CODE");
 	}
 
 	/**

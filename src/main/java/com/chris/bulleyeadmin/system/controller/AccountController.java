@@ -76,14 +76,17 @@ public class AccountController extends BaseController<Account> {
     @ApiOperation(value = "管理员短信登录", notes = "参数：用户名username，密码password")
     @OperationLog("管理员短信登录")
     @PostMapping("/adminMobileLogin")
-    public Object adminMobileLogin(@RequestBody Map<String, String> map) {
-        String username = map.get("mobile");
+    public JsonResult adminMobileLogin(@RequestBody Map<String, String> map) {
+        JsonResult result = new JsonResult();
+        String mobile = map.get("mobile");
         String code = map.get("code");
-        if (code.equals("")) {
-            AccountDto accountDto = accountService.getAccountByUserName(username);
-            return login(accountDto, "", "");
+        if (code.equals(ValidateCodeUtils.getRandomValidateCode(mobile))) {
+            AccountDto accountDto = accountService.getAccountByStaffMobile(mobile);
+            return login(accountDto, accountDto.getUsername(), "");
         } else {
-            return null;
+            result.setSuccess(false);
+            result.setMessage("验证码错误");
+            return result;
         }
 
 
