@@ -57,7 +57,7 @@
                 and a.created LIKE CONCAT('%', #{ created }, '%')
             </if>
         </where>
-        order by a.created desc
+        order by a.created,a.sort desc
     </select>
     <select id="getMenusByAccountId" parameterType="string" resultMap="dto">
   		SELECT DISTINCT
@@ -68,7 +68,7 @@
 		WHERE
 			rm.role_id IN ( SELECT DISTINCT ar.role_id FROM b_account_role ar where ar.account_id = #{accountId})
 
-		order BY m.sort ASC
+		order BY m.created,m.sort ASC
   </select>
 
     <select id="getMenusByRoleId" parameterType="String" resultMap="BaseResultMap">
@@ -80,7 +80,7 @@
 		WHERE
 			rm.role_id = #{roleId}
 		ORDER BY
-			m.sort ASC
+			m.created,m.sort ASC
   </select>
 
     <select id="getAllMenus" parameterType="String" resultMap="dto">
@@ -89,7 +89,7 @@
 		FROM
 			b_menu m
 		ORDER BY
-			m.sort ASC
+			m.created,m.sort ASC
   </select>
 
     <select id="getOrganizationMenus" parameterType="String" resultMap="dto">
