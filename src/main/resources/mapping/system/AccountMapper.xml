@@ -99,4 +99,13 @@
     left join b_staff s on s.id = a.staff_id
     where s.mobile = #{0}
   </select>
+
+
+
+  <select id="getById" resultMap="dto" parameterType="String">
+    select
+    <include refid="basic_list"/>
+    from ucb_account a
+    where a.id = #{0} limit 1
+  </select>
 </mapper>
