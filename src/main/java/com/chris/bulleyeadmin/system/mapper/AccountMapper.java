@@ -10,4 +10,6 @@ public interface AccountMapper extends BaseMapper<Account> {
      AccountDto getAccountByUserName(String userName);
 
      AccountDto getAccountByStaffMobile(String mobile);
+
+     AccountDto getById(String id);
 }

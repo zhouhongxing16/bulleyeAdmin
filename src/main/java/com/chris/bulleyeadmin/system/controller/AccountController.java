@@ -73,6 +73,22 @@ public class AccountController extends BaseController<Account> {
         return login(accountDto, username, password);
     }
 
+
+    @ApiOperation(value = "修改密码", notes = "参数：旧密码oldPassword，新密码password")
+    @OperationLog("查询分页数据")
+    @PostMapping("/changePassword")
+    public Object changePassword(@RequestBody Map<String, String> map) {
+        return accountService.changePassword(map);
+    }
+
+
+    @ApiOperation(value = "忘记密码", notes = "参数：密码password，手机号mobile,验证码validateCode")
+    @OperationLog("忘记密码")
+    @PostMapping("/forgetPassword")
+    public Object forgetPassword(@RequestBody Map<String, String> map) {
+        return accountService.forgetPassword(map);
+    }
+
     @ApiOperation(value = "管理员短信登录", notes = "参数：用户名username，密码password")
     @OperationLog("管理员短信登录")
     @PostMapping("/adminMobileLogin")
