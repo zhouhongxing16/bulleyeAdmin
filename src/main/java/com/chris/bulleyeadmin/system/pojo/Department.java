@@ -33,6 +33,9 @@ public class Department implements Serializable {
     @Column(name = "remark")
     private String remark;
 
+    @Column(name = "brief")
+    private String brief;
+
     @Column(name = "user_id")
     private String userId;
 
@@ -184,4 +187,11 @@ public class Department implements Serializable {
         this.created = created;
     }
 
+    public String getBrief() {
+        return brief;
+    }
+
+    public void setBrief(String brief) {
+        this.brief = brief;
+    }
 }

@@ -13,6 +13,7 @@
         <result column="type_id" jdbcType="VARCHAR" property="typeId" />
         <result column="user_id" jdbcType="VARCHAR" property="userId" />
         <result column="remark" jdbcType="VARCHAR" property="remark" />
+        <result column="brief" jdbcType="VARCHAR" property="brief" />
         <result column="status" jdbcType="INTEGER" property="status" />
         <result column="created" jdbcType="TIMESTAMP" property="created" />
     </resultMap>
@@ -22,7 +23,7 @@
 
 
     <sql id="basic_list">
-		a.id, a.organization_id, a.code, a.parent_id, a.name, a.type_id, a.remark, a.status, a.created
+		a.id, a.organization_id, a.code, a.parent_id, a.name, a.type_id, a.remark, a.brief, a.status, a.created
 	</sql>
 
     <select id="getListByParams" resultMap="BaseResultMap" parameterType="map">
