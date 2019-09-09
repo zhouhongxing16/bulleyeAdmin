@@ -1,20 +1,24 @@
 package com.chris.bulleyeadmin.system.pojo;
 
+import org.slf4j.LoggerFactory;
+
 /**
  * Created by Onion on 2017/5/22.
  */
 public class Logger {
 
+    private static org.slf4j.Logger logger = LoggerFactory.getLogger(Logger.class);
+
     public static void info(String msg){
-        System.out.println(msg);
+        logger.info(msg);
     }
 
     public static void error(String msg){
-        System.err.println(msg);
+        logger.error(msg);
     }
 
     public static void debug(String msg){
-        info(msg);
+        logger.debug(msg);
     }
 
     /**
