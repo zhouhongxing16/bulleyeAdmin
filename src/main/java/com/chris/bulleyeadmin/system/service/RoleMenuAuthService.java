@@ -1,6 +1,7 @@
 package com.chris.bulleyeadmin.system.service;
 
 import com.chris.bulleyeadmin.common.basemapper.BaseMapper;
+import com.chris.bulleyeadmin.common.entity.JsonResult;
 import com.chris.bulleyeadmin.common.service.BaseService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -20,5 +21,11 @@ public class RoleMenuAuthService extends BaseService<RoleMenuAuth> {
     @Override
     public BaseMapper<RoleMenuAuth> getMapper() {
         return roleMenuAuthMapper;
+    }
+
+    public JsonResult getAuthByRoleId(){
+        JsonResult result = new JsonResult();
+
+        return result;
     }
 }

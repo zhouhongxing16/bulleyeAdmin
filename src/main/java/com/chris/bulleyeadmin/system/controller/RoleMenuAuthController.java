@@ -8,8 +8,12 @@ import com.chris.bulleyeadmin.common.service.BaseService;
 import com.chris.bulleyeadmin.system.service.RoleMenuAuthService;
 import io.swagger.annotations.Api;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+
+import java.util.Map;
+
 /**
  * @Author: Chris  E-mail:961860916@qq.com
  * @Date:  2019-05-16 21:29
@@ -26,6 +30,13 @@ public class RoleMenuAuthController extends BaseController<RoleMenuAuth>{
     @Override
     public BaseService getService() {
         return roleMenuAuthService;
+    }
+
+    @OperationLog("获取当前用户角色授权")
+    @RequestMapping("/getCurrentUserRoleAuth")
+    public Object getCurrentUserRoleAuth(@RequestBody Map<String,String> param){
+        Object obj = roleMenuAuthService.getAuthByRoleId();
+        return obj;
     }
     
 }
