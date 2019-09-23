@@ -18,7 +18,7 @@ import org.springframework.web.bind.annotation.RestController;
 @OperationLog("角色菜单权限")
 @RestController
 @RequestMapping("/rolemenuauth")
-public class RoleMenuAuthController extends BaseController{
+public class RoleMenuAuthController extends BaseController<RoleMenuAuth>{
 
      @Autowired
     RoleMenuAuthService roleMenuAuthService;

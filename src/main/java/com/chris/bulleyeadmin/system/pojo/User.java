@@ -57,6 +57,11 @@ public class User extends org.springframework.security.core.userdetails.User {
 
     private String remember;
 
+    /**
+     * 当前角色
+     */
+    private Role currentRole;
+
     public String getRemember() {
         return remember;
     }
@@ -135,6 +140,14 @@ public class User extends org.springframework.security.core.userdetails.User {
 
     public void setRole(List<Role> role) {
         this.role = role;
+    }
+
+    public Role getCurrentRole() {
+        return currentRole;
+    }
+
+    public void setCurrentRole(Role currentRole) {
+        this.currentRole = currentRole;
     }
 
     @Override
