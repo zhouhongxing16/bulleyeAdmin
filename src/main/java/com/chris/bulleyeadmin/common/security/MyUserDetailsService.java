@@ -115,7 +115,7 @@ public class MyUserDetailsService implements UserDetailsService {
                 onlineName += roles.get(0).getName();
                 onlineName += ")";
             }
-            user.setRole(roles);
+            user.setRoles(roles);
             return user;
         } else {
             logger.info("用户" + username + " 不存在");

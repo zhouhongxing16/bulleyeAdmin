@@ -51,7 +51,7 @@ public class AuthUtil {
 
     public static void changeRole(String id, String name) {
         User user = getCurrentUser();
-        for (Role role : AuthUtil.getCurrentUser().getRole()) {
+        for (Role role : AuthUtil.getCurrentUser().getRoles()) {
             if (role.getId().equals(id)) {
                 user.setCurrentRole(role);
             }

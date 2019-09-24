@@ -96,7 +96,7 @@ public class JwtHelper {
         user.setId(obj.getString("id"));
         user.setDepartmentId(obj.getString("departmentId"));
         user.setOrganizationId(obj.getString("organizationId"));
-        user.setRole(roleList);
+        user.setRoles(roleList);
         return user;
     }
 

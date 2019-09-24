@@ -145,18 +145,8 @@ public class AccountController extends BaseController<Account> {
 
             User user = new User(accountDto.getId(), accountDto.getUsername(), accountDto.getPassword(), accountDto.getOrganizationId(), staff.getId(), staff.getDepartmentId(), accountDto.getAccountLocked(), accountDto.getAccountExpired(), grantedAuthorities);
             System.out.println(grantedAuthorities);
-            String onlineName = "";
-            if (roles != null && roles.size() > 0) {
-                onlineName += "(";
-                /**
-                 *for (Role r : roles) {
-                 *	onlineName += r.getName();
-                 *		break;
-                 *    }
-                 */
-                onlineName += roles.get(0).getName();
-                onlineName += ")";
-            }
+            //默认获取第一个角色为当前角色
+            user.setCurrentRole(roles.get(0));
             result.setSuccess(true);
             result.setMessage("登录成功");
             result.setStatus(HttpStatus.OK.value());

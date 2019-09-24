@@ -49,7 +49,7 @@ public class User extends org.springframework.security.core.userdetails.User {
     //账户是否过期
     private Boolean accountExpired;
 
-    private List<Role> role;
+    private List<Role> roles;
 
     private String mobile;
 
@@ -134,12 +134,12 @@ public class User extends org.springframework.security.core.userdetails.User {
         this.accountExpired = accountExpired;
     }
 
-    public List<Role> getRole() {
-        return role;
+    public List<Role> getRoles() {
+        return roles;
     }
 
-    public void setRole(List<Role> role) {
-        this.role = role;
+    public void setRoles(List<Role> roles) {
+        this.roles = roles;
     }
 
     public Role getCurrentRole() {

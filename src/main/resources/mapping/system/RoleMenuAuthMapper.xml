@@ -44,11 +44,21 @@
     </select>
     
     <select id="getRoleAuthPaths" resultType="map">
-    select r.code,ma.path as path
-    from b_role_menu_auth rma
-	left join b_role r on r.id = rma.role_id
-	left join b_menu_auth ma on ma.id = rma.menu_auth_id
+        select r.code,ma.path as path
+        from b_role_menu_auth rma
+        left join b_role r on r.id = rma.role_id
+        left join b_menu_auth ma on ma.id = rma.menu_auth_id
+    </select>
 
-
+    <select id="getAuthByMenuAndRoleId" resultType="map">
+        select r.code,ma.path as path
+        from b_role_menu_auth rma
+        left join b_role r on r.id = rma.role_id
+        left join b_menu_auth ma on ma.id = rma.menu_auth_id
+        <where>
+	        rma.role_id = #{roleId}
+	        and
+            ma.menu_id = #{menuId}
+        </where>
     </select>
 </mapper>
