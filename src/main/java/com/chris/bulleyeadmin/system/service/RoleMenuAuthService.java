@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 import com.chris.bulleyeadmin.system.pojo.RoleMenuAuth;
 import  com.chris.bulleyeadmin.system.mapper.RoleMenuAuthMapper;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -27,9 +28,11 @@ public class RoleMenuAuthService extends BaseService<RoleMenuAuth> {
         return roleMenuAuthMapper;
     }
 
-    public JsonResult getAuthByMenuAndRoleId(Map<String,String> param){
+    public JsonResult getAuthByMenuAndRoleId(String menuId){
+        Map<String,String> param = new HashMap<>();
         JsonResult result = new JsonResult();
         param.put("roleId", AuthUtil.getCurrentUser().getCurrentRole().getId());
+        param.put("menuId",menuId);
         List<Map<String, String>> mapList =  roleMenuAuthMapper.getAuthByMenuAndRoleId(param);
         result.setData(mapList);
         result.setSuccess(true);

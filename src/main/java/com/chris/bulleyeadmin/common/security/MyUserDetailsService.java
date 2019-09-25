@@ -103,19 +103,8 @@ public class MyUserDetailsService implements UserDetailsService {
             }
 
             System.out.println(grantedAuthorities);
-            String onlineName = "";
-            if (roles != null && roles.size() > 0) {
-                onlineName += "(";
-                /**
-                 *for (Role r : roles) {
-                 *	onlineName += r.getName();
-                 *		break;
-                 *    }
-                 */
-                onlineName += roles.get(0).getName();
-                onlineName += ")";
-            }
             user.setRoles(roles);
+            user.setCurrentRole(roles.get(0));
             return user;
         } else {
             logger.info("用户" + username + " 不存在");

@@ -1,19 +1,15 @@
 package com.chris.bulleyeadmin.system.controller;
 
-import com.chris.bulleyeadmin.common.utils.OperationLog;
-import com.chris.bulleyeadmin.system.pojo.RoleMenuAuth;
-
 import com.chris.bulleyeadmin.common.controller.BaseController;
 import com.chris.bulleyeadmin.common.service.BaseService;
-
+import com.chris.bulleyeadmin.common.utils.OperationLog;
+import com.chris.bulleyeadmin.system.pojo.RoleMenuAuth;
 import com.chris.bulleyeadmin.system.service.RoleMenuAuthService;
 import io.swagger.annotations.Api;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-
-import java.util.Map;
 
 /**
  * @Author: Chris  E-mail:961860916@qq.com
@@ -34,9 +30,9 @@ public class RoleMenuAuthController extends BaseController<RoleMenuAuth> {
     }
 
     @OperationLog("获取当前用户角色授权")
-    @RequestMapping("/getAuthByMenuId")
-    public Object getAuthByMenuId(@RequestBody Map<String, String> param) {
-        Object obj = roleMenuAuthService.getAuthByMenuAndRoleId(param);
+    @RequestMapping("/getAuthByMenuId/{menuId}")
+    public Object getAuthByMenuId(@PathVariable("menuId") String menuId) {
+        Object obj = roleMenuAuthService.getAuthByMenuAndRoleId(menuId);
         return obj;
     }
 

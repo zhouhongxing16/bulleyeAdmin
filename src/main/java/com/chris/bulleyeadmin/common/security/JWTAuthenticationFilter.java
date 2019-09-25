@@ -60,7 +60,7 @@ public class JWTAuthenticationFilter extends BasicAuthenticationFilter {
                 JSONObject obj = JSON.parseObject(jsonObject);
                 JSONArray ja = JSONArray.parseArray(obj.getString("authorities"));
                 List<Role> roleList = JSONArray.parseArray(obj.getString("roles"), Role.class);
-                Role role = JSONObject.parseObject(obj.getString("CurrentRole"),Role.class);
+                Role role = JSONObject.parseObject(obj.getString("currentRole"),Role.class);
                 user = new User(obj.getString("username"), "", ja.toJavaList(GrantedAuthority.class));
                 user.setStaffId(obj.getString("staffId"));
                 user.setId(obj.getString("id"));
