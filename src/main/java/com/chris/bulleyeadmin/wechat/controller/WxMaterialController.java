@@ -7,10 +7,7 @@ import com.chris.bulleyeadmin.common.utils.OperationLog;
 import com.chris.bulleyeadmin.wechat.pojo.WxMaterial;
 import com.chris.bulleyeadmin.wechat.service.WxMaterialService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @OperationLog("素材管理")
 @RestController
@@ -26,15 +23,20 @@ public class WxMaterialController extends BaseController<WxMaterial> {
     }
 
     @OperationLog("生成永久素材")
-    @PostMapping("/materialUpload/{id}")
-    public JsonResult materialUpload(@PathVariable String id){
+    @GetMapping("/materialUpload/{id}")
+    public JsonResult materialUpload(@PathVariable String id) {
         return wxMaterialService.materialUpload(id);
     }
 
     @OperationLog("删除永久素材")
-    @PostMapping("/materialDelete/{id}")
-    public JsonResult materialDelete(@PathVariable String id){
+    @GetMapping("/materialDelete/{id}")
+    public JsonResult materialDelete(@PathVariable String id) {
         return wxMaterialService.materialDelete(id);
     }
 
+    @OperationLog("推送永久素材")
+    @GetMapping("/pubMaterialToUser/{id}")
+    public JsonResult pubMaterialToUser(@PathVariable String id) {
+        return wxMaterialService.pubMaterialToUser(id);
+    }
 }

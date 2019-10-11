@@ -13,7 +13,7 @@ public enum WxMaterialEnum {
     //音频
     voice("voice");
 
-    private String type;
+    String type;
     WxMaterialEnum(String type) {
         this.type = type;
     }
