@@ -109,7 +109,6 @@ public class LoggerAopService {
     void saveLog(ProceedingJoinPoint joinPoint, long time) throws InterruptedException {
         MethodSignature signature = (MethodSignature) joinPoint.getSignature();
         Class clz = joinPoint.getTarget().getClass();
-        Method method = signature.getMethod();
         String optionName = "";
         if (clz.isAnnotationPresent( OperationLog.class )) {
             OperationLog opera = (OperationLog) clz.getAnnotation( OperationLog.class );

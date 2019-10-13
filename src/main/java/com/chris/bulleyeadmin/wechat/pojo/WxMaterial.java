@@ -2,6 +2,8 @@ package com.chris.bulleyeadmin.wechat.pojo;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.sql.Timestamp;
+
 
 @Table(name = "wx_material")
 public class WxMaterial implements Serializable {
@@ -31,6 +33,9 @@ public class WxMaterial implements Serializable {
     @Column(name = "thumb_media_id")
     private String thumbMediaId;
 
+    @Column(name = "thumb_file_id")
+    private String thumbFileId;
+
     @Column(name = "author")
     private String author;
 
@@ -38,7 +43,7 @@ public class WxMaterial implements Serializable {
     private String digest;
 
     @Column(name = "show_cover_pic")
-    private String showCoverPic;
+    private Boolean showCoverPic;
 
     @Column(name = "content")
     private String content;
@@ -59,7 +64,7 @@ public class WxMaterial implements Serializable {
     private String downUrl;
 
     @Column(name = "created")
-    private Long created;
+    private Timestamp created;
 
     public String getId() {
         return id;
@@ -125,6 +130,14 @@ public class WxMaterial implements Serializable {
         this.thumbMediaId = thumbMediaId;
     }
 
+    public String getThumbFileId() {
+        return thumbFileId;
+    }
+
+    public void setThumbFileId(String thumbFileId) {
+        this.thumbFileId = thumbFileId;
+    }
+
     public String getAuthor() {
         return author;
     }
@@ -141,11 +154,11 @@ public class WxMaterial implements Serializable {
         this.digest = digest;
     }
 
-    public String getShowCoverPic() {
+    public Boolean getShowCoverPic() {
         return showCoverPic;
     }
 
-    public void setShowCoverPic(String showCoverPic) {
+    public void setShowCoverPic(Boolean showCoverPic) {
         this.showCoverPic = showCoverPic;
     }
 
@@ -197,11 +210,11 @@ public class WxMaterial implements Serializable {
         this.downUrl = downUrl;
     }
 
-    public Long getCreated() {
+    public Timestamp getCreated() {
         return created;
     }
 
-    public void setCreated(Long created) {
+    public void setCreated(Timestamp created) {
         this.created = created;
     }
 }

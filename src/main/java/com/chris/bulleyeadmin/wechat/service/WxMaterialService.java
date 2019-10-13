@@ -2,6 +2,8 @@ package com.chris.bulleyeadmin.wechat.service;
 
 import com.chris.bulleyeadmin.common.basemapper.BaseMapper;
 import com.chris.bulleyeadmin.common.entity.JsonResult;
+import com.chris.bulleyeadmin.common.mapper.AttachFilesMapper;
+import com.chris.bulleyeadmin.common.pojo.AttachFiles;
 import com.chris.bulleyeadmin.common.service.BaseService;
 import com.chris.bulleyeadmin.wechat.Enums.WxMaterialEnum;
 import com.chris.bulleyeadmin.wechat.KefuBuilder.KefuNewsBuilder;
@@ -34,6 +36,8 @@ public class WxMaterialService extends BaseService<WxMaterial> {
     private WxMaterialMapper wxMaterialMapper;
     @Autowired
     private WxAccountMapper wxAccountMapper;
+    @Autowired
+    private AttachFilesMapper attachFilesMapper;
 
     @Override
     public BaseMapper<WxMaterial> getMapper() {
@@ -72,14 +76,19 @@ public class WxMaterialService extends BaseService<WxMaterial> {
 
                 //封面图片素材id，此处必须进行上传为临时素材处理
                 try {
-                    File dir = new File("C:\\Users\\lenovo\\Desktop\\QQ图片20190305142342.jpg");
-                    WxMpMaterial img = new WxMpMaterial();
-                    img.setFile(dir);
-                    WxMpMaterialUploadResult wxMpMaterialUploadResult = wxService.getMaterialService().materialFileUpload("image", img);
-                    System.out.println("getMediaId="+wxMpMaterialUploadResult.getMediaId());
-                    article.setThumbMediaId(wxMpMaterialUploadResult.getMediaId());
+                    AttachFiles attachFiles = new AttachFiles();
+                    attachFiles.setId(item.getThumbFileId());
+                    List<AttachFiles> attachFilesList = attachFilesMapper.select(attachFiles);
+                    if (attachFilesList!=null&&attachFilesList.size()==1){
+                        File dir = new File(attachFilesList.get(0).getPath());
+                        WxMpMaterial img = new WxMpMaterial();
+                        img.setFile(dir);
+                        WxMpMaterialUploadResult wxMpMaterialUploadResult = wxService.getMaterialService().materialFileUpload("image", img);
+                        System.out.println("getMediaId="+wxMpMaterialUploadResult.getMediaId());
+                        article.setThumbMediaId(wxMpMaterialUploadResult.getMediaId());
+                    }
                 } catch (Exception e) {
-                    return new JsonResult(false,null,"生成失败",0, HttpStatus.OK.value());
+                    return new JsonResult(false,null,"生成失败，未找到封面图",0, HttpStatus.OK.value());
                 }
 
                 article.setThumbUrl(item.getDownUrl());
@@ -105,8 +114,8 @@ public class WxMaterialService extends BaseService<WxMaterial> {
             }
 
         }else{
-            //其他素材
-            File dir = new File("C:\\Users\\lenovo\\Desktop\\QQ图片20190305142342.jpg");
+            //其他素材（暂时不可用，上传的文件未处理）
+            File dir = new File(wxMaterial.getThumbFileId());
             WxMpMaterial wxMpMaterial =  new WxMpMaterial();
             wxMpMaterial.setName(wxMaterial.getName());
             wxMpMaterial.setFile(dir);
@@ -131,6 +140,12 @@ public class WxMaterialService extends BaseService<WxMaterial> {
             }
         }
 
+    }
+
+    //修改永久素材
+    @Transactional(propagation = Propagation.REQUIRED)
+    public JsonResult updateMaterial(WxMaterial wxMaterial_old) {
+        return null;
     }
 
     //删除永久素材

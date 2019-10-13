@@ -267,6 +267,8 @@ public class FileUploadController extends BaseController<AttachFiles> {
             try {
                 if (out != null) {
                     out.close();
+                }
+                if (input !=null) {
                     input.close();
                 }
             } catch (IOException e) {
