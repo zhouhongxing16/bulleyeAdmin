@@ -15,7 +15,7 @@
 
     </resultMap>
 
-    <resultMap id="BaseResultMapDto" type="com.chris.bulleyeadmin.system.dto.MenuAuthDto">
+    <resultMap id="BaseResultMapDto" type="com.chris.bulleyeadmin.system.dto.MenuAuthDto" extends="BaseResultMap">
         <result column="menu_name" jdbcType="VARCHAR" property="menuName"/>
     </resultMap>
 

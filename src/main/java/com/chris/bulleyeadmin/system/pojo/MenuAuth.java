@@ -1,10 +1,10 @@
 package com.chris.bulleyeadmin.system.pojo;
 
-import java.util.Date;
-import javax.persistence.*;
-import java.math.BigDecimal;
-import java.io.Serializable;
 import com.fasterxml.jackson.annotation.JsonFormat;
+
+import javax.persistence.*;
+import java.io.Serializable;
+import java.util.Date;
 /**
  * @Author: Chris  E-mail:961860916@qq.com
  * @Date:  2019-04-28 22:42
@@ -28,7 +28,7 @@ public class MenuAuth implements Serializable {
     private String path;
 
     @Column(name = "status")
-    private String status;
+    private Integer status;
 
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+8")
     @Column(name = "created")
@@ -105,18 +105,13 @@ public class MenuAuth implements Serializable {
         this.path = path == null ? null : path.trim();
     }
 
-    /**
-     * @return status
-     */
-    public String getStatus() {
+
+    public Integer getStatus() {
         return status;
     }
 
-    /**
-     * @param status
-     */
-    public void setStatus(String status) {
-        this.status = status == null ? null : status.trim();
+    public void setStatus(Integer status) {
+        this.status = status;
     }
 
     /**

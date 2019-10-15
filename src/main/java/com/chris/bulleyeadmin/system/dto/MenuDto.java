@@ -2,6 +2,7 @@ package com.chris.bulleyeadmin.system.dto;
 
 
 import com.chris.bulleyeadmin.system.pojo.Menu;
+import com.chris.bulleyeadmin.system.pojo.MenuAuth;
 
 import java.util.List;
 
@@ -12,6 +13,8 @@ public class MenuDto extends Menu {
     private Boolean isLeaf;
 
     private List<MenuDto> children;
+
+    private List<MenuAuth> authList;
 
     public String getValue() {
         return value;
@@ -57,5 +60,13 @@ public class MenuDto extends Menu {
 
     public void setIsLeaf(Boolean leaf) {
         this.isLeaf = leaf;
+    }
+
+    public List<MenuAuth> getAuthList() {
+        return authList;
+    }
+
+    public void setAuthList(List<MenuAuth> authList) {
+        this.authList = authList;
     }
 }

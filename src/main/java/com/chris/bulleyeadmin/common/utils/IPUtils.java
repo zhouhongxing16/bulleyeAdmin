@@ -7,11 +7,8 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import javax.servlet.http.HttpServletRequest;
-
 import java.net.InetAddress;
 import java.net.UnknownHostException;
-
-import static sun.net.util.IPAddressUtil.textToNumericFormatV4;
 
 public class IPUtils {
     private static Logger logger = LoggerFactory.getLogger(IPUtils.class);
