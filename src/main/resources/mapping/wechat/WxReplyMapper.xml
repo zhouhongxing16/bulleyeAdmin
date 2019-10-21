@@ -11,12 +11,11 @@
         <result column="graphic_id" jdbcType="VARCHAR" property="graphicId" />
         <result column="num" jdbcType="BIGINT" property="num" />
         <result column="status" jdbcType="INTEGER" property="status" />
-        <result column="created" jdbcType="BIGINT" property="created" />
+        <result column="created" jdbcType="TIMESTAMP" property="created" />
     </resultMap>
 
     <sql id="basic_list">
-	a.id, a.account_id, a.key_word, a.key_value, a.key_type, a.graphic_id, a.num, a.status, a.created
-
+        a.id, a.account_id, a.key_word, a.key_value, a.key_type, a.graphic_id, a.num, a.status, a.created
 	</sql>
 
     <select id="getListByParams" resultMap="BaseResultMap" parameterType="map">

@@ -1,7 +1,10 @@
 package com.chris.bulleyeadmin.wechat.pojo;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+
 import javax.persistence.*;
 import java.io.Serializable;
+import java.util.Date;
 
 @Table(name = "wx_menu")
 public class WxMenu implements Serializable {
@@ -49,6 +52,10 @@ public class WxMenu implements Serializable {
 
     @Column(name = "remark")
     private String remark;
+
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+8")
+    @Column(name = "created")
+    private Date created;
 
     public String getId() {
         return id;
@@ -152,5 +159,13 @@ public class WxMenu implements Serializable {
 
     public void setRemark(String remark) {
         this.remark = remark;
+    }
+
+    public Date getCreated() {
+        return created;
+    }
+
+    public void setCreated(Date created) {
+        this.created = created;
     }
 }

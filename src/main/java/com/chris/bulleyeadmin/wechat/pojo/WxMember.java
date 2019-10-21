@@ -6,8 +6,11 @@ package com.chris.bulleyeadmin.wechat.pojo;
  * @Description:
  */
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+
 import javax.persistence.*;
 import java.io.Serializable;
+import java.util.Date;
 
 /**
  * Created by Chris on Fri Jan 11 2019 17:46:16 GMT+0800 (中国标准时间)
@@ -86,6 +89,10 @@ public class WxMember implements Serializable {
 
     @Column(name = "unsubscribe_time")
     private Long unsubscribeTime;
+
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+8")
+    @Column(name = "created")
+    private Date created;
 
     public String getId() {
         return id;
@@ -261,5 +268,13 @@ public class WxMember implements Serializable {
 
     public void setUnsubscribeTime(Long unsubscribeTime) {
         this.unsubscribeTime = unsubscribeTime;
+    }
+
+    public Date getCreated() {
+        return created;
+    }
+
+    public void setCreated(Date created) {
+        this.created = created;
     }
 }

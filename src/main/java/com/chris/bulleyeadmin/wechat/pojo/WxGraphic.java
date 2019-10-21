@@ -1,7 +1,10 @@
 package com.chris.bulleyeadmin.wechat.pojo;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+
 import javax.persistence.*;
 import java.io.Serializable;
+import java.util.Date;
 
 /**
  * @Auther: Chris
@@ -32,11 +35,12 @@ public class WxGraphic  implements Serializable {
     @Column(name = "read_num")
     private Integer readNum;
 
-    @Column(name = "created")
-    private Long created;
-
     @Column(name = "status")
     private Integer status;
+
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+8")
+    @Column(name = "created")
+    private Date created;
 
     public String getId() {
         return id;
@@ -94,13 +98,6 @@ public class WxGraphic  implements Serializable {
         this.readNum = readNum;
     }
 
-    public Long getCreated() {
-        return created;
-    }
-
-    public void setCreated(Long created) {
-        this.created = created;
-    }
 
     public Integer getStatus() {
         return status;
@@ -108,5 +105,13 @@ public class WxGraphic  implements Serializable {
 
     public void setStatus(Integer status) {
         this.status = status;
+    }
+
+    public Date getCreated() {
+        return created;
+    }
+
+    public void setCreated(Date created) {
+        this.created = created;
     }
 }

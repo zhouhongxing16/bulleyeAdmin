@@ -1,8 +1,11 @@
 package com.chris.bulleyeadmin.wechat.pojo;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+
 import javax.persistence.*;
 import java.io.Serializable;
 import java.sql.Timestamp;
+import java.util.Date;
 
 
 @Table(name = "wx_material")
@@ -63,8 +66,9 @@ public class WxMaterial implements Serializable {
     @Column(name = "down_url")
     private String downUrl;
 
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+8")
     @Column(name = "created")
-    private Timestamp created;
+    private Date created;
 
     public String getId() {
         return id;
@@ -210,11 +214,11 @@ public class WxMaterial implements Serializable {
         this.downUrl = downUrl;
     }
 
-    public Timestamp getCreated() {
+    public Date getCreated() {
         return created;
     }
 
-    public void setCreated(Timestamp created) {
+    public void setCreated(Date created) {
         this.created = created;
     }
 }

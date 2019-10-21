@@ -23,6 +23,7 @@
         <result column="qr_scene" jdbcType="VARCHAR" property="qrScene" />
         <result column="qr_scene_str" jdbcType="VARCHAR" property="qrSceneStr" />
         <result column="unsubscribe_time" jdbcType="BIGINT" property="unsubscribeTime" />
+        <result column="created" jdbcType="TIMESTAMP" property="created" />
 <!--
         <result column="privileges" jdbcType="VARCHAR" property="privileges" />
         <result column="tag_ids" jdbcType="VARCHAR" property="tagIds" />-->

@@ -21,7 +21,7 @@
         <result column="only_fans_can_comment" jdbcType="BIT" property="onlyFansCanComment" />
         <result column="introduction" jdbcType="VARCHAR" property="introduction" />
         <result column="down_url" jdbcType="VARCHAR" property="downUrl" />
-        <result column="created" jdbcType="BIGINT" property="created" />
+        <result column="created" jdbcType="TIMESTAMP" property="created" />
 
     </resultMap>
 

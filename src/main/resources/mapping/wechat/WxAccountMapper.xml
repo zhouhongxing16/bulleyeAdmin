@@ -15,8 +15,8 @@
         <result column="token_time" jdbcType="BIGINT" property="tokenTime" />
         <result column="menu_state" jdbcType="VARCHAR" property="menuState" />
         <result column="user_id" jdbcType="VARCHAR" property="userId" />
-        <result column="created" jdbcType="BIGINT" property="created" />
-        <result column="updated" jdbcType="BIGINT" property="updated" />
+        <result column="created" jdbcType="TIMESTAMP" property="created" />
+        <result column="updated" jdbcType="TIMESTAMP" property="updated" />
         <result column="remark" jdbcType="VARCHAR" property="remark" />
         <result column="partner" jdbcType="VARCHAR" property="partner" />
         <result column="partner_key" jdbcType="VARCHAR" property="partnerKey" />

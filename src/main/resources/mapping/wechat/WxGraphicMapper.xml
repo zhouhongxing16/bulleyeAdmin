@@ -10,7 +10,7 @@
         <result column="url" jdbcType="VARCHAR" property="url" />
         <result column="img_url" jdbcType="VARCHAR" property="imgUrl" />
         <result column="read_num" jdbcType="INTEGER" property="readNum" />
-        <result column="created" jdbcType="BIGINT" property="created" />
+        <result column="created" jdbcType="TIMESTAMP" property="created" />
         <result column="status" jdbcType="INTEGER" property="status" />
 
     </resultMap>

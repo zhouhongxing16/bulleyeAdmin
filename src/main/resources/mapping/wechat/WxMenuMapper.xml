@@ -16,6 +16,7 @@
         <result column="author" jdbcType="VARCHAR" property="author" />
         <result column="sort" jdbcType="INTEGER" property="sort" />
         <result column="remark" jdbcType="VARCHAR" property="remark" />
+        <result column="created" jdbcType="TIMESTAMP" property="created" />
 
     </resultMap>
 

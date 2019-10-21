@@ -1,5 +1,7 @@
 package com.chris.bulleyeadmin.system.pojo;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+
 import javax.persistence.*;
 import java.util.Date;
 
@@ -27,6 +29,8 @@ public class Email {
 
     private Integer status;
 
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+8")
+    @Column(name = "created")
     private Date created;
 
     public String getId() {

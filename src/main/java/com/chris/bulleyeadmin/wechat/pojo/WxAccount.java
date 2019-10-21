@@ -52,8 +52,6 @@ public class WxAccount implements Serializable {
     @Column(name = "user_id")
     private String userId;
 
-    @Column(name = "created")
-    private Long created;
 
     @Column(name = "updated")
     private Long updated;
@@ -63,6 +61,10 @@ public class WxAccount implements Serializable {
 
     @Column(name = "status")
     private String status;
+
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+8")
+    @Column(name = "created")
+    private Date created;
 
     @Column(name = "partner")
     private String partner;
@@ -218,13 +220,6 @@ public class WxAccount implements Serializable {
         this.status = status;
     }
 
-    public Long getCreated() {
-        return created;
-    }
-
-    public void setCreated(Long created) {
-        this.created = created;
-    }
 
     public Long getUpdated() {
         return updated;
@@ -232,5 +227,13 @@ public class WxAccount implements Serializable {
 
     public void setUpdated(Long updated) {
         this.updated = updated;
+    }
+
+    public Date getCreated() {
+        return created;
+    }
+
+    public void setCreated(Date created) {
+        this.created = created;
     }
 }
