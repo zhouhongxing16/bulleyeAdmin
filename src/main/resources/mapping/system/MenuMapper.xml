@@ -71,7 +71,7 @@
 		order BY m.created,m.sort ASC
   </select>
 
-    <select id="getMenusByRoleId" parameterType="String" resultMap="BaseResultMap">
+    <select id="getMenusByRoleId" parameterType="String" resultMap="dto">
   		SELECT
 			m.*
 		FROM

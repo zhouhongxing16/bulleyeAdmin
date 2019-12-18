@@ -29,10 +29,17 @@ public class RoleMenuAuthController extends BaseController<RoleMenuAuth> {
         return roleMenuAuthService;
     }
 
-    @OperationLog("获取当前用户角色授权")
+    @OperationLog("根据菜单和角色获取功能授权")
     @RequestMapping("/getAuthByMenuId/{menuId}")
     public Object getAuthByMenuId(@PathVariable("menuId") String menuId) {
         Object obj = roleMenuAuthService.getAuthByMenuAndRoleId(menuId);
+        return obj;
+    }
+
+    @OperationLog("根据菜单和角色获取功能授权")
+    @RequestMapping("/getMenuAndAuthByRoleId/{roleId}")
+    public Object getMenuAndAuthByRoleId(@PathVariable("roleId") String roleId) {
+        Object obj = roleMenuAuthService.getMenuAndAuthByRoleId(roleId);
         return obj;
     }
 

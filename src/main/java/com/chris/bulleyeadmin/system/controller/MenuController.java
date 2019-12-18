@@ -11,10 +11,7 @@ import com.chris.bulleyeadmin.system.service.MenuService;
 import com.chris.bulleyeadmin.common.utils.AuthUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 import java.util.Map;
@@ -77,11 +74,11 @@ public class MenuController extends BaseController<Menu> {
         return new JsonResult(true, menuList,null,null, HttpStatus.OK.value());
     }
 
-    @OperationLog("根据角色或缺菜单")
+    @OperationLog("根据角色获取菜单")
     @ResponseBody
-    @RequestMapping("/getMenusByRoleId")
-    public JsonResult getMenusByRoleId(String roleId) {
-        List<Menu> menuList = menuService.getMenusByRoleId(roleId);
+    @GetMapping("/getMenusByRoleId/{roleId}")
+    public JsonResult getMenusByRoleId(@PathVariable String roleId) {
+        List<MenuDto> menuList = menuService.getMenusByRoleId(roleId);
         return new JsonResult(true, menuList,null,null, HttpStatus.OK.value());
     }
 

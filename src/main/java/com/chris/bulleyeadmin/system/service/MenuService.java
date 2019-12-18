@@ -62,8 +62,8 @@ public class MenuService extends BaseService<Menu> {
         return menuList;
     }
 
-    public List<Menu> getMenusByRoleId(String roleId){
-        Map<String,Object> map = new HashMap<>(2);
+    public List<MenuDto> getMenusByRoleId(String roleId){
+        Map<String,String> map = new HashMap<>(2);
         map.put("roleId",roleId);
         return menuMapper.getMenusByRoleId(map);
     }
