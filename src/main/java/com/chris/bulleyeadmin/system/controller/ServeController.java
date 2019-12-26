@@ -5,7 +5,7 @@ import com.chris.bulleyeadmin.common.entity.JsonResult;
 import com.chris.bulleyeadmin.common.utils.OperationLog;
 import com.chris.bulleyeadmin.system.pojo.monitor.Server;
 import io.swagger.annotations.Api;
-import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -16,7 +16,7 @@ import org.springframework.web.bind.annotation.RestController;
 public class ServeController {
 
     @OperationLog("获取服务监控数据")
-    @PostMapping("/getInfo")
+    @GetMapping("/getInfo")
     public Object getInfo() throws Exception {
         Server server = new Server();
         server.copyTo();
