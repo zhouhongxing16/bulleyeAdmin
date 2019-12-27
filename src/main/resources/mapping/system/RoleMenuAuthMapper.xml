@@ -61,4 +61,8 @@
             ma.menu_id = #{menuId}
         </where>
     </select>
+
+    <delete id="deleteByParams" parameterType="string">
+        delete from b_role_menu_auth where role_id=#{roleId}
+    </delete>
 </mapper>

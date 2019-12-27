@@ -147,55 +147,6 @@ public class MenuService extends BaseService<Menu> {
         return childList;
     }
 
-    public Object getMenuAuthTree(){
-        List<MenuDto> menus = menuMapper.getAllMenus();
-        List<MenuDto> menuList = new ArrayList<>();
-        // 先找到所有的一级菜单
-        for(MenuDto menu : menus){
-            // 一级菜单没有pId
-            if(menu.getParentId()==null){
-                menuList.add(menu);
-            }
-        }
-        // 为一级菜单设置子菜单，getChild是递归调用的
-        List<MenuDto> list = null;
-        for(MenuDto menu : menuList){
-            list = getAuthChild(menu.getId(),menus);
-            Boolean isLeaf = list==null?true:false;
-            menu.setIsLeaf(isLeaf);
-            if(isLeaf){
-                Map<String,Object> params = new HashMap<>();
-                params.put("menuId",menu.getId());
-                List<MenuAuth> authLists = menuAuthMapper.getListByParams(params);
-                menu.setAuthList(authLists);
-            }else{
-                menu.setChildren(list);
-            }
-
-        }
-        return menuList;
-    }
-
-
-    //递归获取叶子节点授权
-    private List<MenuDto> getAuthChild(String id,List<MenuDto> menuList){
-        // 子菜单
-        List<MenuDto> childList = new ArrayList<>();
-        //遍历所有节点，将父级菜单ID与传过来的ID做比较
-        for(MenuDto menu:menuList){
-            if(menu.getParentId()!=null){
-                if (menu.getParentId().equals(id)){
-                    menu.setChildren(getChild(menu.getId(),menuList));
-                    menu.setIsLeaf(getAuthChild(menu.getId(),menuList)==null?true:false);
-                    childList.add(menu);
-                }
-            }
-        }
-        if (childList.size()==0){
-            return null;
-        }
-        return childList;
-    }
 
 
 

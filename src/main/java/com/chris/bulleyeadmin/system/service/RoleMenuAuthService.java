@@ -9,12 +9,10 @@ import com.chris.bulleyeadmin.system.dto.MenuDto;
 import com.chris.bulleyeadmin.system.mapper.MenuAuthMapper;
 import com.chris.bulleyeadmin.system.mapper.MenuMapper;
 import com.chris.bulleyeadmin.system.mapper.RoleMapper;
-import com.chris.bulleyeadmin.system.pojo.Menu;
-import com.chris.bulleyeadmin.system.pojo.MenuAuth;
+import com.chris.bulleyeadmin.system.pojo.*;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import com.chris.bulleyeadmin.system.pojo.RoleMenuAuth;
 import  com.chris.bulleyeadmin.system.mapper.RoleMenuAuthMapper;
 
 import java.util.ArrayList;
@@ -41,6 +39,27 @@ public class RoleMenuAuthService extends BaseService<RoleMenuAuth> {
     @Override
     public BaseMapper<RoleMenuAuth> getMapper() {
         return roleMenuAuthMapper;
+    }
+
+
+    public JsonResult createRoleMenuAuth(List<RoleMenuAuth> list){
+        User user = AuthUtil.getCurrentUser();
+        JsonResult result = new JsonResult();
+        if(list.size()==0){
+            result.setSuccess(false);
+            result.setMessage("错误！数据不能为空！");
+        }else{
+            Map<String,Object> params = new HashMap<>(2);
+            params.put("roleId",list.get(0).getRoleId());
+            roleMenuAuthMapper.deleteByParams(params);
+            for(RoleMenuAuth roleMenuAuth :list){
+                roleMenuAuth.setUserId(user.getId());
+                roleMenuAuthMapper.insert(roleMenuAuth);
+            }
+            result.setSuccess(true);
+            result.setMessage("菜单功能授权成功！");
+        }
+        return result;
     }
 
     public JsonResult getAuthByMenuAndRoleId(String menuId){
@@ -93,10 +112,21 @@ public class RoleMenuAuthService extends BaseService<RoleMenuAuth> {
                         queryMap.put("menuId",menu.getId());
                         List<MenuAuth> menuAuths = menuAuthMapper.getListByParams(queryMap);
                         if(menuAuths.size()==0){
-                            menu.setIsLeaf(true);
+                            menu.setIsLeaf(false);
                         }else{
                             menu.setIsLeaf(false);
-                            menu.setAuthList(menuAuths);
+                            MenuDto md = null;
+                            List<MenuDto> menuAuthList = new ArrayList<>();
+                            for(MenuAuth menuAuth :menuAuths){
+                                md = new MenuDto();
+                                md.setId(menuAuth.getId());
+                                md.setTitle(menuAuth.getName());
+                                md.setIsLeaf(true);
+                                md.setType("menuAuth");
+                                md.setKey(menuAuth.getId());
+                                menuAuthList.add(md);
+                            }
+                            menu.setChildren(menuAuthList);
                         }
                     }else{
                         menu.setIsLeaf(true);

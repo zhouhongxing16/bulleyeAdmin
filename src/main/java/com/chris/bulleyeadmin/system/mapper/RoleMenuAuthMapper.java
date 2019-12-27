@@ -12,5 +12,8 @@ import java.util.Map;
  */
 public interface RoleMenuAuthMapper extends BaseMapper<RoleMenuAuth> {
     List<Map<String, String>> getRoleAuthPaths();
+
     List<Map<String, String>> getAuthByMenuAndRoleId(Map<String,String> param);
+
+    int deleteByParams(Map<String,Object> params);
 }

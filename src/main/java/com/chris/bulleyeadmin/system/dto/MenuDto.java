@@ -10,11 +10,11 @@ public class MenuDto extends Menu {
     private boolean open;
     private String value;
     private String key;
+    private String type;
     private Boolean isLeaf;
 
     private List<MenuDto> children;
 
-    private List<MenuAuth> authList;
 
     public String getValue() {
         return value;
@@ -62,11 +62,11 @@ public class MenuDto extends Menu {
         this.isLeaf = leaf;
     }
 
-    public List<MenuAuth> getAuthList() {
-        return authList;
+    public String getType() {
+        return type;
     }
 
-    public void setAuthList(List<MenuAuth> authList) {
-        this.authList = authList;
+    public void setType(String type) {
+        this.type = type;
     }
 }

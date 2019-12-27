@@ -47,8 +47,8 @@ tencentSMS:
   domain: dysmsapi.aliyuncs.com
 
 serverConfig:
-  uploadPath: c:/aaa
-  #uploadPath: /usr/local/runtime/root/bulleye/upload
+  #uploadPath: c:/aaa
+  uploadPath: /usr/local/runtime/root/bulleye/upload
   #uploadUrl: http://bulleye.zhouhongxing.cn:8001
   uploadUrl: http://localhost:8001
   isDebug: false

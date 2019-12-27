@@ -38,7 +38,7 @@ aliyunSMS:
   product: Dysmsapi
   domain: dysmsapi.aliyuncs.com
 serverConfig:
-  uploadPath: c:/aaa
+  uploadPath: /usr/local/runtime/root/bulleye/upload
   uploadUrl: http://bulleye.zhouhongxing.cn:8001
   isDebug: false
 sysconfig:

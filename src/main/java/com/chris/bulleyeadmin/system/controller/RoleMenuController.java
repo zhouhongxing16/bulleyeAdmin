@@ -7,6 +7,7 @@ import com.chris.bulleyeadmin.common.utils.OperationLog;
 import com.chris.bulleyeadmin.system.pojo.RoleMenu;
 import com.chris.bulleyeadmin.system.service.RoleMenuService;
 import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -29,6 +30,7 @@ public class RoleMenuController extends BaseController<RoleMenu> {
     }
 
     @OperationLog("角色菜单授权")
+    @ApiOperation(value = "角色菜单授权")
     @PostMapping("/createRoleMenu")
     public JsonResult createRoleMenu(@RequestBody List<RoleMenu> list){
         return roleMenuService.createRoleMenu(list);
