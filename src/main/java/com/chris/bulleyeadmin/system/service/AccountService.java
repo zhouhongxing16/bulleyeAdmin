@@ -53,7 +53,7 @@ public class AccountService extends BaseService<Account> {
             result.setMessage("未登录，非法访问！");
         } else if (map.get("oldPassword") == null) {
             result.setMessage("旧密码不能为空");
-        } else if (map.get("password") == null) {
+        } else if (map.get("newPassword") == null) {
             result.setMessage("新密码不能为空");
         } else {
             String oldPassword = map.get("oldPassword");
@@ -62,7 +62,7 @@ public class AccountService extends BaseService<Account> {
                 if (!PasswordEncoderFactories.createDelegatingPasswordEncoder().matches(oldPassword, accountDto.getPassword())) {
                     result.setMessage("密码验证错误！");
                 } else {
-                    String newPwd = map.get("password");
+                    String newPwd = map.get("newPassword");
                     newPwd = PasswordEncoderFactories.createDelegatingPasswordEncoder().encode(newPwd);
                     Account account = new Account();
                     account.setId(accountDto.getId());
