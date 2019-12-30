@@ -105,7 +105,7 @@
   <select id="getById" resultMap="dto" parameterType="String">
     select
     <include refid="basic_list"/>
-    from ucb_account a
+    from b_account a
     where a.id = #{0} limit 1
   </select>
 </mapper>
