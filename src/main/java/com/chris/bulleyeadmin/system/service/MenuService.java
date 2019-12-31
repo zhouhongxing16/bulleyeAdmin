@@ -95,7 +95,7 @@ public class MenuService extends BaseService<Menu> {
         // 先找到所有的一级菜单
         for(MenuDto menu : menus){
             // 一级菜单没有pId
-            if(menu.getParentId()==null){
+            if(menu!=null && menu.getParentId()==null){
                 menuList.add(menu);
             }
         }
@@ -114,7 +114,7 @@ public class MenuService extends BaseService<Menu> {
         // 先找到所有的一级菜单
         for(MenuDto menu : menus){
             // 一级菜单没有pId
-            if(menu.getParentId()==null){
+            if(menu!=null && menu.getParentId()==null){
                 menuList.add(menu);
             }
         }
