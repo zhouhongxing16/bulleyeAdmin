@@ -6,6 +6,7 @@ import java.util.stream.Collectors;
 
 import com.chris.bulleyeadmin.wechat.pojo.WxAccount;
 import com.chris.bulleyeadmin.wechat.service.WxAccountService;
+import me.chanjar.weixin.mp.config.impl.WxMpDefaultConfigImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 
@@ -20,7 +21,6 @@ import com.chris.bulleyeadmin.wechat.handler.StoreCheckNotifyHandler;
 import com.chris.bulleyeadmin.wechat.handler.SubscribeHandler;
 import com.chris.bulleyeadmin.wechat.handler.UnsubscribeHandler;
 import com.google.common.collect.Maps;
-import me.chanjar.weixin.mp.api.WxMpInMemoryConfigStorage;
 import me.chanjar.weixin.mp.api.WxMpMessageRouter;
 import me.chanjar.weixin.mp.api.WxMpService;
 import me.chanjar.weixin.mp.api.impl.WxMpServiceImpl;
@@ -145,7 +145,7 @@ public class WxMpConfiguration implements CommandLineRunner {
             System.out.println("数据库中无微信公众号相关信息");
         }
         mpServices = wxAccounts.stream().map(a -> {
-            WxMpInMemoryConfigStorage configStorage = new WxMpInMemoryConfigStorage();
+            WxMpDefaultConfigImpl configStorage = new WxMpDefaultConfigImpl();
             configStorage.setAppId(a.getAppId());
             configStorage.setSecret(a.getAppSecret());
             configStorage.setToken(a.getToken());
