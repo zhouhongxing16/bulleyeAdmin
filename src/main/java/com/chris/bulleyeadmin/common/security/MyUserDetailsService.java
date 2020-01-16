@@ -67,10 +67,10 @@ public class MyUserDetailsService implements UserDetailsService {
             if (accountDto.getExpiredDate() != null && accountDto.getAccountExpired()) {
                 if (DateUtils.getNowDate().getTime() > accountDto.getExpiredDate().getTime()) {
                     accountDto.setAccountExpired(true);
-                }else{
+                } else {
                     accountDto.setAccountExpired(false);
                 }
-            }else{
+            } else {
                 accountDto.setAccountExpired(false);
             }
             List<GrantedAuthority> grantedAuthorities = new ArrayList<>();
@@ -96,7 +96,7 @@ public class MyUserDetailsService implements UserDetailsService {
             }
             System.out.println("当前用户角色:" + rolestr);
 
-            User user = new User(accountDto.getId(), accountDto.getUsername(), accountDto.getPassword(), accountDto.getOrganizationId(), staffId, departmentId,accountDto.getAccountLocked(),accountDto.getAccountExpired(), grantedAuthorities);
+            User user = new User(accountDto.getId(), accountDto.getUsername(), accountDto.getPassword(), accountDto.getOrganizationId(), staffId, departmentId, accountDto.getAccountLocked(), accountDto.getAccountExpired(), grantedAuthorities);
             if (StringUtils.isNotEmpty(accountDto.getOrganizationId())) {
                 //管理机构
                 user.setOrganizationId(accountDto.getOrganizationId());

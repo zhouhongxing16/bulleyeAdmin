@@ -68,7 +68,7 @@ public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter {
                 .antMatchers("/**.js")
                 .antMatchers("/**.css")
                 .antMatchers("/**.txt");
-        web.ignoring().antMatchers("/v2/api-docs", "/swagger-resources/**", "/swagger-ui.html**", "/webjars/**","/medical-provider/api-docs");
+        web.ignoring().antMatchers("/v2/api-docs", "/swagger-resources/**", "/swagger-ui.html**", "/webjars/**", "/medical-provider/api-docs");
     }
 
     @Bean

@@ -46,7 +46,7 @@ public class JWTLoginFilter extends UsernamePasswordAuthenticationFilter {
     public Authentication attemptAuthentication(HttpServletRequest req, HttpServletResponse res) throws AuthenticationException {
         try {
             User user = new ObjectMapper().readValue(req.getInputStream(), User.class);
-            UsernamePasswordAuthenticationToken authenticationToken =  new UsernamePasswordAuthenticationToken(user.getUsername(), user.getPassword(), new ArrayList<>());
+            UsernamePasswordAuthenticationToken authenticationToken = new UsernamePasswordAuthenticationToken(user.getUsername(), user.getPassword(), new ArrayList<>());
             return authenticationManager.authenticate(authenticationToken);
         } catch (IOException e) {
             e.printStackTrace();
@@ -61,11 +61,11 @@ public class JWTLoginFilter extends UsernamePasswordAuthenticationFilter {
         User user = (User) auth.getPrincipal();
         Map<String, Object> map = new HashMap<>();
         String data = null;
-        if(user.getAccountLocked()){
+        if (user.getAccountLocked()) {
             data = new JsonResult(false, map, "对不起，您的账号已被锁定，请与我们联系！", null, HttpStatus.LOCKED.value()).toString();
-        }else if(user.getAccountExpired()){
+        } else if (user.getAccountExpired()) {
             data = new JsonResult(false, map, "对不起，您的试用账号已过期，请与我们联系！", null, HttpStatus.LOCKED.value()).toString();
-        }else{
+        } else {
             String token = Jwts.builder()
                     .setSubject(user.toString())
                     .setExpiration(new Date(System.currentTimeMillis() + 60 * 60 * 24 * 1000))
