@@ -19,6 +19,9 @@ public class WxAccount implements Serializable {
     @Column(name = "qr_code")
     private String qrCode;
 
+    @Column(name = "logo")
+    private String logo;
+
     @Column(name = "name")
     private String name;
 
@@ -235,5 +238,13 @@ public class WxAccount implements Serializable {
 
     public void setCreated(Date created) {
         this.created = created;
+    }
+
+    public String getLogo() {
+        return logo;
+    }
+
+    public void setLogo(String logo) {
+        this.logo = logo;
     }
 }

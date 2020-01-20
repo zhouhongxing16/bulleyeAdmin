@@ -5,6 +5,7 @@
         <id column="id" jdbcType="VARCHAR" property="id" />
         <result column="qr_code" jdbcType="VARCHAR" property="qrCode" />
         <result column="name" jdbcType="VARCHAR" property="name" />
+        <result column="logo" jdbcType="VARCHAR" property="logo" />
         <result column="source_id" jdbcType="VARCHAR" property="sourceId" />
         <result column="app_id" jdbcType="VARCHAR" property="appId" />
         <result column="aes_key" jdbcType="VARCHAR" property="aesKey" />
@@ -24,6 +25,10 @@
         <result column="status" jdbcType="INTEGER" property="status" />
     </resultMap>
     <sql id="basic_list">
+		a.*
+	</sql>
+
+    <sql id="basic_list_detail">
 		a.id, a.qr_code, a.name, a.source_id, a.app_id, a.aes_key, a.app_secret, a.token, a.domain, a.access_token, a.token_time, a.menu_state, a.user_id, a.created, a.updated, a.remark, a.partner, a.partner_key, a.certificate_path, a.status
 	</sql>
 

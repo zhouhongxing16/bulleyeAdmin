@@ -175,13 +175,13 @@ public class WxMaterialService extends BaseService<WxMaterial> {
     @Transactional(propagation = Propagation.REQUIRED)
     public JsonResult pubMaterialToUser(String id){
         //获取素材
-        WxMaterial QwxMaterial = new WxMaterial();
-        QwxMaterial.setId(id);
-        WxMaterial wxMaterial = wxMaterialMapper.selectOne(QwxMaterial);
+        WxMaterial qwxMaterial = new WxMaterial();
+        qwxMaterial.setId(id);
+        WxMaterial wxMaterial = wxMaterialMapper.selectOne(qwxMaterial);
         //获取相关公众号及接口
-        WxAccount queryaccount = new WxAccount();
-        queryaccount.setId(wxMaterial.getAccountId());
-        WxAccount account = wxAccountMapper.selectOne(queryaccount);
+        WxAccount queryAccount = new WxAccount();
+        queryAccount.setId(wxMaterial.getAccountId());
+        WxAccount account = wxAccountMapper.selectOne(queryAccount);
         WxMpService wxService = WxMpConfiguration.getMpServices().get(account.getAppId());
         try {
             KefuNewsBuilder kefuNewsBuilder = new KefuNewsBuilder();
