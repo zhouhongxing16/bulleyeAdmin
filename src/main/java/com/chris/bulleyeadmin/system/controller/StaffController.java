@@ -35,6 +35,7 @@ public class StaffController extends BaseController<Staff> {
 
     @ResponseBody
     @GetMapping(value = "/getStaffInfo")
+    @OperationLog("获取我的信息")
     public Object getStaffInfo(){
       User user =  AuthUtil.getCurrentUser();
       JsonResult jsonResult = staffService.getById(user.getStaffId());
