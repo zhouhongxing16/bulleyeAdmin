@@ -1,4 +1,5 @@
 package com.chris.bulleyeadmin.wechat.controller;
+/*
 
 import com.chris.bulleyeadmin.common.controller.BaseController;
 import com.chris.bulleyeadmin.common.entity.JsonResult;
@@ -69,3 +70,4 @@ public class WxMaterialController extends BaseController<WxMaterial> {
         return wxMaterialService.pubMaterialToUser(id);
     }
 }
+*/

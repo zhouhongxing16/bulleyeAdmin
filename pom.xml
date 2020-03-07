@@ -121,18 +121,10 @@
             <version>5.2.4</version>
         </dependency>
 
-
         <dependency>
             <groupId>com.github.binarywang</groupId>
             <artifactId>weixin-java-mp</artifactId>
-            <version>3.3.0</version>
-        </dependency>
-
-
-        <dependency>
-            <groupId>com.github.binarywang</groupId>
-            <artifactId>weixin-java-mp</artifactId>
-            <version>3.6.0</version>
+            <version>3.7.0</version>
         </dependency>
 
         <!-- 解析xml-->
@@ -203,6 +195,14 @@
             <artifactId>oshi-core</artifactId>
             <version>3.9.1</version>
         </dependency>
+
+        <!-- https://mvnrepository.com/artifact/org.projectlombok/lombok -->
+        <dependency>
+            <groupId>org.projectlombok</groupId>
+            <artifactId>lombok</artifactId>
+            <version>1.18.12</version>
+        </dependency>
+
 
     </dependencies>
 
