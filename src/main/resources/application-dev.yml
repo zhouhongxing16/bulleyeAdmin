@@ -45,7 +45,13 @@ tencentSMS:
   smsSign : 克里斯周
   product: Dysmsapi
   domain: dysmsapi.aliyuncs.com
-
+justauth:
+  cache:
+  type: default
+  qq:
+    client-id: 1109905636
+    client-secret: 2PQzsdOajTr8sUNC
+    redirect-uri: http://oauth.xkcoding.com/demo/oauth/qq/callback
 serverConfig:
   #uploadPath: c:/aaa
   uploadPath: /usr/local/runtime/root/bulleye/upload

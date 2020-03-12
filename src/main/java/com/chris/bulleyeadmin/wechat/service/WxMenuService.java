@@ -1,5 +1,5 @@
 package com.chris.bulleyeadmin.wechat.service;
-
+/*
 import com.chris.bulleyeadmin.common.basemapper.BaseMapper;
 import com.chris.bulleyeadmin.common.entity.JsonResult;
 import com.chris.bulleyeadmin.common.service.BaseService;
@@ -118,4 +118,4 @@ public class WxMenuService extends BaseService<WxMenu> {
 
     }
 
-}
+}*/

@@ -1,5 +1,5 @@
 package com.chris.bulleyeadmin.wechat.controller;
-
+/*
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 import com.chris.bulleyeadmin.common.controller.BaseController;
@@ -28,11 +28,11 @@ public class WxMenuController extends BaseController<WxMenu> {
         return wxMenuService;
     }
 
-    /**
+    *//**
      * 通过accountId获取菜单列表
      * @param accountId
      * @return
-     */
+     *//*
     @ResponseBody
     @GetMapping("/getWxMenu/{accountId}")
     public Object listPage(@PathVariable String accountId) {
@@ -65,4 +65,4 @@ public class WxMenuController extends BaseController<WxMenu> {
         return wxMenuService.createWxMenu(accountId);
     }
 
-}
+}*/

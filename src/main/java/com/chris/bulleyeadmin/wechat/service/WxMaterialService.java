@@ -27,6 +27,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.io.File;
 import java.util.List;
+/*
 
 
 @Service
@@ -193,3 +194,4 @@ public class WxMaterialService extends BaseService<WxMaterial> {
         }
     }
 }
+*/
