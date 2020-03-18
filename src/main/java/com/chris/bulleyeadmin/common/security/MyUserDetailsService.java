@@ -105,6 +105,7 @@ public class MyUserDetailsService implements UserDetailsService {
             System.out.println(grantedAuthorities);
             user.setRoles(roles);
             user.setCurrentRole(roles.get(0));
+            user.setPlatform("web");
             return user;
         } else {
             logger.info("用户" + username + " 不存在");
