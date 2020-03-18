@@ -1,12 +1,12 @@
 package com.chris.bulleyeadmin.system.controller;
 
 import com.chris.bulleyeadmin.common.controller.BaseController;
+import com.chris.bulleyeadmin.common.entity.JsonResult;
+import com.chris.bulleyeadmin.common.service.BaseService;
 import com.chris.bulleyeadmin.common.utils.*;
 import com.chris.bulleyeadmin.system.dto.AccountDto;
 import com.chris.bulleyeadmin.system.pojo.*;
-import com.chris.bulleyeadmin.common.entity.JsonResult;
 import com.chris.bulleyeadmin.system.service.AccountService;
-import com.chris.bulleyeadmin.common.service.BaseService;
 import com.chris.bulleyeadmin.system.service.LoginRecordService;
 import com.chris.bulleyeadmin.system.service.RoleService;
 import com.chris.bulleyeadmin.system.service.StaffService;
@@ -19,7 +19,10 @@ import org.springframework.http.HttpStatus;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.crypto.factory.PasswordEncoderFactories;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.ArrayList;

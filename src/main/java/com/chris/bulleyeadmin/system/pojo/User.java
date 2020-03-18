@@ -57,6 +57,8 @@ public class User extends org.springframework.security.core.userdetails.User {
 
     private String remember;
 
+    private String platform;
+
     /**
      * 当前角色
      */
@@ -148,6 +150,14 @@ public class User extends org.springframework.security.core.userdetails.User {
 
     public void setCurrentRole(Role currentRole) {
         this.currentRole = currentRole;
+    }
+
+    public String getPlatform() {
+        return platform;
+    }
+
+    public void setPlatform(String platform) {
+        this.platform = platform;
     }
 
     @Override

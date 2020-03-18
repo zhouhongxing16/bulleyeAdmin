@@ -3,6 +3,7 @@ package com.chris.bulleyeadmin.common.security;
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
+import com.chris.bulleyeadmin.common.config.WeChatFilter;
 import com.chris.bulleyeadmin.common.entity.JsonResult;
 import com.chris.bulleyeadmin.system.pojo.Role;
 import com.chris.bulleyeadmin.system.pojo.User;
@@ -51,6 +52,7 @@ public class JWTAuthenticationFilter extends BasicAuthenticationFilter {
 
     private UsernamePasswordAuthenticationToken getAuthentication(HttpServletRequest request, HttpServletResponse response) throws IOException {
         String token = request.getHeader("Authorization");
+        String url = request.getRequestURL().toString();
         if (!"null".equals(token.replace("Bearer ", "").trim())) {
             String jsonObject = null;
             User user = null;
@@ -63,31 +65,53 @@ public class JWTAuthenticationFilter extends BasicAuthenticationFilter {
                 Role role = JSONObject.parseObject(obj.getString("currentRole"),Role.class);
                 user = new User(obj.getString("username"), "", ja.toJavaList(GrantedAuthority.class));
                 user.setStaffId(obj.getString("staffId"));
+                user.setPlatform(obj.getString("platform"));
                 user.setId(obj.getString("id"));
                 user.setOrganizationId(obj.getString("organizationId"));
                 user.setDepartmentId(obj.getString("departmentId"));
                 user.setRoles(roleList);
                 user.setCurrentRole(role);
             } catch (Exception e) {
-                return getFailAuthenticationTokenResult(request, response);
+                return getFailAuthenticationTokenResult(request, response,true);
             }
             if (user != null) {
-                return new UsernamePasswordAuthenticationToken(user, null, user.getAuthorities());
+
+                if("weChat".equals(user.getPlatform())){
+                    if(WeChatFilter.getInstance().getUrlPassFlag(url)){
+                        return new UsernamePasswordAuthenticationToken(user, null, user.getAuthorities());
+                    }else{
+                        return getFailAuthenticationTokenResult(request, response,false);
+                    }
+                }else{
+                    return new UsernamePasswordAuthenticationToken(user, null, user.getAuthorities());
+                }
+
             } else {
                 return new UsernamePasswordAuthenticationToken(null, null, null);
             }
         } else {
-            return getFailAuthenticationTokenResult(request, response);
+            return getFailAuthenticationTokenResult(request, response,true);
         }
     }
 
-    private UsernamePasswordAuthenticationToken getFailAuthenticationTokenResult(HttpServletRequest request, HttpServletResponse response) throws IOException {
-        response.setStatus(HttpStatus.UNAUTHORIZED.value());
-        request.setCharacterEncoding("UTF-8");
-        response.setCharacterEncoding("UTF-8");
+    private UsernamePasswordAuthenticationToken getFailAuthenticationTokenResult(HttpServletRequest request, HttpServletResponse response,Boolean authFlag) throws IOException {
+
         PrintWriter writer = response.getWriter();
-        System.out.println("授权认证失败，请重新登录");
-        String msg = new JsonResult(false, null, "授权认证失败，请重新登录！", null, HttpStatus.UNAUTHORIZED.value()).toString();
+        String msg = "";
+        if(authFlag){
+            response.setStatus(HttpStatus.UNAUTHORIZED.value());
+            request.setCharacterEncoding("UTF-8");
+            response.setCharacterEncoding("UTF-8");
+            System.out.println("授权认证失败，请重新登录");
+             msg = new JsonResult(false, null, "授权认证失败，请重新登录！", null, HttpStatus.UNAUTHORIZED.value()).toString();
+        }else{
+            response.setStatus(HttpStatus.FORBIDDEN.value());
+            request.setCharacterEncoding("UTF-8");
+            response.setCharacterEncoding("UTF-8");
+            System.out.println("授权认证失败，请重新登录");
+             msg = new JsonResult(false, null, "授权认证失败，请重新登录！", null, HttpStatus.UNAUTHORIZED.value()).toString();
+
+        }
         writer.write(msg);
         writer.flush();
         writer.close();

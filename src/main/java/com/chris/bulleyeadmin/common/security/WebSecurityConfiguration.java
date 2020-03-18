@@ -36,6 +36,7 @@ public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter {
                 // 开启跨域
                 .cors().and().authorizeRequests()
                 .antMatchers("/login").permitAll()
+                .antMatchers("/unauth").permitAll()
                 .antMatchers("/imagevcode").permitAll()
                 .antMatchers("/wx/portal/**").permitAll()
                 .antMatchers("/file/view/**").permitAll()
@@ -48,7 +49,7 @@ public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter {
                 .addFilter(new JWTLoginFilter(authenticationManager()))
                 .addFilter(new JWTAuthenticationFilter(authenticationManager()))
                 .formLogin().loginProcessingUrl("/formLogin")
-                .loginPage("/login").permitAll()
+                .loginPage("/unauth").permitAll()
                 .usernameParameter("username")
                 .passwordParameter("password").defaultSuccessUrl("/home");
 
