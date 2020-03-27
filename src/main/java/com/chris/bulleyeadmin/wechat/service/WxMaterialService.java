@@ -7,15 +7,13 @@ import com.chris.bulleyeadmin.common.pojo.AttachFiles;
 import com.chris.bulleyeadmin.common.service.BaseService;
 import com.chris.bulleyeadmin.wechat.Enums.WxMaterialEnum;
 import com.chris.bulleyeadmin.wechat.KefuBuilder.KefuNewsBuilder;
-import com.chris.bulleyeadmin.wechat.config.WxMpConfiguration;
 import com.chris.bulleyeadmin.wechat.mapper.WxAccountMapper;
 import com.chris.bulleyeadmin.wechat.mapper.WxMaterialMapper;
 import com.chris.bulleyeadmin.wechat.pojo.WxAccount;
 import com.chris.bulleyeadmin.wechat.pojo.WxMaterial;
-import me.chanjar.weixin.common.bean.result.WxMediaUploadResult;
+import lombok.AllArgsConstructor;
 import me.chanjar.weixin.common.error.WxErrorException;
 import me.chanjar.weixin.mp.api.WxMpService;
-import me.chanjar.weixin.mp.bean.material.WxMediaImgUploadResult;
 import me.chanjar.weixin.mp.bean.material.WxMpMaterial;
 import me.chanjar.weixin.mp.bean.material.WxMpMaterialNews;
 import me.chanjar.weixin.mp.bean.material.WxMpMaterialUploadResult;
@@ -27,9 +25,8 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.io.File;
 import java.util.List;
-/*
 
-
+@AllArgsConstructor
 @Service
 public class WxMaterialService extends BaseService<WxMaterial> {
 
@@ -39,6 +36,8 @@ public class WxMaterialService extends BaseService<WxMaterial> {
     private WxAccountMapper wxAccountMapper;
     @Autowired
     private AttachFilesMapper attachFilesMapper;
+
+    private final WxMpService wxService;
 
     @Override
     public BaseMapper<WxMaterial> getMapper() {
@@ -54,10 +53,10 @@ public class WxMaterialService extends BaseService<WxMaterial> {
         WxMaterial wxMaterial = wxMaterialMapper.selectOne(queryWxMaterial);
         //获取相关接口
         WxAccount queryaccount = new WxAccount();
-        queryaccount.setId(wxMaterial.getAccountId());
+        queryaccount.setSourceId(wxMaterial.getSourceId());
 
         WxAccount account = wxAccountMapper.selectOne(queryaccount);
-        WxMpService wxService = WxMpConfiguration.getMpServices().get(account.getAppId());
+        WxMpService wxService = this.wxService.switchoverTo(account.getAppId());
         //处理图文消息
         if(WxMaterialEnum.news.toString().equals(wxMaterial.getType())){
             WxMaterial queryWxMaterial2 = new WxMaterial();
@@ -158,10 +157,10 @@ public class WxMaterialService extends BaseService<WxMaterial> {
         WxMaterial wxMaterial = wxMaterialMapper.selectOne(QwxMaterial);
         //获取相关接口
         WxAccount queryaccount = new WxAccount();
-        queryaccount.setId(wxMaterial.getAccountId());
+        queryaccount.setId(wxMaterial.getSourceId());
 
         WxAccount account = wxAccountMapper.selectOne(queryaccount);
-        WxMpService wxService = WxMpConfiguration.getMpServices().get(account.getAppId());
+        WxMpService wxService = this.wxService.switchoverTo(account.getAppId());
         try {
             boolean flag = wxService.getMaterialService().materialDelete(wxMaterial.getMediaId());
             String msg = flag?"删除成功":"删除失败！";
@@ -181,9 +180,9 @@ public class WxMaterialService extends BaseService<WxMaterial> {
         WxMaterial wxMaterial = wxMaterialMapper.selectOne(qwxMaterial);
         //获取相关公众号及接口
         WxAccount queryAccount = new WxAccount();
-        queryAccount.setId(wxMaterial.getAccountId());
+        queryAccount.setId(wxMaterial.getSourceId());
         WxAccount account = wxAccountMapper.selectOne(queryAccount);
-        WxMpService wxService = WxMpConfiguration.getMpServices().get(account.getAppId());
+        WxMpService wxService = this.wxService.switchoverTo(account.getAppId());
         try {
             KefuNewsBuilder kefuNewsBuilder = new KefuNewsBuilder();
             boolean flag = kefuNewsBuilder.pubMaterialToUser(wxService, null, wxMaterial.getMediaId());
@@ -194,4 +193,3 @@ public class WxMaterialService extends BaseService<WxMaterial> {
         }
     }
 }
-*/

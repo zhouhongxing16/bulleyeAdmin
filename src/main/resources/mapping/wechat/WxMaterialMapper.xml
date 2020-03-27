@@ -6,7 +6,7 @@
     <resultMap id="BaseResultMap" type="com.chris.bulleyeadmin.wechat.pojo.WxMaterial">
         <id column="id" jdbcType="VARCHAR" property="id" />
         <result column="media_id" jdbcType="VARCHAR" property="mediaId" />
-        <result column="account_id" jdbcType="VARCHAR" property="accountId" />
+        <result column="source_id" jdbcType="VARCHAR" property="sourceId" />
         <result column="name" jdbcType="VARCHAR" property="name" />
         <result column="parent_id" jdbcType="VARCHAR" property="parentId" />
         <result column="type" jdbcType="VARCHAR" property="type" />
@@ -26,7 +26,7 @@
     </resultMap>
 
     <sql id="basic_list">
-		a.id, a.media_id, a.account_id, a.name, a.parent_id, a.type, a.title, a.thumb_media_id, a.author, a.digest, a.show_cover_pic, a.content,
+		a.id, a.media_id, a.source_id, a.name, a.parent_id, a.type, a.title, a.thumb_media_id, a.author, a.digest, a.show_cover_pic, a.content,
 		 a.content_source_url, a.need_open_comment, a.only_fans_can_comment, a.introduction, a.down_url, a.created
 	</sql>
 
@@ -41,8 +41,8 @@
             <if test="mediaId!=null and mediaId!='' ">
                 and a.media_id=#{ mediaId}
             </if>
-            <if test="accountId!=null and accountId!='' ">
-                and a.account_id=#{ accountId}
+            <if test="sourceId!=null and sourceId!='' ">
+                and a.source_id=#{ sourceId}
             </if>
             <if test="name!=null and name!='' ">
                 and a.name= LIKE CONCAT('%', #{ name}, '%')

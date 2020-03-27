@@ -18,8 +18,8 @@ public class WxMaterial implements Serializable {
     @Column(name = "media_id")
     private String mediaId;
 
-    @Column(name = "account_id")
-    private String accountId;
+    @Column(name = "source_id")
+    private String sourceId;
 
     @Column(name = "name")
     private String name;
@@ -86,12 +86,12 @@ public class WxMaterial implements Serializable {
         this.mediaId = mediaId;
     }
 
-    public String getAccountId() {
-        return accountId;
+    public String getSourceId() {
+        return sourceId;
     }
 
-    public void setAccountId(String accountId) {
-        this.accountId = accountId;
+    public void setSourceId(String sourceId) {
+        this.sourceId = sourceId;
     }
 
     public String getName() {

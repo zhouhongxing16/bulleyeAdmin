@@ -4,7 +4,7 @@
 
     <resultMap id="BaseResultMap" type="com.chris.bulleyeadmin.wechat.pojo.WxMenu">
         <id column="id" jdbcType="VARCHAR" property="id" />
-        <result column="account_id" jdbcType="VARCHAR" property="accountId" />
+        <result column="source_id" jdbcType="VARCHAR" property="sourceId" />
         <result column="type" jdbcType="VARCHAR" property="type" />
         <result column="name" jdbcType="VARCHAR" property="name" />
         <result column="key_value" jdbcType="VARCHAR" property="keyValue" />
@@ -21,7 +21,7 @@
     </resultMap>
 
     <sql id="basic_list">
-		a.id, a.account_id, a.type, a.name, a.key_value, a.url, a.media_id, a.app_id, a.page_path, a.parent_id, a.author, a.sort, a.remark
+		a.id, a.source_id, a.type, a.name, a.key_value, a.url, a.media_id, a.app_id, a.page_path, a.parent_id, a.author, a.sort, a.remark
 	</sql>
 
     <select id="getListByParams" resultMap="BaseResultMap" parameterType="map">
@@ -32,8 +32,8 @@
             <if test="id!=null and id!='' ">
                 and a.id=#{ id }
             </if>
-            <if test="accountId!=null and accountId!='' ">
-                and a.account_id=#{ accountId }
+            <if test="sourceId!=null and sourceId!='' ">
+                and a.source_id=#{ sourceId }
             </if>
             <if test="type!=null and type!='' ">
                 and a.type LIKE CONCAT('%', #{ type }, '%')
@@ -79,8 +79,8 @@
             <if test="id!=null and id!='' ">
                 and a.id=#{ id }
             </if>
-            <if test="accountId!=null and accountId!='' ">
-                and a.account_id = #{ accountId }
+            <if test="sourceId!=null and sourceId!='' ">
+                and a.source_id = #{ sourceId }
             </if>
             <if test="parentId!=null and parentId!='' ">
                 and a.parent_id = #{ parentId }

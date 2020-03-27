@@ -1,5 +1,5 @@
 package com.chris.bulleyeadmin.wechat.controller;
-/*
+
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 import com.chris.bulleyeadmin.common.controller.BaseController;
@@ -28,26 +28,26 @@ public class WxMenuController extends BaseController<WxMenu> {
         return wxMenuService;
     }
 
-    *//**
+    /**
      * 通过accountId获取菜单列表
      * @param accountId
      * @return
-     *//*
+     */
     @ResponseBody
-    @GetMapping("/getWxMenu/{accountId}")
-    public Object listPage(@PathVariable String accountId) {
+    @GetMapping("/getWxMenu/{sourceId}")
+    public Object listPage(@PathVariable String sourceId) {
         //根据不同的参数配置,有些传递的是offset
         JSONArray array = new JSONArray();
 
         WxMenu wxMenuOne = new WxMenu();
-        wxMenuOne.setAccountId(accountId);
+        wxMenuOne.setSourceId(sourceId);
         wxMenuOne.setParentId("0");
         List<WxMenu> wxMenuListOne = wxMenuService.selectlist(wxMenuOne);
         for (WxMenu menuOne:wxMenuListOne){
             JSONObject jsonObject = JSONObject.parseObject(JSONObject.toJSON(menuOne).toString());
 
             WxMenu wxMenuTwo = new WxMenu();
-            wxMenuTwo.setAccountId(accountId);
+            wxMenuTwo.setSourceId(sourceId);
             wxMenuTwo.setParentId(menuOne.getId());
             jsonObject.put("children", wxMenuService.selectlist(wxMenuTwo));
             array.add(jsonObject);
@@ -59,10 +59,10 @@ public class WxMenuController extends BaseController<WxMenu> {
     }
 
     //创建菜单
-    @GetMapping("/createWxMenu/{accountId}")
+    @GetMapping("/createWxMenu/{sourceId}")
     @ResponseBody
-    public JsonResult create(@PathVariable String accountId)  throws Exception {
-        return wxMenuService.createWxMenu(accountId);
+    public JsonResult create(@PathVariable String sourceId)  throws Exception {
+        return wxMenuService.createWxMenu(sourceId);
     }
 
-}*/
+}

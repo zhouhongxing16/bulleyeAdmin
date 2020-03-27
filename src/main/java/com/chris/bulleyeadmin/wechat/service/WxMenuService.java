@@ -1,5 +1,5 @@
 package com.chris.bulleyeadmin.wechat.service;
-/*
+
 import com.chris.bulleyeadmin.common.basemapper.BaseMapper;
 import com.chris.bulleyeadmin.common.entity.JsonResult;
 import com.chris.bulleyeadmin.common.service.BaseService;
@@ -9,6 +9,7 @@ import com.chris.bulleyeadmin.wechat.mapper.WxMenuMapper;
 import com.chris.bulleyeadmin.wechat.pojo.WxAccount;
 import com.chris.bulleyeadmin.wechat.pojo.WxMenu;
 import com.chris.bulleyeadmin.wechat.utils.WxUtil;
+import lombok.AllArgsConstructor;
 import me.chanjar.weixin.common.api.WxConsts;
 import me.chanjar.weixin.common.bean.menu.WxMenuButton;
 import me.chanjar.weixin.common.error.WxErrorException;
@@ -20,7 +21,7 @@ import org.springframework.stereotype.Service;
 import java.util.ArrayList;
 import java.util.List;
 
-
+@AllArgsConstructor
 @Service
 public class WxMenuService extends BaseService<WxMenu> {
 
@@ -30,8 +31,7 @@ public class WxMenuService extends BaseService<WxMenu> {
     @Autowired
     WxAccountMapper wxAccountMapper;
 
-    @Autowired
-    WxMpConfiguration wxMpConfiguration;
+    private final WxMpService wxService;
 
     @Override
     public BaseMapper<WxMenu> getMapper() {
@@ -42,20 +42,23 @@ public class WxMenuService extends BaseService<WxMenu> {
         return wxMenuMapper.selectlist(wxMenu);
     }
 
-    public JsonResult createWxMenu(String accountId){
+    public JsonResult createWxMenu(String sourceId){
         WxAccount account = new WxAccount();
-        account.setId(accountId);
+        account.setSourceId(sourceId);
         WxAccount wxAccount = wxAccountMapper.selectOne(account);
 
-        WxMpService wxService = WxMpConfiguration.getMpServices().get(wxAccount.getAppId());
+        WxMpService wxService = this.wxService.switchoverTo(wxAccount.getAppId());
+        if (wxService == null) {
+            return new JsonResult(false,null,"未找到该公众号信息！",null, HttpStatus.OK.value());
+        }
 
         WxMenu menu = new WxMenu();
-        menu.setAccountId(wxAccount.getId());
+        menu.setSourceId(wxAccount.getSourceId());
         menu.setParentId("0");
         List<WxMenu> firstMenuList = wxMenuMapper.selectlist(menu);
 
         WxMenu menu1 = new WxMenu();
-        menu1.setAccountId(wxAccount.getId());
+        menu1.setSourceId(wxAccount.getSourceId());
 
         //要传向接口的类
         me.chanjar.weixin.common.bean.menu.WxMenu createMenu = new me.chanjar.weixin.common.bean.menu.WxMenu();
@@ -86,13 +89,13 @@ public class WxMenuService extends BaseService<WxMenu> {
                     item2.setUrl(wxService.oauth2buildAuthorizationUrl(item2.getUrl(), WxConsts.OAuth2Scope.SNSAPI_USERINFO, wxAccount.getStatus()));
                 }
                 WxMenuButton wxMenuButtonSecond = new WxMenuButton();
-                wxMenuButtonSecond.setAppId(item.getAppId());
-                wxMenuButtonSecond.setKey(item.getKeyValue());
-                wxMenuButtonSecond.setMediaId(item.getMediaId());
-                wxMenuButtonSecond.setName(item.getName());
-                wxMenuButtonSecond.setPagePath(item.getPagePath());
-                wxMenuButtonSecond.setType(item.getType());
-                wxMenuButtonSecond.setUrl(item.getUrl());
+                wxMenuButtonSecond.setAppId(item2.getAppId());
+                wxMenuButtonSecond.setKey(item2.getKeyValue());
+                wxMenuButtonSecond.setMediaId(item2.getMediaId());
+                wxMenuButtonSecond.setName(item2.getName());
+                wxMenuButtonSecond.setPagePath(item2.getPagePath());
+                wxMenuButtonSecond.setType(item2.getType());
+                wxMenuButtonSecond.setUrl(item2.getUrl());
 
                 subWxMenuButton.add(wxMenuButtonSecond);
             });
@@ -118,4 +121,4 @@ public class WxMenuService extends BaseService<WxMenu> {
 
     }
 
-}*/
+}

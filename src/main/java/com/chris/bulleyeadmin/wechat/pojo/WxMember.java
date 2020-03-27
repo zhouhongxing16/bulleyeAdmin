@@ -22,8 +22,8 @@ public class WxMember implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY, generator = "select uuid()")
     private String id;
 
-    @Column(name = "account_id")
-    private String accountId;
+    @Column(name = "source_id")
+    private String sourceId;
 
 
     @Column(name = "subscribe")
@@ -102,12 +102,12 @@ public class WxMember implements Serializable {
         this.id = id;
     }
 
-    public String getAccountId() {
-        return accountId;
+    public String getSourceId() {
+        return sourceId;
     }
 
-    public void setAccountId(String accountId) {
-        this.accountId = accountId;
+    public void setSourceId(String sourceId) {
+        this.sourceId = sourceId;
     }
 
     public Boolean getSubscribe() {
