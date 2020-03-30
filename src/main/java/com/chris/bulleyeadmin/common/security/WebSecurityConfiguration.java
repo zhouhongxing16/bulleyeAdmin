@@ -41,6 +41,7 @@ public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter {
                 .antMatchers("/wx/portal/**").permitAll()
                 .antMatchers("/file/view/**").permitAll()
                 .antMatchers("/file/download/**").permitAll()
+                .antMatchers("/api/file/**").permitAll()
 //                .antMatchers("/file/uploadfile").permitAll()
                 .antMatchers("/message/sendVerificationCode").permitAll()
                 .antMatchers("/message/verificationCode").permitAll()
