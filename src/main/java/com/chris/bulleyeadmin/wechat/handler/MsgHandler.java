@@ -41,7 +41,8 @@ public class MsgHandler extends AbstractHandler {
 
         //当用户输入关键词如“你好”，“客服”等，并且有客服在线时，把消息转发给在线客服
         Map<String,Object> map = new HashMap<>(3);
-        map.put("accountId",wxMessage.getToUser());
+        System.out.println("getToUser:"+wxMessage.getToUser());
+        map.put("sourceId",wxMessage.getToUser());
         map.put("keyWord",wxMessage.getContent());
         try {
             List<WxReply> replyList = wxReplyService.getListByParams(map);

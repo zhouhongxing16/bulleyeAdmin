@@ -33,7 +33,7 @@ public class UnsubscribeHandler extends AbstractHandler {
             userWxInfo = wxMpService.getUserService().userInfo(wxMessage.getFromUser(), null);
             if (userWxInfo != null) {
                 WxMember wxMember = JSON.parseObject(userWxInfo.toString(),WxMember.class);
-                wxMember.setAccountId(wxMessage.getToUser());
+                wxMember.setSourceId(wxMessage.getToUser());
                 WxMember member = wxMemberService.getMemberByOpenId(wxMember.getOpenId());
                 if(member==null){
                     wxMember.setSubscribe(false);

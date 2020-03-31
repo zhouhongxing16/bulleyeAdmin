@@ -4,7 +4,7 @@
 <mapper namespace="com.chris.bulleyeadmin.wechat.mapper.WxReplyMapper">
     <resultMap id="BaseResultMap" type="com.chris.bulleyeadmin.wechat.pojo.WxReply">
         <id column="id" jdbcType="VARCHAR" property="id" />
-        <result column="account_id" jdbcType="VARCHAR" property="accountId" />
+        <result column="source_id" jdbcType="VARCHAR" property="sourceId" />
         <result column="key_word" jdbcType="VARCHAR" property="keyWord" />
         <result column="key_value" jdbcType="VARCHAR" property="keyValue" />
         <result column="key_type" jdbcType="VARCHAR" property="keyType" />
@@ -15,7 +15,7 @@
     </resultMap>
 
     <sql id="basic_list">
-        a.id, a.account_id, a.key_word, a.key_value, a.key_type, a.graphic_id, a.num, a.status, a.created
+        a.id, a.source_id, a.key_word, a.key_value, a.key_type, a.graphic_id, a.num, a.status, a.created
 	</sql>
 
     <select id="getListByParams" resultMap="BaseResultMap" parameterType="map">
@@ -26,8 +26,8 @@
             <if test="id!=null and id!='' ">
                 and a.id=#{ id }
             </if>
-            <if test="accountId!=null and accountId!='' ">
-                and a.account_id=#{ accountId }
+            <if test="sourceId!=null and sourceId!='' ">
+                and a.source_id=#{ sourceId }
             </if>
             <if test="keyWord!=null and keyWord!='' ">
                 and a.key_word LIKE CONCAT('%', #{ keyWord }, '%')

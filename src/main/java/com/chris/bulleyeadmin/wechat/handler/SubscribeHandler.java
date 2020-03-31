@@ -37,7 +37,7 @@ public class SubscribeHandler extends AbstractHandler {
                 .userInfo(wxMessage.getFromUser(), null);
             WxMember wxMember = JSON.parseObject(userWxInfo.toString(),WxMember.class);
             if (userWxInfo != null) {
-                wxMember.setAccountId(wxMessage.getToUser());
+                wxMember.setSourceId(wxMessage.getToUser());
                 subscribe(wxMember, wxMemberService);
             }
         } catch (WxErrorException e) {

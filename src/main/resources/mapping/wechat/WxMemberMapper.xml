@@ -4,7 +4,7 @@
 <mapper namespace="com.chris.bulleyeadmin.wechat.mapper.WxMemberMapper">
     <resultMap id="BaseResultMap" type="com.chris.bulleyeadmin.wechat.pojo.WxMember">
         <id column="id" jdbcType="VARCHAR" property="id" />
-        <result column="account_id" jdbcType="VARCHAR" property="accountId" />
+        <result column="source_id" jdbcType="VARCHAR" property="sourceId" />
         <result column="subscribe" jdbcType="VARCHAR" property="subscribe" />
         <result column="open_id" jdbcType="VARCHAR" property="openId" />
         <result column="nickname" jdbcType="VARCHAR" property="nickname" />
@@ -30,7 +30,7 @@
     </resultMap>
 
     <sql id="basic_list">
-		a.id, a.account_id, a.subscribe, a.open_id, a.nickname, a.sex, a.sex_desc, a.language, a.city, a.qr_code, a.province, a.country, a.head_img_url, a.subscribe_time, a.union_id, a.remark, a.group_id, a.subscribe_scene, a.qr_scene, a.qr_scene_str
+		a.id, a.source_id, a.subscribe, a.open_id, a.nickname, a.sex, a.sex_desc, a.language, a.city, a.qr_code, a.province, a.country, a.head_img_url, a.subscribe_time, a.union_id, a.remark, a.group_id, a.subscribe_scene, a.qr_scene, a.qr_scene_str
 	</sql>
 
     <select id="getListByParams" resultMap="BaseResultMap" parameterType="map">
@@ -41,8 +41,8 @@
             <if test="id!=null and id!='' ">
                 and a.id=#{ id }
             </if>
-            <if test="accountId!=null and accountId!='' ">
-                and a.account_id=#{ accountId }
+            <if test="sourceId!=null and sourceId!='' ">
+                and a.source_id=#{ sourceId }
             </if>
             <if test="accountName!=null and accountName!='' ">
                 and a.account_name LIKE CONCAT('%', #{ accountName }, '%')
