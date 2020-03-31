@@ -24,6 +24,7 @@ import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.io.File;
+import java.util.ArrayList;
 import java.util.List;
 
 @AllArgsConstructor
@@ -36,7 +37,7 @@ public class WxMaterialService extends BaseService<WxMaterial> {
     private WxAccountMapper wxAccountMapper;
     @Autowired
     private AttachFilesMapper attachFilesMapper;
-
+    @Autowired
     private final WxMpService wxService;
 
     @Override
@@ -59,45 +60,39 @@ public class WxMaterialService extends BaseService<WxMaterial> {
         WxMpService wxService = this.wxService.switchoverTo(account.getAppId());
         //处理图文消息
         if(WxMaterialEnum.news.toString().equals(wxMaterial.getType())){
-            WxMaterial queryWxMaterial2 = new WxMaterial();
-            queryWxMaterial2.setParentId(wxMaterial.getId());
-            List<WxMaterial> materialList = wxMaterialMapper.select(queryWxMaterial2);
-
             WxMpMaterialNews wxMpMaterialNews = new WxMpMaterialNews();
-            for (WxMaterial item : materialList) {
-                WxMpMaterialNews.WxMpMaterialNewsArticle article = new WxMpMaterialNews.WxMpMaterialNewsArticle();
-                article.setAuthor(item.getAuthor());
-                article.setContent(item.getContent());
-                article.setContentSourceUrl(item.getContentSourceUrl());
-                article.setDigest(item.getDigest());
-                article.setNeedOpenComment(item.getNeedOpenComment());
-                article.setOnlyFansCanComment(item.getOnlyFansCanComment());
-                article.setShowCoverPic(item.getNeedOpenComment());
 
-                //封面图片素材id，此处必须进行上传为临时素材处理
-                try {
-                    AttachFiles attachFiles = new AttachFiles();
-                    attachFiles.setId(item.getThumbFileId());
-                    List<AttachFiles> attachFilesList = attachFilesMapper.select(attachFiles);
-                    if (attachFilesList!=null&&attachFilesList.size()==1){
-                        File dir = new File(attachFilesList.get(0).getPath());
-                        WxMpMaterial img = new WxMpMaterial();
-                        img.setFile(dir);
-                        WxMpMaterialUploadResult wxMpMaterialUploadResult = wxService.getMaterialService().materialFileUpload("image", img);
-                        System.out.println("getMediaId="+wxMpMaterialUploadResult.getMediaId());
-                        article.setThumbMediaId(wxMpMaterialUploadResult.getMediaId());
-                    }
-                } catch (Exception e) {
-                    return new JsonResult(false,null,"生成失败，未找到封面图",0, HttpStatus.OK.value());
+            WxMpMaterialNews.WxMpMaterialNewsArticle article = new WxMpMaterialNews.WxMpMaterialNewsArticle();
+            article.setAuthor(wxMaterial.getAuthor());
+            article.setContent(wxMaterial.getContent());
+            article.setContentSourceUrl(wxMaterial.getContentSourceUrl());
+            article.setDigest(wxMaterial.getDigest());
+            article.setNeedOpenComment(wxMaterial.getNeedOpenComment());
+            article.setOnlyFansCanComment(wxMaterial.getOnlyFansCanComment());
+            article.setShowCoverPic(wxMaterial.getNeedOpenComment());
+
+            //封面图片素材id，此处必须进行上传为临时素材处理
+            try {
+                AttachFiles attachFiles = new AttachFiles();
+                attachFiles.setId(wxMaterial.getThumbFileId());
+                attachFiles = attachFilesMapper.selectOne(attachFiles);
+                if (attachFiles!=null){
+                    File dir = new File("G:/projectTemp/"+attachFiles.getPath());
+                    WxMpMaterial img = new WxMpMaterial();
+                    img.setFile(dir);
+                    WxMpMaterialUploadResult wxMpMaterialUploadResult = wxService.getMaterialService().materialFileUpload("image", img);
+                    System.out.println("getMediaId="+wxMpMaterialUploadResult.getMediaId());
+                    article.setThumbMediaId(wxMpMaterialUploadResult.getMediaId());
                 }
-
-                article.setThumbUrl(item.getDownUrl());
-                article.setTitle(item.getTitle());
-                article.setUrl(item.getDownUrl());
-
-                wxMpMaterialNews.addArticle(article);
-
+            } catch (Exception e) {
+                return new JsonResult(false,null,"生成失败，未找到封面图",0, HttpStatus.OK.value());
             }
+
+            article.setThumbUrl(wxMaterial.getDownUrl());
+            article.setTitle(wxMaterial.getTitle());
+            article.setUrl(wxMaterial.getDownUrl());
+
+            wxMpMaterialNews.addArticle(article);
 
             try {
                 WxMpMaterialUploadResult result = wxService.getMaterialService().materialNewsUpload(wxMpMaterialNews);
@@ -115,7 +110,11 @@ public class WxMaterialService extends BaseService<WxMaterial> {
 
         }else{
             //其他素材（暂时不可用，上传的文件未处理）
-            File dir = new File(wxMaterial.getThumbFileId());
+            AttachFiles attachFiles = new AttachFiles();
+            attachFiles.setId(wxMaterial.getThumbFileId());
+            attachFiles = attachFilesMapper.selectOne(attachFiles);
+            File dir = new File(attachFiles.getPath());
+
             WxMpMaterial wxMpMaterial =  new WxMpMaterial();
             wxMpMaterial.setName(wxMaterial.getName());
             wxMpMaterial.setFile(dir);
@@ -144,7 +143,35 @@ public class WxMaterialService extends BaseService<WxMaterial> {
 
     //修改永久素材
     @Transactional(propagation = Propagation.REQUIRED)
-    public JsonResult updateMaterial(WxMaterial wxMaterial_old) {
+    public JsonResult updateMaterial(WxMaterial new_wxMaterial) {
+        /*WxMaterial QwxMaterial = new WxMaterial();
+        QwxMaterial.setId(new_wxMaterial.getId());
+
+        WxMaterial old_wxMaterial = wxMaterialMapper.selectOne(QwxMaterial);
+        if (!old_wxMaterial.getThumbFileId().equals(new_wxMaterial.getThumbFileId())) {
+            JsonResult jsonResult = uploadFile(new_wxMaterial.getThumbFileId());
+            if (jsonResult.isSuccess()) {
+                new_wxMaterial.setThumbFileId(jsonResult.getData().toString());
+            }
+        }
+
+        //获取相关接口
+        WxAccount queryaccount = new WxAccount();
+        queryaccount.setSourceId(new_wxMaterial.getSourceId());
+
+        WxAccount account = wxAccountMapper.selectOne(queryaccount);
+        WxMpService wxService = this.wxService.switchoverTo(account.getAppId());
+
+        WxMpMaterialArticleUpdate wxMpMaterialArticleUpdate = new W
+
+        try {
+            boolean flag = wxService.getMaterialService().materialNewsUpdate(new_wxMaterial);
+            String msg = flag?"删除成功":"删除失败！";
+            return new JsonResult(flag?true:false,null,msg, null, HttpStatus.OK.value());
+        } catch (WxErrorException e){
+            return new JsonResult(false,null,"修改失败！", null, HttpStatus.OK.value());
+        }*/
+
         return null;
     }
 
@@ -157,18 +184,21 @@ public class WxMaterialService extends BaseService<WxMaterial> {
         WxMaterial wxMaterial = wxMaterialMapper.selectOne(QwxMaterial);
         //获取相关接口
         WxAccount queryaccount = new WxAccount();
-        queryaccount.setId(wxMaterial.getSourceId());
+        queryaccount.setSourceId(wxMaterial.getSourceId());
 
         WxAccount account = wxAccountMapper.selectOne(queryaccount);
         WxMpService wxService = this.wxService.switchoverTo(account.getAppId());
         try {
             boolean flag = wxService.getMaterialService().materialDelete(wxMaterial.getMediaId());
+            if (flag) {
+                wxMaterial.setMediaId("");
+                wxMaterialMapper.updateByPrimaryKey(wxMaterial);
+            }
             String msg = flag?"删除成功":"删除失败！";
             return new JsonResult(flag?true:false,null,msg, null, HttpStatus.OK.value());
-        }catch (WxErrorException e){
-
+        } catch (WxErrorException e){
+            return new JsonResult(false,null,"删除失败！", null, HttpStatus.OK.value());
         }
-        return null;
     }
 
     //推送永久素材
@@ -180,16 +210,42 @@ public class WxMaterialService extends BaseService<WxMaterial> {
         WxMaterial wxMaterial = wxMaterialMapper.selectOne(qwxMaterial);
         //获取相关公众号及接口
         WxAccount queryAccount = new WxAccount();
-        queryAccount.setId(wxMaterial.getSourceId());
+        queryAccount.setSourceId(wxMaterial.getSourceId());
         WxAccount account = wxAccountMapper.selectOne(queryAccount);
         WxMpService wxService = this.wxService.switchoverTo(account.getAppId());
         try {
+            //获取需要推送的用户openid
+            List<String> openidList = new ArrayList<>();
+            openidList.add("o49sjv02N1-r-vfq_9EMOcj5hQCY");
+
             KefuNewsBuilder kefuNewsBuilder = new KefuNewsBuilder();
-            boolean flag = kefuNewsBuilder.pubMaterialToUser(wxService, null, wxMaterial.getMediaId());
+            boolean flag = kefuNewsBuilder.pubMaterialToUser(wxService, openidList, wxMaterial.getMediaId());
             String msg = flag?"推送成功":"推送失败！";
             return new JsonResult(flag?true:false,null,msg, null, HttpStatus.OK.value());
         }catch (Exception e){
             return new JsonResult(false,null,"推送失败", null, HttpStatus.OK.value());
         }
     }
+
+    //处理封面图上传为素材
+    private JsonResult uploadFile(String thumbFileId){
+        //封面图片素材id，此处必须进行上传为临时素材处理
+        try {
+            AttachFiles attachFiles = new AttachFiles();
+            attachFiles.setId(thumbFileId);
+            attachFiles = attachFilesMapper.selectOne(attachFiles);
+            if (attachFiles!=null){
+                File dir = new File("G:/projectTemp/"+attachFiles.getPath());
+                WxMpMaterial img = new WxMpMaterial();
+                img.setFile(dir);
+                WxMpMaterialUploadResult wxMpMaterialUploadResult = wxService.getMaterialService().materialFileUpload("image", img);
+                System.out.println("getMediaId="+wxMpMaterialUploadResult.getMediaId());
+                return new JsonResult(true, wxMpMaterialUploadResult.getMediaId(), "生成成功",0, HttpStatus.OK.value());
+            }
+        } catch (Exception e) {
+            return new JsonResult(false,null,"生成失败，未找到封面图",0, HttpStatus.OK.value());
+        }
+        return null;
+    }
 }
+

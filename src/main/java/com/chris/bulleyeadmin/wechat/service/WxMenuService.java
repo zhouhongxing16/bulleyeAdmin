@@ -3,7 +3,6 @@ package com.chris.bulleyeadmin.wechat.service;
 import com.chris.bulleyeadmin.common.basemapper.BaseMapper;
 import com.chris.bulleyeadmin.common.entity.JsonResult;
 import com.chris.bulleyeadmin.common.service.BaseService;
-import com.chris.bulleyeadmin.wechat.config.WxMpConfiguration;
 import com.chris.bulleyeadmin.wechat.mapper.WxAccountMapper;
 import com.chris.bulleyeadmin.wechat.mapper.WxMenuMapper;
 import com.chris.bulleyeadmin.wechat.pojo.WxAccount;
@@ -31,6 +30,7 @@ public class WxMenuService extends BaseService<WxMenu> {
     @Autowired
     WxAccountMapper wxAccountMapper;
 
+    @Autowired
     private final WxMpService wxService;
 
     @Override
