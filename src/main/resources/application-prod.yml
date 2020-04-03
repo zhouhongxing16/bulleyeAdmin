@@ -32,9 +32,9 @@ mapper:
   identity: MYSQL
   before: true
 aliyunSMS:
-  accessKeyId: LTAI1dbEIUJOaeog
-  accessKeySecret: 02Rs1BwHg5cQcdbIRrpvhkSXIxC7J2
-  signName: U创邦
+  accessKeyId:
+  accessKeySecret:
+  signName:
   product: Dysmsapi
   domain: dysmsapi.aliyuncs.com
 serverConfig:

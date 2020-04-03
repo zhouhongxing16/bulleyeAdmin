@@ -19,7 +19,7 @@ spring:
     host: smtp.exmail.qq.com
     username: chris@zhouhongxing.cn
     port: 25
-    password: zZ8302812520
+    password:
     protocol: smtp
     default-encoding: utf-8
 mybatis:
@@ -34,14 +34,14 @@ mapper:
 
 defaultSMS: Tencent
 aliyunSMS:
-  accessKeyId: LTAI1dbEIUJOaeog
-  accessKeySecret: 02Rs1BwHg5cQcdbIRrpvhkSXIxC7J2
-  signName: U创邦
+  accessKeyId:
+  accessKeySecret:
+  signName:
   product: Dysmsapi
   domain: dysmsapi.aliyuncs.com
 tencentSMS:
-  appId: 1400047724
-  appKey: bc443d70707087066fdf3bc3e203768c
+  appId:
+  appKey:
   smsSign : 克里斯周
   product: Dysmsapi
   domain: dysmsapi.aliyuncs.com
