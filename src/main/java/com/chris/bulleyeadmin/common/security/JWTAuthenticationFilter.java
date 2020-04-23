@@ -5,9 +5,12 @@ import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 import com.chris.bulleyeadmin.common.config.WeChatFilter;
 import com.chris.bulleyeadmin.common.entity.JsonResult;
+import com.chris.bulleyeadmin.common.utils.DateUtils;
+import com.chris.bulleyeadmin.system.pojo.Logger;
 import com.chris.bulleyeadmin.system.pojo.Role;
 import com.chris.bulleyeadmin.system.pojo.User;
 import io.jsonwebtoken.Jwts;
+import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -31,7 +34,6 @@ import java.util.List;
  * 如果校验通过，就认为这是一个取得授权的合法请求
  */
 public class JWTAuthenticationFilter extends BasicAuthenticationFilter {
-
     public JWTAuthenticationFilter(AuthenticationManager authenticationManager) {
         super(authenticationManager);
     }
@@ -44,10 +46,10 @@ public class JWTAuthenticationFilter extends BasicAuthenticationFilter {
             return;
         }
         UsernamePasswordAuthenticationToken authentication = getAuthentication(request, response);
-
-        SecurityContextHolder.getContext().setAuthentication(authentication);
-        chain.doFilter(request, response);
-
+        if (authentication != null) {
+            SecurityContextHolder.getContext().setAuthentication(authentication);
+            chain.doFilter(request, response);
+        }
     }
 
     private UsernamePasswordAuthenticationToken getAuthentication(HttpServletRequest request, HttpServletResponse response) throws IOException {
@@ -62,7 +64,7 @@ public class JWTAuthenticationFilter extends BasicAuthenticationFilter {
                 JSONObject obj = JSON.parseObject(jsonObject);
                 JSONArray ja = JSONArray.parseArray(obj.getString("authorities"));
                 List<Role> roleList = JSONArray.parseArray(obj.getString("roles"), Role.class);
-                Role role = JSONObject.parseObject(obj.getString("currentRole"),Role.class);
+                Role role = JSONObject.parseObject(obj.getString("currentRole"), Role.class);
                 user = new User(obj.getString("username"), "", ja.toJavaList(GrantedAuthority.class));
                 user.setStaffId(obj.getString("staffId"));
                 user.setPlatform(obj.getString("platform"));
@@ -72,17 +74,17 @@ public class JWTAuthenticationFilter extends BasicAuthenticationFilter {
                 user.setRoles(roleList);
                 user.setCurrentRole(role);
             } catch (Exception e) {
-                return getFailAuthenticationTokenResult(request, response,true);
+                return getFailAuthenticationTokenResult(request, response, true);
             }
             if (user != null) {
 
-                if("weChat".equals(user.getPlatform())){
-                    if(WeChatFilter.getInstance().getUrlPassFlag(url)){
+                if ("weChat".equals(user.getPlatform())) {
+                    if (WeChatFilter.getInstance().getUrlPassFlag(url)) {
                         return new UsernamePasswordAuthenticationToken(user, null, user.getAuthorities());
-                    }else{
-                        return getFailAuthenticationTokenResult(request, response,false);
+                    } else {
+                        return getFailAuthenticationTokenResult(request, response, false);
                     }
-                }else{
+                } else {
                     return new UsernamePasswordAuthenticationToken(user, null, user.getAuthorities());
                 }
 
@@ -90,26 +92,26 @@ public class JWTAuthenticationFilter extends BasicAuthenticationFilter {
                 return new UsernamePasswordAuthenticationToken(null, null, null);
             }
         } else {
-            return getFailAuthenticationTokenResult(request, response,true);
+            return getFailAuthenticationTokenResult(request, response, true);
         }
     }
 
-    private UsernamePasswordAuthenticationToken getFailAuthenticationTokenResult(HttpServletRequest request, HttpServletResponse response,Boolean authFlag) throws IOException {
+    private UsernamePasswordAuthenticationToken getFailAuthenticationTokenResult(HttpServletRequest request, HttpServletResponse response, Boolean authFlag) throws IOException {
 
         PrintWriter writer = response.getWriter();
         String msg = "";
-        if(authFlag){
+        if (authFlag) {
             response.setStatus(HttpStatus.UNAUTHORIZED.value());
             request.setCharacterEncoding("UTF-8");
             response.setCharacterEncoding("UTF-8");
-            System.out.println("授权认证失败，请重新登录");
-             msg = new JsonResult(false, null, "授权认证失败，请重新登录！", null, HttpStatus.UNAUTHORIZED.value()).toString();
-        }else{
+            Logger.debug("授权认证失败，请重新登录");
+            msg = new JsonResult(false, null, "授权认证失败，请重新登录！", null, HttpStatus.UNAUTHORIZED.value()).toString();
+        } else {
             response.setStatus(HttpStatus.FORBIDDEN.value());
             request.setCharacterEncoding("UTF-8");
             response.setCharacterEncoding("UTF-8");
-            System.out.println("授权认证失败，请重新登录");
-             msg = new JsonResult(false, null, "授权认证失败，请重新登录！", null, HttpStatus.UNAUTHORIZED.value()).toString();
+            Logger.debug("授权认证失败，请重新登录");
+            msg = new JsonResult(false, null, "授权认证失败，请重新登录！", null, HttpStatus.UNAUTHORIZED.value()).toString();
 
         }
         writer.write(msg);
