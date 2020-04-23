@@ -98,18 +98,16 @@ public class JWTAuthenticationFilter extends BasicAuthenticationFilter {
 
     private UsernamePasswordAuthenticationToken getFailAuthenticationTokenResult(HttpServletRequest request, HttpServletResponse response, Boolean authFlag) throws IOException {
 
+        response.setHeader("content-type", "text/html;charset=UTF-8");
+        response.setCharacterEncoding("UTF-8");
         PrintWriter writer = response.getWriter();
         String msg = "";
         if (authFlag) {
             response.setStatus(HttpStatus.UNAUTHORIZED.value());
-            request.setCharacterEncoding("UTF-8");
-            response.setCharacterEncoding("UTF-8");
             Logger.debug("授权认证失败，请重新登录");
             msg = new JsonResult(false, null, "授权认证失败，请重新登录！", null, HttpStatus.UNAUTHORIZED.value()).toString();
         } else {
             response.setStatus(HttpStatus.FORBIDDEN.value());
-            request.setCharacterEncoding("UTF-8");
-            response.setCharacterEncoding("UTF-8");
             Logger.debug("授权认证失败，请重新登录");
             msg = new JsonResult(false, null, "授权认证失败，请重新登录！", null, HttpStatus.UNAUTHORIZED.value()).toString();
 

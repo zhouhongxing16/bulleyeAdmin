@@ -56,7 +56,7 @@ public class JWTLoginFilter extends UsernamePasswordAuthenticationFilter {
 
     // 用户成功登录后，这个方法会被调用，我们在这个方法里生成token
     @Override
-    protected void successfulAuthentication(HttpServletRequest req, HttpServletResponse res, FilterChain chain, Authentication auth) throws IOException, ServletException {
+    protected void successfulAuthentication(HttpServletRequest request, HttpServletResponse response, FilterChain chain, Authentication auth) throws IOException, ServletException {
 
         User user = (User) auth.getPrincipal();
         Map<String, Object> map = new HashMap<>();
@@ -71,14 +71,14 @@ public class JWTLoginFilter extends UsernamePasswordAuthenticationFilter {
                     .setExpiration(new Date(System.currentTimeMillis() + 60 * 60 * 24 * 1000))
                     .signWith(SignatureAlgorithm.HS512, "BulleyeAdminSecret")
                     .compact();
-            res.addHeader("Authorization", "Bearer " + token);
+            response.addHeader("Authorization", "Bearer " + token);
             map.put("token", token);
             data = new JsonResult(true, map, "登录成功！", null, HttpStatus.OK.value()).toString();
         }
 
-        req.setCharacterEncoding("UTF-8");
-        res.setCharacterEncoding("UTF-8");
-        PrintWriter writer = res.getWriter();
+        response.setHeader("content-type", "text/html;charset=UTF-8");
+        response.setCharacterEncoding("UTF-8");
+        PrintWriter writer = response.getWriter();
         writer.write(data);
         writer.flush();
         writer.close();
@@ -88,7 +88,7 @@ public class JWTLoginFilter extends UsernamePasswordAuthenticationFilter {
     protected void unsuccessfulAuthentication(HttpServletRequest request, HttpServletResponse response, AuthenticationException failed) throws IOException, ServletException {
         Map<String, Object> map = new HashMap<>();
         String data = new JsonResult(false, map, "登录失败！用户名或密码错误！", null, HttpStatus.UNAUTHORIZED.value()).toString();
-        response.setCharacterEncoding("UTF-8");
+        response.setHeader("content-type", "text/html;charset=UTF-8");
         response.setCharacterEncoding("UTF-8");
         PrintWriter writer = response.getWriter();
         writer.write(data);
