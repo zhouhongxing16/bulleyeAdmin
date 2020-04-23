@@ -7,6 +7,7 @@ import com.chris.bulleyeadmin.common.pojo.AttachFiles;
 import com.chris.bulleyeadmin.common.service.BaseService;
 import com.chris.bulleyeadmin.wechat.Enums.WxMaterialEnum;
 import com.chris.bulleyeadmin.wechat.KefuBuilder.KefuNewsBuilder;
+import com.chris.bulleyeadmin.wechat.builder.NewsBuilder;
 import com.chris.bulleyeadmin.wechat.mapper.WxAccountMapper;
 import com.chris.bulleyeadmin.wechat.mapper.WxMaterialMapper;
 import com.chris.bulleyeadmin.wechat.pojo.WxAccount;
@@ -214,12 +215,23 @@ public class WxMaterialService extends BaseService<WxMaterial> {
         WxAccount account = wxAccountMapper.selectOne(queryAccount);
         WxMpService wxService = this.wxService.switchoverTo(account.getAppId());
         try {
-            //获取需要推送的用户openid
-            List<String> openidList = new ArrayList<>();
-            openidList.add("o49sjv02N1-r-vfq_9EMOcj5hQCY");
-
+            //客服消息获取需要推送的用户openid
+            /*String openid = "o49sjv02N1-r-vfq_9EMOcj5hQCY";
             KefuNewsBuilder kefuNewsBuilder = new KefuNewsBuilder();
-            boolean flag = kefuNewsBuilder.pubMaterialToUser(wxService, openidList, wxMaterial.getMediaId());
+            boolean flag = kefuNewsBuilder.pubMaterialToUserByKf(wxService, openid, wxMaterial.getMediaId());*/
+
+            //素材群发
+            NewsBuilder newsBuilder = new NewsBuilder();
+            boolean flag = newsBuilder.pubMaterialToUserAll(wxMaterial, wxService);
+
+            //根据openid发送
+            /*List<String> openids = new ArrayList<>();
+            openids.add("o49sjv0_iBKGZ5YTeqLiBLMOYFyI");
+            openids.add("o49sjv02N1-r-vfq_9EMOcj5hQCY\t");
+
+            NewsBuilder newsBuilder = new NewsBuilder();
+            boolean flag = newsBuilder.pubMaterialToUserList(wxMaterial, openids, wxService);*/
+
             String msg = flag?"推送成功":"推送失败！";
             return new JsonResult(flag?true:false,null,msg, null, HttpStatus.OK.value());
         }catch (Exception e){

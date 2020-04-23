@@ -26,9 +26,9 @@ public class KefuNewsBuilder extends KefuAbstractBuilder {
     }
 
     //向指定的用户发送素材
-    public boolean pubMaterialToUser(WxMpService service, List<String> openids, String media_id) {
+    public boolean pubMaterialToUserByKf(WxMpService service, String openid, String media_id) {
         WxMpKefuMessage m = WxMpKefuMessage.MPNEWS()
-                .toUser("o49sjv02N1-r-vfq_9EMOcj5hQCY")
+                .toUser(openid)
                 .mediaId(media_id)
                 .build();
         boolean flag = false;
