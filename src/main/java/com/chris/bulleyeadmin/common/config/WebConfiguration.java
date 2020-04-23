@@ -1,4 +1,4 @@
-package com.chris.bulleyeadmin.common.controller;
+package com.chris.bulleyeadmin.common.config;
 
 import com.chris.bulleyeadmin.common.entity.FileUploadPath;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -7,7 +7,7 @@ import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 @Configuration
-public class CORSConfiguration implements WebMvcConfigurer {
+public class WebConfiguration implements WebMvcConfigurer {
 
     @Autowired
     FileUploadPath fileUploadPath;
