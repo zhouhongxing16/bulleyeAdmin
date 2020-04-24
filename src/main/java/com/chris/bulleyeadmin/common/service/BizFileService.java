@@ -10,12 +10,16 @@ import com.chris.bulleyeadmin.common.utils.FileUtil;
 import com.chris.bulleyeadmin.system.pojo.User;
 import com.google.common.hash.HashCode;
 import com.google.common.hash.Hashing;
+import net.coobird.thumbnailator.Thumbnails;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 import org.springframework.web.multipart.MultipartFile;
 
+import javax.imageio.ImageIO;
+import java.awt.*;
+import java.io.File;
 import java.util.Date;
 
 /**
@@ -74,7 +78,20 @@ public class BizFileService extends BaseService<BizFile> {
         file.setUploadStartTime(new Date());
         //上传文件
         FileUtil.uploadFile(multipartFile, path, filename);
-
+        if(FileUtil.isPicture(FileUtil.getSuffix(filename))){
+            String p = uploadPath+"/"+departmentPath+"/thumbnail";
+            File targetFile = new File(p);
+            if (!targetFile.exists()) {
+                targetFile.mkdirs();
+            }
+            Image bi = ImageIO.read(new File(path+"/"+filename));
+            file.setWidth(bi.getWidth(null));
+            file.setHeight(bi.getHeight(null));
+            String thumbnailPath = prefix + "/" + departmentPath + "/thumbnail/" + filename;
+            file.setThumbnail(thumbnailPath);
+            //图片压缩
+            Thumbnails.of(path+"/"+filename).size(160, 160).toFile(path+"/thumbnail/"+filename);
+        }
         file.setSize(multipartFile.getSize());
         file.setFileHash(hash.toString());
         file.setOriginalFileName(multipartFile.getOriginalFilename());
@@ -100,16 +117,18 @@ public class BizFileService extends BaseService<BizFile> {
         if (StringUtils.isEmpty(fileName)) {
             result.setMessage("[" + fileName + "]删除文件失败：文件key为空");
         } else {
-            try {
-            result.setSuccess(true);
-            BizFile file = new BizFile();
-            file.setOriginalFileName(fileName);
-            file.setBucketName(aliOSSConfig.getBucketName());
-            int count = bizFileMapper.delete(file);
-            result.setSuccess(count > 0 ? true : false);
-            result.setMessage("删除成功");
-            } catch (Exception e) {
-                e.printStackTrace();
+            if ("local".equals(storageType)) {
+                BizFile file = new BizFile();
+                file.setOriginalFileName(fileName);
+                file.setStorageType(storageType);
+                int count = bizFileMapper.delete(file);
+                result.setSuccess(count > 0 ? true : false);
+                result.setMessage("删除成功");
+                result.setSuccess(true);
+            } else if ("aliOSS".equals(storageType)) {
+
+            } else if ("qiniu".equals(storageType)) {
+
             }
         }
         return result;

@@ -39,6 +39,12 @@ public class BizFile {
     @Column(name = "suffix")
     public String suffix;
     /**
+     * 图片略缩图
+     */
+    @ApiModelProperty(name = "图片略缩图")
+    @Column(name = "thumbnail")
+    public String thumbnail;
+    /**
      * 图片文件的宽
      */
     @ApiModelProperty(name = "图片文件的宽")
@@ -282,5 +288,13 @@ public class BizFile {
 
     public void setStatus(Integer status) {
         this.status = status;
+    }
+
+    public String getThumbnail() {
+        return thumbnail;
+    }
+
+    public void setThumbnail(String thumbnail) {
+        this.thumbnail = thumbnail;
     }
 }

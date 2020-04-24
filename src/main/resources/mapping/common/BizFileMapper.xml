@@ -10,6 +10,7 @@
         <result column="bucket_name" jdbcType="VARCHAR" property="bucketName"/>
         <result column="size" jdbcType="BIGINT" property="size"/>
         <result column="suffix" jdbcType="VARCHAR" property="suffix"/>
+        <result column="thumbnail" jdbcType="VARCHAR" property="thumbnail"/>
         <result column="width" jdbcType="INTEGER" property="width"/>
         <result column="height" jdbcType="INTEGER" property="height"/>
         <result column="file_path" jdbcType="VARCHAR" property="filePath"/>
@@ -31,7 +32,7 @@
     </resultMap>
 
     <sql id="basic_list">
-		a.id,a.organization_id,a.department_id,a.user_id, a.storage_type, a.original_file_name, a.size, a.suffix, a.width, a.height, a.file_path, a.full_file_path, a.file_hash, a.upload_start_time, a.upload_end_time, a.created, a.updated,a.status
+		a.id,a.organization_id,a.department_id,a.user_id,a.thumbnail, a.storage_type, a.original_file_name, a.size, a.suffix, a.width, a.height, a.file_path, a.full_file_path, a.file_hash, a.upload_start_time, a.upload_end_time, a.created, a.updated,a.status
 	</sql>
 
     <select id="getListByParams" resultMap="BaseResultMapDto" parameterType="map">
