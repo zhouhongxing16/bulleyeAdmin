@@ -46,6 +46,12 @@ tencentSMS:
   smsSign :
   product:
   domain: dysmsapi.aliyuncs.com
+aliOSSConfig:
+  endpoint: oss-cn-chengdu.aliyuncs.com
+  accessKeyId:
+  accessKeySecret:
+  bucketName: bulleye-admin
+  domainName:
 justauth:
   cache:
   type: default
@@ -53,12 +59,13 @@ justauth:
     client-id:
     client-secret:
     redirect-uri: http://oauth.xkcoding.com/demo/oauth/qq/callback
-serverConfig:
-  #uploadPath: c:/aaa
-  uploadPath: /usr/local/runtime/root/bulleye/upload
+uploadConfig:
+  uploadPath: c:/aaa
+  #uploadPath: /usr/local/runtime/root/bulleye/upload
   #uploadUrl: http://bulleye.zhouhongxing.cn:8001
-  uploadUrl: http://localhost:8001
-  isDebug: false
+  uploadUrl: http://localhost:8008
+  prefix: /api/file
+  storageType: local
 sysconfig:
   organizationId: c77e18b0-1ffa-11e7-b036-00163e0603fa
 

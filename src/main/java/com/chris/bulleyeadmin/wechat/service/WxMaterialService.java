@@ -2,8 +2,8 @@ package com.chris.bulleyeadmin.wechat.service;
 
 import com.chris.bulleyeadmin.common.basemapper.BaseMapper;
 import com.chris.bulleyeadmin.common.entity.JsonResult;
-import com.chris.bulleyeadmin.common.mapper.AttachFilesMapper;
-import com.chris.bulleyeadmin.common.pojo.AttachFiles;
+import com.chris.bulleyeadmin.common.mapper.BizFileMapper;
+import com.chris.bulleyeadmin.common.pojo.BizFile;
 import com.chris.bulleyeadmin.common.service.BaseService;
 import com.chris.bulleyeadmin.wechat.Enums.WxMaterialEnum;
 import com.chris.bulleyeadmin.wechat.KefuBuilder.KefuNewsBuilder;
@@ -36,7 +36,7 @@ public class WxMaterialService extends BaseService<WxMaterial> {
     @Autowired
     private WxAccountMapper wxAccountMapper;
     @Autowired
-    private AttachFilesMapper attachFilesMapper;
+    private BizFileMapper bizFileMapper;
     @Autowired
     private final WxMpService wxService;
 
@@ -73,11 +73,11 @@ public class WxMaterialService extends BaseService<WxMaterial> {
 
             //封面图片素材id，此处必须进行上传为临时素材处理
             try {
-                AttachFiles attachFiles = new AttachFiles();
+                BizFile attachFiles = new BizFile();
                 attachFiles.setId(wxMaterial.getThumbFileId());
-                attachFiles = attachFilesMapper.selectOne(attachFiles);
+                attachFiles = bizFileMapper.selectOne(attachFiles);
                 if (attachFiles!=null){
-                    File dir = new File("G:/projectTemp/"+attachFiles.getPath());
+                    File dir = new File("G:/projectTemp/"+attachFiles.getFullFilePath());
                     WxMpMaterial img = new WxMpMaterial();
                     img.setFile(dir);
                     WxMpMaterialUploadResult wxMpMaterialUploadResult = wxService.getMaterialService().materialFileUpload("image", img);
@@ -110,10 +110,10 @@ public class WxMaterialService extends BaseService<WxMaterial> {
 
         }else{
             //其他素材（暂时不可用，上传的文件未处理）
-            AttachFiles attachFiles = new AttachFiles();
+            BizFile attachFiles = new BizFile();
             attachFiles.setId(wxMaterial.getThumbFileId());
-            attachFiles = attachFilesMapper.selectOne(attachFiles);
-            File dir = new File(attachFiles.getPath());
+            attachFiles = bizFileMapper.selectOne(attachFiles);
+            File dir = new File(attachFiles.getFullFilePath());
 
             WxMpMaterial wxMpMaterial =  new WxMpMaterial();
             wxMpMaterial.setName(wxMaterial.getName());
@@ -231,11 +231,11 @@ public class WxMaterialService extends BaseService<WxMaterial> {
     private JsonResult uploadFile(String thumbFileId){
         //封面图片素材id，此处必须进行上传为临时素材处理
         try {
-            AttachFiles attachFiles = new AttachFiles();
+            BizFile attachFiles = new BizFile();
             attachFiles.setId(thumbFileId);
-            attachFiles = attachFilesMapper.selectOne(attachFiles);
+            attachFiles = bizFileMapper.selectOne(attachFiles);
             if (attachFiles!=null){
-                File dir = new File("G:/projectTemp/"+attachFiles.getPath());
+                File dir = new File("G:/projectTemp/"+attachFiles.getFullFilePath());
                 WxMpMaterial img = new WxMpMaterial();
                 img.setFile(dir);
                 WxMpMaterialUploadResult wxMpMaterialUploadResult = wxService.getMaterialService().materialFileUpload("image", img);
