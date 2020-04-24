@@ -17,7 +17,7 @@ public class WebConfiguration implements WebMvcConfigurer {
     @Override
     public void addResourceHandlers(ResourceHandlerRegistry registry) {
         //本地静态资源映射
-        registry.addResourceHandler(prefix+"/**").addResourceLocations("file:"+uploadPath+prefix);
+        registry.addResourceHandler(prefix+"/**").addResourceLocations("file:"+uploadPath+"/");
 
     }
 
