@@ -112,6 +112,7 @@ public class BizFileService extends BaseService<BizFile> {
 
 
     public JsonResult removeFile(String fileName) {
+        User user = AuthUtil.getCurrentUser();
         JsonResult result = new JsonResult();
         result.setSuccess(false);
         if (StringUtils.isEmpty(fileName)) {
@@ -121,6 +122,9 @@ public class BizFileService extends BaseService<BizFile> {
                 BizFile file = new BizFile();
                 file.setOriginalFileName(fileName);
                 file.setStorageType(storageType);
+                String departmentPath = user.getOrganizationId() + "/" + user.getDepartmentId();
+                String path = uploadPath + "/" + departmentPath;
+                FileUtil.deleteFile(path+"/"+fileName);
                 int count = bizFileMapper.delete(file);
                 result.setSuccess(count > 0 ? true : false);
                 result.setMessage("删除成功");
