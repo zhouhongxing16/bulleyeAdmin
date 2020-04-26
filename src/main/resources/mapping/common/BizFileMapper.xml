@@ -1,0 +1,128 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--Created by  on Wed Apr 22 2020 23:50:52 GMT+0800 (中国标准时间)-->
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.chris.bulleyeadmin.common.mapper.BizFileMapper">
+    <resultMap id="BaseResultMap" type="com.chris.bulleyeadmin.common.pojo.BizFile">
+        <id column="id" jdbcType="VARCHAR" property="id"/>
+        <id column="organization_id" jdbcType="VARCHAR" property="organizationId"/>
+        <id column="department_id" jdbcType="VARCHAR" property="departmentId"/>
+        <result column="original_file_name" jdbcType="VARCHAR" property="originalFileName"/>
+        <result column="bucket_name" jdbcType="VARCHAR" property="bucketName"/>
+        <result column="size" jdbcType="BIGINT" property="size"/>
+        <result column="suffix" jdbcType="VARCHAR" property="suffix"/>
+        <result column="thumbnail" jdbcType="VARCHAR" property="thumbnail"/>
+        <result column="width" jdbcType="INTEGER" property="width"/>
+        <result column="height" jdbcType="INTEGER" property="height"/>
+        <result column="file_path" jdbcType="VARCHAR" property="filePath"/>
+        <result column="full_file_path" jdbcType="VARCHAR" property="fullFilePath"/>
+        <result column="file_hash" jdbcType="VARCHAR" property="fileHash"/>
+        <result column="storage_type" jdbcType="VARCHAR" property="storageType"/>
+        <result column="user_id" jdbcType="VARCHAR" property="userId"/>
+        <result column="upload_start_time" jdbcType="TIMESTAMP" property="uploadStartTime"/>
+        <result column="upload_end_time" jdbcType="TIMESTAMP" property="uploadEndTime"/>
+        <result column="created" jdbcType="TIMESTAMP" property="created"/>
+        <result column="updated" jdbcType="TIMESTAMP" property="updated"/>
+        <result column="status" jdbcType="INTEGER" property="status"/>
+        <result column="user_id" jdbcType="VARCHAR" property="userId"/>
+
+    </resultMap>
+
+    <resultMap id="BaseResultMapDto" type="com.chris.bulleyeadmin.common.dto.BizFileDto" extends="BaseResultMap">
+        <result column="userName" jdbcType="VARCHAR" property="userName"/>
+    </resultMap>
+
+    <sql id="basic_list">
+		a.id,a.organization_id,a.department_id,a.user_id,a.thumbnail, a.storage_type, a.original_file_name, a.size, a.suffix, a.width, a.height, a.file_path, a.full_file_path, a.file_hash, a.upload_start_time, a.upload_end_time, a.created, a.updated,a.status
+	</sql>
+
+    <select id="getListByParams" resultMap="BaseResultMapDto" parameterType="map">
+        SELECT
+        <include refid="basic_list"/>,staff.name as userName
+        FROM b_biz_file a
+        left join b_account act on act.id = a.user_id
+        left join b_staff staff on staff.id = act.staff_id
+        <where>
+            <if test="id!=null and id!='' ">
+                and a.id=#{ id }
+            </if>
+            <if test="userId!=null and userId!='' ">
+                and a.user_id=#{ userId }
+            </if>
+            <if test="storageType!=null and storageType!='' ">
+                and a.storage_type = #{ storageType }
+            </if>
+            <if test="originalFileName!=null and originalFileName!='' ">
+                and a.original_file_name LIKE CONCAT('%', #{ originalFileName }, '%')
+            </if>
+            <if test="size!=null and size!='' ">
+                and a.size LIKE CONCAT('%', #{ size }, '%')
+            </if>
+            <if test="suffix!=null and suffix!='' ">
+                and a.suffix LIKE CONCAT('%', #{ suffix }, '%')
+            </if>
+            <if test="width!=null and width!='' ">
+                and a.width=#{ width }
+            </if>
+            <if test="height!=null and height!='' ">
+                and a.height LIKE CONCAT('%', #{ height }, '%')
+            </if>
+            <if test="filePath!=null and filePath!='' ">
+                and a.file_path = #{ filePath }
+            </if>
+            <if test="fullFilePath!=null and fullFilePath!='' ">
+                and a.full_file_path LIKE CONCAT('%', #{ fullFilePath }, '%')
+            </if>
+            <if test="userId!=null and userId!='' ">
+                and a.user_id = #{ userId }
+            </if>
+        </where>
+        order by a.created desc
+    </select>
+
+    <select id="getByParams" resultMap="BaseResultMapDto" parameterType="map">
+        SELECT
+        <include refid="basic_list"/>,staff.name as userName
+        FROM b_biz_file a
+        left join b_account act on act.id = a.user_id
+        left join b_staff staff on staff.id = act.staff_id
+        <where>
+            <if test="id!=null and id!='' ">
+                and a.id=#{ id }
+            </if>
+            <if test="userId!=null and userId!='' ">
+                and a.user_id=#{ userId }
+            </if>
+            <if test="storageType!=null and storageType!='' ">
+                and a.storage_type LIKE CONCAT('%', #{ storageType }, '%')
+            </if>
+            <if test="originalFileName!=null and originalFileName!='' ">
+                and a.original_file_name LIKE CONCAT('%', #{ originalFileName }, '%')
+            </if>
+            <if test="size!=null and size!='' ">
+                and a.size LIKE CONCAT('%', #{ size }, '%')
+            </if>
+            <if test="suffix!=null and suffix!='' ">
+                and a.suffix LIKE CONCAT('%', #{ suffix }, '%')
+            </if>
+            <if test="width!=null and width!='' ">
+                and a.width=#{ width }
+            </if>
+            <if test="height!=null and height!='' ">
+                and a.height LIKE CONCAT('%', #{ height }, '%')
+            </if>
+            <if test="filePath!=null and filePath!='' ">
+                and a.file_path LIKE CONCAT('%', #{ filePath }, '%')
+            </if>
+            <if test="fullFilePath!=null and fullFilePath!='' ">
+                and a.full_file_path LIKE CONCAT('%', #{ fullFilePath }, '%')
+            </if>
+            <if test="fileHash!=null and fileHash!='' ">
+                and a.file_hash LIKE CONCAT('%', #{ fileHash }, '%')
+            </if>
+            <if test="userId!=null and userId!='' ">
+                and a.user_id = #{ userId }
+            </if>
+        </where>
+        limit 1
+    </select>
+</mapper>
