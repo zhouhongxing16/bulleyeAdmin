@@ -13,11 +13,14 @@ import com.chris.bulleyeadmin.wechat.mapper.WxMaterialMapper;
 import com.chris.bulleyeadmin.wechat.pojo.WxAccount;
 import com.chris.bulleyeadmin.wechat.pojo.WxMaterial;
 import lombok.AllArgsConstructor;
+import me.chanjar.weixin.common.api.WxConsts;
 import me.chanjar.weixin.common.error.WxErrorException;
 import me.chanjar.weixin.mp.api.WxMpService;
 import me.chanjar.weixin.mp.bean.material.WxMpMaterial;
+import me.chanjar.weixin.mp.bean.material.WxMpMaterialArticleUpdate;
 import me.chanjar.weixin.mp.bean.material.WxMpMaterialNews;
 import me.chanjar.weixin.mp.bean.material.WxMpMaterialUploadResult;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
@@ -25,7 +28,6 @@ import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.io.File;
-import java.util.ArrayList;
 import java.util.List;
 
 @AllArgsConstructor
@@ -145,17 +147,6 @@ public class WxMaterialService extends BaseService<WxMaterial> {
     //修改永久素材
     @Transactional(propagation = Propagation.REQUIRED)
     public JsonResult updateMaterial(WxMaterial new_wxMaterial) {
-        /*WxMaterial QwxMaterial = new WxMaterial();
-        QwxMaterial.setId(new_wxMaterial.getId());
-
-        WxMaterial old_wxMaterial = wxMaterialMapper.selectOne(QwxMaterial);
-        if (!old_wxMaterial.getThumbFileId().equals(new_wxMaterial.getThumbFileId())) {
-            JsonResult jsonResult = uploadFile(new_wxMaterial.getThumbFileId());
-            if (jsonResult.isSuccess()) {
-                new_wxMaterial.setThumbFileId(jsonResult.getData().toString());
-            }
-        }
-
         //获取相关接口
         WxAccount queryaccount = new WxAccount();
         queryaccount.setSourceId(new_wxMaterial.getSourceId());
@@ -163,17 +154,46 @@ public class WxMaterialService extends BaseService<WxMaterial> {
         WxAccount account = wxAccountMapper.selectOne(queryaccount);
         WxMpService wxService = this.wxService.switchoverTo(account.getAppId());
 
-        WxMpMaterialArticleUpdate wxMpMaterialArticleUpdate = new W
+        WxMaterial QwxMaterial = new WxMaterial();
+        QwxMaterial.setId(new_wxMaterial.getId());
+        wxMaterialMapper.updateByPrimaryKey(new_wxMaterial);
+
+        WxMaterial old_wxMaterial = wxMaterialMapper.selectOne(QwxMaterial);
+        if (!old_wxMaterial.getThumbFileId().equals(new_wxMaterial.getThumbFileId()) || !StringUtils.isNotBlank(new_wxMaterial.getThumbMediaId())) {
+            JsonResult jsonResult = uploadFile(wxService, new_wxMaterial.getThumbFileId());
+            if (jsonResult.isSuccess()) {
+                new_wxMaterial.setThumbMediaId(jsonResult.getData().toString());
+            } else {
+                return jsonResult;
+            }
+        }
+        WxMpMaterialNews.WxMpMaterialNewsArticle article = new WxMpMaterialNews.WxMpMaterialNewsArticle();
+        article.setTitle(new_wxMaterial.getTitle());
+        article.setThumbMediaId(new_wxMaterial.getThumbMediaId());
+        article.setAuthor(new_wxMaterial.getAuthor());
+        article.setDigest(new_wxMaterial.getDigest());
+        article.setShowCoverPic(new_wxMaterial.getShowCoverPic());
+        article.setContent(new_wxMaterial.getContent());
+        article.setContentSourceUrl(new_wxMaterial.getContentSourceUrl());
+        /*article.setNeedOpenComment(new_wxMaterial.getNeedOpenComment());
+        article.setOnlyFansCanComment(new_wxMaterial.getOnlyFansCanComment());*/
+
+
+        WxMpMaterialArticleUpdate update = new WxMpMaterialArticleUpdate();
+        update.setMediaId(new_wxMaterial.getMediaId());
+        update.setIndex(0);
+        update.setArticles(article);
 
         try {
-            boolean flag = wxService.getMaterialService().materialNewsUpdate(new_wxMaterial);
-            String msg = flag?"删除成功":"删除失败！";
+            boolean flag = wxService.getMaterialService().materialNewsUpdate(update);
+            String msg = flag?"修改成功":"修改失败！";
             return new JsonResult(flag?true:false,null,msg, null, HttpStatus.OK.value());
         } catch (WxErrorException e){
+            e.printStackTrace();
             return new JsonResult(false,null,"修改失败！", null, HttpStatus.OK.value());
-        }*/
+        }
+        //return new JsonResult(true,null,"修改成功", null, HttpStatus.OK.value());
 
-        return null;
     }
 
     //删除永久素材
@@ -183,6 +203,13 @@ public class WxMaterialService extends BaseService<WxMaterial> {
         QwxMaterial.setId(id);
 
         WxMaterial wxMaterial = wxMaterialMapper.selectOne(QwxMaterial);
+
+        if (StringUtils.isBlank(wxMaterial.getMediaId())) {
+            int deleteCount = wxMaterialMapper.deleteByExample(wxMaterial);
+            String msg = deleteCount>0?"成功删除"+deleteCount+"条记录":"数据删除失败！";
+            return new JsonResult(deleteCount>0?true:false,null,msg,null, HttpStatus.OK.value());
+        }
+
         //获取相关接口
         WxAccount queryaccount = new WxAccount();
         queryaccount.setSourceId(wxMaterial.getSourceId());
@@ -216,13 +243,13 @@ public class WxMaterialService extends BaseService<WxMaterial> {
         WxMpService wxService = this.wxService.switchoverTo(account.getAppId());
         try {
             //客服消息获取需要推送的用户openid
-            /*String openid = "o49sjv02N1-r-vfq_9EMOcj5hQCY";
+            String openid = "o49sjv02N1-r-vfq_9EMOcj5hQCY";
             KefuNewsBuilder kefuNewsBuilder = new KefuNewsBuilder();
-            boolean flag = kefuNewsBuilder.pubMaterialToUserByKf(wxService, openid, wxMaterial.getMediaId());*/
+            boolean flag = kefuNewsBuilder.pubMaterialToUserByKf(wxService, openid, wxMaterial.getMediaId());
 
             //素材群发
-            NewsBuilder newsBuilder = new NewsBuilder();
-            boolean flag = newsBuilder.pubMaterialToUserAll(wxMaterial, wxService);
+            /*NewsBuilder newsBuilder = new NewsBuilder();
+            boolean flag = newsBuilder.pubMaterialToUserAll(wxMaterial, wxService);*/
 
             //根据openid发送
             /*List<String> openids = new ArrayList<>();
@@ -239,8 +266,12 @@ public class WxMaterialService extends BaseService<WxMaterial> {
         }
     }
 
+    public List<WxMaterial> getEverMaterialBySourceId(String sourceId){
+        return wxMaterialMapper.getEverMaterialBySourceId(sourceId);
+    }
+
     //处理封面图上传为素材
-    private JsonResult uploadFile(String thumbFileId){
+    private JsonResult uploadFile(WxMpService wxMpService, String thumbFileId){
         //封面图片素材id，此处必须进行上传为临时素材处理
         try {
             AttachFiles attachFiles = new AttachFiles();
@@ -250,14 +281,16 @@ public class WxMaterialService extends BaseService<WxMaterial> {
                 File dir = new File("G:/projectTemp/"+attachFiles.getPath());
                 WxMpMaterial img = new WxMpMaterial();
                 img.setFile(dir);
-                WxMpMaterialUploadResult wxMpMaterialUploadResult = wxService.getMaterialService().materialFileUpload("image", img);
+
+                WxMpMaterialUploadResult wxMpMaterialUploadResult = wxMpService.getMaterialService().materialFileUpload(WxConsts.MaterialType.IMAGE, img);
                 System.out.println("getMediaId="+wxMpMaterialUploadResult.getMediaId());
                 return new JsonResult(true, wxMpMaterialUploadResult.getMediaId(), "生成成功",0, HttpStatus.OK.value());
             }
         } catch (Exception e) {
+            e.printStackTrace();
             return new JsonResult(false,null,"生成失败，未找到封面图",0, HttpStatus.OK.value());
         }
-        return null;
+        return new JsonResult(false,null,"生成失败，未找到封面图",0, HttpStatus.OK.value());
     }
 }
 

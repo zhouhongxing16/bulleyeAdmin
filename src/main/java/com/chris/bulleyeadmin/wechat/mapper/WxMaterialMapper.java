@@ -9,4 +9,6 @@ import java.util.Map;
 public interface WxMaterialMapper extends BaseMapper<WxMaterial> {
 
     List<WxMaterial> getListByParams(Map<String,Object> map);
+
+    List<WxMaterial> getEverMaterialBySourceId(String SourceId);
 }

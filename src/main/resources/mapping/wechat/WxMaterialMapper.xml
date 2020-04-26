@@ -91,4 +91,10 @@
             </if>
         </where>
     </select>
+
+    <select id="getEverMaterialBySourceId" resultMap="BaseResultMap" parameterType="string">
+        SELECT
+        <include refid="basic_list"/>
+        FROM wx_material a where a.source_id=#{ sourceId} and a.media_id != '' and a.media_id is not null
+    </select>
 </mapper>

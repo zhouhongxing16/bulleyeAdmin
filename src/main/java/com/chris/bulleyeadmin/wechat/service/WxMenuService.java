@@ -65,7 +65,7 @@ public class WxMenuService extends BaseService<WxMenu> {
         List<WxMenuButton> wxMenuButtonList = new ArrayList<>();
         firstMenuList.stream().forEach(item ->{
             //若需要获取用户信息，则进行授权  url,类型,state
-            if ("1".equals(item.getAuthor())&&"view".equals(item.getType())){
+            if ("1".equals(item.getAuthor())&&WxConsts.MenuButtonType.VIEW.equals(item.getType())){
                 item.setUrl(wxService.oauth2buildAuthorizationUrl(item.getUrl(), WxConsts.OAuth2Scope.SNSAPI_USERINFO, wxAccount.getStatus()));
             }
 
@@ -85,7 +85,7 @@ public class WxMenuService extends BaseService<WxMenu> {
             List<WxMenu> secondMenuList = wxMenuMapper.selectlist(menu1);
 
             secondMenuList.stream().forEach(item2 ->{
-                if ("1".equals(item2.getAuthor())&&"view".equals(item2.getType())){
+                if ("1".equals(item2.getAuthor())&&WxConsts.MenuButtonType.VIEW.equals(item2.getType())){
                     item2.setUrl(wxService.oauth2buildAuthorizationUrl(item2.getUrl(), WxConsts.OAuth2Scope.SNSAPI_USERINFO, wxAccount.getStatus()));
                 }
                 WxMenuButton wxMenuButtonSecond = new WxMenuButton();

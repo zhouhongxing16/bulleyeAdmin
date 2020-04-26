@@ -38,6 +38,9 @@ public class WxReply implements Serializable {
     @Column(name = "status")
     private Integer status;
 
+    @Column(name = "media_id")
+    private String mediaId;
+
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+8")
     @Column(name = "created")
     private Date created;
@@ -104,6 +107,14 @@ public class WxReply implements Serializable {
 
     public void setStatus(Integer status) {
         this.status = status;
+    }
+
+    public String getMediaId() {
+        return mediaId;
+    }
+
+    public void setMediaId(String mediaId) {
+        this.mediaId = mediaId;
     }
 
     public Date getCreated() {

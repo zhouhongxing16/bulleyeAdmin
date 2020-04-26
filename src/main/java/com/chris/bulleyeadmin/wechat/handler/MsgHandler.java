@@ -1,6 +1,7 @@
 package com.chris.bulleyeadmin.wechat.handler;
 
 import com.alibaba.fastjson.JSONObject;
+import com.chris.bulleyeadmin.wechat.KefuBuilder.KefuNewsBuilder;
 import com.chris.bulleyeadmin.wechat.utils.TulingApiUtil;
 import com.chris.bulleyeadmin.wechat.builder.NewsBuilder;
 import com.chris.bulleyeadmin.wechat.builder.TextBuilder;
@@ -12,6 +13,7 @@ import me.chanjar.weixin.mp.api.WxMpService;
 import me.chanjar.weixin.mp.bean.message.WxMpXmlMessage;
 import me.chanjar.weixin.mp.bean.message.WxMpXmlOutMessage;
 import me.chanjar.weixin.mp.bean.message.WxMpXmlOutNewsMessage;
+import me.chanjar.weixin.mp.bean.message.WxMpXmlOutTextMessage;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -50,14 +52,9 @@ public class MsgHandler extends AbstractHandler {
                 for (WxReply reply : replyList) {
                     if (reply.getKeyType().equals(WxConstants.REPLY_TYPE_TEXT)) {
                         return new TextBuilder().build(reply.getKeyValue(), wxMessage, weixinService);
-                    } else if (reply.getKeyType().equals(WxConstants.REPLY_TYPE_GRAPHIC)) {
-                        WxMpXmlOutNewsMessage.Item item = new WxMpXmlOutNewsMessage.Item();
-                        item.setPicUrl(reply.getKeyValue());
-                        item.setTitle(reply.getKeyType());
-                        item.setDescription(reply.getKeyType());
-                        item.setUrl(reply.getKeyValue());
-                        System.out.println(JSONObject.toJSONString(item));
-                        return new NewsBuilder().build(JSONObject.toJSONString(item), wxMessage, weixinService);
+                    } else if (reply.getKeyType().equals(WxConstants.MESSAGE_TYPE_NEWS)) {
+                        boolean flag = new KefuNewsBuilder().pubMaterialToUserByKf(weixinService, wxMessage.getFromUser(), reply.getMediaId());
+                        return null;
                     }
                 }
             }else{

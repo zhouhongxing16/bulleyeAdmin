@@ -8,8 +8,11 @@ import com.chris.bulleyeadmin.wechat.pojo.WxMaterial;
 import com.chris.bulleyeadmin.wechat.service.WxMaterialService;
 import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiOperation;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @OperationLog("素材管理")
 @RestController
@@ -30,7 +33,11 @@ public class WxMaterialController extends BaseController<WxMaterial> {
     @PostMapping("/updateMaterial")
     @ResponseBody
     public JsonResult updateMaterial(@RequestBody WxMaterial obj) throws Exception {
-        return wxMaterialService.updateMaterial(obj);
+        if (StringUtils.isNotBlank(obj.getMediaId())){
+            return wxMaterialService.updateMaterial(obj);
+        } else {
+            return wxMaterialService.update(obj);
+        }
     }
 
     //删除
@@ -42,7 +49,7 @@ public class WxMaterialController extends BaseController<WxMaterial> {
         return getService().deleteById(id);
     }
 
-    //@OperationLog("生成永久素材")
+    @OperationLog("生成永久素材")
     @GetMapping("/materialUpload/{id}")
     public JsonResult materialUpload(@PathVariable String id) {
         return wxMaterialService.materialUpload(id);
@@ -58,5 +65,11 @@ public class WxMaterialController extends BaseController<WxMaterial> {
     @GetMapping("/pubMaterialToUser/{id}")
     public JsonResult pubMaterialToUser(@PathVariable String id) {
         return wxMaterialService.pubMaterialToUser(id);
+    }
+
+    @OperationLog("搜索永久素材")
+    @GetMapping("/getEverMaterialBySourceId/{sourceId}")
+    public List<WxMaterial> getEverMaterial(@PathVariable String sourceId) {
+        return wxMaterialService.getEverMaterialBySourceId(sourceId);
     }
 }
