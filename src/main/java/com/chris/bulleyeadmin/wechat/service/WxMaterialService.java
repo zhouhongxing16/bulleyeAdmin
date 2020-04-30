@@ -229,9 +229,9 @@ public class WxMaterialService extends BaseService<WxMaterial> {
         }
     }
 
-    //推送永久素材
+    //向指定用户推送永久素材
     @Transactional(propagation = Propagation.REQUIRED)
-    public JsonResult pubMaterialToUser(String id){
+    public JsonResult pubMaterialToUserList(String id, List openidList){
         //获取素材
         WxMaterial qwxMaterial = new WxMaterial();
         qwxMaterial.setId(id);
@@ -242,23 +242,38 @@ public class WxMaterialService extends BaseService<WxMaterial> {
         WxAccount account = wxAccountMapper.selectOne(queryAccount);
         WxMpService wxService = this.wxService.switchoverTo(account.getAppId());
         try {
-            //客服消息获取需要推送的用户openid
+            /*//客服消息获取需要推送的用户openid
             String openid = "o49sjv02N1-r-vfq_9EMOcj5hQCY";
             KefuNewsBuilder kefuNewsBuilder = new KefuNewsBuilder();
-            boolean flag = kefuNewsBuilder.pubMaterialToUserByKf(wxService, openid, wxMaterial.getMediaId());
-
-            //素材群发
-            /*NewsBuilder newsBuilder = new NewsBuilder();
-            boolean flag = newsBuilder.pubMaterialToUserAll(wxMaterial, wxService);*/
+            boolean flag = kefuNewsBuilder.pubMaterialToUserByKf(wxService, openid, wxMaterial.getMediaId());*/
 
             //根据openid发送
-            /*List<String> openids = new ArrayList<>();
-            openids.add("o49sjv0_iBKGZ5YTeqLiBLMOYFyI");
-            openids.add("o49sjv02N1-r-vfq_9EMOcj5hQCY\t");
-
             NewsBuilder newsBuilder = new NewsBuilder();
-            boolean flag = newsBuilder.pubMaterialToUserList(wxMaterial, openids, wxService);*/
+            boolean flag = newsBuilder.pubMaterialToUserList(wxMaterial, openidList, wxService);
 
+            String msg = flag?"推送成功":"推送失败！";
+            return new JsonResult(flag?true:false,null,msg, null, HttpStatus.OK.value());
+        }catch (Exception e){
+            return new JsonResult(false,null,"推送失败", null, HttpStatus.OK.value());
+        }
+    }
+
+    //向所有用户推送永久素材
+    @Transactional(propagation = Propagation.REQUIRED)
+    public JsonResult pubMaterialToUserAll(String id){
+        //获取素材
+        WxMaterial qwxMaterial = new WxMaterial();
+        qwxMaterial.setId(id);
+        WxMaterial wxMaterial = wxMaterialMapper.selectOne(qwxMaterial);
+        //获取相关公众号及接口
+        WxAccount queryAccount = new WxAccount();
+        queryAccount.setSourceId(wxMaterial.getSourceId());
+        WxAccount account = wxAccountMapper.selectOne(queryAccount);
+        WxMpService wxService = this.wxService.switchoverTo(account.getAppId());
+        try {
+            //素材群发
+            NewsBuilder newsBuilder = new NewsBuilder();
+            boolean flag = newsBuilder.pubMaterialToUserAll(wxMaterial, wxService);
             String msg = flag?"推送成功":"推送失败！";
             return new JsonResult(flag?true:false,null,msg, null, HttpStatus.OK.value());
         }catch (Exception e){

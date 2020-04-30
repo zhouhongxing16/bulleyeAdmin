@@ -12,7 +12,9 @@ import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Arrays;
 import java.util.List;
+import java.util.Map;
 
 @OperationLog("素材管理")
 @RestController
@@ -61,10 +63,18 @@ public class WxMaterialController extends BaseController<WxMaterial> {
         return wxMaterialService.materialDelete(id);
     }
 
-    @OperationLog("推送永久素材")
-    @GetMapping("/pubMaterialToUser/{id}")
-    public JsonResult pubMaterialToUser(@PathVariable String id) {
-        return wxMaterialService.pubMaterialToUser(id);
+    @OperationLog("向指定用户推送永久素材")
+    @GetMapping("/pubMaterialToUserList")
+    public JsonResult pubMaterialToUserList(@RequestBody Map<String, Object> params) {
+        String id = params.get("id").toString();
+        List<String> openidList = Arrays.asList(params.get("openidList").toString().split(","));
+        return wxMaterialService.pubMaterialToUserList(id, openidList);
+    }
+
+    @OperationLog("向所有用户推送永久素材")
+    @GetMapping("/pubMaterialToUserAll/{id}")
+    public JsonResult pubMaterialToUserAll(@PathVariable String id) {
+        return wxMaterialService.pubMaterialToUserAll(id);
     }
 
     @OperationLog("搜索永久素材")
