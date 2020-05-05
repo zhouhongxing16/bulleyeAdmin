@@ -35,8 +35,9 @@ public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter {
         http.csrf().disable()
                 // 开启跨域
                 .cors().and().authorizeRequests()
-                .antMatchers("/login").permitAll()
                 .antMatchers("/unauth").permitAll()
+                .antMatchers("/account/adminLogin").permitAll()
+                .antMatchers("/login").permitAll()
                 .antMatchers("/imagevcode").permitAll()
                 .antMatchers("/wx/portal/**").permitAll()
                 .antMatchers("/file/view/**").permitAll()
@@ -70,7 +71,7 @@ public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter {
                 .antMatchers("/**.js")
                 .antMatchers("/**.css")
                 .antMatchers("/**.txt");
-        web.ignoring().antMatchers("/v2/api-docs", "/swagger-resources/**", "/swagger-ui.html**", "/webjars/**", "/medical-provider/api-docs");
+        web.ignoring().antMatchers("/doc.html","/v2/api-docs", "/swagger-resources/**", "/swagger-ui.html**", "/webjars/**", "/medical-provider/api-docs");
     }
 
     @Bean

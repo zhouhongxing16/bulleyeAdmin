@@ -9,10 +9,7 @@ import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
@@ -36,10 +33,17 @@ public class BizFileController extends BaseController<BizFile> {
     }
 
 
+    @PostMapping("/uploadFiles")
+    @ApiOperation(value = "多文件上传", notes = "多文件上传")
+    @ApiImplicitParam(name = "files", value = "")
+    public JsonResult upload(MultipartFile[] files) throws IOException {
+        return bizFileService.upload(files);
+    }
+
     @PostMapping("/uploadSingleFile")
     @ApiOperation(value = "单文件上传", notes = "单文件上传")
     @ApiImplicitParam(name = "file", value = "")
-    public JsonResult uploadSingleFile(MultipartFile file) throws Exception {
+    public JsonResult uploadSingleFile(@RequestParam("file") MultipartFile file) throws Exception {
         return bizFileService.uploadSingleFile(file);
     }
 

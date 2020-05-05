@@ -6,7 +6,9 @@ import com.chris.bulleyeadmin.common.entity.JsonResult;
 import com.chris.bulleyeadmin.common.mapper.BizFileMapper;
 import com.chris.bulleyeadmin.common.pojo.BizFile;
 import com.chris.bulleyeadmin.common.utils.AuthUtil;
+import com.chris.bulleyeadmin.common.utils.DateUtils;
 import com.chris.bulleyeadmin.common.utils.FileUtil;
+import com.chris.bulleyeadmin.common.utils.SnowFlake;
 import com.chris.bulleyeadmin.system.pojo.User;
 import com.google.common.hash.HashCode;
 import com.google.common.hash.Hashing;
@@ -20,6 +22,7 @@ import org.springframework.web.multipart.MultipartFile;
 import javax.imageio.ImageIO;
 import java.awt.*;
 import java.io.File;
+import java.io.IOException;
 import java.util.Date;
 
 /**
@@ -49,6 +52,21 @@ public class BizFileService extends BaseService<BizFile> {
     @Autowired
     AliOSSConfig aliOSSConfig;
 
+    public JsonResult upload(MultipartFile[] files) throws IOException {
+        JsonResult result = new JsonResult();
+        User user = AuthUtil.getCurrentUser();
+        if (null == files || files.length == 0) {
+            result.setMessage("请至少上传一个文件！");
+        } else {
+
+            result.setSuccess(true);
+        }
+
+        // 文件存储入OSS，Object的名称为fileKey。详细请参看“SDK手册 > Java-SDK > 上传文件”。
+        // 链接地址是：https://help.aliyun.com/document_detail/oss/sdk/java-sdk/upload_object.html?spm=5176.docoss/user_guide/upload_object
+
+        return result;
+    }
 
     public JsonResult uploadSingleFile(MultipartFile multipartFile) throws Exception {
         JsonResult result = new JsonResult();
@@ -58,7 +76,7 @@ public class BizFileService extends BaseService<BizFile> {
             if ("local".equals(storageType)) {
                 result = localUpload(multipartFile);
             } else if ("aliOSS".equals(storageType)) {
-
+                result = aliOSSUpload(multipartFile);
             } else if ("qiniu".equals(storageType)) {
 
             }
@@ -70,31 +88,44 @@ public class BizFileService extends BaseService<BizFile> {
         JsonResult result = new JsonResult();
         User user = AuthUtil.getCurrentUser();
         String filename = multipartFile.getOriginalFilename();
+        if (filename.length() > 40) {
+            SnowFlake snowFlake = new SnowFlake(1, 1);
+            filename = DateUtils.getCurrentTimeMillis() + snowFlake.nextId() + FileUtil.getSuffix(multipartFile.getOriginalFilename());
+        }
         String departmentPath = user.getOrganizationId() + "/" + user.getDepartmentId();
         String path = uploadPath + "/" + departmentPath;
         String viewPath = prefix + "/" + departmentPath + "/" + filename;
+
+        //计算文件hash
         HashCode hash = Hashing.sha1().hashBytes(multipartFile.getBytes());
         BizFile file = new BizFile();
+        file.setOrganizationId(user.getOrganizationId());
+        file.setDepartmentId(user.getDepartmentId());
+
         file.setUploadStartTime(new Date());
         //上传文件
         FileUtil.uploadFile(multipartFile, path, filename);
-        if(FileUtil.isPicture(FileUtil.getSuffix(filename))){
-            String p = uploadPath+"/"+departmentPath+"/thumbnail";
+
+        //计算图片信息
+        if (FileUtil.isPicture(FileUtil.getSuffix(filename))) {
+            String p = uploadPath + "/" + departmentPath + "/thumbnail";
             File targetFile = new File(p);
             if (!targetFile.exists()) {
                 targetFile.mkdirs();
             }
-            Image bi = ImageIO.read(new File(path+"/"+filename));
+            Image bi = ImageIO.read(new File(path + "/" + filename));
             file.setWidth(bi.getWidth(null));
             file.setHeight(bi.getHeight(null));
             String thumbnailPath = prefix + "/" + departmentPath + "/thumbnail/" + filename;
             file.setThumbnail(thumbnailPath);
             //图片压缩
-            Thumbnails.of(path+"/"+filename).size(160, 160).toFile(path+"/thumbnail/"+filename);
+            Thumbnails.of(path + "/" + filename).size(160, 160).toFile(path + "/thumbnail/" + filename);
         }
+
+
         file.setSize(multipartFile.getSize());
         file.setFileHash(hash.toString());
-        file.setOriginalFileName(multipartFile.getOriginalFilename());
+        file.setOriginalFileName(filename);
         file.setSuffix(FileUtil.getSuffix(multipartFile.getOriginalFilename()));
         file.setUploadEndTime(new Date());
         file.setStorageType(storageType);
@@ -108,12 +139,24 @@ public class BizFileService extends BaseService<BizFile> {
         return result;
     }
 
+    private JsonResult aliOSSUpload(MultipartFile multipartFile) throws IOException {
+        JsonResult result = new JsonResult();
+        User user = AuthUtil.getCurrentUser();
+        if (null == multipartFile) {
+            result.setMessage("请上传一个文件！");
+        } else {
 
+        }
+        // 文件存储入OSS，Object的名称为fileKey。详细请参看“SDK手册 > Java-SDK > 上传文件”。
+        // 链接地址是：https://help.aliyun.com/document_detail/oss/sdk/java-sdk/upload_object.html?spm=5176.docoss/user_guide/upload_object
+
+        return result;
+    }
 
 
     public JsonResult removeFile(String fileName) {
-        User user = AuthUtil.getCurrentUser();
         JsonResult result = new JsonResult();
+        User user = AuthUtil.getCurrentUser();
         result.setSuccess(false);
         if (StringUtils.isEmpty(fileName)) {
             result.setMessage("[" + fileName + "]删除文件失败：文件key为空");
@@ -124,7 +167,7 @@ public class BizFileService extends BaseService<BizFile> {
                 file.setStorageType(storageType);
                 String departmentPath = user.getOrganizationId() + "/" + user.getDepartmentId();
                 String path = uploadPath + "/" + departmentPath;
-                FileUtil.deleteFile(path+"/"+fileName);
+                FileUtil.deleteFile(path + "/" + fileName);
                 int count = bizFileMapper.delete(file);
                 result.setSuccess(count > 0 ? true : false);
                 result.setMessage("删除成功");

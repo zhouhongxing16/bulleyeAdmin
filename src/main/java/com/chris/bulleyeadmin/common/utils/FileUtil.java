@@ -5,7 +5,10 @@ import org.springframework.util.StringUtils;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.File;
+import java.io.FileOutputStream;
+import java.text.SimpleDateFormat;
 import java.util.Arrays;
+import java.util.Date;
 import java.util.Properties;
 import java.util.UUID;
 
@@ -17,11 +20,16 @@ public class FileUtil {
     }
 
     public static void uploadFile(MultipartFile multipartFile, String filePath, String fileName) throws Exception {
-        File targetFile = new File(filePath+"/"+fileName);
+
+        //路径为空就略过
+        if (StringUtils.isEmpty(filePath + "/" + fileName)) {
+            return;
+        }
+        File targetFile = new File(filePath);
         if (!targetFile.exists()) {
             targetFile.mkdirs();
         }
-        multipartFile.transferTo(targetFile);
+        multipartFile.transferTo(new File(filePath + "/" + fileName));
 //        setFileReadMode(targetFile.getAbsolutePath());
        /* FileOutputStream out = new FileOutputStream(filePath + fileName);
         out.write(file);
@@ -60,13 +68,14 @@ public class FileUtil {
     public static String renameToUUID(String name) {
         return UUID.randomUUID() + "." + name.substring(name.lastIndexOf(".") + 1);
     }
+
     public static String getSuffixByUrl(String imgUrl) {
         String defaultSuffix = ".png";
         if (StringUtils.isEmpty(imgUrl)) {
             return defaultSuffix;
         }
         String fileName = imgUrl;
-        if(imgUrl.contains("/")) {
+        if (imgUrl.contains("/")) {
             fileName = imgUrl.substring(imgUrl.lastIndexOf("/"));
         }
         String fileSuffix = getSuffix(fileName);

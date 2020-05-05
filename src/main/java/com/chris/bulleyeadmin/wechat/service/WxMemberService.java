@@ -25,9 +25,9 @@ public class WxMemberService extends BaseService<WxMember> {
 
     @Autowired
     private WxAccountMapper wxAccountMapper;
-
+/*
     @Autowired
-    private final WxMpService wxService;
+    private final WxMpService wxService;*/
 
     @Override
     public BaseMapper<WxMember> getMapper() {
@@ -37,7 +37,7 @@ public class WxMemberService extends BaseService<WxMember> {
     public WxMember getMemberByOpenId(String openId) {
        return wxMemberMapper.getMemberByOpenId(openId);
     }
-
+/*
     @Transactional(propagation = Propagation.REQUIRED)
     public JsonResult setTag (String sourceId, List<String> openids) {
         //获取相关接口
@@ -48,5 +48,5 @@ public class WxMemberService extends BaseService<WxMember> {
         WxMpService wxService = this.wxService.switchoverTo(account.getAppId());
 
         return null;
-    }
+    }*/
 }

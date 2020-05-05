@@ -35,11 +35,11 @@ public class WxMemberController extends BaseController<WxMember> {
         return wxMemberService;
     }
 
-    @OperationLog("设置用户分组")
+    /*@OperationLog("设置用户分组")
     @GetMapping("/setTag")
     public JsonResult setTag(@RequestBody Map<String, Object> params){
         String sourceId = params.get("sourceId").toString();
         List<String> openids = Arrays.asList(params.get("openids").toString().split(","));
         return wxMemberService.setTag(sourceId, openids);
-    }
+    }*/
 }

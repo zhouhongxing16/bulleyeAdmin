@@ -22,6 +22,10 @@ spring:
     password: zZ8302812520
     protocol: smtp
     default-encoding: utf-8
+  servlet:
+    multipart:
+      max-file-size: 100MB
+      max-request-size: 100MB
 mybatis:
   mapper-locations: classpath*:/mapping/**/*Mapper.xml
   type-aliases-package: com.chris.bulleyeadmin.**.pojo
@@ -31,16 +35,37 @@ mapper:
   not-empty: false
   identity: MYSQL
   before: true
+defaultSMS: Tencent
 aliyunSMS:
   accessKeyId:
   accessKeySecret:
   signName:
-  product: Dysmsapi
+  product:
+  domain:
+tencentSMS:
+  appId:
+  appKey:
+  smsSign :
+  product:
   domain: dysmsapi.aliyuncs.com
-serverConfig:
+aliOSSConfig:
+  endpoint: oss-cn-chengdu.aliyuncs.com
+  accessKeyId:
+  accessKeySecret:
+  bucketName: bulleye-admin
+  domainName:
+justauth:
+  cache:
+  type: default
+  qq:
+    client-id:
+    client-secret:
+    redirect-uri: http://oauth.xkcoding.com/demo/oauth/qq/callback
+uploadConfig:
   uploadPath: /usr/local/runtime/root/bulleye/upload
   uploadUrl: http://bulleye.zhouhongxing.cn:8001
-  isDebug: false
+  prefix: /api/file
+  storageType: local
 sysconfig:
   organizationId: c77e18b0-1ffa-11e7-b036-00163e0603fa
 

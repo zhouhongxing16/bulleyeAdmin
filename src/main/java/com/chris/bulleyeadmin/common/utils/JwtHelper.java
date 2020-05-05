@@ -64,7 +64,7 @@ public class JwtHelper {
         try {
             claims = Jwts.parser()  //得到DefaultJwtParser
                     .setSigningKey(key)         //设置签名的秘钥
-                    .parseClaimsJws(token).getBody();
+                    .parseClaimsJws(token.replace("Bearer ", "")).getBody();
         } catch (Exception e) {
             claims = null;
         }//设置需要解析的jwt
@@ -98,6 +98,13 @@ public class JwtHelper {
         user.setOrganizationId(obj.getString("organizationId"));
         user.setRoles(roleList);
         return user;
+    }
+
+    public static JSONObject tokenToJSON(String token) {
+        SecretKey stringKey = generalKey();
+        String jsonObject = Jwts.parser().setSigningKey(stringKey).parseClaimsJws(token.replace("Bearer ", "")).getBody().getSubject();
+        JSONObject obj = JSON.parseObject(jsonObject);
+        return obj;
     }
 
 }

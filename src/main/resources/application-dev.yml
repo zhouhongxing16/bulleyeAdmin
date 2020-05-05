@@ -23,6 +23,10 @@ spring:
     password: zZ8302812520
     protocol: smtp
     default-encoding: utf-8
+  servlet:
+    multipart:
+      max-file-size: 100MB
+      max-request-size: 100MB
 mybatis:
   mapper-locations: classpath*:/mapping/**/*Mapper.xml
   type-aliases-package: com.chris.bulleyeadmin.**.pojo

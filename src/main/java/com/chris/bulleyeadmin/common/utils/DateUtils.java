@@ -17,6 +17,12 @@ public class DateUtils {
 
     public static String YYYY_MM = "yyyy-MM";
 
+    public static String YYYY_MM_dd = "yyyy-MM-dd";
+
+    public static String YYYYMM = "yyyyMM";
+
+    public static String MM = "MM";
+
     public static String YYYY_MM_DD = "yyyy-MM-dd";
 
     public static String YYYYMMDDHHMMSS = "yyyyMMddHHmmss";
@@ -52,7 +58,7 @@ public class DateUtils {
 
     public static String getCurrentYearMonth() {
         Date currentTime = new Date();
-        SimpleDateFormat formatter = new SimpleDateFormat("yyyyMM");
+        SimpleDateFormat formatter = new SimpleDateFormat(YYYYMM);
         String date = formatter.format(currentTime);
         return date;
     }
@@ -63,21 +69,28 @@ public class DateUtils {
 
     public static String getCurrentMonth() {
         Date currentTime = new Date();
-        SimpleDateFormat formatter = new SimpleDateFormat("MM");
+        SimpleDateFormat formatter = new SimpleDateFormat(MM);
+        String date = formatter.format(currentTime);
+        return date;
+    }
+
+    public static String getCurrentDay() {
+        Date currentTime = new Date();
+        SimpleDateFormat formatter = new SimpleDateFormat(YYYY_MM_dd);
         String date = formatter.format(currentTime);
         return date;
     }
 
     public static String getCurrentYear() {
         Date currentTime = new Date();
-        SimpleDateFormat formatter = new SimpleDateFormat("yyyy");
+        SimpleDateFormat formatter = new SimpleDateFormat(YYYY);
         String date = formatter.format(currentTime);
         return date;
     }
 
     public static Date stringToDate(String date) {
         try {
-            SimpleDateFormat standarDateFormat = new SimpleDateFormat("yyyy-MM-dd");
+            SimpleDateFormat standarDateFormat = new SimpleDateFormat(YYYY_MM_DD);
             return standarDateFormat.parse(date);
         } catch (Exception e) {
             e.printStackTrace();
@@ -99,9 +112,14 @@ public class DateUtils {
 
     public static String getCurrentTime() {
         Date currentTime = new Date();
-        SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        SimpleDateFormat formatter = new SimpleDateFormat(YYYY_MM_DD_HH_MM_SS);
         String date = formatter.format(currentTime);
         return date;
+    }
+
+    public static String getCurrentTimeMillis() {
+        String str = String.valueOf(System.currentTimeMillis());
+        return str;
     }
 
 
@@ -174,7 +192,7 @@ public class DateUtils {
 
     public static String getMinutes(String startDate, String endDate)
             throws ParseException {
-        SimpleDateFormat simpleFormat = new SimpleDateFormat("yyyy-MM-dd hh:mm");
+        SimpleDateFormat simpleFormat = new SimpleDateFormat(YYYY_MM_DD_HH_MM_SS);
         long from = simpleFormat.parse(startDate).getTime();
         long to = simpleFormat.parse(endDate).getTime();
         return String.valueOf((to - from) / 60000L);

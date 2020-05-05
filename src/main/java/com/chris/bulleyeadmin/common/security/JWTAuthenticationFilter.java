@@ -5,12 +5,12 @@ import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 import com.chris.bulleyeadmin.common.config.WeChatFilter;
 import com.chris.bulleyeadmin.common.entity.JsonResult;
-import com.chris.bulleyeadmin.common.utils.DateUtils;
+import com.chris.bulleyeadmin.common.utils.JwtHelper;
 import com.chris.bulleyeadmin.system.pojo.Logger;
 import com.chris.bulleyeadmin.system.pojo.Role;
 import com.chris.bulleyeadmin.system.pojo.User;
+import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
-import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -56,23 +56,25 @@ public class JWTAuthenticationFilter extends BasicAuthenticationFilter {
         String token = request.getHeader("Authorization");
         String url = request.getRequestURL().toString();
         if (!"null".equals(token.replace("Bearer ", "").trim())) {
-            String jsonObject = null;
             User user = null;
             try {
-                jsonObject = Jwts.parser().setSigningKey("BulleyeAdminSecret")
-                        .parseClaimsJws(token.replace("Bearer ", "")).getBody().getSubject();
-                JSONObject obj = JSON.parseObject(jsonObject);
-                JSONArray ja = JSONArray.parseArray(obj.getString("authorities"));
-                List<Role> roleList = JSONArray.parseArray(obj.getString("roles"), Role.class);
-                Role role = JSONObject.parseObject(obj.getString("currentRole"), Role.class);
-                user = new User(obj.getString("username"), "", ja.toJavaList(GrantedAuthority.class));
-                user.setStaffId(obj.getString("staffId"));
-                user.setPlatform(obj.getString("platform"));
-                user.setId(obj.getString("id"));
-                user.setOrganizationId(obj.getString("organizationId"));
-                user.setDepartmentId(obj.getString("departmentId"));
-                user.setRoles(roleList);
-                user.setCurrentRole(role);
+                Claims claims = JwtHelper.verifyJwt(token);
+                if(claims==null){
+                    return getFailAuthenticationTokenResult(request, response, true);
+                }else {
+                    JSONObject obj = JwtHelper.tokenToJSON(token);
+                    JSONArray ja = JSONArray.parseArray(obj.getString("authorities"));
+                    List<Role> roleList = JSONArray.parseArray(obj.getString("roles"), Role.class);
+                    Role role = JSONObject.parseObject(obj.getString("currentRole"), Role.class);
+                    user = new User(obj.getString("username"), "", ja.toJavaList(GrantedAuthority.class));
+                    user.setStaffId(obj.getString("staffId"));
+                    user.setPlatform(obj.getString("platform"));
+                    user.setId(obj.getString("id"));
+                    user.setOrganizationId(obj.getString("organizationId"));
+                    user.setDepartmentId(obj.getString("departmentId"));
+                    user.setRoles(roleList);
+                    user.setCurrentRole(role);
+                }
             } catch (Exception e) {
                 return getFailAuthenticationTokenResult(request, response, true);
             }

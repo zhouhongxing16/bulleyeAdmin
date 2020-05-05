@@ -5,6 +5,7 @@ import com.chris.bulleyeadmin.common.entity.JsonResult;
 import com.chris.bulleyeadmin.common.service.BaseService;
 import com.chris.bulleyeadmin.common.utils.*;
 import com.chris.bulleyeadmin.system.dto.AccountDto;
+import com.chris.bulleyeadmin.system.entity.request.LoginRequest;
 import com.chris.bulleyeadmin.system.pojo.*;
 import com.chris.bulleyeadmin.system.service.AccountService;
 import com.chris.bulleyeadmin.system.service.LoginRecordService;
@@ -33,7 +34,7 @@ import java.util.Map;
  * @Author: Chris E-mail:961860916@qq.com
  * @Date: 2018-06-11 12:00
  */
-@Api(tags = "account", description = "帐号管理")
+@Api(tags = "帐号管理", produces = "帐号管理")
 @OperationLog("帐号管理")
 @RestController
 @RequestMapping("/account")
@@ -69,9 +70,9 @@ public class AccountController extends BaseController<Account> {
     @ApiOperation(value = "管理员账号密码登录", notes = "参数：用户名username，密码password")
     @OperationLog("管理员登录")
     @PostMapping("/adminLogin")
-    public Object adminLogin(@RequestBody Map<String, String> map) {
-        String username = map.get("username");
-        String password = map.get("password");
+    public Object adminLogin(@RequestBody LoginRequest request) {
+        String username = request.getUsername();
+        String password = request.getPassword();
         AccountDto accountDto = accountService.getAccountByUserName(username);
         return login(accountDto, username, password);
     }
@@ -125,7 +126,6 @@ public class AccountController extends BaseController<Account> {
                 accountDto.setAccountExpired(false);
             }
             List<GrantedAuthority> grantedAuthorities = new ArrayList<>();
-            String studentId = null;
             Staff staff = null;
 
             if (StringUtils.isNotEmpty(accountDto.getStaffId())) {
