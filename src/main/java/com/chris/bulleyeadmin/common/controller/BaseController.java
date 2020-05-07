@@ -28,12 +28,7 @@ public abstract class BaseController<T> {
     @ApiImplicitParam(name = "分页查询", value = "参数:{limit:number,pageSize:number,keyword:string}")
     @OperationLog("查询分页数据")
     @PostMapping("/listByPage")
-    @ResponseBody
     public Object listPage(@RequestBody Map<String, Object> params) {
-        //根据不同的参数配置,有些传递的是offset
-        params.put("pageNum", params.get("pageNum"));
-        params.put("pageSize", params.get("pageSize"));
-        params.put("keyword", params.get("keyword"));
         PageInfo info = getService().listByPage(params);
 
         Map<String, Object> jsonMap = new HashMap<>();
@@ -49,7 +44,6 @@ public abstract class BaseController<T> {
     @ApiImplicitParam(name = "创建方法", value = "参数如果有时间字段请按照 yyyy-MM-dd hh:mm:ss 格式传入")
     @OperationLog("创建方法")
     @PostMapping("/create")
-    @ResponseBody
     public JsonResult create(@RequestBody T obj) throws Exception {
         return getService().add(obj);
     }
@@ -59,7 +53,6 @@ public abstract class BaseController<T> {
     @ApiImplicitParam(name = "创建方法", value = "参数如果有时间字段请按照 yyyy-MM-dd hh:mm:ss 格式传入")
     @OperationLog("更新")
     @PostMapping("/update")
-    @ResponseBody
     public JsonResult update(@RequestBody T obj) {
         return getService().update(obj);
     }
@@ -67,14 +60,12 @@ public abstract class BaseController<T> {
     //删除
     @ApiOperation(value = "根据ID删除一条数据", notes = "根据ID删除一条数据")
     @GetMapping("/delete/{id}")
-    @ResponseBody
     @OperationLog("删除")
     public JsonResult remove(@PathVariable String id) {
         return getService().deleteById(id);
     }
 
     //获取一条数据
-    @ResponseBody
     @GetMapping("/getById/{id}")
     @ApiOperation(value = "根据ID获取一条数据", notes = "根据ID获取一条数据")
     @OperationLog("获取一条数据")
@@ -84,7 +75,6 @@ public abstract class BaseController<T> {
 
 
     //获取一个list
-    @ResponseBody
     @PostMapping("/getListByParams")
     @ApiOperation(value = "获取列表数据", notes = "获取列表数据")
     @ApiImplicitParam(name = "获取列表数据", value = "参数：任意参数")

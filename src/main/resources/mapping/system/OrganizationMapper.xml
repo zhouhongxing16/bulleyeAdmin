@@ -41,6 +41,9 @@
             <if test="name!=null and name!='' ">
                 and a.name LIKE CONCAT('%', #{ name }, '%')
             </if>
+            <if test="keyword!=null and keyword!='' ">
+                and a.name LIKE CONCAT('%', #{ keyword }, '%')
+            </if>
             <if test="areaId!=null and areaId!='' ">
                 and a.area_id=#{ areaId }
             </if>

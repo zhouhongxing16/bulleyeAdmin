@@ -46,6 +46,9 @@
             <if test="serialNo!=null and serialNo!='' ">
                 and a.serial_no LIKE CONCAT('%', #{ serialNo }, '%')
             </if>
+            <if test="keyword!=null and keyword!='' ">
+                and a.name LIKE CONCAT('%', #{ keyword }, '%')
+            </if>
             <if test="name!=null and name!='' ">
                 and a.name LIKE CONCAT('%', #{ name }, '%')
             </if>
