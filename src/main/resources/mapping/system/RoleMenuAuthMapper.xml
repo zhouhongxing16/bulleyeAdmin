@@ -51,7 +51,7 @@
     </select>
 
     <select id="getAuthByMenuAndRoleId" resultType="map">
-        select ma.code
+        select distinct ma.code
         from b_role_menu_auth rma
         left join b_role r on r.id = rma.role_id
         left join b_menu_auth ma on ma.id = rma.menu_auth_id

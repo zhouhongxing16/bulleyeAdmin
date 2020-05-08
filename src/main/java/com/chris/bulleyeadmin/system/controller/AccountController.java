@@ -61,7 +61,7 @@ public class AccountController extends BaseController<Account> {
     @Override
     @OperationLog("创建账号")
     @PostMapping("/create")
-    public JsonResult create(Account obj) throws Exception {
+    public JsonResult create(@RequestBody Account obj) throws Exception {
         String password = PasswordEncoderFactories.createDelegatingPasswordEncoder().encode(obj.getUsername());
         obj.setPassword(password);
         return getService().add(obj);

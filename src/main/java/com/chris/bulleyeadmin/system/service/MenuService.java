@@ -36,9 +36,92 @@ public class MenuService extends BaseService<Menu> {
         return menuMapper;
     }
 
+
+    @Override
+    public JsonResult add(Menu obj) {
+        int insertCount = getMapper().insert(obj);
+
+        //增加菜单时默认增加增删改查功能权限
+        if (insertCount > 0 && !StringUtils.isEmpty(obj.getPath())) {
+
+            MenuAuth maList = new MenuAuth();
+            maList.setMenuId(obj.getId());
+            maList.setCode("list");
+            maList.setName("增加");
+            maList.setPath("/" + obj.getCode() + "/list");
+            maList.setStatus(1);
+            menuAuthMapper.insert(maList);
+
+            MenuAuth maAdd = new MenuAuth();
+            maAdd.setMenuId(obj.getId());
+            maAdd.setCode("create");
+            maAdd.setName("增加");
+            maAdd.setPath("/" + obj.getCode() + "/create");
+            maAdd.setStatus(1);
+            menuAuthMapper.insert(maAdd);
+
+
+            MenuAuth maEdit = new MenuAuth();
+            maEdit.setMenuId(obj.getId());
+            maEdit.setCode("update");
+            maEdit.setName("编辑");
+            maEdit.setPath("/" + obj.getCode() + "/update");
+            maEdit.setStatus(1);
+            menuAuthMapper.insert(maEdit);
+
+            MenuAuth maDelete = new MenuAuth();
+            maDelete.setMenuId(obj.getId());
+            maDelete.setCode("delete");
+            maDelete.setName("删除");
+            maDelete.setPath("/" + obj.getCode() + "/delete");
+            maDelete.setStatus(1);
+            menuAuthMapper.insert(maDelete);
+        }
+        String msg = insertCount > 0 ? "成功添加" + insertCount + "条记录" : "新增数据失败！";
+        return new JsonResult(insertCount > 0 ? true : false, null, msg, null, HttpStatus.OK.value());
+    }
+
     @Override
     public JsonResult update(Menu obj) {
         int updateCount = getMapper().updateByPrimaryKey(obj);
+        MenuAuth auth = new MenuAuth();
+        auth.setMenuId(obj.getId());
+        List<MenuAuth> menuAuthList = menuAuthMapper.select(auth);
+        if(menuAuthList.size()==0){
+
+            MenuAuth maList = new MenuAuth();
+            maList.setMenuId(obj.getId());
+            maList.setCode("list");
+            maList.setName("列表查看");
+            maList.setPath("/" + obj.getCode() + "/list");
+            maList.setStatus(1);
+            menuAuthMapper.insert(maList);
+
+            MenuAuth maAdd = new MenuAuth();
+            maAdd.setMenuId(obj.getId());
+            maAdd.setCode("create");
+            maAdd.setName("增加");
+            maAdd.setPath("/" + obj.getCode() + "/create");
+            maAdd.setStatus(1);
+            menuAuthMapper.insert(maAdd);
+
+
+            MenuAuth maEdit = new MenuAuth();
+            maEdit.setMenuId(obj.getId());
+            maEdit.setCode("update");
+            maEdit.setName("编辑");
+            maEdit.setPath("/" + obj.getCode() + "/update");
+            maEdit.setStatus(1);
+            menuAuthMapper.insert(maEdit);
+
+            MenuAuth maDelete = new MenuAuth();
+            maDelete.setMenuId(obj.getId());
+            maDelete.setCode("delete");
+            maDelete.setName("删除");
+            maDelete.setPath("/" + obj.getCode() + "/delete");
+            maDelete.setStatus(1);
+            menuAuthMapper.insert(maDelete);
+        }
         String msg = updateCount>0?"成功更新"+updateCount+"条记录":"数据更新失败！";
         return new JsonResult(updateCount>0?true:false,null,msg,null, HttpStatus.OK.value());
     }
