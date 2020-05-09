@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.RestController;
  * @Date: 2019-03-16 15:43
  * @Description:
  */
-@Api(tags = "dictionarytype", description = "字典类型")
+@Api(tags = "字典类型", produces = "字典类型")
 @OperationLog("字典类型")
 @RestController
 @RequestMapping("/dictionarytype")

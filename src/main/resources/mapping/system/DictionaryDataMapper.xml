@@ -1,20 +1,144 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.chris.bulleyeadmin.system.mapper.DictionaryDataMapper">
-  <resultMap id="BaseResultMap" type="com.chris.bulleyeadmin.system.pojo.DictionaryData">
-    <!--
-      WARNING - @mbg.generated
-    -->
-	  <id column="id" jdbcType="VARCHAR" property="id" />
-	  <result column="name" jdbcType="VARCHAR" property="name" />
-	  <result column="code" jdbcType="VARCHAR" property="code" />
-	  <result column="name" jdbcType="VARCHAR" property="name" />
-	  <result column="type_id" jdbcType="VARCHAR" property="typeId" />
-	  <result column="remark" jdbcType="VARCHAR" property="remark" />
-	  <result column="status" jdbcType="INTEGER" property="status" />
-	  <result column="created" jdbcType="BIGINT" property="created" />
-  </resultMap>
-	<resultMap id="dto" type="com.chris.bulleyeadmin.system.dto.DictionaryDataDto" extends="BaseResultMap">
+    <resultMap id="BaseResultMap" type="com.chris.bulleyeadmin.system.pojo.DictionaryData">
+        <!--
+          WARNING - @mbg.generated
+        -->
+        <id column="id" jdbcType="VARCHAR" property="id"/>
+        <result column="name" jdbcType="VARCHAR" property="name"/>
+        <result column="code" jdbcType="VARCHAR" property="code"/>
+        <result column="name" jdbcType="VARCHAR" property="name"/>
+        <result column="type_id" jdbcType="VARCHAR" property="typeId"/>
+        <result column="remark" jdbcType="VARCHAR" property="remark"/>
+        <result column="status" jdbcType="INTEGER" property="status"/>
+        <result column="created" jdbcType="BIGINT" property="created"/>
+        <result column="user_id" jdbcType="VARCHAR" property="userId"/>
+    </resultMap>
 
-	</resultMap>
+    <resultMap id="BaseResultMapDto" type="com.chris.bulleyeadmin.system.dto.DictionaryDataDto" extends="BaseResultMap">
+        <result column="userName" jdbcType="VARCHAR" property="userName"/>
+        <result column="typeName" jdbcType="VARCHAR" property="typeName"/>
+    </resultMap>
+
+    <sql id="basic_list">
+		a.id, a.type_id, a.code, a.name, a.remark, a.status, a.created, a.user_id
+	</sql>
+
+    <select id="getListByParams" resultMap="BaseResultMapDto" parameterType="map">
+        SELECT
+        <include refid="basic_list"/>,staff.name as userName,dt.name as typeName
+        FROM b_dictionary_data a
+        left join b_dictionary_type dt on a.type_id = dt.id
+        left join b_account act on act.id = a.user_id
+        left join b_staff staff on staff.id = act.staff_id
+        <where>
+            <if test="id!=null and id!='' ">
+                and a.id = #{ id }
+            </if>
+            <if test="typeId!=null and typeId!='' ">
+                and a.type_id = #{ typeId }
+            </if>
+            <if test="code!=null and code!='' ">
+                and a.code LIKE CONCAT('%', #{ code }, '%')
+            </if>
+            <if test="name!=null and name!='' ">
+                and a.name LIKE CONCAT('%', #{ name }, '%')
+            </if>
+            <if test="remark!=null and remark!='' ">
+                and a.remark LIKE CONCAT('%', #{ remark }, '%')
+            </if>
+            <if test="status!=null and status!='' ">
+                and a.status LIKE CONCAT('%', #{ status }, '%')
+            </if>
+            <if test="created!=null and created!='' ">
+                and a.created LIKE CONCAT('%', #{ created }, '%')
+            </if>
+            <if test="userId!=null and userId!='' ">
+                and a.user_id = #{ userId }
+            </if>
+            <if test="typeCode!=null and typeCode!='' ">
+                and dt.code = #{ typeCode }
+            </if>
+        </where>
+        order by a.created desc
+    </select>
+
+    <select id="getDtoListByParams" resultMap="BaseResultMapDto" parameterType="map">
+        SELECT
+        <include refid="basic_list"/>,staff.name as userName,dt.name as typeName
+        FROM b_dictionary_data a
+        left join b_dictionary_type dt on a.type_id = dt.id
+        left join b_account act on act.id = a.user_id
+        left join b_staff staff on staff.id = act.staff_id
+        <where>
+            <if test="id!=null and id!='' ">
+                and a.id = #{ id }
+            </if>
+            <if test="typeId!=null and typeId!='' ">
+                and a.type_id = #{ typeId }
+            </if>
+            <if test="code!=null and code!='' ">
+                and a.code LIKE CONCAT('%', #{ code }, '%')
+            </if>
+            <if test="name!=null and name!='' ">
+                and a.name LIKE CONCAT('%', #{ name }, '%')
+            </if>
+            <if test="remark!=null and remark!='' ">
+                and a.remark LIKE CONCAT('%', #{ remark }, '%')
+            </if>
+            <if test="status!=null and status!='' ">
+                and a.status LIKE CONCAT('%', #{ status }, '%')
+            </if>
+            <if test="created!=null and created!='' ">
+                and a.created LIKE CONCAT('%', #{ created }, '%')
+            </if>
+            <if test="userId!=null and userId!='' ">
+                and a.user_id = #{ userId }
+            </if>
+            <if test="typeCode!=null and typeCode!='' ">
+                and dt.code = #{ typeCode }
+            </if>
+        </where>
+        order by a.created desc
+    </select>
+
+    <select id="getByParams" resultMap="BaseResultMapDto" parameterType="map">
+        SELECT
+        <include refid="basic_list"/>,staff.name as userName,dt.name as typeName
+        FROM b_dictionary_data a
+        left join b_dictionary_type dt on a.type_id = dt.id
+        left join b_account act on act.id = a.user_id
+        left join b_staff staff on staff.id = act.staff_id
+        <where>
+            <if test="id!=null and id!='' ">
+                and a.id=#{ id }
+            </if>
+            <if test="typeId!=null and typeId!='' ">
+                and a.type_id=#{ typeId }
+            </if>
+            <if test="code!=null and code!='' ">
+                and a.code LIKE CONCAT('%', #{ code }, '%')
+            </if>
+            <if test="name!=null and name!='' ">
+                and a.name LIKE CONCAT('%', #{ name }, '%')
+            </if>
+            <if test="remark!=null and remark!='' ">
+                and a.remark LIKE CONCAT('%', #{ remark }, '%')
+            </if>
+            <if test="status!=null and status!='' ">
+                and a.status LIKE CONCAT('%', #{ status }, '%')
+            </if>
+            <if test="created!=null and created!='' ">
+                and a.created LIKE CONCAT('%', #{ created }, '%')
+            </if>
+            <if test="userId!=null and userId!='' ">
+                and a.user_id=#{ userId }
+            </if>
+            <if test="typeCode!=null and typeCode!='' ">
+                and dt.code = #{ typeCode }
+            </if>
+        </where>
+        limit 1
+    </select>
 </mapper>

@@ -10,16 +10,22 @@ public class Constants {
     /**
      * 组织ID
      */
-    public static String ORGANIZATION = "organizationId";
+    public static String ORGANIZATION_ID = "organizationId";
     /**
      * 人员ID
      */
-    public static String STAFFID = "staffId";
+    public static String STAFF_ID = "staffId";
 
     /**
      * 部门ID
      */
-    public static String DEPARTMENTID = "departmentId";
+    public static String DEPARTMENT_ID = "departmentId";
+
+
+    /**
+     * 组织权限
+     */
+    public static String ORGANIZATION = "organization";
 
     /**
      * 个人权限

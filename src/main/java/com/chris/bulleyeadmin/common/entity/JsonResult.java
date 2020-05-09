@@ -9,7 +9,7 @@ import org.springframework.http.HttpStatus;
  *
  * @author zhao
  */
-public class JsonResult {
+public class JsonResult<T> {
 
     private boolean success;
 
@@ -19,20 +19,24 @@ public class JsonResult {
 
     private String url;
 
-    private Integer code;
+    private String code;
 
     private Integer status;
 
     private Object data;
 
+    private PageResult<T> page;
+
+
+
     public JsonResult() {
     }
 
     public JsonResult failure(String msg) {
-        return new JsonResult(false, null, msg,null,HttpStatus.INTERNAL_SERVER_ERROR.value());
+        return new JsonResult(false, null, msg,null, HttpStatus.INTERNAL_SERVER_ERROR.value());
     }
 
-    public JsonResult(boolean success, Object data, String message,Integer code,Integer status) {
+    public JsonResult(boolean success, Object data, String message,String code,Integer status) {
         super();
         this.success = success;
         this.data = data;
@@ -63,11 +67,11 @@ public class JsonResult {
     }
 
 
-    public Integer getCode() {
+    public String getCode() {
         return code;
     }
 
-    public void setCode(Integer code) {
+    public void setCode(String code) {
         this.code = code;
     }
 
@@ -113,6 +117,23 @@ public class JsonResult {
 
     public void setStatus(Integer status) {
         this.status = status;
+    }
+
+    public static JsonResult toSuccess(Object data, String msg){
+        return new JsonResult(true,data,msg, HttpStatus.OK.name(), HttpStatus.OK.value());
+    }
+
+    public static JsonResult toFailed(Object data, String msg){
+        return new JsonResult(false,data,msg, HttpStatus.OK.name(), HttpStatus.OK.value());
+    }
+
+
+    public PageResult<T> getPage() {
+        return page;
+    }
+
+    public void setPage(PageResult<T> page) {
+        this.page = page;
     }
 
     @Override

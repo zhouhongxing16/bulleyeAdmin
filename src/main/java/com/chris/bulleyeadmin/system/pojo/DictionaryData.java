@@ -5,6 +5,8 @@ import javax.persistence.*;
 import java.math.BigDecimal;
 import java.io.Serializable;
 import com.fasterxml.jackson.annotation.JsonFormat;
+import io.swagger.annotations.ApiModelProperty;
+
 /**
  * @Author: Chris  E-mail:961860916@qq.com
  * @Date:  2019-04-28 22:44
@@ -13,26 +15,37 @@ import com.fasterxml.jackson.annotation.JsonFormat;
 public class DictionaryData implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY, generator = "select uuid()")
+    @ApiModelProperty(value = "唯一标识")
     private String id;
 
+    @ApiModelProperty(value = "类型标识")
     @Column(name = "type_id")
     private String typeId;
 
+    @ApiModelProperty(value = "字典编码")
     @Column(name = "code")
     private String code;
 
+    @ApiModelProperty(value = "字典名称")
     @Column(name = "name")
     private String name;
 
+    @ApiModelProperty(value = "字典备注")
     @Column(name = "remark")
     private String remark;
 
+    @ApiModelProperty(value = "状态")
     @Column(name = "status")
     private Integer status;
 
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+8")
+    @ApiModelProperty(value = "创建时间")
     @Column(name = "created")
     private Date created;
+
+    @ApiModelProperty(value = "创建人")
+    @Column(name = "user_id")
+    private String userId;
 
 
     /**
@@ -132,5 +145,14 @@ public class DictionaryData implements Serializable {
     public void setCreated(Date created) {
         this.created = created;
     }
+
+    public String getUserId() {
+        return userId;
+    }
+
+    public void setUserId(String userId) {
+        this.userId = userId;
+    }
+
 
 }

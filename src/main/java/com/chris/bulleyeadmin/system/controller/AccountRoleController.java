@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import java.util.Map;
 
-@Api(tags = "accountrole", description = "帐号角色管理")
+@Api(tags = "帐号角色管理", description = "帐号角色管理")
 @RestController
 @RequestMapping("/accountrole")
 public class AccountRoleController extends BaseController<AccountRole> {
