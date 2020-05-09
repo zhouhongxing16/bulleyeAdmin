@@ -8,4 +8,14 @@ import com.chris.bulleyeadmin.system.pojo.DictionaryType;
  * @Description:
  */
 public class DictionaryTypeDto extends DictionaryType {
+
+    private String userName;
+
+    public String getUserName() {
+        return userName;
+    }
+
+    public void setUserName(String userName) {
+        this.userName = userName;
+    }
 }
