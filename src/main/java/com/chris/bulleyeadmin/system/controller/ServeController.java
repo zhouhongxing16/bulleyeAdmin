@@ -20,6 +20,6 @@ public class ServeController {
     public Object getInfo() throws Exception {
         Server server = new Server();
         server.copyTo();
-        return new JsonResult(true,server,"获取服务器信息成功",200,200);
+        return JsonResult.toSuccess(server,"获取服务器信息成功");
     }
 }

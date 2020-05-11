@@ -41,6 +41,6 @@ public class LoginController {
     public Object unauth() {
         System.out.println(WeChatFilter.getInstance().getUrlPassFlag("/images/**"));
         System.out.println(WeChatFilter.getInstance().getUrlPassFlag("/images"));
-        return new JsonResult(false,"","未登录，请登录后再试", HttpStatus.UNAUTHORIZED.hashCode(),HttpStatus.UNAUTHORIZED.value());
+        return new JsonResult(false,"","未登录，请登录后再试", HttpStatus.UNAUTHORIZED.name(),HttpStatus.UNAUTHORIZED.value());
     }
 }

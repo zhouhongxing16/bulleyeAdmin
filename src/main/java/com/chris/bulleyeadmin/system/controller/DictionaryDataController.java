@@ -41,10 +41,10 @@ public class DictionaryDataController extends BaseController<DictionaryData> {
         return dictionaryDataService;
     }
 
-    @PostMapping("/getByTypeCode/{code}")
+    @PostMapping("/getListByTypeCode/{code}")
     @ApiOperation(value = "根据类型code获取字典数据", notes = "")
     @ApiImplicitParam(name = "code", value = "")
-    public Object getByTypeCode(@PathVariable String code) throws Exception {
+    public Object getListByTypeCode(@PathVariable String code) throws Exception {
         JsonResult result = new JsonResult();
         result.setSuccess(true);
         result.setMessage("查询成功");
@@ -61,7 +61,7 @@ public class DictionaryDataController extends BaseController<DictionaryData> {
 
     @ApiOperation(value = "根据字典code获取一条字典数据", notes = "")
     @ApiImplicitParam(name = "code", value = "")
-    @PostMapping("/getDictionaryDataByCode/{code}")
+    @PostMapping("/getDataByCode/{code}")
     public JsonResult<DictionaryDataDto> getDictionaryDataByCode(@PathVariable String code) throws Exception {
         Map<String, String> queryMap = new HashMap<>();
         queryMap.put("typeCode", code);

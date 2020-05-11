@@ -88,7 +88,7 @@ public class WxMaterialService extends BaseService<WxMaterial> {
                     article.setThumbMediaId(wxMpMaterialUploadResult.getMediaId());
                 }
             } catch (Exception e) {
-                return new JsonResult(false,null,"生成失败，未找到封面图",0, HttpStatus.OK.value());
+                return  JsonResult.toFailed(null,"生成失败，未找到封面图！");
             }
 
             article.setThumbUrl(wxMaterial.getDownUrl());
@@ -105,7 +105,7 @@ public class WxMaterialService extends BaseService<WxMaterial> {
                     wxMaterial.setMediaId(result.getMediaId());
                     wxMaterialMapper.updateByPrimaryKey(wxMaterial);
                 }
-                return new JsonResult(result.getMediaId()!=null?true:false,null,msg,result.getErrCode(), HttpStatus.OK.value());
+                return new JsonResult(result.getMediaId()!=null?true:false,null,msg,result.getErrCode().toString(), HttpStatus.OK.value());
             } catch (Exception e) {
                 e.printStackTrace();
                 return new JsonResult(false,null,"生成失败！",null, HttpStatus.OK.value());
@@ -135,7 +135,7 @@ public class WxMaterialService extends BaseService<WxMaterial> {
                     wxMaterial.setMediaId(result.getMediaId());
                     wxMaterialMapper.updateByPrimaryKey(wxMaterial);
                 }
-                return new JsonResult(result.getMediaId()!=null?true:false,null,msg,result.getErrCode(), HttpStatus.OK.value());
+                return new JsonResult(result.getMediaId()!=null?true:false,null,msg,result.getErrCode().toString(), HttpStatus.OK.value());
             } catch (WxErrorException e) {
                 e.printStackTrace();
                 return new JsonResult(false,null,"生成失败！",null, HttpStatus.OK.value());
@@ -299,13 +299,13 @@ public class WxMaterialService extends BaseService<WxMaterial> {
 
                 WxMpMaterialUploadResult wxMpMaterialUploadResult = wxMpService.getMaterialService().materialFileUpload(WxConsts.MaterialType.IMAGE, img);
                 System.out.println("getMediaId="+wxMpMaterialUploadResult.getMediaId());
-                return new JsonResult(true, wxMpMaterialUploadResult.getMediaId(), "生成成功",0, HttpStatus.OK.value());
+                return new JsonResult(true, wxMpMaterialUploadResult.getMediaId(), "生成成功",HttpStatus.OK.name(), HttpStatus.OK.value());
             }
         } catch (Exception e) {
             e.printStackTrace();
-            return new JsonResult(false,null,"生成失败，未找到封面图",0, HttpStatus.OK.value());
+            return JsonResult.toFailed(null,"生成失败，未找到封面图");
         }
-        return new JsonResult(false,null,"生成失败，未找到封面图",0, HttpStatus.OK.value());
+        return JsonResult.toFailed(null,"生成失败，未找到封面图");
     }
 }
 
