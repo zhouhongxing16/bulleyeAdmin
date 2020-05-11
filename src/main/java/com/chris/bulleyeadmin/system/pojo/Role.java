@@ -37,6 +37,8 @@ public class Role implements Serializable {
     private Date created;
 
 
+    @Column(name = "user_id")
+    private String userId;
     /**
      * @return id
      */
@@ -149,4 +151,11 @@ public class Role implements Serializable {
         this.created = created;
     }
 
+    public String getUserId() {
+        return userId;
+    }
+
+    public void setUserId(String userId) {
+        this.userId = userId;
+    }
 }

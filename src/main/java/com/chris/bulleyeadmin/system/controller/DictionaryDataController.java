@@ -4,19 +4,19 @@ import com.chris.bulleyeadmin.common.controller.BaseController;
 import com.chris.bulleyeadmin.common.entity.JsonResult;
 import com.chris.bulleyeadmin.common.entity.PageResult;
 import com.chris.bulleyeadmin.common.service.BaseService;
+import com.chris.bulleyeadmin.common.utils.AuthUtil;
 import com.chris.bulleyeadmin.common.utils.OperationLog;
 import com.chris.bulleyeadmin.system.dto.DictionaryDataDto;
+import com.chris.bulleyeadmin.system.pojo.Department;
 import com.chris.bulleyeadmin.system.pojo.DictionaryData;
+import com.chris.bulleyeadmin.system.pojo.User;
 import com.chris.bulleyeadmin.system.service.DictionaryDataService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.HashMap;
 import java.util.List;
@@ -39,6 +39,16 @@ public class DictionaryDataController extends BaseController<DictionaryData> {
     @Override
     public BaseService<DictionaryData> getService() {
         return dictionaryDataService;
+    }
+
+
+    @Override
+    @PostMapping("/create")
+    @ResponseBody
+    public JsonResult create(@RequestBody DictionaryData obj) throws Exception {
+        User user = AuthUtil.getCurrentUser();
+        obj.setUserId(user.getId());
+        return dictionaryDataService.add(obj);
     }
 
     @PostMapping("/getListByTypeCode/{code}")

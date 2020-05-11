@@ -14,7 +14,7 @@
         <result column="status" jdbcType="INTEGER" property="status"/>
         <result column="sort" jdbcType="INTEGER" property="sort"/>
         <result column="created" jdbcType="BIGINT" property="created"/>
-
+        <result column="user_id" jdbcType="VARCHAR" property="userId" />
     </resultMap>
     <resultMap id="dto" type="com.chris.bulleyeadmin.system.dto.MenuDto" extends="BaseResultMap">
         <result column="menu_value" jdbcType="VARCHAR" property="value"/>
@@ -22,7 +22,7 @@
     </resultMap>
 
     <sql id="basic_list">
-		a.id, a.parent_id, a.icon, a.code, a.title, a.path, a.status, a.sort, a.created
+		a.id, a.parent_id, a.icon, a.code, a.title, a.path, a.status, a.sort, a.created,a.user_id
 	</sql>
     <select id="getListByParams" resultMap="dto" parameterType="map">
         SELECT

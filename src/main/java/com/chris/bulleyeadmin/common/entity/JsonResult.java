@@ -4,6 +4,8 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.http.HttpStatus;
 
+import java.util.List;
+
 /**
  * 封装操作结果JSON数据
  *
@@ -24,6 +26,10 @@ public class JsonResult<T> {
     private Integer status;
 
     private Object data;
+
+    private T obj;
+
+    private List<T> list;
 
     private PageResult<T> page;
 
@@ -134,6 +140,22 @@ public class JsonResult<T> {
 
     public void setPage(PageResult<T> page) {
         this.page = page;
+    }
+
+    public T getObj() {
+        return obj;
+    }
+
+    public void setObj(T obj) {
+        this.obj = obj;
+    }
+
+    public List<T> getList() {
+        return list;
+    }
+
+    public void setList(List<T> list) {
+        this.list = list;
     }
 
     @Override

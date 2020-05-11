@@ -37,6 +37,7 @@ public class DepartmentController extends BaseController<Department> {
     public JsonResult create(@RequestBody Department obj) throws Exception {
         User user = AuthUtil.getCurrentUser();
         obj.setOrganizationId(user.getOrganizationId());
+        obj.setUserId(user.getId());
         return departmentService.add(obj);
     }
 }

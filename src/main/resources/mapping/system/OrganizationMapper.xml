@@ -14,6 +14,7 @@
         <result column="end_date" jdbcType="BIGINT" property="endDate" />
         <result column="domain" jdbcType="VARCHAR" property="domain" />
         <result column="created" jdbcType="TIMESTAMP" property="created" />
+        <result column="user_id" jdbcType="VARCHAR" property="userId" />
     </resultMap>
 
     <resultMap id="dto" type="com.chris.bulleyeadmin.system.dto.OrganizationDto" extends="BaseResultMap">
@@ -21,7 +22,7 @@
     </resultMap>
 
     <sql id="basic_list">
-		a.id, a.pid, a.code, a.name, a.area_id, a.brief, a.contact_name, a.contact_phone, a.status, a.end_date, a.domain, a.created
+		a.id, a.pid, a.code, a.name, a.area_id, a.brief, a.contact_name, a.contact_phone, a.status, a.end_date, a.domain, a.created,a.user_id
 	</sql>
 
     <select id="getListByParams" resultMap="BaseResultMap" parameterType="map">

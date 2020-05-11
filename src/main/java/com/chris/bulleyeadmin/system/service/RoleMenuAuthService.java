@@ -74,9 +74,9 @@ public class RoleMenuAuthService extends BaseService<RoleMenuAuth> {
         return result;
     }
 
-    public JsonResult getMenuAndAuthByRoleId(String roleId){
+    public  List<MenuDto> getMenuAndAuthByRoleId(String roleId){
         Map<String,String> param = new HashMap<>();
-        JsonResult result = new JsonResult();
+
         param.put("roleId", roleId);
         List<MenuDto> menus =  menuMapper.getMenusByRoleId(param);
 
@@ -92,11 +92,7 @@ public class RoleMenuAuthService extends BaseService<RoleMenuAuth> {
         for(MenuDto menu : menuList){
             menu.setChildren(getChild(menu.getId(),menus));
         }
-
-        result.setData(menuList);
-        result.setSuccess(true);
-        result.setMessage("获取数据成功");
-        return result;
+        return menuList;
     }
 
     private List<MenuDto> getChild(String id,List<MenuDto> menuList){

@@ -28,11 +28,11 @@
         <result column="join_date" jdbcType="VARCHAR" property="joinDate"/>
         <result column="remark" jdbcType="VARCHAR" property="remark"/>
         <result column="created" jdbcType="TIMESTAMP" property="created"/>
-
+        <result column="user_id" jdbcType="VARCHAR" property="userId" />
     </resultMap>
 
     <sql id="basic_list">
-		a.id, a.serial_no, a.name, a.gender_id, a.mobile, a.email, a.avatar, a.organization_id, a.department_id, a.birthday, a.academic_id, a.degree_id, a.position_id, a.title_id, a.type_id, a.identify_type_id, a.identify_no, a.status, a.birth_province_id, a.birth_city_id, a.policy, a.nation_id, a.join_date, a.remark, a.created
+		a.id, a.serial_no, a.name, a.gender_id, a.mobile, a.email, a.avatar, a.organization_id, a.department_id, a.birthday, a.academic_id, a.degree_id, a.position_id, a.title_id, a.type_id, a.identify_type_id, a.identify_no, a.status, a.birth_province_id, a.birth_city_id, a.policy, a.nation_id, a.join_date, a.remark, a.created,a.user_id
 	</sql>
 
     <select id="getListByParams" resultMap="BaseResultMap" parameterType="map">

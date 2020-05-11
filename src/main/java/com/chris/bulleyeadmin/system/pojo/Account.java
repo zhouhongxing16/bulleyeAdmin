@@ -51,6 +51,10 @@ public class Account implements Serializable {
     @Column(name = "remark")
     private String remark;
 
+
+    @Column(name = "user_id")
+    private String userId;
+
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+8")
     @Column(name = "modified")
     private Date modified;
@@ -189,5 +193,13 @@ public class Account implements Serializable {
 
     public void setCreated(Date created) {
         this.created = created;
+    }
+
+    public String getUserId() {
+        return userId;
+    }
+
+    public void setUserId(String userId) {
+        this.userId = userId;
     }
 }

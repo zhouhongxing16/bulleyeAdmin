@@ -18,6 +18,7 @@
         <result column="modified" jdbcType="TIMESTAMP" property="modified"/>
         <result column="expired_date" jdbcType="TIMESTAMP" property="expiredDate"/>
         <result column="created" jdbcType="TIMESTAMP" property="created"/>
+        <result column="user_id" jdbcType="VARCHAR" property="userId" />
     </resultMap>
 
     <resultMap id="dto" type="com.chris.bulleyeadmin.system.dto.AccountDto" extends="BaseResultMap">
@@ -25,7 +26,7 @@
     </resultMap>
 
     <sql id="basic_list">
-			a.id, a.username, a.password, a.account_locked, a.account_expired, a.staff_id, a.organization_id, a.wx_openid, a.alipay_openid, a.email, a.status, a.mobile_login_flag, a.remark, a.modified, a.expired_date, a.created
+			a.id, a.username, a.password, a.account_locked, a.account_expired, a.staff_id, a.organization_id, a.wx_openid, a.alipay_openid, a.email, a.status, a.mobile_login_flag, a.remark, a.modified, a.expired_date, a.created,a.user_id
 	</sql>
 
     <select id="getListByParams" resultMap="BaseResultMap" parameterType="map">

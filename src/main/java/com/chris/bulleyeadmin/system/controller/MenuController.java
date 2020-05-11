@@ -1,14 +1,14 @@
 package com.chris.bulleyeadmin.system.controller;
 
 import com.chris.bulleyeadmin.common.controller.BaseController;
+import com.chris.bulleyeadmin.common.entity.JsonResult;
+import com.chris.bulleyeadmin.common.service.BaseService;
+import com.chris.bulleyeadmin.common.utils.AuthUtil;
 import com.chris.bulleyeadmin.common.utils.OperationLog;
 import com.chris.bulleyeadmin.system.dto.MenuDto;
-import com.chris.bulleyeadmin.common.entity.JsonResult;
 import com.chris.bulleyeadmin.system.pojo.Menu;
-import com.chris.bulleyeadmin.common.service.BaseService;
 import com.chris.bulleyeadmin.system.pojo.User;
 import com.chris.bulleyeadmin.system.service.MenuService;
-import com.chris.bulleyeadmin.common.utils.AuthUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
@@ -37,49 +37,85 @@ public class MenuController extends BaseController<Menu> {
     @OperationLog("获取所有菜单")
     @ResponseBody
     @RequestMapping("/getAllMenus")
-    public JsonResult getAllMenus() {
+    public JsonResult<MenuDto> getAllMenus() {
+        JsonResult<MenuDto> result = new JsonResult<>();
         List<MenuDto> menuList = menuService.getAllMenus();
-        return new JsonResult(true,menuList,null,null, HttpStatus.OK.value());
+        result.setList(menuList);
+        result.setStatus(HttpStatus.OK.value());
+        result.setSuccess(true);
+        result.setMessage("查询成功！");
+        return result;
     }
 
     @OperationLog("获取组织菜单")
     @ResponseBody
     @RequestMapping("/getOrganizationMenus")
-    public JsonResult getOrganizationMenus(@RequestBody Map<String,Object> map) {
-        if(map.get("organizationId")==null){
+    public JsonResult<MenuDto> getOrganizationMenus(@RequestBody Map<String, Object> map) {
+        JsonResult<MenuDto> result = new JsonResult<>();
+        if (map.get("organizationId") == null) {
             User user = AuthUtil.getCurrentUser();
-            map.put("organizationId",user.getOrganizationId());
+            map.put("organizationId", user.getOrganizationId());
         }
         List<MenuDto> menuList = menuService.getOrganizationMenus(map);
-        return new JsonResult(true, menuList,null,null, HttpStatus.OK.value());
+        result.setList(menuList);
+        result.setStatus(HttpStatus.OK.value());
+        result.setSuccess(true);
+        result.setMessage("查询成功！");
+        return result;
     }
 
 
     @OperationLog("获取组织授权后菜单")
     @ResponseBody
     @RequestMapping("/getOrganizationAuthMenus")
-    public JsonResult getOrganizationAuthMenus(@RequestBody Map<String,Object> map) {
+    public JsonResult getOrganizationAuthMenus(@RequestBody Map<String, Object> map) {
+        JsonResult<MenuDto> result = new JsonResult<>();
         User user = AuthUtil.getCurrentUser();
-        map.put("organizationId",user.getOrganizationId());
+        map.put("organizationId", user.getOrganizationId());
         List<MenuDto> menuList = menuService.getOrganizationAuthMenus(map);
-        return new JsonResult(true, menuList,null,null, HttpStatus.OK.value());
+
+        result.setList(menuList);
+        result.setStatus(HttpStatus.OK.value());
+        result.setSuccess(true);
+        result.setMessage("查询成功！");
+        return result;
     }
 
     @OperationLog("获取登录用户菜单")
     @ResponseBody
     @RequestMapping("/getMenusByAccountId")
     public JsonResult getMenusByAccountId() {
+        JsonResult<MenuDto> result = new JsonResult<>();
         User user = AuthUtil.getCurrentUser();
         List<MenuDto> menuList = menuService.getMenusByAccountId(user.getId());
-        return new JsonResult(true, menuList,null,null, HttpStatus.OK.value());
+
+        result.setList(menuList);
+        result.setStatus(HttpStatus.OK.value());
+        result.setSuccess(true);
+        result.setMessage("查询成功！");
+        return result;
     }
 
     @OperationLog("根据角色获取菜单")
     @ResponseBody
     @GetMapping("/getMenusByRoleId/{roleId}")
     public JsonResult getMenusByRoleId(@PathVariable String roleId) {
+        JsonResult<MenuDto> result = new JsonResult<>();
         List<MenuDto> menuList = menuService.getMenusByRoleId(roleId);
-        return new JsonResult(true, menuList,null,null, HttpStatus.OK.value());
+
+        result.setList(menuList);
+        result.setStatus(HttpStatus.OK.value());
+        result.setSuccess(true);
+        result.setMessage("查询成功！");
+        return result;
     }
 
+    @Override
+    @PostMapping("/create")
+    @ResponseBody
+    public JsonResult create(@RequestBody Menu obj) throws Exception {
+        User user = AuthUtil.getCurrentUser();
+        obj.setUserId(user.getId());
+        return menuService.add(obj);
+    }
 }

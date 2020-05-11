@@ -11,11 +11,11 @@
         <result column="remark" jdbcType="VARCHAR" property="remark" />
         <result column="status" jdbcType="INTEGER" property="status" />
         <result column="created" jdbcType="TIMESTAMP" property="created" />
-
+        <result column="user_id" jdbcType="VARCHAR" property="userId" />
     </resultMap>
 
     <sql id="basic_list">
-		a.id, a.organization_id, a.name, a.code, a.data_auth_flag, a.remark, a.status, a.created
+		a.id, a.organization_id, a.name, a.code, a.data_auth_flag, a.remark, a.status, a.created,a.user_id
 	</sql>
 
     <select id="getListByParams" resultMap="BaseResultMap" parameterType="map">

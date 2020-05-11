@@ -4,12 +4,14 @@ import com.chris.bulleyeadmin.common.controller.BaseController;
 import com.chris.bulleyeadmin.common.entity.JsonResult;
 import com.chris.bulleyeadmin.common.service.BaseService;
 import com.chris.bulleyeadmin.common.utils.OperationLog;
+import com.chris.bulleyeadmin.system.dto.MenuDto;
 import com.chris.bulleyeadmin.system.pojo.RoleMenu;
 import com.chris.bulleyeadmin.system.pojo.RoleMenuAuth;
 import com.chris.bulleyeadmin.system.service.RoleMenuAuthService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -41,9 +43,14 @@ public class RoleMenuAuthController extends BaseController<RoleMenuAuth> {
 
     @OperationLog("根据菜单和角色获取功能授权")
     @RequestMapping("/getMenuAndAuthByRoleId/{roleId}")
-    public Object getMenuAndAuthByRoleId(@PathVariable("roleId") String roleId) {
-        Object obj = roleMenuAuthService.getMenuAndAuthByRoleId(roleId);
-        return obj;
+    public JsonResult<MenuDto> getMenuAndAuthByRoleId(@PathVariable("roleId") String roleId) {
+        JsonResult result = new JsonResult();
+        List<MenuDto> menuList = roleMenuAuthService.getMenuAndAuthByRoleId(roleId);
+        result.setList(menuList);
+        result.setSuccess(true);
+        result.setStatus(HttpStatus.OK.value());
+        result.setMessage("获取数据成功");
+        return result;
     }
 
     @OperationLog("角色菜单授权")

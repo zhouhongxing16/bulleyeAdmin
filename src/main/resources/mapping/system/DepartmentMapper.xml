@@ -23,7 +23,7 @@
 
 
     <sql id="basic_list">
-		a.id, a.organization_id, a.code, a.parent_id, a.name, a.type_id, a.remark, a.brief, a.status, a.created
+		a.id, a.organization_id, a.code, a.parent_id, a.name, a.type_id, a.remark, a.brief, a.status, a.created,a.user_id
 	</sql>
 
     <select id="getListByParams" resultMap="BaseResultMap" parameterType="map">

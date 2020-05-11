@@ -46,6 +46,24 @@ public abstract class BaseController<T> {
         return jsonMap;
     }
 
+    @ApiOperation(value = "默认分页查询", notes = "根据传递的参数进行查询")
+    @ApiImplicitParam(name = "分页查询", value = "参数:{limit:number,pageSize:number,keyword:string}")
+    @OperationLog("查询分页数据")
+    @PostMapping("/listAuthByPage")
+    public JsonResult<T> listAuthByPage(@RequestBody Map<String, Object> params) {
+        PageInfo info = getService().listByPage(params);
+        JsonResult<T> result = new JsonResult();
+        PageResult<T> page = new PageResult<>();
+        page.setList(info.getList());
+        page.setTotal(info.getTotal());
+        page.setLastPage(info.isIsLastPage());
+        result.setPage(page);
+        result.setMessage("查询成功");
+        result.setSuccess(true);
+        result.setStatus(HttpStatus.OK.value());
+        return result;
+    }
+
 
     //增加
     @ApiOperation(value = "创建方法", notes = "创建")
@@ -100,11 +118,8 @@ public abstract class BaseController<T> {
     public JsonResult<T> getListByParams(@RequestBody Map<String, Object> params) {
         JsonResult<T> result = new JsonResult();
         List<T> list = getService().getListByParams(params);
-        PageResult<T> pageResult = new PageResult<>();
-        pageResult.setTotal(new Long(list.size()));
-        pageResult.setList(list);
+        result.setList(list);
         result.setStatus(HttpStatus.OK.value());
-        result.setPage(pageResult);
         result.setSuccess(true);
         return result;
     }
@@ -118,11 +133,8 @@ public abstract class BaseController<T> {
         JsonResult<T> result = new JsonResult();
         params.putAll(getAuthParameterMap(params));
         List<T> list = getService().getListByParams(params);
-        PageResult<T> pageResult = new PageResult<>();
-        pageResult.setTotal(new Long(list.size()));
-        pageResult.setList(list);
+        result.setList(list);
         result.setStatus(HttpStatus.OK.value());
-        result.setPage(pageResult);
         result.setSuccess(true);
         return result;
     }
@@ -135,9 +147,9 @@ public abstract class BaseController<T> {
         if (currentRole != null) {
             if (Constants.ORGANIZATION.equals(authFlag)) {
                 map.put(Constants.ORGANIZATION_ID, user.getOrganizationId());
-            }else if(Constants.DEPARTMENT.equals(authFlag)){
+            } else if (Constants.DEPARTMENT.equals(authFlag)) {
                 map.put(Constants.DEPARTMENT_ID, user.getDepartmentId());
-            }else if(Constants.PERSONAL.equals(authFlag)){
+            } else if (Constants.PERSONAL.equals(authFlag)) {
                 map.put(Constants.DEPARTMENT_ID, user.getDepartmentId());
                 map.put(Constants.STAFF_ID, user.getDepartmentId());
             }
