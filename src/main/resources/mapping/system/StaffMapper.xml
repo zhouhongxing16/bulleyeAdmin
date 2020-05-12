@@ -30,15 +30,20 @@
         <result column="created" jdbcType="TIMESTAMP" property="created"/>
         <result column="user_id" jdbcType="VARCHAR" property="userId" />
     </resultMap>
-
+    <resultMap id="dto" type="com.chris.bulleyeadmin.system.dto.StaffDto" extends="BaseResultMap">
+        <result column="genderName" jdbcType="VARCHAR" property="genderName" />
+        <result column="titleName" jdbcType="VARCHAR" property="titleName" />
+    </resultMap>
     <sql id="basic_list">
 		a.id, a.serial_no, a.name, a.gender_id, a.mobile, a.email, a.avatar, a.organization_id, a.department_id, a.birthday, a.academic_id, a.degree_id, a.position_id, a.title_id, a.type_id, a.identify_type_id, a.identify_no, a.status, a.birth_province_id, a.birth_city_id, a.policy, a.nation_id, a.join_date, a.remark, a.created,a.user_id
 	</sql>
 
-    <select id="getListByParams" resultMap="BaseResultMap" parameterType="map">
+    <select id="getListByParams" resultMap="dto" parameterType="map">
         SELECT
-        <include refid="basic_list"/>
+        <include refid="basic_list"/>,gender.name as genderName,title.name as titleName
         FROM b_staff a
+        left join b_dictionary_data gender on gender.id = a.gender_id
+        left join b_dictionary_data title on title.id = a.title_id
         <where>
             <if test="id!=null and id!='' ">
                 and a.id=#{ id }
