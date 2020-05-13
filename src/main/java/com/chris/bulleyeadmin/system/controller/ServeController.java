@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-@Api(tags = "monitor.server", description = "服务监控数据")
+@Api(tags = "服务监控数据", produces = "服务监控数据")
 @OperationLog("服务监控数据")
 @RestController
 @RequestMapping("/monitor")

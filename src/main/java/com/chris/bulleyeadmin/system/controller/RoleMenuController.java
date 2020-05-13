@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
-@Api(tags = "rolemenu", description = "角色菜单")
+@Api(tags = "角色菜单", produces = "角色菜单")
 @OperationLog("角色菜单")
 @RestController
 @RequestMapping("/rolemenu")

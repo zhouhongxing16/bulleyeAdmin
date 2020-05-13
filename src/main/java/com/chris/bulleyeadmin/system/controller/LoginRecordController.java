@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.RestController;
  * @Author: Chris  E-mail:961860916@qq.com
  * @Date:  2019-04-17 18:00
  */
-@Api(tags = "loginrecord", description = "登录日志")
+@Api(tags = "登录日志", produces = "登录日志")
 @OperationLog("登录日志")
 @RestController
 @RequestMapping("/loginrecord")

@@ -44,7 +44,8 @@ public class DictionaryDataController extends BaseController<DictionaryData> {
 
     @Override
     @PostMapping("/create")
-    @ResponseBody
+    @ApiOperation(value = "创建方法", notes = "")
+    @ApiImplicitParam(name = "obj", value = "")
     public JsonResult create(@RequestBody DictionaryData obj) throws Exception {
         User user = AuthUtil.getCurrentUser();
         obj.setUserId(user.getId());

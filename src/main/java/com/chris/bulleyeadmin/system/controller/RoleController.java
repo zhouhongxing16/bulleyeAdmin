@@ -20,7 +20,7 @@ import java.util.Map;
  * @Author: Chris E-mail:961860916@qq.com
  * @Date: 2018-06-13 9:50
  */
-@Api(tags = "role", description = "角色管理")
+@Api(tags = "角色管理", produces = "角色管理")
 @OperationLog("角色管理")
 @RestController
 @RequestMapping("/role")
@@ -37,7 +37,6 @@ public class RoleController extends BaseController<Role> {
     @Override
     @OperationLog("创建角色")
     @PostMapping("/create")
-    @ResponseBody
     public JsonResult create(Role obj) throws Exception {
         User user = AuthUtil.getCurrentUser();
         obj.setOrganizationId(user.getOrganizationId());
@@ -45,7 +44,7 @@ public class RoleController extends BaseController<Role> {
         return getService().add(obj);
     }
 
-    @ResponseBody
+    @OperationLog("获取所有角色")
     @RequestMapping("/getAllRoles")
     public JsonResult getAllRoles() {
         Map<String, Object> map = new HashMap<>(2);
@@ -54,7 +53,7 @@ public class RoleController extends BaseController<Role> {
         return new JsonResult(true, roles);
     }
 
-    @ResponseBody
+    @OperationLog("获取账号所有角色")
     @RequestMapping("/getRolesByAccountId/{accountId}")
     public JsonResult getRolesByAccountId(@PathVariable String accountId) {
         List<Role> roles = roleService.getRolesByAccountId(accountId);

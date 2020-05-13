@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.RestController;
  * @Author: Chris  E-mail:961860916@qq.com
  * @Date:  2019-03-17 21:10
  */
-@Api(tags = "menuauth", description = "菜单权限管理")
+@Api(tags = "菜单权限管理", produces = "菜单权限管理")
 @OperationLog("菜单权限管理")
 @RestController
 @RequestMapping("/menuauth")

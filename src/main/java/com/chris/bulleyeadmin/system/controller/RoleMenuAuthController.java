@@ -20,7 +20,7 @@ import java.util.List;
  * @Author: Chris  E-mail:961860916@qq.com
  * @Date: 2019-05-16 21:29
  */
-@Api(tags = "rolemenuauth", description = "角色菜单权限")
+@Api(tags = "角色菜单权限", produces = "角色菜单权限")
 @OperationLog("角色菜单权限")
 @RestController
 @RequestMapping("/rolemenuauth")

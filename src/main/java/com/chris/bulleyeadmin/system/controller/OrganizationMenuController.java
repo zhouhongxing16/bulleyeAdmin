@@ -6,6 +6,7 @@ import com.chris.bulleyeadmin.common.service.BaseService;
 import com.chris.bulleyeadmin.common.utils.OperationLog;
 import com.chris.bulleyeadmin.system.pojo.OrganizationMenu;
 import com.chris.bulleyeadmin.system.service.OrganizationMenuService;
+import io.swagger.annotations.Api;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -19,6 +20,7 @@ import java.util.List;
  * @Date: 2019-01-07 15:38
  * @Description:
  */
+@Api(tags = "组织菜单", produces = "组织菜单")
 @OperationLog("组织菜单")
 @RestController
 @RequestMapping("/organizationmenu")

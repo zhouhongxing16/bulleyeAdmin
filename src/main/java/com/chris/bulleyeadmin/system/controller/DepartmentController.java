@@ -17,7 +17,7 @@ import org.springframework.web.bind.annotation.*;
  * @Date: 2019-01-07 15:57
  * @Description:
  */
-@Api(tags = "department", produces = "部门管理")
+@Api(tags = "部门管理", produces = "部门管理")
 @OperationLog("部门管理")
 @RestController
 @RequestMapping("/department")
@@ -33,7 +33,7 @@ public class DepartmentController extends BaseController<Department> {
 
     @Override
     @PostMapping("/create")
-    @ResponseBody
+    @OperationLog("创建部门")
     public JsonResult create(@RequestBody Department obj) throws Exception {
         User user = AuthUtil.getCurrentUser();
         obj.setOrganizationId(user.getOrganizationId());

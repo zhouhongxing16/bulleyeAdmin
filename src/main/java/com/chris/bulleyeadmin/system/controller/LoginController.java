@@ -22,7 +22,7 @@ import java.io.IOException;
  */
 @OperationLog("登陆")
 @RestController
-@Api("swaggerDemoController相关的api")
+@Api("验证码")
 public class LoginController {
 
 

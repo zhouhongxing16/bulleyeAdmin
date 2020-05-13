@@ -9,6 +9,7 @@ import com.chris.bulleyeadmin.system.dto.MenuDto;
 import com.chris.bulleyeadmin.system.pojo.Menu;
 import com.chris.bulleyeadmin.system.pojo.User;
 import com.chris.bulleyeadmin.system.service.MenuService;
+import io.swagger.annotations.Api;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
@@ -21,6 +22,7 @@ import java.util.Map;
  * @Author: Chris E-mail:961860916@qq.com
  * @Date: 2018-06-13 9:48
  */
+@Api(tags = "菜单管理", produces = "菜单管理")
 @OperationLog("菜单管理")
 @RestController
 @RequestMapping("/menu")
@@ -35,7 +37,6 @@ public class MenuController extends BaseController<Menu> {
     }
 
     @OperationLog("获取所有菜单")
-    @ResponseBody
     @RequestMapping("/getAllMenus")
     public JsonResult<MenuDto> getAllMenus() {
         JsonResult<MenuDto> result = new JsonResult<>();
@@ -48,7 +49,6 @@ public class MenuController extends BaseController<Menu> {
     }
 
     @OperationLog("获取组织菜单")
-    @ResponseBody
     @RequestMapping("/getOrganizationMenus")
     public JsonResult<MenuDto> getOrganizationMenus(@RequestBody Map<String, Object> map) {
         JsonResult<MenuDto> result = new JsonResult<>();
@@ -66,7 +66,6 @@ public class MenuController extends BaseController<Menu> {
 
 
     @OperationLog("获取组织授权后菜单")
-    @ResponseBody
     @RequestMapping("/getOrganizationAuthMenus")
     public JsonResult getOrganizationAuthMenus(@RequestBody Map<String, Object> map) {
         JsonResult<MenuDto> result = new JsonResult<>();
@@ -82,7 +81,6 @@ public class MenuController extends BaseController<Menu> {
     }
 
     @OperationLog("获取登录用户菜单")
-    @ResponseBody
     @RequestMapping("/getMenusByAccountId")
     public JsonResult getMenusByAccountId() {
         JsonResult<MenuDto> result = new JsonResult<>();
@@ -97,7 +95,6 @@ public class MenuController extends BaseController<Menu> {
     }
 
     @OperationLog("根据角色获取菜单")
-    @ResponseBody
     @GetMapping("/getMenusByRoleId/{roleId}")
     public JsonResult getMenusByRoleId(@PathVariable String roleId) {
         JsonResult<MenuDto> result = new JsonResult<>();
@@ -111,8 +108,8 @@ public class MenuController extends BaseController<Menu> {
     }
 
     @Override
+    @OperationLog("创建菜单")
     @PostMapping("/create")
-    @ResponseBody
     public JsonResult create(@RequestBody Menu obj) throws Exception {
         User user = AuthUtil.getCurrentUser();
         obj.setUserId(user.getId());

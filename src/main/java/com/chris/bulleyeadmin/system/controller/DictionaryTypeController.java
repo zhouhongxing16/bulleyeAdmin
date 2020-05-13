@@ -34,7 +34,6 @@ public class DictionaryTypeController extends BaseController<DictionaryType> {
 
     @Override
     @PostMapping("/create")
-    @ResponseBody
     public JsonResult create(@RequestBody DictionaryType obj) throws Exception {
         User user = AuthUtil.getCurrentUser();
         obj.setUserId(user.getId());

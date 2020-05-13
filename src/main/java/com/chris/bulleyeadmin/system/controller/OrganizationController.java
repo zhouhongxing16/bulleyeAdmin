@@ -17,7 +17,7 @@ import org.springframework.web.bind.annotation.*;
  * @Date: 2019-01-07 15:38
  * @Description:
  */
-@Api(tags = "organization", description = "组织管理")
+@Api(tags = "组织管理", produces = "组织管理")
 @OperationLog("组织管理")
 @RestController
 @RequestMapping("/organization")
