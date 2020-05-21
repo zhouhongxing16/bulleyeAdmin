@@ -37,7 +37,7 @@ public class MenuController extends BaseController<Menu> {
     }
 
     @OperationLog("获取所有菜单")
-    @RequestMapping("/getAllMenus")
+    @GetMapping("/getAllMenus")
     public JsonResult<MenuDto> getAllMenus() {
         JsonResult<MenuDto> result = new JsonResult<>();
         List<MenuDto> menuList = menuService.getAllMenus();
@@ -49,7 +49,7 @@ public class MenuController extends BaseController<Menu> {
     }
 
     @OperationLog("获取组织菜单")
-    @RequestMapping("/getOrganizationMenus")
+    @PostMapping("/getOrganizationMenus")
     public JsonResult<MenuDto> getOrganizationMenus(@RequestBody Map<String, Object> map) {
         JsonResult<MenuDto> result = new JsonResult<>();
         if (map.get("organizationId") == null) {
@@ -66,7 +66,7 @@ public class MenuController extends BaseController<Menu> {
 
 
     @OperationLog("获取组织授权后菜单")
-    @RequestMapping("/getOrganizationAuthMenus")
+    @PostMapping("/getOrganizationAuthMenus")
     public JsonResult getOrganizationAuthMenus(@RequestBody Map<String, Object> map) {
         JsonResult<MenuDto> result = new JsonResult<>();
         User user = AuthUtil.getCurrentUser();
@@ -81,7 +81,7 @@ public class MenuController extends BaseController<Menu> {
     }
 
     @OperationLog("获取登录用户菜单")
-    @RequestMapping("/getMenusByAccountId")
+    @GetMapping("/getMenusByAccountId")
     public JsonResult getMenusByAccountId() {
         JsonResult<MenuDto> result = new JsonResult<>();
         User user = AuthUtil.getCurrentUser();
