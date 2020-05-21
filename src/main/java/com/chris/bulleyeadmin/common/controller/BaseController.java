@@ -37,13 +37,21 @@ public abstract class BaseController<T> {
     @OperationLog("查询分页数据")
     @PostMapping("/listByPage")
     public Object listPage(@RequestBody Map<String, Object> params) {
+        JsonResult result = new JsonResult();
+        if(params.get("pageNum")==null){
+            params.put("pageNum", "1");
+        }
+        if(params.get("pageSize")==null){
+            params.put("pageSize", "10");
+        }
         PageInfo info = getService().listByPage(params);
-
-        Map<String, Object> jsonMap = new HashMap<>();
-        jsonMap.put("rows", info.getList());
-        jsonMap.put("total", info.getTotal());
-
-        return jsonMap;
+        PageResult<T> pageResult = new PageResult<>();
+        pageResult.setTotal(info.getTotal());
+        pageResult.setList(info.getList());
+        result.setStatus(HttpStatus.OK.value());
+        result.setPage(pageResult);
+        result.setSuccess(true);
+        return result;
     }
 
     @ApiOperation(value = "默认分页查询", notes = "根据传递的参数进行查询")
