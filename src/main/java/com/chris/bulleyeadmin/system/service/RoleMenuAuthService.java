@@ -68,7 +68,7 @@ public class RoleMenuAuthService extends BaseService<RoleMenuAuth> {
         param.put("roleId", AuthUtil.getCurrentUser().getCurrentRole().getId());
         param.put("menuId",menuId);
         List<Map<String, String>> mapList =  roleMenuAuthMapper.getAuthByMenuAndRoleId(param);
-        result.setData(mapList);
+        result.setList(mapList);
         result.setSuccess(true);
         result.setMessage("获取数据成功");
         return result;
