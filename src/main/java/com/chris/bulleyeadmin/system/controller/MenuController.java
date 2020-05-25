@@ -84,8 +84,7 @@ public class MenuController extends BaseController<Menu> {
     @GetMapping("/getMenusByAccountId")
     public JsonResult getMenusByAccountId() {
         JsonResult<MenuDto> result = new JsonResult<>();
-        User user = AuthUtil.getCurrentUser();
-        List<MenuDto> menuList = menuService.getMenusByAccountId(user.getId());
+        List<MenuDto> menuList = menuService.getMenusByAccountId();
 
         result.setList(menuList);
         result.setStatus(HttpStatus.OK.value());

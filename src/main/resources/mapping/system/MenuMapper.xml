@@ -14,7 +14,7 @@
         <result column="status" jdbcType="INTEGER" property="status"/>
         <result column="sort" jdbcType="INTEGER" property="sort"/>
         <result column="created" jdbcType="BIGINT" property="created"/>
-        <result column="user_id" jdbcType="VARCHAR" property="userId" />
+        <result column="user_id" jdbcType="VARCHAR" property="userId"/>
     </resultMap>
     <resultMap id="dto" type="com.chris.bulleyeadmin.system.dto.MenuDto" extends="BaseResultMap">
         <result column="menu_value" jdbcType="VARCHAR" property="value"/>
@@ -59,17 +59,19 @@
         </where>
         order by a.created,a.sort desc
     </select>
-    <select id="getMenusByAccountId" parameterType="string" resultMap="dto">
+
+    <select id="getMenusByAccountId" parameterType="map" resultMap="dto">
   		SELECT DISTINCT
 			m.*
 		FROM
 			b_menu m
 		LEFT JOIN b_role_menu rm ON rm.menu_id = m.id
+		INNER JOIN b_organization_menu om ON om.menu_id = m.id AND om.organization_id=#{organizationId}
 		WHERE
 			rm.role_id IN ( SELECT DISTINCT ar.role_id FROM b_account_role ar where ar.account_id = #{accountId})
 
 		order BY m.created,m.sort ASC
-  </select>
+    </select>
 
     <select id="getMenusByRoleId" parameterType="String" resultMap="dto">
   		SELECT

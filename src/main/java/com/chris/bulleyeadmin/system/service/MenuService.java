@@ -3,11 +3,13 @@ package com.chris.bulleyeadmin.system.service;
 import com.chris.bulleyeadmin.common.basemapper.BaseMapper;
 import com.chris.bulleyeadmin.common.entity.JsonResult;
 import com.chris.bulleyeadmin.common.service.BaseService;
+import com.chris.bulleyeadmin.common.utils.AuthUtil;
 import com.chris.bulleyeadmin.system.dto.MenuDto;
 import com.chris.bulleyeadmin.system.mapper.MenuAuthMapper;
 import com.chris.bulleyeadmin.system.mapper.MenuMapper;
 import com.chris.bulleyeadmin.system.pojo.Menu;
 import com.chris.bulleyeadmin.system.pojo.MenuAuth;
+import com.chris.bulleyeadmin.system.pojo.User;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -126,9 +128,11 @@ public class MenuService extends BaseService<Menu> {
         return new JsonResult(updateCount>0?true:false,null,msg,null, HttpStatus.OK.value());
     }
 
-    public List<MenuDto> getMenusByAccountId(String accountId){
-        Map<String,Object> map = new HashMap<>(2);
-        map.put("accountId",accountId);
+    public List<MenuDto> getMenusByAccountId(){
+        User user = AuthUtil.getCurrentUser();
+        Map<String, Object> map = new HashMap<>(2);
+        map.put("accountId", user.getId());
+        map.put("organizationId", user.getOrganizationId());
         List<MenuDto> menus = menuMapper.getMenusByAccountId(map);
         List<MenuDto> menuList = new ArrayList<>();
         // 先找到所有的一级菜单
