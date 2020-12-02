@@ -4,13 +4,15 @@
     <resultMap id="BaseResultMap" type="com.chris.bulleyeadmin.wechat.pojo.WxTag">
         <id column="id" jdbcType="VARCHAR" property="id" />
         <result column="name" jdbcType="VARCHAR" property="name" />
+        <result column="tag_id" jdbcType="VARCHAR" property="tagId" />
+        <result column="source_id" jdbcType="VARCHAR" property="sourceId" />
     </resultMap>
     <sql id="basic_list">
 		a.*
 	</sql>
 
     <sql id="basic_list_detail">
-		a.id, a.name
+		a.id, a.name, a.tag_id, a.source_id
 	</sql>
 
     <select id="getListByParams" resultMap="BaseResultMap" parameterType="map">
@@ -23,6 +25,9 @@
             </if>
             <if test="name!=null and name!='' ">
                 and a.name LIKE CONCAT('%', #{ name }, '%')
+            </if>
+            <if test="sourceId!=null and sourceId!='' ">
+                and a.source_id = #{ sourceId }
             </if>
         </where>
     </select>

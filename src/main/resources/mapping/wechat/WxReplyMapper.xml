@@ -11,12 +11,12 @@
         <result column="graphic_id" jdbcType="VARCHAR" property="graphicId" />
         <result column="num" jdbcType="BIGINT" property="num" />
         <result column="status" jdbcType="INTEGER" property="status" />
-        <result column="media_id" jdbcType="VARCHAR" property="mediaId" />
+        <result column="material_id" jdbcType="VARCHAR" property="materialId" />
         <result column="created" jdbcType="TIMESTAMP" property="created" />
     </resultMap>
 
     <sql id="basic_list">
-        a.id, a.source_id, a.key_word, a.key_value, a.key_type, a.graphic_id, a.num, a.status, a.media_id, a.created
+        a.id, a.source_id, a.key_word, a.key_value, a.key_type, a.graphic_id, a.num, a.status, a.material_id, a.created
 	</sql>
 
     <select id="getListByParams" resultMap="BaseResultMap" parameterType="map">
@@ -48,8 +48,8 @@
             <if test="status!=null and status!='' ">
                 and a.status LIKE CONCAT('%', #{ status }, '%')
             </if>
-            <if test="mediaId!=null and mediaId!='' ">
-                and a.media_id = #{mediaId}
+            <if test="materialId!=null and materialId!='' ">
+                and a.material_id = #{materialId}
             </if>
             <if test="created!=null and created!='' ">
                 and a.created LIKE CONCAT('%', #{ created }, '%')

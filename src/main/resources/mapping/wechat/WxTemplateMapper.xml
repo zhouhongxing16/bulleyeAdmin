@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.chris.bulleyeadmin.wechat.mapper.WxTemplateMapper">
+    <resultMap id="BaseResultMap" type="com.chris.bulleyeadmin.wechat.pojo.WxTemplate">
+        <id column="id" jdbcType="VARCHAR" property="id" />
+        <result column="source_id" jdbcType="VARCHAR" property="sourceId" />
+        <result column="template_id" jdbcType="VARCHAR" property="templateId" />
+        <result column="title" jdbcType="VARCHAR" property="title" />
+        <result column="primary_industry" jdbcType="VARCHAR" property="primaryIndustry" />
+        <result column="deputy_industry" jdbcType="VARCHAR" property="deputyIndustry" />
+        <result column="content" jdbcType="VARCHAR" property="content" />
+        <result column="example" jdbcType="VARCHAR" property="example" />
+    </resultMap>
+    <sql id="basic_list">
+		a.*
+	</sql>
+
+    <sql id="basic_list_detail">
+		a.id,
+	</sql>
+
+    <select id="getListByParams" resultMap="BaseResultMap" parameterType="map">
+        SELECT
+        <include refid="basic_list"/>
+        FROM wx_account a
+        <where>
+            <if test="id!=null and id!='' ">
+                and a.id=#{ id }
+            </if>
+            <if test="sourceId!=null and source_id!='' ">
+                and a.source_id = #{ source_id }
+            </if>
+            <if test="templateId!=null and templateId!='' ">
+                and a.template_id = #{ template_id }
+            </if>
+            <if test="title!=null and title!='' ">
+                and a.title LIKE CONCAT('%', #{ title }, '%')
+            </if>
+            <if test="primaryIndustry!=null and primaryIndustry!='' ">
+                and a.primary_industry LIKE CONCAT('%', #{ primaryIndustry }, '%')
+            </if>
+            <if test="deputyIndustry!=null and deputyIndustry!='' ">
+                and a.deputy_industry LIKE CONCAT('%', #{ deputyIndustry }, '%')
+            </if>
+            <if test="content!=null and content!='' ">
+                and a.content LIKE CONCAT('%', #{ content }, '%')
+            </if>
+            <if test="title!=null and title!='' ">
+                and a.example LIKE CONCAT('%', #{ example }, '%')
+            </if>
+        </where>
+    </select>
+</mapper>

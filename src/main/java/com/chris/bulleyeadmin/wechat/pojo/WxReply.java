@@ -38,8 +38,8 @@ public class WxReply implements Serializable {
     @Column(name = "status")
     private Integer status;
 
-    @Column(name = "media_id")
-    private String mediaId;
+    @Column(name = "material_id")
+    private String materialId;
 
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+8")
     @Column(name = "created")
@@ -109,12 +109,12 @@ public class WxReply implements Serializable {
         this.status = status;
     }
 
-    public String getMediaId() {
-        return mediaId;
+    public String getMaterialId() {
+        return materialId;
     }
 
-    public void setMediaId(String mediaId) {
-        this.mediaId = mediaId;
+    public void setMaterialId(String materialId) {
+        this.materialId = materialId;
     }
 
     public Date getCreated() {
@@ -123,5 +123,16 @@ public class WxReply implements Serializable {
 
     public void setCreated(Date created) {
         this.created = created;
+    }
+
+    @Transient
+    private String materialTitle;
+
+    public String getMaterialTitle() {
+        return materialTitle;
+    }
+
+    public void setMaterialTitle(String materialTitle) {
+        this.materialTitle = materialTitle;
     }
 }
