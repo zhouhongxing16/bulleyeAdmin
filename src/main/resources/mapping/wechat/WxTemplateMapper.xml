@@ -22,16 +22,16 @@
     <select id="getListByParams" resultMap="BaseResultMap" parameterType="map">
         SELECT
         <include refid="basic_list"/>
-        FROM wx_account a
+        FROM wx_template a
         <where>
             <if test="id!=null and id!='' ">
                 and a.id=#{ id }
             </if>
             <if test="sourceId!=null and source_id!='' ">
-                and a.source_id = #{ source_id }
+                and a.source_id = #{ sourceId }
             </if>
             <if test="templateId!=null and templateId!='' ">
-                and a.template_id = #{ template_id }
+                and a.template_id = #{ templateId }
             </if>
             <if test="title!=null and title!='' ">
                 and a.title LIKE CONCAT('%', #{ title }, '%')
@@ -50,4 +50,25 @@
             </if>
         </where>
     </select>
+
+    <delete id="deleteBySourceId" parameterType="string">
+        delete from wx_template where source_id= #{ sourceId }
+    </delete>
+
+    <insert id="insertByList" parameterType="list">
+        insert into wx_template (id, source_id, template_id, title, primary_industry, deputy_industry, content, example) values
+        <foreach collection="list" item="item" index="index" separator=",">
+            (
+            #{item.id},
+            #{item.sourceId},
+            #{item.templateId},
+            #{item.title},
+            #{item.primaryIndustry},
+            #{item.deputyIndustry},
+            #{item.content},
+            #{item.example}
+            )
+        </foreach>
+    </insert>
+
 </mapper>

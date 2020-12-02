@@ -9,7 +9,7 @@
         <result column="user_id" jdbcType="VARCHAR" property="userId" />
         <result column="status" jdbcType="INTEGER" property="status" />
         <result column="created" jdbcType="TIMESTAMP" property="created" />
-        
+
     </resultMap>
 
     <sql id="basic_list">
@@ -42,7 +42,7 @@
         </where>
         order by a.created
     </select>
-    
+
     <select id="getRoleAuthPaths" resultType="map">
         select r.code,ma.path as path
         from b_role_menu_auth rma
@@ -65,4 +65,17 @@
     <delete id="deleteByParams" parameterType="string">
         delete from b_role_menu_auth where role_id=#{roleId}
     </delete>
+
+    <insert id="insertByList" parameterType="list">
+        insert into b_role_menu_auth (id, role_id, menu_auth_id, user_id, created) values
+        <foreach collection="list" item="item" index="index" separator=",">
+            (
+            #{item.id},
+            #{item.roleId},
+            #{item.menuAuthId},
+            #{item.userId},
+            #{item.created}
+            )
+        </foreach>
+    </insert>
 </mapper>

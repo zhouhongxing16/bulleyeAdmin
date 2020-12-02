@@ -1,9 +1,13 @@
 package com.chris.bulleyeadmin.wechat.controller;
 
+import com.chris.bulleyeadmin.common.controller.BaseController;
 import com.chris.bulleyeadmin.common.entity.JsonResult;
+import com.chris.bulleyeadmin.common.service.BaseService;
 import com.chris.bulleyeadmin.common.utils.OperationLog;
 import com.chris.bulleyeadmin.wechat.pojo.WxAccount;
+import com.chris.bulleyeadmin.wechat.pojo.WxTemplate;
 import com.chris.bulleyeadmin.wechat.service.WxAccountService;
+import com.chris.bulleyeadmin.wechat.service.WxTemplateService;
 import io.swagger.annotations.ApiOperation;
 import lombok.AllArgsConstructor;
 import me.chanjar.weixin.common.error.WxErrorException;
@@ -20,13 +24,19 @@ import java.util.List;
 @RestController
 @AllArgsConstructor
 @RequestMapping("/wxtemplate")
-public class WxTemplateController {
+public class WxTemplateController extends BaseController<WxTemplate> {
 
     @Autowired
     private final WxMpService wxService;
 
     @Autowired
+    private WxTemplateService wxTemplateService;
+
+    @Autowired
     private WxAccountService wxAccountService;
+
+    @Override
+    public BaseService<WxTemplate> getService() { return wxTemplateService; }
 
     @ApiOperation(value = "获取列表", notes = "获取列表")
     @OperationLog("获取列表")
@@ -42,6 +52,8 @@ public class WxTemplateController {
         try {
             List<WxMpTemplate> wxMpTemplateList = wxService.getTemplateMsgService().getAllPrivateTemplate();
             System.out.println("wxMpTemplateList："+wxMpTemplateList);
+
+            wxTemplateService.insertByList(wxMpTemplateList, sourceId);
         } catch (WxErrorException e) {
             e.printStackTrace();
         }

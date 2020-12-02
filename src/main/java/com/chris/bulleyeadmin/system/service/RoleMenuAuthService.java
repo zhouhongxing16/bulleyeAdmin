@@ -15,10 +15,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import  com.chris.bulleyeadmin.system.mapper.RoleMenuAuthMapper;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 /**
  * @Author: Chris  E-mail:961860916@qq.com
@@ -54,8 +51,10 @@ public class RoleMenuAuthService extends BaseService<RoleMenuAuth> {
             roleMenuAuthMapper.deleteByParams(params);
             for(RoleMenuAuth roleMenuAuth :list){
                 roleMenuAuth.setUserId(user.getId());
-                roleMenuAuthMapper.insert(roleMenuAuth);
+                roleMenuAuth.setId(UUID.randomUUID().toString());
+                //roleMenuAuthMapper.insert(roleMenuAuth);
             }
+            roleMenuAuthMapper.insertByList(list);
             result.setSuccess(true);
             result.setMessage("菜单功能授权成功！");
         }
