@@ -27,7 +27,7 @@
             <if test="id!=null and id!='' ">
                 and a.id=#{ id }
             </if>
-            <if test="sourceId!=null and source_id!='' ">
+            <if test="sourceId!=null and sourceId!='' ">
                 and a.source_id = #{ sourceId }
             </if>
             <if test="templateId!=null and templateId!='' ">
