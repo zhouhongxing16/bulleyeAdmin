@@ -4,6 +4,7 @@ import com.chris.bulleyeadmin.common.basemapper.BaseMapper;
 import com.chris.bulleyeadmin.common.entity.JsonResult;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
+import io.swagger.models.auth.In;
 import org.springframework.http.HttpStatus;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
@@ -35,7 +36,7 @@ public abstract class BaseService<T> {
         return new PageInfo(data);
     }
 
-    @Transactional(propagation = Propagation.REQUIRED)
+    /*@Transactional(propagation = Propagation.REQUIRED)
     public JsonResult add(T obj) {
         int insertCount = getMapper().insert(obj);
         String msg = insertCount>0?"成功添加"+insertCount+"条记录":"新增数据失败！";
@@ -61,7 +62,37 @@ public abstract class BaseService<T> {
         int deleteCount = getMapper().deleteByPrimaryKey(id);
         String msg = deleteCount>0?"成功删除"+deleteCount+"条记录":"数据删除失败！";
         return new JsonResult(deleteCount>0?true:false,null,msg,null, HttpStatus.OK.value());
+    }*/
+
+
+
+    @Transactional(propagation = Propagation.REQUIRED)
+    public Integer add(T obj) {
+        return getMapper().insert(obj);
     }
+
+
+    @Transactional(propagation = Propagation.REQUIRED)
+    public JsonResult update(T obj) {
+        int updateCount = getMapper().updateByPrimaryKeySelective(obj);
+        String msg = updateCount>0?"成功更新"+updateCount+"条记录":"数据更新失败！";
+        return new JsonResult(updateCount>0?true:false,null,msg,null, HttpStatus.OK.value());
+    }
+
+    @Transactional(propagation = Propagation.REQUIRED)
+    public JsonResult delete(T obj) {
+        int deleteCount = getMapper().delete(obj);
+        String msg = deleteCount>0?"成功删除"+deleteCount+"条记录":"数据删除失败！";
+        return new JsonResult(deleteCount>0?true:false,null,msg,null, HttpStatus.OK.value());
+    }
+
+    @Transactional(propagation = Propagation.REQUIRED)
+    public JsonResult deleteById(String id) {
+        int deleteCount = getMapper().deleteByPrimaryKey(id);
+        String msg = deleteCount>0?"成功删除"+deleteCount+"条记录":"数据删除失败！";
+        return new JsonResult(deleteCount>0?true:false,null,msg,null, HttpStatus.OK.value());
+    }
+
 
     public JsonResult getById(String hId) {
         Object obj = getMapper().selectByPrimaryKey(hId);
