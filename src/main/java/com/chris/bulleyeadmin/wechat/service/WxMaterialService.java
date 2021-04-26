@@ -56,10 +56,10 @@ public class WxMaterialService extends BaseService<WxMaterial> {
         //获取父级
         WxMaterial wxMaterial = wxMaterialMapper.selectOne(queryWxMaterial);
         //获取相关接口
-        WxAccount queryaccount = new WxAccount();
-        queryaccount.setSourceId(wxMaterial.getSourceId());
+        WxAccount queryAccount = new WxAccount();
+        queryAccount.setSourceId(wxMaterial.getSourceId());
 
-        WxAccount account = wxAccountMapper.selectOne(queryaccount);
+        WxAccount account = wxAccountMapper.selectOne(queryAccount);
         WxMpService wxService = this.wxService.switchoverTo(account.getAppId());
         //处理图文消息
         if(WxMaterialEnum.news.toString().equals(wxMaterial.getType())){
@@ -72,7 +72,7 @@ public class WxMaterialService extends BaseService<WxMaterial> {
             article.setDigest(wxMaterial.getDigest());
             article.setNeedOpenComment(wxMaterial.getNeedOpenComment());
             article.setOnlyFansCanComment(wxMaterial.getOnlyFansCanComment());
-            article.setShowCoverPic(wxMaterial.getNeedOpenComment());
+            article.setShowCoverPic(wxMaterial.getShowCoverPic());
 
             //封面图片素材id，此处必须进行上传为临时素材处理
             try {
@@ -80,7 +80,7 @@ public class WxMaterialService extends BaseService<WxMaterial> {
                 attachFiles.setId(wxMaterial.getThumbFileId());
                 attachFiles = bizFileMapper.selectOne(attachFiles);
                 if (attachFiles!=null){
-                    File dir = new File("G:/projectTemp/"+attachFiles.getFullFilePath());
+                    File dir = new File( attachFiles.getFilePath() + "/" + attachFiles.getOriginalFileName());
                     WxMpMaterial img = new WxMpMaterial();
                     img.setFile(dir);
                     WxMpMaterialUploadResult wxMpMaterialUploadResult = wxService.getMaterialService().materialFileUpload("image", img);
@@ -104,8 +104,10 @@ public class WxMaterialService extends BaseService<WxMaterial> {
                 if(result.getMediaId()!=null){
                     wxMaterial.setMediaId(result.getMediaId());
                     wxMaterialMapper.updateByPrimaryKey(wxMaterial);
+                    return new JsonResult(true, null, msg, "", HttpStatus.OK.value());
+                } else {
+                    return new JsonResult(false, null, msg, result.getErrCode().toString(), HttpStatus.OK.value());
                 }
-                return new JsonResult(result.getMediaId()!=null?true:false,null,msg,result.getErrCode().toString(), HttpStatus.OK.value());
             } catch (Exception e) {
                 e.printStackTrace();
                 return new JsonResult(false,null,"生成失败！",null, HttpStatus.OK.value());
@@ -231,7 +233,7 @@ public class WxMaterialService extends BaseService<WxMaterial> {
 
     //向指定用户推送永久素材
     @Transactional(propagation = Propagation.REQUIRED)
-    public JsonResult pubMaterialToUserList(String id, List openidList){
+    public JsonResult pubMaterialToUserList(String id, List<String> openidList){
         //获取素材
         WxMaterial qwxMaterial = new WxMaterial();
         qwxMaterial.setId(id);
@@ -242,14 +244,38 @@ public class WxMaterialService extends BaseService<WxMaterial> {
         WxAccount account = wxAccountMapper.selectOne(queryAccount);
         WxMpService wxService = this.wxService.switchoverTo(account.getAppId());
         try {
-            /*//客服消息获取需要推送的用户openid
-            String openid = "o49sjv02N1-r-vfq_9EMOcj5hQCY";
-            KefuNewsBuilder kefuNewsBuilder = new KefuNewsBuilder();
-            boolean flag = kefuNewsBuilder.pubMaterialToUserByKf(wxService, openid, wxMaterial.getMediaId());*/
-
             //根据openid发送
             NewsBuilder newsBuilder = new NewsBuilder();
             boolean flag = newsBuilder.pubMaterialToUserList(wxMaterial, openidList, wxService);
+
+            String msg = flag?"推送成功":"推送失败！";
+            return new JsonResult(flag?true:false,null,msg, null, HttpStatus.OK.value());
+        }catch (Exception e){
+            return new JsonResult(false,null,"推送失败", null, HttpStatus.OK.value());
+        }
+    }
+
+    //向指定用户推送永久素材（客服消息模式）
+    @Transactional(propagation = Propagation.REQUIRED)
+    public JsonResult pubMaterialToUserListByKf(String id, List<String> openidList){
+        //获取素材
+        WxMaterial qwxMaterial = new WxMaterial();
+        qwxMaterial.setId(id);
+        WxMaterial wxMaterial = wxMaterialMapper.selectOne(qwxMaterial);
+        //获取相关公众号及接口
+        WxAccount queryAccount = new WxAccount();
+        queryAccount.setSourceId(wxMaterial.getSourceId());
+        WxAccount account = wxAccountMapper.selectOne(queryAccount);
+        WxMpService wxService = this.wxService.switchoverTo(account.getAppId());
+
+        boolean flag = false;
+        try {
+            //客服消息获取需要推送的用户openid
+            //String openid = "o49sjv02N1-r-vfq_9EMOcj5hQCY";
+            for (String openId: openidList) {
+                KefuNewsBuilder kefuNewsBuilder = new KefuNewsBuilder();
+                flag = kefuNewsBuilder.pubMaterialToUserByKf(wxService, openId, wxMaterial.getMediaId());
+            }
 
             String msg = flag?"推送成功":"推送失败！";
             return new JsonResult(flag?true:false,null,msg, null, HttpStatus.OK.value());

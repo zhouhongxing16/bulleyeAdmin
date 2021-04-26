@@ -71,6 +71,14 @@ public class WxMaterialController extends BaseController<WxMaterial> {
         return wxMaterialService.pubMaterialToUserList(id, openidList);
     }
 
+    @OperationLog("向指定用户推送永久素材")
+    @GetMapping("/pubMaterialToUserListByKf")
+    public JsonResult pubMaterialToUserListByKf(@RequestBody Map<String, Object> params) {
+        String id = params.get("id").toString();
+        List<String> openidList = Arrays.asList(params.get("openidList").toString().split(","));
+        return wxMaterialService.pubMaterialToUserListByKf(id, openidList);
+    }
+
     @OperationLog("向所有用户推送永久素材")
     @GetMapping("/pubMaterialToUserAll/{id}")
     public JsonResult pubMaterialToUserAll(@PathVariable String id) {

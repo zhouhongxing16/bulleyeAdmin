@@ -5,11 +5,10 @@ import com.chris.bulleyeadmin.common.entity.JsonResult;
 import com.chris.bulleyeadmin.common.service.BaseService;
 import com.chris.bulleyeadmin.wechat.mapper.WxAccountMapper;
 import com.chris.bulleyeadmin.wechat.mapper.WxMemberMapper;
-import com.chris.bulleyeadmin.wechat.pojo.WxAccount;
 import com.chris.bulleyeadmin.wechat.pojo.WxMember;
 import lombok.AllArgsConstructor;
-import me.chanjar.weixin.mp.api.WxMpService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
@@ -49,4 +48,14 @@ public class WxMemberService extends BaseService<WxMember> {
 
         return null;
     }*/
+
+    @Transactional(propagation = Propagation.REQUIRED)
+    public JsonResult setMemberTag(Long tagId, String[] openids) {
+        int count = wxMemberMapper.setMemberTag(tagId, openids);
+        if (count > 0) {
+            String msg = count>0?"成功更新"+count+"条记录":"数据更新失败！";
+            return new JsonResult(count>0?true:false,null,msg,null, HttpStatus.OK.value());
+        }
+        return new JsonResult(false,null,"更新失败",null, HttpStatus.OK.value());
+    }
 }

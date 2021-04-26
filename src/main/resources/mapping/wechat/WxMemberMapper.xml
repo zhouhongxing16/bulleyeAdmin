@@ -91,4 +91,7 @@
             a.open_id =  #{openId}
         </where>
     </select>
+    <update id="setMemberTag" parameterType="map">
+        update wx_member a set a.tag_ids = CONCAT_WS(',', a.tag_ids, #{tagId}) where open_id in (#{openids})
+    </update>
 </mapper>

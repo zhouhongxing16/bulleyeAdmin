@@ -16,4 +16,6 @@ public interface RoleMenuAuthMapper extends BaseMapper<RoleMenuAuth> {
     List<Map<String, String>> getAuthByMenuAndRoleId(Map<String,String> param);
 
     int deleteByParams(Map<String,Object> params);
+
+    int insertByList(List<RoleMenuAuth> list);
 }

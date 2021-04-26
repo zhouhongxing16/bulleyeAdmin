@@ -1,7 +1,10 @@
 package com.chris.bulleyeadmin.wechat.handler;
 
 import com.alibaba.fastjson.JSONObject;
+import com.chris.bulleyeadmin.common.entity.JsonResult;
 import com.chris.bulleyeadmin.wechat.KefuBuilder.KefuNewsBuilder;
+import com.chris.bulleyeadmin.wechat.pojo.WxMaterial;
+import com.chris.bulleyeadmin.wechat.service.WxMemberService;
 import com.chris.bulleyeadmin.wechat.utils.TulingApiUtil;
 import com.chris.bulleyeadmin.wechat.builder.NewsBuilder;
 import com.chris.bulleyeadmin.wechat.builder.TextBuilder;
@@ -32,6 +35,9 @@ public class MsgHandler extends AbstractHandler {
     @Autowired
     WxReplyService wxReplyService;
 
+    @Autowired
+    WxMemberService wxMemberService;
+
     @Override
     public WxMpXmlOutMessage handle(WxMpXmlMessage wxMessage,
                                     Map<String, Object> context, WxMpService weixinService,
@@ -53,7 +59,11 @@ public class MsgHandler extends AbstractHandler {
                     if (reply.getKeyType().equals(WxConstants.REPLY_TYPE_TEXT)) {
                         return new TextBuilder().build(reply.getKeyValue(), wxMessage, weixinService);
                     } else if (reply.getKeyType().equals(WxConstants.MESSAGE_TYPE_NEWS)) {
-                        boolean flag = new KefuNewsBuilder().pubMaterialToUserByKf(weixinService, wxMessage.getFromUser(), reply.getMediaId());
+                        JsonResult json = wxMemberService.getById(reply.getMaterialId());
+                        if (json.isSuccess()) {
+                            WxMaterial wxMaterial = (WxMaterial) json.getData();
+                            boolean flag = new KefuNewsBuilder().pubMaterialToUserByKf(weixinService, wxMessage.getFromUser(), wxMaterial.getMediaId());
+                        }
                         return null;
                     }
                 }

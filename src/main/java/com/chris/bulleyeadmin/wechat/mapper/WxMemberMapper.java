@@ -11,4 +11,6 @@ import org.apache.ibatis.annotations.Param;
  */
 public interface WxMemberMapper extends BaseMapper<WxMember> {
     WxMember getMemberByOpenId(@Param("openId") String openId);
+
+    int setMemberTag (@Param("tagId") Long tagId, @Param("openids") String[] openids);
 }
