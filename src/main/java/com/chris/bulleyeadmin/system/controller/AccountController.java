@@ -66,7 +66,9 @@ public class AccountController extends BaseController<Account> {
         obj.setOrganizationId(user.getOrganizationId());
         String password = PasswordEncoderFactories.createDelegatingPasswordEncoder().encode(obj.getUsername());
         obj.setPassword(password);
-        return getService().add(obj);
+        Integer insertCount = getService().add(obj);
+        String msg = insertCount > 0 ? "成功添加" + insertCount + "条记录" : "新增数据失败！";
+        return new JsonResult(insertCount > 0 ? true : false, null, msg, null, HttpStatus.OK.value());
     }
 
     @ApiOperation(value = "管理员账号密码登录", notes = "参数：用户名username，密码password")

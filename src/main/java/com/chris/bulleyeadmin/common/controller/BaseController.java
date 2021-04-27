@@ -79,7 +79,9 @@ public abstract class BaseController<T> {
     @OperationLog("创建方法")
     @PostMapping("/create")
     public JsonResult create(@RequestBody T obj) throws Exception {
-        return getService().add(obj);
+        Integer insertCount = getService().add(obj);
+        String msg = insertCount > 0 ? "成功添加" + insertCount + "条记录" : "新增数据失败！";
+        return new JsonResult(insertCount > 0 ? true : false, null, msg, null, HttpStatus.OK.value());
     }
 
     //更新

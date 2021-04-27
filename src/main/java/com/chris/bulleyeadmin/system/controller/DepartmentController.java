@@ -10,6 +10,7 @@ import com.chris.bulleyeadmin.system.pojo.User;
 import com.chris.bulleyeadmin.system.service.DepartmentService;
 import io.swagger.annotations.Api;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
 /**
@@ -38,6 +39,8 @@ public class DepartmentController extends BaseController<Department> {
         User user = AuthUtil.getCurrentUser();
         obj.setOrganizationId(user.getOrganizationId());
         obj.setUserId(user.getId());
-        return departmentService.add(obj);
+        Integer insertCount = departmentService.add(obj);
+        String msg = insertCount > 0 ? "成功添加" + insertCount + "条记录" : "新增数据失败！";
+        return new JsonResult(insertCount > 0 ? true : false, null, msg, null, HttpStatus.OK.value());
     }
 }

@@ -49,7 +49,9 @@ public class DictionaryDataController extends BaseController<DictionaryData> {
     public JsonResult create(@RequestBody DictionaryData obj) throws Exception {
         User user = AuthUtil.getCurrentUser();
         obj.setUserId(user.getId());
-        return dictionaryDataService.add(obj);
+        Integer insertCount = dictionaryDataService.add(obj);
+        String msg = insertCount > 0 ? "成功添加" + insertCount + "条记录" : "新增数据失败！";
+        return new JsonResult(insertCount > 0 ? true : false, null, msg, null, HttpStatus.OK.value());
     }
 
     @PostMapping("/getListByTypeCode/{code}")
