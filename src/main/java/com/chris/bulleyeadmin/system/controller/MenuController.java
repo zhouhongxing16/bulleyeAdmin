@@ -10,6 +10,7 @@ import com.chris.bulleyeadmin.system.pojo.Menu;
 import com.chris.bulleyeadmin.system.pojo.User;
 import com.chris.bulleyeadmin.system.service.MenuService;
 import io.swagger.annotations.Api;
+import io.swagger.models.auth.In;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
@@ -110,8 +111,12 @@ public class MenuController extends BaseController<Menu> {
     @OperationLog("创建菜单")
     @PostMapping("/create")
     public JsonResult create(@RequestBody Menu obj) throws Exception {
+        JsonResult result = new JsonResult();
         User user = AuthUtil.getCurrentUser();
         obj.setUserId(user.getId());
-        return menuService.add(obj);
+        Integer insertCount = menuService.add(obj);
+        result.setStatus(HttpStatus.OK.value());
+        String msg = insertCount > 0 ? "成功添加" + insertCount + "条记录" : "新增数据失败！";
+        return new JsonResult(insertCount > 0 ? true : false, null, msg, null, HttpStatus.OK.value());
     }
 }

@@ -10,6 +10,7 @@ import com.chris.bulleyeadmin.system.mapper.MenuMapper;
 import com.chris.bulleyeadmin.system.pojo.Menu;
 import com.chris.bulleyeadmin.system.pojo.MenuAuth;
 import com.chris.bulleyeadmin.system.pojo.User;
+import io.swagger.models.auth.In;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -40,7 +41,7 @@ public class MenuService extends BaseService<Menu> {
 
 
     @Override
-    public JsonResult add(Menu obj) {
+    public Integer add(Menu obj) {
         int insertCount = getMapper().insert(obj);
 
         //增加菜单时默认增加增删改查功能权限
@@ -79,8 +80,8 @@ public class MenuService extends BaseService<Menu> {
             maDelete.setStatus(1);
             menuAuthMapper.insert(maDelete);
         }
-        String msg = insertCount > 0 ? "成功添加" + insertCount + "条记录" : "新增数据失败！";
-        return new JsonResult(insertCount > 0 ? true : false, null, msg, null, HttpStatus.OK.value());
+        return insertCount;
+
     }
 
     @Override
