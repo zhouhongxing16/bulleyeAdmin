@@ -10,6 +10,7 @@ import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiOperation;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Arrays;
@@ -40,15 +41,6 @@ public class WxMaterialController extends BaseController<WxMaterial> {
         } else {
             return wxMaterialService.update(obj);
         }
-    }
-
-    //删除
-    @ApiOperation(value = "根据ID删除一条数据", notes = "根据ID删除一条数据")
-    @GetMapping("/delete/{id}")
-    @ResponseBody
-    @OperationLog("删除")
-    public JsonResult remove(@PathVariable String id) {
-        return getService().deleteById(id);
     }
 
     @OperationLog("生成永久素材")

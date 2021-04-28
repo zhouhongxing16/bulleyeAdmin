@@ -98,7 +98,9 @@ public abstract class BaseController<T> {
     @GetMapping("/delete/{id}")
     @OperationLog("删除")
     public JsonResult remove(@PathVariable String id) {
-        return getService().deleteById(id);
+        Object obj = getService().deleteById(id);
+        String msg = obj!=null?"查询成功！":"查询失败！";
+        return  new JsonResult(obj!=null?true:false,obj,msg,null, HttpStatus.OK.value());
     }
 
     //获取一条数据
