@@ -39,7 +39,9 @@ public class WxMaterialController extends BaseController<WxMaterial> {
         if (StringUtils.isNotBlank(obj.getMediaId())){
             return wxMaterialService.updateMaterial(obj);
         } else {
-            return wxMaterialService.update(obj);
+            int updateCount = wxMaterialService.update(obj);
+            String msg = updateCount>0?"成功更新"+updateCount+"条记录":"数据更新失败！";
+            return new JsonResult(updateCount>0?true:false,null,msg,null, HttpStatus.OK.value());
         }
     }
 

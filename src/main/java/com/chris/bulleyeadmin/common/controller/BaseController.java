@@ -90,7 +90,9 @@ public abstract class BaseController<T> {
     @OperationLog("更新")
     @PostMapping("/update")
     public JsonResult update(@RequestBody T obj) {
-        return getService().update(obj);
+        int updateCount = getService().update(obj);
+        String msg = updateCount>0?"成功更新"+updateCount+"条记录":"数据更新失败！";
+        return new JsonResult(updateCount>0?true:false,null,msg,null, HttpStatus.OK.value());
     }
 
     //删除

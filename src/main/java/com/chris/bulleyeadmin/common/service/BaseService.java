@@ -73,10 +73,9 @@ public abstract class BaseService<T> {
 
 
     @Transactional(propagation = Propagation.REQUIRED)
-    public JsonResult update(T obj) {
-        int updateCount = getMapper().updateByPrimaryKeySelective(obj);
-        String msg = updateCount>0?"成功更新"+updateCount+"条记录":"数据更新失败！";
-        return new JsonResult(updateCount>0?true:false,null,msg,null, HttpStatus.OK.value());
+    public int update(T obj) {
+
+        return  getMapper().updateByPrimaryKeySelective(obj);
     }
 
     @Transactional(propagation = Propagation.REQUIRED)
