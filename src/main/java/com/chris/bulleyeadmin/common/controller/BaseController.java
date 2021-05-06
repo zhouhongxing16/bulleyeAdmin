@@ -79,7 +79,9 @@ public abstract class BaseController<T> {
     @OperationLog("创建方法")
     @PostMapping("/create")
     public JsonResult create(@RequestBody T obj) throws Exception {
-        return getService().add(obj);
+        Integer insertCount = getService().add(obj);
+        String msg = insertCount > 0 ? "成功添加" + insertCount + "条记录" : "新增数据失败！";
+        return new JsonResult(insertCount > 0 ? true : false, null, msg, null, HttpStatus.OK.value());
     }
 
     //更新
@@ -88,7 +90,9 @@ public abstract class BaseController<T> {
     @OperationLog("更新")
     @PostMapping("/update")
     public JsonResult update(@RequestBody T obj) {
-        return getService().update(obj);
+        int updateCount = getService().update(obj);
+        String msg = updateCount>0?"成功更新"+updateCount+"条记录":"数据更新失败！";
+        return new JsonResult(updateCount>0?true:false,null,msg,null, HttpStatus.OK.value());
     }
 
     //删除
@@ -96,7 +100,9 @@ public abstract class BaseController<T> {
     @GetMapping("/delete/{id}")
     @OperationLog("删除")
     public JsonResult remove(@PathVariable String id) {
-        return getService().deleteById(id);
+        Object obj = getService().deleteById(id);
+        String msg = obj!=null?"查询成功！":"查询失败！";
+        return  new JsonResult(obj!=null?true:false,obj,msg,null, HttpStatus.OK.value());
     }
 
     //获取一条数据

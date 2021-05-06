@@ -85,7 +85,7 @@ public class MenuService extends BaseService<Menu> {
     }
 
     @Override
-    public JsonResult update(Menu obj) {
+    public int update(Menu obj) {
         int updateCount = getMapper().updateByPrimaryKey(obj);
         MenuAuth auth = new MenuAuth();
         auth.setMenuId(obj.getId());
@@ -125,8 +125,8 @@ public class MenuService extends BaseService<Menu> {
             maDelete.setStatus(1);
             menuAuthMapper.insert(maDelete);
         }
-        String msg = updateCount>0?"成功更新"+updateCount+"条记录":"数据更新失败！";
-        return new JsonResult(updateCount>0?true:false,null,msg,null, HttpStatus.OK.value());
+        return updateCount;
+
     }
 
     public List<MenuDto> getMenusByAccountId(){

@@ -10,6 +10,7 @@ import com.chris.bulleyeadmin.system.pojo.User;
 import com.chris.bulleyeadmin.system.service.RoleService;
 import io.swagger.annotations.Api;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.HashMap;
@@ -41,7 +42,10 @@ public class RoleController extends BaseController<Role> {
         User user = AuthUtil.getCurrentUser();
         obj.setOrganizationId(user.getOrganizationId());
         obj.setUserId(user.getId());
-        return getService().add(obj);
+
+        Integer insertCount = getService().add(obj);
+        String msg = insertCount > 0 ? "成功添加" + insertCount + "条记录" : "新增数据失败！";
+        return new JsonResult(insertCount > 0 ? true : false, null, msg, null, HttpStatus.OK.value());
     }
 
     @OperationLog("获取所有角色")

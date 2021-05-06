@@ -85,7 +85,9 @@ public class WxReplyController extends BaseController<WxReply> {
     @Override
     public JsonResult create(@RequestBody WxReply obj) throws Exception {
         obj.setNum(0);
-        return wxReplyService.add(obj);
+        Integer insertCount = wxReplyService.add(obj);
+        String msg = insertCount > 0 ? "成功添加" + insertCount + "条记录" : "新增数据失败！";
+        return new JsonResult(insertCount > 0 ? true : false, null, msg, null, HttpStatus.OK.value());
     }
 
 }

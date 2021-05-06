@@ -10,6 +10,7 @@ import com.chris.bulleyeadmin.system.pojo.User;
 import com.chris.bulleyeadmin.system.service.OrganizationService;
 import io.swagger.annotations.Api;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
 /**
@@ -38,6 +39,9 @@ public class OrganizationController extends BaseController<Organization> {
     public JsonResult create(@RequestBody Organization obj) throws Exception {
         User user = AuthUtil.getCurrentUser();
         obj.setUserId(user.getId());
-        return organizationService.add(obj);
+
+        Integer insertCount = organizationService.add(obj);
+        String msg = insertCount > 0 ? "成功添加" + insertCount + "条记录" : "新增数据失败！";
+        return new JsonResult(insertCount > 0 ? true : false, null, msg, null, HttpStatus.OK.value());
     }
 }
