@@ -58,10 +58,8 @@ public abstract class BaseService<T> {
     }
 
     @Transactional(propagation = Propagation.REQUIRED)
-    public JsonResult deleteById(String id) {
-        int deleteCount = getMapper().deleteByPrimaryKey(id);
-        String msg = deleteCount>0?"成功删除"+deleteCount+"条记录":"数据删除失败！";
-        return new JsonResult(deleteCount>0?true:false,null,msg,null, HttpStatus.OK.value());
+    public int deleteById(String id) {
+        return getMapper().deleteByPrimaryKey(id);
     }*/
 
 

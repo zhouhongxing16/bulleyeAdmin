@@ -215,6 +215,13 @@
             <version>0.4.11</version>
         </dependency>
 
+        <dependency>
+            <scope>compile</scope>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-data-redis</artifactId>
+            <version>2.4.5</version>
+        </dependency>
+
     </dependencies>
 
     <build>
