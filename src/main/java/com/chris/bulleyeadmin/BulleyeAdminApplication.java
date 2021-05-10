@@ -17,6 +17,6 @@ public class BulleyeAdminApplication {
         final Logger logger = LoggerFactory.getLogger(BulleyeAdminApplication.class);
         ApplicationContext ctx = SpringApplication.run(BulleyeAdminApplication.class, args);
         String[] activeProfiles = ctx.getEnvironment().getActiveProfiles();
-        logger.info("当前使用的 profile 是:{}", StringUtils.join("、",activeProfiles));
+        logger.info("当前使用的 profile 是:{}", StringUtils.join(activeProfiles,"、"));
     }
 }
