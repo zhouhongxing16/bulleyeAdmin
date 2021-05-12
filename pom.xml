@@ -222,6 +222,13 @@
             <version>2.4.5</version>
         </dependency>
 
+        <dependency>
+            <scope>compile</scope>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-test</artifactId>
+            <version>2.4.0</version>
+        </dependency>
+
     </dependencies>
 
     <build>

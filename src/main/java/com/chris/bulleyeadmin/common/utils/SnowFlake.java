@@ -78,7 +78,7 @@ public class SnowFlake {
         return (currStmp - START_STMP) << TIMESTMP_LEFT //时间戳部分
                 | datacenterId << DATACENTER_LEFT       //数据中心部分
                 | machineId << MACHINE_LEFT             //机器标识部分
-                | sequence;                             //序列号部分
+                | sequence ;                             //序列号部分
     }
 
     private long getNextMill() {
