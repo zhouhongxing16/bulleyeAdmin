@@ -9,12 +9,12 @@
         <relativePath/> <!-- lookup parent from repository -->
     </parent>
     <groupId>com.chris</groupId>
-    <artifactId>bulleyeadmin</artifactId>
+    <artifactId>bullseyeadmin</artifactId>
     <version>0.0.1-SNAPSHOT</version>
     <packaging>jar</packaging>
 
     <name>bulleyeAdmin</name>
-    <description>bulleyeAdmin a java demo</description>
+    <description>bullseyeAdmin a java demo</description>
 
     <properties>
         <java.version>1.8</java.version>
