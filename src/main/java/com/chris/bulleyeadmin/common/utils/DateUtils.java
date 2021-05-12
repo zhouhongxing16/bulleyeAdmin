@@ -9,6 +9,8 @@ import javax.servlet.http.HttpServletRequest;
 import java.lang.management.ManagementFactory;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.time.Duration;
+import java.time.LocalDateTime;
 import java.util.*;
 
 public class DateUtils {
@@ -196,5 +198,18 @@ public class DateUtils {
         long from = simpleFormat.parse(startDate).getTime();
         long to = simpleFormat.parse(endDate).getTime();
         return String.valueOf((to - from) / 60000L);
+    }
+
+
+
+    /***
+     * 获取2个时间间隔的分钟数
+     * @param begin
+     * @param end
+     * @return
+     */
+    public static long getDurationMinute(LocalDateTime begin, LocalDateTime end) {
+        Duration duration = Duration.between(begin,end);
+        return duration.toMinutes();
     }
 }

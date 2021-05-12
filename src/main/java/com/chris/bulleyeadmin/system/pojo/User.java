@@ -5,6 +5,7 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.security.core.GrantedAuthority;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
@@ -59,10 +60,17 @@ public class User extends org.springframework.security.core.userdetails.User {
 
     private String platform;
 
+    private String token;
+
     /**
      * 当前角色
      */
     private Role currentRole;
+
+    /**
+     * 登录失效时间
+     */
+    private LocalDateTime expireTime;
 
     public String getRemember() {
         return remember;
@@ -158,6 +166,22 @@ public class User extends org.springframework.security.core.userdetails.User {
 
     public void setPlatform(String platform) {
         this.platform = platform;
+    }
+
+    public LocalDateTime getExpireTime() {
+        return expireTime;
+    }
+
+    public void setExpireTime(LocalDateTime expireTime) {
+        this.expireTime = expireTime;
+    }
+
+    public String getToken() {
+        return token;
+    }
+
+    public void setToken(String token) {
+        this.token = token;
     }
 
     @Override

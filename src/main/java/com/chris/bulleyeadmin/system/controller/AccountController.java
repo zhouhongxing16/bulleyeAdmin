@@ -29,6 +29,7 @@ import javax.servlet.http.HttpServletRequest;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+import java.util.UUID;
 
 /**
  * @Author: Chris E-mail:961860916@qq.com
@@ -51,6 +52,9 @@ public class AccountController extends BaseController<Account> {
 
     @Autowired
     LoginRecordService loginRecordService;
+
+    @Autowired
+    private LoginUserUtil loginUserUtil;
 
     @Override
     public BaseService<Account> getService() {
@@ -158,6 +162,9 @@ public class AccountController extends BaseController<Account> {
             result.setMessage("登录成功");
             result.setStatus(HttpStatus.OK.value());
             result.setData(JwtHelper.createJWT(user.toString()));
+
+            //把信息存入redis
+            loginUserUtil.setUserInfo(UUID.randomUUID().toString(),user);
         } else {
             result.setSuccess(false);
             result.setMessage("用户名或密码错误！");
