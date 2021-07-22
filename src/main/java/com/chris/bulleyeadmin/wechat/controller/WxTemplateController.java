@@ -66,7 +66,7 @@ public class WxTemplateController extends BaseController<WxTemplate> {
     @ApiOperation(value = "测试推送", notes = "获取列表")
     @OperationLog("测试推送")
     @GetMapping("/testPushMessage")
-    public JsonResult testPushMessage(@PathVariable String sourceId) {
+    public JsonResult testPushMessage() {
         WxMpTemplateMessage templateMessage = WxMpTemplateMessage.builder()
                 .toUser("")
                 .templateId("")
@@ -74,8 +74,9 @@ public class WxTemplateController extends BaseController<WxTemplate> {
                 .build();
         templateMessage.addData(new WxMpTemplateData("name1", "value1", "color2"));
         templateMessage.addData(new WxMpTemplateData("name2", "value2", "color2"));
+        WxMpService wxService = this.wxMpService.switchoverTo("account.getAppId()");
         try {
-            wxMpService.getTemplateMsgService().sendTemplateMsg(templateMessage);
+            wxService.getTemplateMsgService().sendTemplateMsg(templateMessage);
         } catch (WxErrorException e) {
             e.printStackTrace();
         }
