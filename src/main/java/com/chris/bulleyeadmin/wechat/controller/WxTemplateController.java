@@ -13,6 +13,8 @@ import lombok.AllArgsConstructor;
 import me.chanjar.weixin.common.error.WxErrorException;
 import me.chanjar.weixin.mp.api.WxMpService;
 import me.chanjar.weixin.mp.bean.template.WxMpTemplate;
+import me.chanjar.weixin.mp.bean.template.WxMpTemplateData;
+import me.chanjar.weixin.mp.bean.template.WxMpTemplateMessage;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
@@ -27,7 +29,7 @@ import java.util.List;
 public class WxTemplateController extends BaseController<WxTemplate> {
 
     @Autowired
-    private final WxMpService wxService;
+    private final WxMpService wxMpService;
 
     @Autowired
     private WxTemplateService wxTemplateService;
@@ -47,7 +49,7 @@ public class WxTemplateController extends BaseController<WxTemplate> {
         queryAccount.setSourceId(sourceId);
 
         WxAccount account = wxAccountService.getMapper().selectOne(queryAccount);
-        WxMpService wxService = this.wxService.switchoverTo(account.getAppId());
+        WxMpService wxService = this.wxMpService.switchoverTo(account.getAppId());
 
         try {
             List<WxMpTemplate> wxMpTemplateList = wxService.getTemplateMsgService().getAllPrivateTemplate();
@@ -58,6 +60,25 @@ public class WxTemplateController extends BaseController<WxTemplate> {
             e.printStackTrace();
         }
 
+        return new JsonResult(true,null,"获取成功",null, HttpStatus.OK.value());
+    }
+
+    @ApiOperation(value = "测试推送", notes = "获取列表")
+    @OperationLog("测试推送")
+    @GetMapping("/testPushMessage")
+    public JsonResult testPushMessage(@PathVariable String sourceId) {
+        WxMpTemplateMessage templateMessage = WxMpTemplateMessage.builder()
+                .toUser("")
+                .templateId("")
+                .url("")
+                .build();
+        templateMessage.addData(new WxMpTemplateData("name1", "value1", "color2"));
+        templateMessage.addData(new WxMpTemplateData("name2", "value2", "color2"));
+        try {
+            wxMpService.getTemplateMsgService().sendTemplateMsg(templateMessage);
+        } catch (WxErrorException e) {
+            e.printStackTrace();
+        }
         return new JsonResult(true,null,"获取成功",null, HttpStatus.OK.value());
     }
 
