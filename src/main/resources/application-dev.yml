@@ -6,7 +6,8 @@ server:
       persistent: true
 spring:
   datasource:
-    url: jdbc:p6spy:mysql://127.0.0.1:3306/bulleye_admin?characterEncoding=utf8&serverTimezone=GMT%2B8
+#    url: jdbc:p6spy:mysql://127.0.0.1:3306/bulleye_admin?characterEncoding=utf8&serverTimezone=GMT%2B8
+    url: jdbc:p6spy:mysql://cdb-50qvvhyi.cd.tencentcdb.com:10130/bulleye_admin?characterEncoding=utf8&serverTimezone=GMT%2B8
     driver-class-name: com.p6spy.engine.spy.P6SpyDriver
     hikari:
       username: bullseye
@@ -19,7 +20,7 @@ spring:
     host: smtp.exmail.qq.com
     username: chris@zhouhongxing.cn
     port: 25
-    password: 123
+    password: zZ8302812520
     protocol: smtp
     default-encoding: utf-8
   servlet:
@@ -27,8 +28,8 @@ spring:
       max-file-size: 100MB
       max-request-size: 100MB
   redis:
-    host: 118.22.92.127
-    password: 123
+    host: 118.24.91.197
+    password: chris950602
 mybatis:
   mapper-locations: classpath*:/mapping/**/*Mapper.xml
   type-aliases-package: com.chris.bulleyeadmin.**.pojo
