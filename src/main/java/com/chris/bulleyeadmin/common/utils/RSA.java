@@ -6,6 +6,7 @@ import sun.misc.BASE64Decoder;
 import sun.misc.BASE64Encoder;
 
 import javax.crypto.Cipher;
+import java.nio.charset.StandardCharsets;
 import java.security.*;
 import java.security.interfaces.RSAPrivateKey;
 import java.security.interfaces.RSAPublicKey;
@@ -25,8 +26,28 @@ public class RSA {
         public static final String KEY_ALGORITHM = "RSA";
         public static final String SIGNATURE_ALGORITHM = "MD5withRSA";
 
-        private static final String PUBLIC_KEY = "RSAPublicKey";
-        private static final String PRIVATE_KEY = "RSAPrivateKey";
+        private static final String PUBLIC_KEY = "-----BEGIN PUBLIC KEY-----\n" +
+                "MIGfMA0GCSqGSIb3DQEBAQUAA4GNADCBiQKBgQDt2wPaIt7KriNjuMlsYJo07Cft\n" +
+                "PmxkPpfNMQ4d7spQHvfjQyVa8t6AweH7kmoLGzJSKPvdD4xIw4ElGBid5l8i6U/J\n" +
+                "EMpwiMBBq6PA7Or1C3PwfC1TEvm+VywTJgLkHg3f2gqRQ5r+mZ+7tiharLNxSWAo\n" +
+                "4hrDwvzWgV7O6Vj5fQIDAQAB\n" +
+                "-----END PUBLIC KEY-----";
+        private static final String PRIVATE_KEY = "-----BEGIN PRIVATE KEY-----\n" +
+                "MIICdwIBADANBgkqhkiG9w0BAQEFAASCAmEwggJdAgEAAoGBAO3bA9oi3squI2O4\n" +
+                "yWxgmjTsJ+0+bGQ+l80xDh3uylAe9+NDJVry3oDB4fuSagsbMlIo+90PjEjDgSUY\n" +
+                "GJ3mXyLpT8kQynCIwEGro8Ds6vULc/B8LVMS+b5XLBMmAuQeDd/aCpFDmv6Zn7u2\n" +
+                "KFqss3FJYCjiGsPC/NaBXs7pWPl9AgMBAAECgYBiwQ4mYVfy+r4Cx1QJxUoBMxOY\n" +
+                "stQ6AqrwLK/Zya0B+vmcx+IYksHC37y9wJp6pf4MkquPqsbp5xIVnp2J4X4ZqaJo\n" +
+                "es9eBKVXaM43KI3Rf4sHA2MMyiAGeJye071ngwkPT96kBjxQWtpOemxnlUax7w31\n" +
+                "A09/6BDSNroKYCbImQJBAPycxWTalt2nEH3jJHwbeILDcERWHtSbAowCYg+kmY2F\n" +
+                "fBaFRJPxNsMADefuC+LyvITiXdEuIBD9/genEHDWS+sCQQDxC5VDWwpsDMqbpRn/\n" +
+                "JiLvbFeDjt8Rj15wOxCUCtPr9RI4/kXFsbwHhZr7ar3dlTWlFmUzKnDIGSE5iCpO\n" +
+                "k343AkEAtQfMVkhoUZRGN1EudlphdKSGshJdqdMkch3LFJbLDCabFLCQwszch8Zk\n" +
+                "MM/haNS30StAPIYnqMW85NMO7y5D3QJBAIut86PhaMuuKeZBqSvilJH7TUcuDnOl\n" +
+                "icstXvD6yU1NaW7fYd0qnlQZhvK0KyvxH/H3ZVNd/5bkgQ1Oq313GMcCQCBGsAyk\n" +
+                "UvNEWZUH062wscUTc0JOXzzPyBKR5ey2ak/F/cSravtZjupfzvMGgjUMwjpOu8p3\n" +
+                "cB+EgR8jzpEmzNo=\n" +
+                "-----END PRIVATE KEY-----\n";
 
         /**
          * 初始化密钥
@@ -280,8 +301,10 @@ public class RSA {
                 byte[] data = source.getBytes();
                 byte[] encodedData = encryptByPublicKey(data, publicKey);
                 System.out.println("加密后文字：\r\n" + encryptBASE64(encodedData));
+                byte[] b = "ixxDF7/T0SydocTrSBjh1aNkpINfsL9gLiWQ+R3siXx7/E5RQ7B7W+WEztZ5QbqxzzfTDtDv/+jRrhyOF3O7Hw==".getBytes(StandardCharsets.UTF_8);
+
                 byte[] decodedData = decryptByPrivateKey(encodedData, privateKey);
-                String target = new String(decodedData);
+                 String target = new String(decodedData);
                 System.out.println("解密后文字: \r\n" + target);
 
                 System.err.println("私钥加密——公钥解密");
