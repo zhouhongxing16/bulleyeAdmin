@@ -1,20 +1,16 @@
 package com.chris.bulleyeadmin.common.utils;
+
+import javax.crypto.Cipher;
+import java.io.BufferedWriter;
 import java.io.ByteArrayOutputStream;
-import java.security.Key;
-import java.security.KeyFactory;
-import java.security.KeyPair;
-import java.security.KeyPairGenerator;
-import java.security.PrivateKey;
-import java.security.PublicKey;
-import java.security.Signature;
+import java.io.FileWriter;
+import java.security.*;
 import java.security.interfaces.RSAPrivateKey;
 import java.security.interfaces.RSAPublicKey;
 import java.security.spec.PKCS8EncodedKeySpec;
 import java.security.spec.X509EncodedKeySpec;
 import java.util.HashMap;
 import java.util.Map;
-
-import javax.crypto.Cipher;
 
 /** *//**
  * <p>
@@ -73,7 +69,7 @@ public class RSAUtils {
      * @return
      * @throws Exception
      */
-    public static Map<String, Object> genKeyPair() throws Exception {
+    public static Map<String, Object> genKeyPair(Boolean saveKey) throws Exception {
         KeyPairGenerator keyPairGen = KeyPairGenerator.getInstance(KEY_ALGORITHM);
         keyPairGen.initialize(1024);
         KeyPair keyPair = keyPairGen.generateKeyPair();
@@ -82,7 +78,32 @@ public class RSAUtils {
         Map<String, Object> keyMap = new HashMap<String, Object>(2);
         keyMap.put(PUBLIC_KEY, publicKey);
         keyMap.put(PRIVATE_KEY, privateKey);
+        if(saveKey){
+            savePrivateKey(privateKey);
+            savePublicKey(publicKey);
+        }
         return keyMap;
+    }
+
+    public static void savePublicKey(RSAPublicKey publicKey) throws Exception {
+        // 得到公钥字符串
+        String publicKeyString = Base64Utils.encode(publicKey.getEncoded());
+        System.out.println("publicKeyString="+publicKeyString);
+        FileWriter fw = new FileWriter("publicKey.keystore");
+        BufferedWriter bw = new BufferedWriter(fw);
+        bw.write(publicKeyString);
+        bw.close();
+    }
+
+    public static void savePrivateKey(RSAPrivateKey privateKey) throws Exception {
+        // 得到私钥字符串
+        String privateKeyString = Base64Utils.encode(privateKey.getEncoded());
+        System.out.println("privateKeyString="+privateKeyString);
+
+        FileWriter fw = new FileWriter("privateKey.keystore");
+        BufferedWriter bw = new BufferedWriter(fw);
+        bw.write(privateKeyString);
+        bw.close();
     }
 
     /** *//**

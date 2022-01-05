@@ -1,7 +1,7 @@
 package com.chris.bulleyeadmin.common.utils;
 
 
-import com.sun.org.apache.xml.internal.security.utils.Base64;
+import com.sun.org.apache.xerces.internal.impl.dv.util.Base64;
 
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
@@ -41,7 +41,7 @@ public class Base64Utils {
      * @throws Exception
      */
     public static byte[] decode(String base64) throws Exception {
-        return Base64.decode(base64.getBytes());
+        return Base64.decode(base64);
     }
 
     /** *//**
