@@ -196,6 +196,7 @@ public class RedisUtil {
         redisTemplate.opsForValue().set(key, value);
     }
 
+
     /**
      * 获取指定 key 的值
      *
@@ -206,6 +207,15 @@ public class RedisUtil {
         return redisTemplate.opsForValue().get(key);
     }
 
+    /**
+     * 设置指定 key 的值
+     *
+     * @param key
+     * @param value
+     */
+    public void set(String key, String value,long l,TimeUnit timeUnit) {
+        redisTemplate.opsForValue().set(key, value,l,timeUnit);
+    }
     /**
      * 返回 key 中字符串值的子字符
      *

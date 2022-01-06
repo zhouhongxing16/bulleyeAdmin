@@ -14,6 +14,7 @@ import java.io.IOException;
 
 @Service
 public class MyFilterSecurityInterceptor extends AbstractSecurityInterceptor implements Filter {
+
     @Autowired
     private FilterInvocationSecurityMetadataSource securityMetadataSource;
 
@@ -28,7 +29,6 @@ public class MyFilterSecurityInterceptor extends AbstractSecurityInterceptor imp
 
     @Override
     public void init(FilterConfig filterConfig) throws ServletException {
-
     }
 
     @Override
