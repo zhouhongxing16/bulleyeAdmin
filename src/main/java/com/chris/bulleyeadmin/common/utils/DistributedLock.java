@@ -2,9 +2,9 @@ package com.chris.bulleyeadmin.common.utils;
 
 
 import lombok.extern.slf4j.Slf4j;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.stereotype.Component;
-import org.springframework.util.StringUtils;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -89,10 +89,10 @@ public class DistributedLock {
 
     private String getLockKey(String key) {
         String lockKey = LOCAL_MAP.get(key);
-        if (StringUtils.hasLength(lockKey)) {
+        if (StringUtils.isEmpty(lockKey)) {
             synchronized (LOCAL_MAP) {
                 lockKey = LOCAL_MAP.get(key);
-                if (StringUtils.hasLength(lockKey)) {
+                if (StringUtils.isEmpty(lockKey)) {
                     LOCAL_MAP.put(key, key);
                     lockKey = key;
                 }

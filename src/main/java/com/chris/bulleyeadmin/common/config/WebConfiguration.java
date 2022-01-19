@@ -29,10 +29,7 @@ public class WebConfiguration implements WebMvcConfigurer {
     @Override
     public void addInterceptors(InterceptorRegistry registry) {
         // 增加一个拦截器，检查会话，URL都使用此拦截器
-        registry.addInterceptor(accessLimitInterceptor)
-                .addPathPatterns("/**")
-                // 不被拦截的路径
-                .excludePathPatterns("一般是登录注册这种不拦截的路径");
+        registry.addInterceptor(accessLimitInterceptor);
     }
 
     @Override
