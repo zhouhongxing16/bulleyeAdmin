@@ -1,6 +1,5 @@
 package com.chris.bulleyeadmin.common.security;
 
-import com.chris.bulleyeadmin.common.excepition.RPCFailedException;
 import com.chris.bulleyeadmin.common.entity.JsonResult;
 import com.chris.bulleyeadmin.common.utils.DateUtils;
 import com.chris.bulleyeadmin.system.dto.AccountDto;
@@ -54,13 +53,12 @@ public class MyUserDetailsService implements UserDetailsService {
 
     public UserDetails loadUser(String username, String pwd) {
 
-        AccountDto accountDto;
+        AccountDto accountDto = null;
         try {
             accountDto = accountService.getAccountByUserName(username);
         } catch (Exception e) {
             e.printStackTrace();
             logger.error(e.getMessage());
-            throw new RPCFailedException(e.getMessage());
         }
         if (accountDto != null) {
             //判断账号过期
