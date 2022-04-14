@@ -20,10 +20,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.crypto.factory.PasswordEncoderFactories;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.ArrayList;
@@ -99,6 +96,13 @@ public class AccountController extends BaseController<Account> {
     @PostMapping("/forgetPassword")
     public Object forgetPassword(@RequestBody Map<String, String> map) {
         return accountService.forgetPassword(map);
+    }
+
+    @ApiOperation(value = "初始化密码")
+    @OperationLog("初始化密码")
+    @PostMapping("/initPassword/{accountId}")
+    public Object initPassword(@PathVariable String accountId) {
+        return accountService.initPassword(accountId);
     }
 
     @ApiOperation(value = "管理员短信登录", notes = "参数：用户名username，密码password")

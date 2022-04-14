@@ -216,6 +216,26 @@
             <version>2.4.5</version>
         </dependency>
 
+        <!-- https://mvnrepository.com/artifact/io.minio/minio -->
+        <dependency>
+            <groupId>io.minio</groupId>
+            <artifactId>minio</artifactId>
+            <version>8.3.8</version>
+        </dependency>
+
+        <!-- https://mvnrepository.com/artifact/org.flowable/flowable-spring-boot-starter -->
+      <!--  <dependency>
+            <groupId>org.flowable</groupId>
+            <artifactId>flowable-spring-boot-starter</artifactId>
+            <version>6.7.2</version>
+        </dependency>-->
+
+        <!-- MinIO -->
+        <dependency>
+            <groupId>io.minio</groupId>
+            <artifactId>minio</artifactId>
+            <version>8.2.1</version>
+        </dependency>
     </dependencies>
 
     <build>

@@ -35,14 +35,13 @@ public class AccountService extends BaseService<Account> {
         return accountMapper;
     }
 
-    public AccountDto getAccountByUserName(String userName){
+    public AccountDto getAccountByUserName(String userName) {
         return accountMapper.getAccountByUserName(userName);
     }
 
-    public AccountDto getAccountByStaffMobile(String userName){
+    public AccountDto getAccountByStaffMobile(String userName) {
         return accountMapper.getAccountByStaffMobile(userName);
     }
-
 
 
     public JsonResult changePassword(Map<String, String> map) {
@@ -123,6 +122,27 @@ public class AccountService extends BaseService<Account> {
                 //手动回滚
                 TransactionAspectSupport.currentTransactionStatus().setRollbackOnly();
             }
+        }
+        result.setStatus(HttpStatus.OK.value());
+        return result;
+
+    }
+
+    public JsonResult initPassword(String accountId) {
+
+        JsonResult result = new JsonResult();
+        result.setSuccess(false);
+        Account account = accountMapper.getById(accountId);
+        if (account != null) {
+            String pwd = PasswordEncoderFactories.createDelegatingPasswordEncoder().encode(account.getUsername());
+            Account a = new Account();
+            a.setId(account.getId());
+            a.setPassword(pwd);
+            accountMapper.updateByPrimaryKeySelective(a);
+            result.setSuccess(true);
+            result.setMessage("密码修改成功！");
+        } else {
+            result.setMessage("数据异常，非法请求！");
         }
         result.setStatus(HttpStatus.OK.value());
         return result;

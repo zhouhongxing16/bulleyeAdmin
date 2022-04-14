@@ -2,16 +2,15 @@ package com.chris.bulleyeadmin.common.service;
 
 import com.chris.bulleyeadmin.common.basemapper.BaseMapper;
 import com.chris.bulleyeadmin.common.config.AliOSSConfig;
+import com.chris.bulleyeadmin.common.config.MinioConfig;
 import com.chris.bulleyeadmin.common.entity.JsonResult;
 import com.chris.bulleyeadmin.common.mapper.BizFileMapper;
 import com.chris.bulleyeadmin.common.pojo.BizFile;
-import com.chris.bulleyeadmin.common.utils.AuthUtil;
-import com.chris.bulleyeadmin.common.utils.DateUtils;
-import com.chris.bulleyeadmin.common.utils.FileUtil;
-import com.chris.bulleyeadmin.common.utils.SnowFlake;
+import com.chris.bulleyeadmin.common.utils.*;
 import com.chris.bulleyeadmin.system.pojo.User;
 import com.google.common.hash.HashCode;
 import com.google.common.hash.Hashing;
+import io.minio.MinioClient;
 import net.coobird.thumbnailator.Thumbnails;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -52,6 +51,11 @@ public class BizFileService extends BaseService<BizFile> {
     @Autowired
     AliOSSConfig aliOSSConfig;
 
+    @Autowired
+    MinioConfig minioConfig;
+
+
+
     public JsonResult upload(MultipartFile[] files) throws IOException {
         JsonResult result = new JsonResult();
         User user = AuthUtil.getCurrentUser();
@@ -79,6 +83,8 @@ public class BizFileService extends BaseService<BizFile> {
                 result = aliOSSUpload(multipartFile);
             } else if ("qiniu".equals(storageType)) {
 
+            }else if ("minio".equals(storageType)) {
+                result = minioUpload(multipartFile);
             }
         }
         return result;
@@ -146,6 +152,23 @@ public class BizFileService extends BaseService<BizFile> {
             result.setMessage("请上传一个文件！");
         } else {
 
+        }
+        // 文件存储入OSS，Object的名称为fileKey。详细请参看“SDK手册 > Java-SDK > 上传文件”。
+        // 链接地址是：https://help.aliyun.com/document_detail/oss/sdk/java-sdk/upload_object.html?spm=5176.docoss/user_guide/upload_object
+
+        return result;
+    }
+
+    private JsonResult minioUpload(MultipartFile multipartFile) throws Exception {
+        JsonResult result = new JsonResult();
+        User user = AuthUtil.getCurrentUser();
+        if (null == multipartFile) {
+            result.setMessage("请上传一个文件！");
+        } else {
+            MinIOUtils minio = new MinIOUtils(minioConfig.getEndpoint(),minioConfig.getBucketName(),minioConfig.getAccessKey(),minioConfig.getSecretKey(),null,null);
+            minio.createMinioClient();
+
+            MinIOUtils.uploadFile("bullseye-admin",multipartFile,multipartFile.getOriginalFilename(),null);
         }
         // 文件存储入OSS，Object的名称为fileKey。详细请参看“SDK手册 > Java-SDK > 上传文件”。
         // 链接地址是：https://help.aliyun.com/document_detail/oss/sdk/java-sdk/upload_object.html?spm=5176.docoss/user_guide/upload_object

@@ -18,9 +18,6 @@ class SpringBootRedisApplicationTests {
 
     @Test
     void contextLoads() {
-        ValueOperations<String, String> opsForValue = this.stringRedisTemplate.opsForValue();
-        opsForValue.set("name", "lisi"); // 缓存数据
-        String value = opsForValue.get("name"); // 获取缓存数据
-        System.out.println(value);
+
     }
 }
