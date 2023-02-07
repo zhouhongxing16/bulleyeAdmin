@@ -170,6 +170,13 @@
             <version>2.1.4.RELEASE</version>
         </dependency>
 
+        <!-- https://mvnrepository.com/artifact/com.xuxueli/xxl-job-core -->
+        <dependency>
+            <groupId>com.xuxueli</groupId>
+            <artifactId>xxl-job-core</artifactId>
+            <version>2.3.1</version>
+        </dependency>
+
 
         <!-- https://mvnrepository.com/artifact/net.sf.ehcache/ehcache -->
         <dependency>
@@ -183,14 +190,16 @@
         <dependency>
             <groupId>com.github.oshi</groupId>
             <artifactId>oshi-core</artifactId>
-            <version>3.9.1</version>
+            <version>6.4.0</version>
         </dependency>
+
 
         <!-- https://mvnrepository.com/artifact/org.projectlombok/lombok -->
         <dependency>
             <groupId>org.projectlombok</groupId>
             <artifactId>lombok</artifactId>
-            <version>1.18.12</version>
+            <version>1.18.26</version>
+            <scope>provided</scope>
         </dependency>
 
 
@@ -198,8 +207,16 @@
         <dependency>
             <groupId>com.github.xiaoymin</groupId>
             <artifactId>knife4j-spring-boot-starter</artifactId>
-            <version>2.0.2</version>
+            <version>2.0.9</version>
         </dependency>
+
+       <!-- &lt;!&ndash; https://mvnrepository.com/artifact/com.github.xiaoymin/knife4j-spring-boot-starter &ndash;&gt;
+        <dependency>
+            <groupId>com.github.xiaoymin</groupId>
+            <artifactId>knife4j-spring-boot-starter</artifactId>
+            <version>3.0.3</version>
+        </dependency>-->
+
 
         <!--   谷歌图片处理工具-->
         <!-- https://mvnrepository.com/artifact/net.coobird/thumbnailator -->
@@ -230,12 +247,6 @@
             <version>6.7.2</version>
         </dependency>-->
 
-        <!-- MinIO -->
-        <dependency>
-            <groupId>io.minio</groupId>
-            <artifactId>minio</artifactId>
-            <version>8.2.1</version>
-        </dependency>
     </dependencies>
 
     <build>
