@@ -1,6 +1,5 @@
 package com.chris.bulleyeadmin.wechat.handler;
 
-import com.alibaba.fastjson.JSONObject;
 import com.chris.bulleyeadmin.common.entity.JsonResult;
 import com.chris.bulleyeadmin.wechat.KefuBuilder.KefuNewsBuilder;
 import com.chris.bulleyeadmin.wechat.pojo.WxMaterial;

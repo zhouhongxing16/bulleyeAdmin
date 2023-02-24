@@ -1,6 +1,6 @@
 package com.chris.bulleyeadmin.wechat.controller;
 
-import com.alibaba.fastjson.JSONObject;
+import com.alibaba.fastjson2.JSONObject;
 import com.chris.bulleyeadmin.common.utils.IPUtils;
 import com.chris.bulleyeadmin.wechat.utils.PayUtil;
 import com.chris.bulleyeadmin.wechat.utils.WxPayUtil;

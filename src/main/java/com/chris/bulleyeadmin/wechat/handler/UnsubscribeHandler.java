@@ -1,6 +1,6 @@
 package com.chris.bulleyeadmin.wechat.handler;
 
-import com.alibaba.fastjson.JSON;
+import com.alibaba.fastjson2.JSON;
 import com.chris.bulleyeadmin.wechat.pojo.WxMember;
 import com.chris.bulleyeadmin.wechat.service.WxMemberService;
 import me.chanjar.weixin.common.error.WxErrorException;

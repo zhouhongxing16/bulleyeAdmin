@@ -1,6 +1,6 @@
 package com.chris.bulleyeadmin.wechat.config;
 
-import com.alibaba.fastjson.JSONObject;
+import com.alibaba.fastjson2.JSONObject;
 import lombok.Data;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 

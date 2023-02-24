@@ -1,8 +1,8 @@
 package com.chris.bulleyeadmin.common.utils;
 
-import com.alibaba.fastjson.JSON;
-import com.alibaba.fastjson.JSONArray;
-import com.alibaba.fastjson.JSONObject;
+import com.alibaba.fastjson2.JSON;
+import com.alibaba.fastjson2.JSONArray;
+import com.alibaba.fastjson2.JSONObject;
 import com.chris.bulleyeadmin.system.pojo.Role;
 import com.chris.bulleyeadmin.system.pojo.User;
 import io.jsonwebtoken.Claims;
@@ -90,7 +90,7 @@ public class JwtHelper {
         String jsonObject = Jwts.parser().setSigningKey(stringKey).parseClaimsJws(token.replace("Bearer ", "")).getBody().getSubject();
         JSONObject obj = JSON.parseObject(jsonObject);
         JSONArray ja = JSONArray.parseArray(obj.getString("authorities"));
-        List<Role> roleList = JSONArray.parseArray(obj.getString("role"), Role.class);
+        List<Role> roleList = JSON.parseArray(obj.getString("role"), Role.class);
         User user  = new User(obj.getString("username"), "", ja.toJavaList(GrantedAuthority.class));
         user.setStaffId(obj.getString("staffId"));
         user.setId(obj.getString("id"));

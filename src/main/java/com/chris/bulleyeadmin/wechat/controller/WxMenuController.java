@@ -1,7 +1,7 @@
 package com.chris.bulleyeadmin.wechat.controller;
 
-import com.alibaba.fastjson.JSONArray;
-import com.alibaba.fastjson.JSONObject;
+import com.alibaba.fastjson2.JSONArray;
+import com.alibaba.fastjson2.JSONObject;
 import com.chris.bulleyeadmin.common.controller.BaseController;
 import com.chris.bulleyeadmin.common.entity.JsonResult;
 import com.chris.bulleyeadmin.common.service.BaseService;
@@ -30,7 +30,7 @@ public class WxMenuController extends BaseController<WxMenu> {
 
     /**
      * 通过accountId获取菜单列表
-     * @param accountId
+     * @param sourceId
      * @return
      */
     @ResponseBody
@@ -44,7 +44,7 @@ public class WxMenuController extends BaseController<WxMenu> {
         wxMenuOne.setParentId("0");
         List<WxMenu> wxMenuListOne = wxMenuService.selectlist(wxMenuOne);
         for (WxMenu menuOne:wxMenuListOne){
-            JSONObject jsonObject = JSONObject.parseObject(JSONObject.toJSON(menuOne).toString());
+            JSONObject jsonObject = JSONObject.parseObject(menuOne.toString());
 
             WxMenu wxMenuTwo = new WxMenu();
             wxMenuTwo.setSourceId(sourceId);

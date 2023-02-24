@@ -1,8 +1,8 @@
 package com.chris.bulleyeadmin.common.security;
 
-import com.alibaba.fastjson.JSON;
-import com.alibaba.fastjson.JSONArray;
-import com.alibaba.fastjson.JSONObject;
+import com.alibaba.fastjson2.JSON;
+import com.alibaba.fastjson2.JSONArray;
+import com.alibaba.fastjson2.JSONObject;
 import com.chris.bulleyeadmin.common.config.WeChatFilter;
 import com.chris.bulleyeadmin.common.entity.JsonResult;
 import com.chris.bulleyeadmin.common.utils.JwtHelper;
@@ -64,7 +64,7 @@ public class JWTAuthenticationFilter extends BasicAuthenticationFilter {
                 }else {
                     JSONObject obj = JwtHelper.tokenToJSON(token);
                     JSONArray ja = JSONArray.parseArray(obj.getString("authorities"));
-                    List<Role> roleList = JSONArray.parseArray(obj.getString("roles"), Role.class);
+                    List<Role> roleList = JSON.parseArray(obj.getString("roles"), Role.class);
                     Role role = JSONObject.parseObject(obj.getString("currentRole"), Role.class);
                     user = new User(obj.getString("username"), "", ja.toJavaList(GrantedAuthority.class));
                     user.setStaffId(obj.getString("staffId"));
